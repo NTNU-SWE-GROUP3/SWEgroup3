@@ -16,6 +16,10 @@ public class CardDisplay : MonoBehaviour
     public string cardDescription;
     public char set;
     public Sprite cardSprite;
+    
+    public bool cardBack;
+    public static bool staticCardBack;
+
 
     public Text nameText;
     public Text cardSkillText;
@@ -23,12 +27,6 @@ public class CardDisplay : MonoBehaviour
     public Image cardImage;
     // Start is called before the first frame update
     void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
     {
         displayCard[0] = CardDatabase.cardList[displayId];
         id = displayCard[0].id;
@@ -42,5 +40,12 @@ public class CardDisplay : MonoBehaviour
         cardSkillText.text = cardSkill;
         descriptionText.text = cardDescription;
         cardImage.sprite = cardSprite;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        staticCardBack = cardBack;
+        
     }
 }
