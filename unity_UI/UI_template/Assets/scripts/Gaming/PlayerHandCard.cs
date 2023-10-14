@@ -22,6 +22,7 @@ public class PlayerHandCard : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         for(int i = 0;i<10;i++)
         {
             handCardSetA[i] = CardDatabase.cardList[i];
@@ -39,6 +40,7 @@ public class PlayerHandCard : MonoBehaviour
 
     IEnumerator StartGame()
     {
+        x = 0;
         GameObject First = PlayerArea;
         GameObject Second = OpponentArea;
         for(int i = 0;i<10;i++)
