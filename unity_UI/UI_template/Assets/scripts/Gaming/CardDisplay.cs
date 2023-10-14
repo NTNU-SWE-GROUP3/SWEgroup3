@@ -16,21 +16,32 @@ public class CardDisplay : MonoBehaviour
     public string cardDescription;
     public char set;
     public Sprite cardSprite;
+    
+    public bool cardBack;
+    public static bool staticCardBack;
 
     public Text nameText;
     public Text cardSkillText;
     public Text descriptionText;
     public Image cardImage;
+    
     // Start is called before the first frame update
     void Start()
     {
-        
-    }
+        if(PlayerHandCard.x < 10)
+        {
+            displayCard[0] = PlayerHandCard.staticHandCardSetA[PlayerHandCard.x];
+            cardBack =false;
+        }
+        else
+        {
+            displayCard[0] = PlayerHandCard.staticHandCardSetB[PlayerHandCard.x-10];
+            cardBack = true;
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        displayCard[0] = CardDatabase.cardList[displayId];
+        PlayerHandCard.x++;
+
+        
         id = displayCard[0].id;
         cardName = displayCard[0].cardName;
         cardSkill = displayCard[0].cardSkill;
@@ -42,5 +53,29 @@ public class CardDisplay : MonoBehaviour
         cardSkillText.text = cardSkill;
         descriptionText.text = cardDescription;
         cardImage.sprite = cardSprite;
+        staticCardBack = cardBack;
+       
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+
+        
+        
+        // if(this.tag == "Clone")
+        // {
+        //     displayCard[0] = PlayerHandCard.staticHandCardSetA[PlayerHandCard.x + 1];
+        //     PlayerHandCard.x ++;
+        //     cardBack =false;
+        //     this.tag = "Untagged";
+        // }
+        
+    }
+
+    void drawCardA(int index)
+    {
+        
     }
 }

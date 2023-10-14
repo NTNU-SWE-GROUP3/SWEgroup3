@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: 795b09b13787f2a49a1845ee83444279
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - Card: {fileID: 225055715617019185, guid: ea56a1f28f125b64b94264841ed61629, type: 3}
+  - OpponentArea: {instanceID: 0}
+  - OpponentShow: {instanceID: 0}
+  - OpponentEarn: {instanceID: 0}
+  - PlayerArea: {instanceID: 0}
+  - PlayerShow: {instanceID: 0}
+  - PlayerEarn: {instanceID: 0}
+  - DrawArea: {fileID: 9143562386135196759, guid: 62d2ecb5bcbc8d14982303110362e974, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

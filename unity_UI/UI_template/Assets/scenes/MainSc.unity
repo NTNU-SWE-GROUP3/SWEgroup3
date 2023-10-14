@@ -228,7 +228,7 @@ GameObject:
   - component: {fileID: 225854931}
   - component: {fileID: 225854930}
   m_Layer: 5
-  m_Name: page_3
+  m_Name: ToPage3Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -360,7 +360,7 @@ GameObject:
   - component: {fileID: 281722914}
   - component: {fileID: 281722913}
   m_Layer: 5
-  m_Name: base_image
+  m_Name: BG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -436,7 +436,7 @@ GameObject:
   - component: {fileID: 513777017}
   - component: {fileID: 513777016}
   m_Layer: 5
-  m_Name: page_4
+  m_Name: ToPage4Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -568,7 +568,7 @@ GameObject:
   - component: {fileID: 516602515}
   - component: {fileID: 516602514}
   m_Layer: 5
-  m_Name: button_holder
+  m_Name: ButtonHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -595,8 +595,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -799.48676}
-  m_SizeDelta: {x: 980, y: 221.0265}
+  m_AnchoredPosition: {x: 0, y: -799.4867}
+  m_SizeDelta: {x: 980, y: 221.02637}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &516602514
 MonoBehaviour:
@@ -636,6 +636,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 516602512}
   m_CullTransparentMesh: 1
+--- !u!1001 &597879368
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7564794735763639179, guid: 1e20041ec32fe3143aadbb652e5fc754, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1434.8994
+      objectReference: {fileID: 0}
+    - target: {fileID: 7564794735763639179, guid: 1e20041ec32fe3143aadbb652e5fc754, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 836.3866
+      objectReference: {fileID: 0}
+    - target: {fileID: 7564794735763639179, guid: 1e20041ec32fe3143aadbb652e5fc754, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -14.507317
+      objectReference: {fileID: 0}
+    - target: {fileID: 7564794735763639179, guid: 1e20041ec32fe3143aadbb652e5fc754, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7564794735763639179, guid: 1e20041ec32fe3143aadbb652e5fc754, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7564794735763639179, guid: 1e20041ec32fe3143aadbb652e5fc754, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7564794735763639179, guid: 1e20041ec32fe3143aadbb652e5fc754, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7564794735763639179, guid: 1e20041ec32fe3143aadbb652e5fc754, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7564794735763639179, guid: 1e20041ec32fe3143aadbb652e5fc754, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7564794735763639179, guid: 1e20041ec32fe3143aadbb652e5fc754, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8833289952272988132, guid: 1e20041ec32fe3143aadbb652e5fc754, type: 3}
+      propertyPath: m_Name
+      value: SceneController
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1e20041ec32fe3143aadbb652e5fc754, type: 3}
 --- !u!1 &606177340
 GameObject:
   m_ObjectHideFlags: 0
@@ -648,7 +705,7 @@ GameObject:
   - component: {fileID: 606177343}
   - component: {fileID: 606177342}
   m_Layer: 5
-  m_Name: Panel_2
+  m_Name: Page2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -858,7 +915,7 @@ GameObject:
   - component: {fileID: 708852131}
   - component: {fileID: 708852130}
   m_Layer: 5
-  m_Name: page_1
+  m_Name: ToPage1Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1258,7 +1315,7 @@ GameObject:
   - component: {fileID: 839639736}
   - component: {fileID: 839639735}
   m_Layer: 5
-  m_Name: Panel_1
+  m_Name: Page1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1271,7 +1328,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 839639733}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1467,7 +1524,6 @@ GameObject:
   - component: {fileID: 1114251980}
   - component: {fileID: 1114251982}
   - component: {fileID: 1114251981}
-  - component: {fileID: 1114251983}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -1482,17 +1538,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1114251979}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 839639734}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -476.06506}
-  m_SizeDelta: {x: 0, y: 1920}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 7.864855}
+  m_SizeDelta: {x: 1080, y: 3840}
   m_Pivot: {x: 0.5, y: 0.75204945}
 --- !u!114 &1114251981
 MonoBehaviour:
@@ -1514,8 +1570,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 0}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1532,20 +1588,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1114251979}
   m_CullTransparentMesh: 1
---- !u!114 &1114251983
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1114251979}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fff588e87ec2b474eb927f6c792f19a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  percentThreshold: 0.2
-  easing: 0.5
 --- !u!1 &1343497776
 GameObject:
   m_ObjectHideFlags: 0
@@ -1559,7 +1601,7 @@ GameObject:
   - component: {fileID: 1343497779}
   - component: {fileID: 1343497778}
   m_Layer: 5
-  m_Name: page_2
+  m_Name: ToPage2Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1825,7 +1867,7 @@ GameObject:
   - component: {fileID: 1357914793}
   - component: {fileID: 1357914792}
   m_Layer: 5
-  m_Name: Panel_5
+  m_Name: Page5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1898,7 +1940,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1433501963}
   m_Layer: 5
-  m_Name: main
+  m_Name: MainUIHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1938,7 +1980,7 @@ GameObject:
   - component: {fileID: 1549371195}
   - component: {fileID: 1549371194}
   m_Layer: 5
-  m_Name: page_5
+  m_Name: ToPage5Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2172,7 +2214,7 @@ GameObject:
   - component: {fileID: 1972730639}
   - component: {fileID: 1972730638}
   m_Layer: 5
-  m_Name: Panel_3
+  m_Name: Page3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2247,7 +2289,7 @@ GameObject:
   - component: {fileID: 2059665201}
   - component: {fileID: 2059665200}
   m_Layer: 5
-  m_Name: Panel_4
+  m_Name: Page4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2389,7 +2431,7 @@ GameObject:
   - component: {fileID: 2100926202}
   - component: {fileID: 2100926203}
   m_Layer: 5
-  m_Name: panel_holder
+  m_Name: PanelHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2402,7 +2444,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2100926201}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2442,3 +2484,4 @@ SceneRoots:
   - {fileID: 199413174}
   - {fileID: 1924956172}
   - {fileID: 2094439124}
+  - {fileID: 597879368}
