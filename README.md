@@ -9,5 +9,6 @@ HackMD空間: https://hackmd.io/team/ntnuseteam3?nav=overview
 資料庫：MySQL (8.1.0)  
 虛擬機：(等系辦)  
 
+遊戲設計書: https://hackmd.io/Iwxu2qzWSFiB47NaHk6aLQ  
 開發中的函式變數紀錄: https://hackmd.io/vplKQYbARmqOX-gS5sZ_Tg  
 開發上遇到的問題和筆記: https://hackmd.io/oV8HkRxVTXWSSk2R5OSMKg  
