@@ -28,18 +28,18 @@ public class CardDisplay : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(PlayerHandCard.x < 10)
+        if(DrawCard.x < 10)
         {
-            displayCard[0] = PlayerHandCard.staticHandCardSetA[PlayerHandCard.x];
+            displayCard[0] = PlayerHandCard.staticHandCardSetA[DrawCard.x];
             cardBack =false;
         }
         else
         {
-            displayCard[0] = PlayerHandCard.staticHandCardSetB[PlayerHandCard.x-10];
+            displayCard[0] = PlayerHandCard.staticHandCardSetB[DrawCard.x-10];
             cardBack = true;
         }
 
-        PlayerHandCard.x++;
+        DrawCard.x++;
 
         
         id = displayCard[0].id;
@@ -60,22 +60,9 @@ public class CardDisplay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-
-        
-        
-        // if(this.tag == "Clone")
-        // {
-        //     displayCard[0] = PlayerHandCard.staticHandCardSetA[PlayerHandCard.x + 1];
-        //     PlayerHandCard.x ++;
-        //     cardBack =false;
-        //     this.tag = "Untagged";
-        // }
+    
         
     }
 
-    void drawCardA(int index)
-    {
-        
-    }
+    
 }

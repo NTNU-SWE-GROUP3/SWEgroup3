@@ -6,9 +6,7 @@ using UnityEngine.EventSystems;
 
 public class PlayerHandCard : MonoBehaviour
 {
-    public GameObject Card;
-    public GameObject PlayerArea;
-    public GameObject OpponentArea;
+    
     public List<Card> handCardSetA = new List<Card>();
     public List<Card> handCardSetB = new List<Card>();
 
@@ -16,8 +14,8 @@ public class PlayerHandCard : MonoBehaviour
     public static List<Card> staticHandCardSetB = new List<Card>();
     public static int x = 0;
 
-    public GameObject[] Clones;
-    public GameObject Hands;
+    // public GameObject[] Clones;
+    // public GameObject Hands;
 
     // Start is called before the first frame update
     void Start()
@@ -30,7 +28,7 @@ public class PlayerHandCard : MonoBehaviour
         }
         staticHandCardSetA = handCardSetA;
         staticHandCardSetB = handCardSetB;
-        StartCoroutine(StartGame());
+        
     }
     // Update is called once per frame
     void Update()
@@ -38,22 +36,5 @@ public class PlayerHandCard : MonoBehaviour
        
     }
 
-    IEnumerator StartGame()
-    {
-        x = 0;
-        GameObject First = PlayerArea;
-        GameObject Second = OpponentArea;
-        for(int i = 0;i<10;i++)
-        {
-            yield return new WaitForSeconds(0.1f);
-            GameObject handCard = Instantiate(Card,transform.position,transform.rotation);
-            handCard.transform.SetParent(First.transform,true);
-        }  
-        for(int i = 0;i<10;i++)
-        {
-            yield return new WaitForSeconds(0.1f);
-            GameObject handCard = Instantiate(Card,transform.position,transform.rotation);
-            handCard.transform.SetParent(Second.transform,true);
-        }   
-    }
+    
 }
