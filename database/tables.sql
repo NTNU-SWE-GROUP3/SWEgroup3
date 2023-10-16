@@ -191,7 +191,7 @@ DROP TABLE IF EXISTS `card_style`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `card_style` (
   `card_style_id` int NOT NULL AUTO_INCREMENT,
-  `card_style_name` int DEFAULT NULL,
+  `card_style_name` varchar(255) DEFAULT NULL,
   `card_style_description` varchar(255) DEFAULT NULL,
   `card_style_probability` decimal(4,3) DEFAULT 0.000,
   PRIMARY KEY (`card_style_id`)
