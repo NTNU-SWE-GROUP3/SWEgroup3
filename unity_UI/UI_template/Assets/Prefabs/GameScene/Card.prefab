@@ -15,7 +15,9 @@ GameObject:
   - component: {fileID: 3129755873322024647}
   - component: {fileID: 4115327265307552289}
   - component: {fileID: 6221166439560918153}
-  m_Layer: 5
+  - component: {fileID: 7103141091513705875}
+  - component: {fileID: 723506179968665737}
+  m_Layer: 8
   m_Name: Card
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,9 +40,9 @@ RectTransform:
   - {fileID: 6096422574813045409}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -540, y: -960}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1883358078042909145
@@ -138,6 +140,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f37e687223bc9a74da1e45a25bdb3a9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rectTransform: {fileID: 0}
+  originalRectPosition: {x: 0, y: 0}
 --- !u!225 &6221166439560918153
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -150,6 +154,81 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &7103141091513705875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 225055715617019185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f7d505a6d663f742bcc0b79d0e9be86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvas: {fileID: 0}
+  zoomCard: {fileID: 225055715617019185}
+--- !u!114 &723506179968665737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 225055715617019185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 5
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7103141091513705875}
+          m_TargetAssemblyTypeName: CardZoom, Assembly-CSharp
+          m_MethodName: OnHoverExit
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7103141091513705875}
+          m_TargetAssemblyTypeName: CardZoom, Assembly-CSharp
+          m_MethodName: OnHoverExit
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7103141091513705875}
+          m_TargetAssemblyTypeName: CardZoom, Assembly-CSharp
+          m_MethodName: OnHoverEnter
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &3110913138135134500
 GameObject:
   m_ObjectHideFlags: 0
@@ -161,7 +240,7 @@ GameObject:
   - component: {fileID: 1972772588462154740}
   - component: {fileID: 5148856006533225049}
   - component: {fileID: 856638055510578382}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Description Border
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -238,7 +317,7 @@ GameObject:
   - component: {fileID: 568965319679325132}
   - component: {fileID: 9109564721232437460}
   - component: {fileID: 6828207573158657115}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Border
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -316,7 +395,7 @@ GameObject:
   - component: {fileID: 6096422574813045409}
   - component: {fileID: 2404565851712035371}
   - component: {fileID: 8398164857824825387}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: CardBack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -391,7 +470,7 @@ GameObject:
   - component: {fileID: 6045284550027255224}
   - component: {fileID: 5748837324305650208}
   - component: {fileID: 68504217707137090}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Image Border
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -467,7 +546,7 @@ GameObject:
   - component: {fileID: 5931941909193391964}
   - component: {fileID: 7228300280554084298}
   - component: {fileID: 1816761416756736263}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Description Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -546,7 +625,7 @@ GameObject:
   - component: {fileID: 3625654300559534421}
   - component: {fileID: 7071083939433565729}
   - component: {fileID: 5135971600628422153}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -622,7 +701,7 @@ GameObject:
   - component: {fileID: 2593500003753094955}
   - component: {fileID: 7647159123320003624}
   - component: {fileID: 208822037281112521}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Name Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -701,7 +780,7 @@ GameObject:
   - component: {fileID: 6052554622626139821}
   - component: {fileID: 2526202621895342011}
   - component: {fileID: 5806102468644615479}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: cardSkill Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -780,7 +859,7 @@ GameObject:
   - component: {fileID: 9023308936203973270}
   - component: {fileID: 8639265856531897063}
   - component: {fileID: 2769185425333257761}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}

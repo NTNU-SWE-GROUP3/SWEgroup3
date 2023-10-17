@@ -22,6 +22,7 @@ public class DragCard : MonoBehaviour,IDragHandler,IEndDragHandler,IBeginDragHan
         Debug.Log("OnBeginDrag");
         if(eventData.pointerDrag.GetComponent<CardDisplay>().cardBack == false)
         {
+            
             originalRectPosition = rectTransform.position;
             canvasGroup.blocksRaycasts = false;
         }
@@ -30,7 +31,7 @@ public class DragCard : MonoBehaviour,IDragHandler,IEndDragHandler,IBeginDragHan
 
     public void OnDrag(PointerEventData eventData)
     {
-        Debug.Log("OnDrag");
+        // Debug.Log("OnDrag");
         if(eventData.pointerDrag.GetComponent<CardDisplay>().cardBack == false)
         {
             rectTransform.position = eventData.position;

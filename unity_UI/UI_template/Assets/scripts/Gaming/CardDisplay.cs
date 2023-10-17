@@ -27,33 +27,39 @@ public class CardDisplay : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
-        if(DrawCard.x<10)
+        if(this.gameObject.layer == 9)
         {
-            displayCard[0] = PlayerHandCard.staticHandCardSetA[DrawCard.x];
-            if(this.transform.parent.tag == "Player")
-            {
-                cardBack =false;
-            }
-            else 
-            {
-                cardBack = true;
-            }
+            cardBack = false;
         }
-        else
+        else if(this.gameObject.layer == 8)
         {
-            displayCard[0] = PlayerHandCard.staticHandCardSetB[DrawCard.x-10];
-            if(this.transform.parent.tag == "Player")
+            if(DrawCard.x<10)
             {
-                cardBack =false;
+                displayCard[0] = PlayerHandCard.staticHandCardSetA[DrawCard.x];
+                if(this.transform.parent.tag == "Player")
+                {
+                    cardBack =false;
+                }
+                else 
+                {
+                    cardBack = true;
+                }
             }
-            else 
+            else
             {
-                cardBack = true;
+                displayCard[0] = PlayerHandCard.staticHandCardSetB[DrawCard.x-10];
+                if(this.transform.parent.tag == "Player")
+                {
+                    cardBack =false;
+                }
+                else 
+                {
+                    cardBack = true;
+                }
             }
-        }
 
-        DrawCard.x++;
+            DrawCard.x++;
+        }
 
         
         id = displayCard[0].id;
@@ -74,7 +80,7 @@ public class CardDisplay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-    
+        
         
     }
 

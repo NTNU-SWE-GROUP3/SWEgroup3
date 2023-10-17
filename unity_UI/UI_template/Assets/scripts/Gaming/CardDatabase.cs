@@ -23,9 +23,9 @@ public class CardDatabase : MonoBehaviour
         cardList.Add(new Card(12,"王子","無技能","就是王子",'B',Resources.Load<Sprite>("images/king")));
         cardList.Add(new Card(13,"騎士","無技能","就是騎士",'B',Resources.Load<Sprite>("images/king")));
         cardList.Add(new Card(14,"殺手","無技能","就是殺手",'B',Resources.Load<Sprite>("images/king")));
-        cardList.Add(new Card(15,"平民","爆發式成長","觸發條件:<平手>\n自身增加Ｘ張的贏取卡（Ｘ為回合數）",'B',Resources.Load<Sprite>("images/king")));
-        cardList.Add(new Card(16,"平民","大革命","觸發條件:<平手>\n觸發成功後，所有卡牌優劣反轉",'B',Resources.Load<Sprite>("images/king")));
-        cardList.Add(new Card(17,"平民","特洛伊木馬","觸發條件:<輸給王家或騎士時>\n把對手玩家的一半贏取卡牌（半張自動進位為一張）加到自身贏取卡牌當中",'B',Resources.Load<Sprite>("images/king")));
+        cardList.Add(new Card(15,"平民","爆發式成長","觸發條件:<平手>\n自身增加X張的贏取卡(X為回合數)",'B',Resources.Load<Sprite>("images/king")));
+        cardList.Add(new Card(16,"平民","大革命","觸發條件:<平手>\n觸發成功後,所有卡牌優劣反轉",'B',Resources.Load<Sprite>("images/king")));
+        cardList.Add(new Card(17,"平民","特洛伊木馬","觸發條件:<輸王家或騎士>對手一半贏牌轉為玩家贏牌",'B',Resources.Load<Sprite>("images/king")));
         cardList.Add(new Card(18,"平民","無技能","就是平民",'B',Resources.Load<Sprite>("images/king")));
         cardList.Add(new Card(19,"平民","無技能","就是平民",'B',Resources.Load<Sprite>("images/king")));
     
