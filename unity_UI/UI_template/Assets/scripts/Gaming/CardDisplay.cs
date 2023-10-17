@@ -7,9 +7,8 @@ using UnityEngine.EventSystems;
 public class CardDisplay : MonoBehaviour
 {
     public List<Card> displayCard = new List<Card>();
-
     public int displayId;
-
+    public GameObject PlayerArea;
     public int id;
     public string cardName;
     public string cardSkill;
@@ -28,15 +27,30 @@ public class CardDisplay : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(DrawCard.x < 10)
+        
+        if(DrawCard.x<10)
         {
             displayCard[0] = PlayerHandCard.staticHandCardSetA[DrawCard.x];
-            cardBack =false;
+            if(this.transform.parent.tag == "Player")
+            {
+                cardBack =false;
+            }
+            else 
+            {
+                cardBack = true;
+            }
         }
         else
         {
             displayCard[0] = PlayerHandCard.staticHandCardSetB[DrawCard.x-10];
-            cardBack = true;
+            if(this.transform.parent.tag == "Player")
+            {
+                cardBack =false;
+            }
+            else 
+            {
+                cardBack = true;
+            }
         }
 
         DrawCard.x++;
