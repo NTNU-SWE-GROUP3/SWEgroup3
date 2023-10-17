@@ -422,7 +422,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b7b16ad13dd61c4596abfced9d062d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  countdownTime: 3
+  countdownTime: 0
   countdownDisplay: {fileID: 425344038}
 --- !u!114 &1211442828
 MonoBehaviour:
@@ -1046,10 +1046,6 @@ PrefabInstance:
     - target: {fileID: 5438779555529309308, guid: ba109f6aad84dd94285eecdf66bd296c, type: 3}
       propertyPath: m_Name
       value: PlayerArea
-      objectReference: {fileID: 0}
-    - target: {fileID: 5438779555529309308, guid: ba109f6aad84dd94285eecdf66bd296c, type: 3}
-      propertyPath: m_TagString
-      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
