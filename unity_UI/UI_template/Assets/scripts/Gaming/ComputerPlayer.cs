@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ComputerPlayer : MonoBehaviour
 {
-    public CardDatabase cardDatabase;
+    CardDatabase cardDatabase;
     
     // Start is called before the first frame update
     void Start()
@@ -19,16 +19,16 @@ public class ComputerPlayer : MonoBehaviour
 
     public void PlayCard(Card SelectedCard)
     {
-        //List<Card> playerHand = 
-        //playerHand.Remove(selectedCard);
-        
+        // 在這裡執行出牌的代碼
+        // 例如，你可以在這裡使用 SelectedCard 做一些事情
     }
+
     public void PlayRandomCard()
     {
-        if (cardDatabase != null && cardDatabase.cardList.Count > 0)
+        if (CardDatabase.cardList != null && CardDatabase.cardList.Count > 0)
         {
-            int randomIndex = Random.Range(0, cardDatabase.cardList.Count);
-            Card randomCard = cardDatabase.cardList[randomIndex];
+            int randomIndex = Random.Range(0, CardDatabase.cardList.Count);
+            Card randomCard = CardDatabase.cardList[randomIndex];
 
             // 出牌
             PlayCard(randomCard);
