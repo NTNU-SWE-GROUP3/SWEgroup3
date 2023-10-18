@@ -1,7 +1,7 @@
 # Summary
 
-I have written a Docker-compose configuration based on the following settings.
-<https://github.com/docker/awesome-compose/tree/master/nginx-flask-mysql>
+I have written a Docker-compose configuration based on the following settings.  
+<https://github.com/docker/awesome-compose/tree/master/nginx-flask-mysql>  
 This is a virtual environment for development.
 
 ## basic usage
@@ -43,6 +43,11 @@ password   : db-78n9n
 docker compose down -v
 docker compose up -d
 ```
+
+---
+
+For all other information, see below.  
+<https://github.com/docker/awesome-compose/tree/master/nginx-flask-mysql>
 
 ---
 
