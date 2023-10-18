@@ -193,6 +193,7 @@ CREATE TABLE `card_style` (
   `card_style_id` int NOT NULL AUTO_INCREMENT,
   `card_style_name` int DEFAULT NULL,
   `card_style_description` varchar(255) DEFAULT NULL,
+  `card_style_probability` decimal(4,3) DEFAULT 0.000,
   PRIMARY KEY (`card_style_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -217,6 +218,7 @@ CREATE TABLE `skill` (
   `skill_id` int NOT NULL AUTO_INCREMENT,
   `skill_name` varchar(255) NOT NULL,
   `skill_description` varchar(255) DEFAULT NULL,
+  `skill_probabiity` decimal(4,3) DEFAULT 0.000,
   PRIMARY KEY (`skill_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
