@@ -29,9 +29,20 @@ public class DrawCard : MonoBehaviour
     }
     IEnumerator Drawing()
     {
-         x = 0;
-        GameObject First = PlayerArea;
-        GameObject Second = OpponentArea;
+        var n = Random.Range(0, 2);
+        GameObject First ;
+        GameObject Second;
+        if(n == 0)
+        {
+            First = OpponentArea;
+            Second = PlayerArea;
+        }
+        else
+        {
+            First = PlayerArea;
+            Second = OpponentArea;
+        }
+        x = 0;
         for(int i = 0;i<10;i++)
         {
             yield return new WaitForSeconds(0.1f);
