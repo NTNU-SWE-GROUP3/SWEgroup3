@@ -32,9 +32,16 @@ it should be accessible with the following configuration.
 ```settings
 server host: localhost
 port       : 3306
-database   : example
+database   : swegroup3game
 user name  : root
 password   : db-78n9n
+```
+
+- When you want to reflect the contents of a new SQL query
+
+```bash
+docker compose down -v
+docker compose up -d
 ```
 
 ---

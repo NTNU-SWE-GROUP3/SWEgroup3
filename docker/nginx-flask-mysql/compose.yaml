@@ -15,10 +15,11 @@ services:
       - db-password
     volumes:
       - db-data:/var/lib/mysql
+      - ./sql:/docker-entrypoint-initdb.d
     networks:
       - backnet
     environment:
-      - MYSQL_DATABASE=example
+      - MYSQL_DATABASE=swegroup3game
       - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/db-password
     # development use only
     ports:
