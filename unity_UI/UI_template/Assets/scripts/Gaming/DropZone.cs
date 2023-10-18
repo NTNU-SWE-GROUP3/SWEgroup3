@@ -22,7 +22,10 @@ public class DropZone : MonoBehaviour,IDropHandler
             
                 if(eventData.pointerDrag != null)
                 {
+                    
+                    eventData.pointerDrag.transform.SetParent(gameObject.transform,true);
                     eventData.pointerDrag.GetComponent<RectTransform>().position = GetComponent<RectTransform>().position;
+                    eventData.pointerDrag.layer = LayerMask.NameToLayer("Show");
                     backToHand = false;
                     haveCard = true;
                 }

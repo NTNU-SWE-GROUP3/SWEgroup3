@@ -140,6 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f37e687223bc9a74da1e45a25bdb3a9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerArea: {fileID: 0}
   rectTransform: {fileID: 0}
   originalRectPosition: {x: 0, y: 0}
 --- !u!225 &6221166439560918153
@@ -167,7 +168,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 0}
-  zoomCard: {fileID: 225055715617019185}
 --- !u!114 &723506179968665737
 MonoBehaviour:
   m_ObjectHideFlags: 0

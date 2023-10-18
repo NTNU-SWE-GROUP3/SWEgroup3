@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class DragCard : MonoBehaviour,IDragHandler,IEndDragHandler,IBeginDragHandler
 {
-
+    public GameObject PlayerShow;
     public RectTransform rectTransform;
     public Vector2 originalRectPosition;
     private CanvasGroup canvasGroup;
