@@ -1,35 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class ComputerPlayer : MonoBehaviour
 {
-    CardDatabase cardDatabase;
+    public GameObject OpponentArea;
+    public GameObject OpponentShow;
     
-    // Start is called before the first frame update
-    void Start()
+    public void PlayCard()
     {
-        PlayRandomCard();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-    }
-
-    public void PlayCard(Card SelectedCard)
-    {
-        // 出牌
+        int randomIndex = Random.Range(0,9);
+        OpponentArea.transform.GetChild(randomIndex).SetParent(OpponentShow.transform,false);
+        OpponentShow.transform.GetChild(0).position = OpponentShow.transform.position;
     }
 
     public void PlayRandomCard()
     {
-        if (CardDatabase.cardList != null && CardDatabase.cardList.Count > 0)
-        {
-            int randomIndex = Random.Range(0, CardDatabase.cardList.Count);
-            Card randomCard = CardDatabase.cardList[randomIndex];
-
-            PlayCard(randomCard);
-        }
+        Invoke("PlayCard",3);
     }
 }

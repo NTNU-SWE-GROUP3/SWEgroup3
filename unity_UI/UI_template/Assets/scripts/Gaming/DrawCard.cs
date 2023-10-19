@@ -9,6 +9,7 @@ public class DrawCard : MonoBehaviour
     public GameObject Card;
     public GameObject PlayerArea;
     public GameObject OpponentArea;
+    public static bool CpGetSetA;
 
     public static int x = 0;
     // Start is called before the first frame update
@@ -36,11 +37,13 @@ public class DrawCard : MonoBehaviour
         {
             First = OpponentArea;
             Second = PlayerArea;
+            CpGetSetA = true;
         }
         else
         {
             First = PlayerArea;
             Second = OpponentArea;
+            CpGetSetA = false;
         }
         x = 0;
         for(int i = 0;i<10;i++)

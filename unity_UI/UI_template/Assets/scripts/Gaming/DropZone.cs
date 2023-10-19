@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 
 public class DropZone : MonoBehaviour,IDropHandler
 {
+    public GameObject showDisplay;
     public static bool backToHand = true;
     public static bool haveCard = false;
     
@@ -24,7 +25,7 @@ public class DropZone : MonoBehaviour,IDropHandler
                 {
                     
                     eventData.pointerDrag.transform.SetParent(gameObject.transform,true);
-                    eventData.pointerDrag.GetComponent<RectTransform>().position = GetComponent<RectTransform>().position;
+                    eventData.pointerDrag.GetComponent<RectTransform>().position = showDisplay.transform.position;
                     eventData.pointerDrag.layer = LayerMask.NameToLayer("Show");
                     backToHand = false;
                     haveCard = true;
