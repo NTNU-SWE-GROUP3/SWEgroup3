@@ -1304,6 +1304,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 383944930}
+  - component: {fileID: 383944931}
   m_Layer: 0
   m_Name: UIController(start)
   m_TagString: Untagged
@@ -1326,6 +1327,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1797195299}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &383944931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 383944929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5abd5a2986b7c9c46b577fe43be3af47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LoginPanel: {fileID: 941321038}
+  SignUpPanel: {fileID: 662689542}
+  PasswordPanel1: {fileID: 557901101}
+  PasswordPanel2: {fileID: 2091189631}
 --- !u!1 &443729297
 GameObject:
   m_ObjectHideFlags: 0
