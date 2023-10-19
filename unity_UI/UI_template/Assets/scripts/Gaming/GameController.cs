@@ -25,7 +25,7 @@ public class GameController : MonoBehaviour
         drawCard.Draw();
         // if(isCom == true)
         // {
-        //     ComPlayer.Initial();
+        // 
         // }
         ComPlayer.PlayRandomCard();
         // StartCoroutine(StartGame());

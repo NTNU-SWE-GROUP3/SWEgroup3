@@ -11,7 +11,7 @@ public class ComputerPlayer : MonoBehaviour
     
     public void PlayCard()
     {
-        int randomIndex = Random.Range(0,9);
+        int randomIndex = Random.Range(0,OpponentArea.transform.childCount);
         OpponentArea.transform.GetChild(randomIndex).SetParent(OpponentShow.transform,false);
         OpponentShow.transform.GetChild(0).position = OpponentShow.transform.position;
     }
