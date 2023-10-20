@@ -19,7 +19,7 @@ public class GotchaPanel : MonoBehaviour, IDragHandler, IEndDragHandler
     void Start()
     {
         panelLocation = transform.localPosition;
-        Debug.Log(panelLocation);
+        // Debug.Log(panelLocation);
     }
 
     void Awake()
@@ -39,7 +39,7 @@ public class GotchaPanel : MonoBehaviour, IDragHandler, IEndDragHandler
     public void OnDrag(PointerEventData data)
     {
         float difference = data.pressPosition.x - data.position.x;
-        Debug.Log(difference);
+        // Debug.Log(difference);
         
         if(!(((currentPage==1)&&(difference<0))||((currentPage==totalPages)&&(difference>0)))){
         transform.localPosition = panelLocation - new Vector3(difference, 0, 0);
@@ -70,7 +70,6 @@ public class GotchaPanel : MonoBehaviour, IDragHandler, IEndDragHandler
         {
             StartCoroutine(SmoothMove(transform.localPosition, panelLocation, easing));
         }
-        Debug.Log(currentPage);
     }
 
     IEnumerator SmoothMove(Vector3 startpos, Vector3 endpos, float seconds)
