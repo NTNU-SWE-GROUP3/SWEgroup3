@@ -14,12 +14,17 @@ public class ButtonAction : MonoBehaviour
     // default playerId = 1, mode = coin, times = 1
     [SerializeField] string playerId = "1";
     [SerializeField] string mode = "coin";
-    [SerializeField] string times = "1";
 
-    public void SingleDrawButton()
+    public void DrawButtonSingle()
     {
-        StartCoroutine(SendRequest(playerId, mode, times));
+        StartCoroutine(SendRequest(playerId, mode, "1"));
         Debug.Log("Single");
+    }
+
+    public void DrawButtonMult()
+    {
+        StartCoroutine(SendRequest(playerId, mode, "5"));
+        Debug.Log("Mult");
     }
 
     IEnumerator SendRequest(string playerId, string mode, string times)
@@ -31,7 +36,6 @@ public class ButtonAction : MonoBehaviour
         form.AddField("times", times);
 
         UnityWebRequest www = UnityWebRequest.Post(apiUrl, form);
-        // UnityWebRequest www = UnityWebRequest.Get(apiUrl);
         yield return www.SendWebRequest();
 
         if (www.isNetworkError || www.isHttpError)
@@ -42,10 +46,16 @@ public class ButtonAction : MonoBehaviour
         else
         {
             string response = www.downloadHandler.text;
-            Debug.Log("API Response: " + response);
-            // 在这里处理API的响应，可以根据需要执行其他操作
+            
+            ShowResponse(response);
+            // Debug.Log("API Response: " + response);
+
         }
     }
 
+    void ShowResponse(string response)
+    {
+        Debug.Log(response);
+    }
 
 }
