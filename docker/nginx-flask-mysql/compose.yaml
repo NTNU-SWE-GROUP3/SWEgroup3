@@ -1,0 +1,68 @@
+services:
+  db:
+    # We use a mariadb image which supports both amd64 & arm64 architecture
+    # image: mariadb:10-focal
+    # If you really want to use MySQL, uncomment the following line
+    image: mysql:8.1.0
+    command: '--default-authentication-plugin=mysql_native_password'
+    restart: always
+    healthcheck:
+      test: ['CMD-SHELL', 'mysqladmin ping -h 127.0.0.1 --password="$$(cat /run/secrets/db-password)" --silent']
+      interval: 3s
+      retries: 5
+      start_period: 30s
+    secrets:
+      - db-password
+    volumes:
+      - db-data:/var/lib/mysql
+      - ./sql:/docker-entrypoint-initdb.d
+    networks:
+      - backnet
+    environment:
+      - MYSQL_DATABASE=swegroup3game
+      - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/db-password
+    # development use only
+    ports:
+      - 3306:3306
+    # Expose ports without publishing them to the host machine - they'll only be accessible to linked services.
+    # Only the internal port can be specified.
+    expose:
+      - 3306
+      - 33060
+
+  backend:
+    build:
+      context: backend
+      target: builder
+    restart: always
+    secrets:
+      - db-password
+    ports:
+      - 8000:8000
+    networks:
+      - backnet
+      - frontnet
+    depends_on:
+      db:
+        condition: service_healthy
+
+  proxy:
+    build: proxy
+    restart: always
+    ports:
+      - 80:80
+    depends_on:
+      - backend
+    networks:
+      - frontnet
+
+volumes:
+  db-data:
+
+secrets:
+  db-password:
+    file: db/password.txt
+
+networks:
+  backnet:
+  frontnet:
