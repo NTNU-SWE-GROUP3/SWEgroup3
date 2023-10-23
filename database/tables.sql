@@ -29,6 +29,7 @@ CREATE TABLE `account` (
   `password` varchar(255) DEFAULT NULL,
   `token_id` varchar(255) DEFAULT NULL,
   `token_validity` int DEFAULT NULL,
+  `salt` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `token_id` (`token_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -114,6 +115,8 @@ CREATE TABLE `account_data` (
   `rank` varchar(255) DEFAULT NULL,
   `total_match` int DEFAULT NULL,
   `total_win` int DEFAULT NULL,
+  `ranked_winning_streak`int DEFAULT NULL,
+  `ranked_XP` int DEFAULT NULL,
   `coin` int DEFAULT NULL,
   KEY `account_id` (`account_id`),
   CONSTRAINT `account_data_ibfk_1` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`)
@@ -191,7 +194,7 @@ DROP TABLE IF EXISTS `card_style`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `card_style` (
   `card_style_id` int NOT NULL AUTO_INCREMENT,
-  `card_style_name` int DEFAULT NULL,
+  `card_style_name` varchar(255) DEFAULT NULL,
   `card_style_description` varchar(255) DEFAULT NULL,
   `card_style_probability` decimal(4,3) DEFAULT 0.000,
   PRIMARY KEY (`card_style_id`)
