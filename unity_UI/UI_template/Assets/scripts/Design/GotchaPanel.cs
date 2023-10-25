@@ -13,7 +13,8 @@ public class GotchaPanel : MonoBehaviour, IDragHandler, IEndDragHandler
     public float easing = 0.5f;
     public int panelWidth = 1080;
     public int totalPages = 2;
-    private int currentPage = 1;
+    // private int currentPage = 1;
+    public int currentPage = 1;
 
 
     void Start()

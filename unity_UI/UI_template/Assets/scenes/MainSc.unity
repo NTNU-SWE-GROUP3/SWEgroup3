@@ -3813,7 +3813,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 885133540}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2009962524}
+        m_TargetAssemblyTypeName: ButtonAction, Assembly-CSharp
+        m_MethodName: SingleDrawButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &885133540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8002,6 +8014,7 @@ GameObject:
   - component: {fileID: 2009962521}
   - component: {fileID: 2009962523}
   - component: {fileID: 2009962522}
+  - component: {fileID: 2009962524}
   m_Layer: 5
   m_Name: Gotcha
   m_TagString: Untagged
@@ -8069,6 +8082,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2009962520}
   m_CullTransparentMesh: 1
+--- !u!114 &2009962524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2009962520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78cc6b95a63194ad5beb0154388c0f3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  apiUrl: http://127.0.0.1:5000/gacha/draw
+  playerId: 1
+  mode: coin
+  times: 1
 --- !u!1 &2017271063
 GameObject:
   m_ObjectHideFlags: 0
