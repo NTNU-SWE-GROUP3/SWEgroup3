@@ -5,6 +5,10 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 
 
+public enum GatchaMode {
+    coin,
+    cash
+}
 
 public class ButtonAction : MonoBehaviour
 {
@@ -14,10 +18,30 @@ public class ButtonAction : MonoBehaviour
     // default playerId = 1, mode = coin, times = 1
     [SerializeField] string playerId = "1";
     [SerializeField] string mode = "coin";
+    // [SerializeField] GatchaMode mode = GatchaMode.coin;
+
+    private GotchaPanel gotchaPanel;
+
+    void Awake()
+    {
+        gotchaPanel = GetComponentInChildren<GotchaPanel>();
+    }
 
     public void DrawButtonSingle()
     {
-        StartCoroutine(SendRequest(playerId, mode, "1"));
+        switch (gotchaPanel.currentPage)
+        {
+            case 1:
+                mode = "coin";
+                break;
+            case 2:
+                mode = "cash";
+                break;
+
+            default:
+                break;
+        };
+        StartCoroutine(SendRequest(playerId, mode, "1"));   
         Debug.Log("Single");
     }
 
