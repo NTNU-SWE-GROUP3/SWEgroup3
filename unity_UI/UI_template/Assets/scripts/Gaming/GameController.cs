@@ -9,11 +9,16 @@ public class GameController : MonoBehaviour
     public DrawCard drawCard;
     public bool isCom;
     public ComputerPlayer ComPlayer;
+    public CountDown Timer;
+    public int Trun;
+    public Text TrunText;
     
     void Start()
     {
+        Trun = 1;
         isCom = true;
         drawCard = GameObject.Find("GameController").GetComponent<DrawCard>();
+        Timer = GameObject.Find("GameController").GetComponent<CountDown>();
         if(isCom == true)
         {
             ComPlayer = GameObject.Find("ComputerPlayer").GetComponent<ComputerPlayer>();
@@ -23,15 +28,14 @@ public class GameController : MonoBehaviour
     public void GameBegin()
     {
         drawCard.Draw();
-        // if(isCom == true)
-        // {
-        // 
-        // }
-        ComPlayer.PlayRandomCard();
-        // StartCoroutine(StartGame());
+        // Game Start
+        TrunText.text = "回合:" + Trun.ToString();
+        StartCoroutine(Timer.TurnCountdown());
+        if(isCom == true)
+        {
+            ComPlayer.PlayRandomCard();
+        }
+        Trun++;
     }
-    // IEnumerator StartGame()
-    // {
-        
-    // }
+    
 }
