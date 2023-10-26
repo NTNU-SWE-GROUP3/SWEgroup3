@@ -11,12 +11,15 @@ public class ShowCard : MonoBehaviour
     public GameObject OpponentEarn;
     public GameObject DrawArea;
     public Text WhoWins;
+    public Text PlayerEarnText;
+    public Text OpponentEarnText;
     
     GameObject PlayerCardObject;
     GameObject OpponentCardObject;
     CardDisplay PlayerCard;
     CardDisplay OpponentCard;
     Transform Card;
+
     
     void Start()
     {
@@ -61,16 +64,22 @@ public class ShowCard : MonoBehaviour
             Card =DrawArea.transform.GetChild(DrawArea.transform.childCount - 1);
             Card.SetParent(PlayerEarn.transform,false);
             Card.position = PlayerEarn.transform.position;
+            PlayerEarnText.text  = PlayerEarn.transform.childCount.ToString();
         }
+        
         //兩張卡移至PlayerEarn
         yield return new WaitForSeconds(1);
         PlayerCardObject.transform.SetParent(PlayerEarn.transform,false);
         PlayerCardObject.transform.position =PlayerEarn.transform.position;
         OpponentCardObject.transform.SetParent(PlayerEarn.transform,false);
         OpponentCardObject.transform.position =PlayerEarn.transform.position;
+        PlayerEarnText.text = PlayerEarn.transform.childCount.ToString();
         //下回合Start    
         yield return new WaitForSeconds(1);
-        GC.TrunStart();
+        if(PlayerEarn.transform.childCount < 10)
+        {
+            GC.TrunStart();
+        }
         WhoWins.gameObject.SetActive(false);
     }
     // 對手贏
@@ -86,6 +95,7 @@ public class ShowCard : MonoBehaviour
             Card =DrawArea.transform.GetChild(DrawArea.transform.childCount - 1);
             Card.SetParent(OpponentEarn.transform,false);
             Card.position = OpponentEarn.transform.position;
+            OpponentEarnText.text  = OpponentEarn.transform.childCount.ToString();
         }
         //兩張卡移至OpponentEarn
         yield return new WaitForSeconds(1);
@@ -93,9 +103,13 @@ public class ShowCard : MonoBehaviour
         PlayerCardObject.transform.position =OpponentEarn.transform.position;
         OpponentCardObject.transform.SetParent(OpponentEarn.transform,false);
         OpponentCardObject.transform.position =OpponentEarn.transform.position;
+        OpponentEarnText.text  = OpponentEarn.transform.childCount.ToString();
         //下回合Start   
         yield return new WaitForSeconds(1);
-        GC.TrunStart();
+        if(OpponentEarn.transform.childCount < 10)
+        {
+            GC.TrunStart();
+        }
         WhoWins.gameObject.SetActive(false);
     }
     // 平手

@@ -162,8 +162,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -340, y: -177.2}
-  m_SizeDelta: {x: 737.52, y: 453.6014}
+  m_AnchoredPosition: {x: -340, y: -214.49997}
+  m_SizeDelta: {x: 658.76, y: 387.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &125422827
 MonoBehaviour:
@@ -296,19 +296,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2705303539994526234, guid: 3614c5492f2454e48b7a3e340835d953, type: 3}
   m_PrefabInstance: {fileID: 7523407979952604080}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &334211534
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 334211531}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e26f66a591490d43a82d3ee8aac9068, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EarnText: {fileID: 1561420044}
 --- !u!1 &368509977
 GameObject:
   m_ObjectHideFlags: 0
@@ -621,7 +608,6 @@ GameObject:
   - component: {fileID: 993464733}
   - component: {fileID: 993464736}
   - component: {fileID: 993464735}
-  - component: {fileID: 993464734}
   m_Layer: 5
   m_Name: EarnText(Opponent)
   m_TagString: Untagged
@@ -648,19 +634,6 @@ RectTransform:
   m_AnchoredPosition: {x: -396.24097, y: 447.34}
   m_SizeDelta: {x: 172.4811, y: 52.671}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &993464734
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 993464732}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e26f66a591490d43a82d3ee8aac9068, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EarnText: {fileID: 993464735}
 --- !u!114 &993464735
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -694,7 +667,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 0
 --- !u!222 &993464736
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -718,19 +691,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1600754411272162508, guid: 10761a2b84106844c9739628b37da254, type: 3}
   m_PrefabInstance: {fileID: 2958672880968687275}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1100977959
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 278370388}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e26f66a591490d43a82d3ee8aac9068, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EarnText: {fileID: 993464735}
 --- !u!1 &1164825667
 GameObject:
   m_ObjectHideFlags: 0
@@ -915,6 +875,8 @@ MonoBehaviour:
   OpponentEarn: {fileID: 278370388}
   DrawArea: {fileID: 1715371806}
   WhoWins: {fileID: 125422827}
+  PlayerEarnText: {fileID: 1561420044}
+  OpponentEarnText: {fileID: 993464735}
 --- !u!1 &1344751951
 GameObject:
   m_ObjectHideFlags: 0
@@ -1077,7 +1039,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 0
 --- !u!222 &1561420045
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1101,30 +1063,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 9143562386135196759, guid: 62d2ecb5bcbc8d14982303110362e974, type: 3}
   m_PrefabInstance: {fileID: 8174448484533521544}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1715371809
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1715371806}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Padding:
-    m_Left: 0
-    m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
-  m_ChildAlignment: 4
-  m_StartCorner: 0
-  m_StartAxis: 0
-  m_CellSize: {x: 200, y: 300}
-  m_Spacing: {x: -50, y: 0}
-  m_Constraint: 0
-  m_ConstraintCount: 2
 --- !u!1 &1907401954 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6968624758804029387, guid: 6ef8ebd16501de447a3e8126e2378964, type: 3}
@@ -1824,10 +1762,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3243715292028838269, guid: 10761a2b84106844c9739628b37da254, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1100977959}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 10761a2b84106844c9739628b37da254, type: 3}
 --- !u!224 &4062038584535271418 stripped
 RectTransform:
@@ -2244,10 +2179,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2705303539994526234, guid: 3614c5492f2454e48b7a3e340835d953, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 334211534}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3614c5492f2454e48b7a3e340835d953, type: 3}
 --- !u!1001 &8174448484533521544
 PrefabInstance:
@@ -2344,10 +2276,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 9143562386135196759, guid: 62d2ecb5bcbc8d14982303110362e974, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1715371809}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62d2ecb5bcbc8d14982303110362e974, type: 3}
 --- !u!222 &8978904896370836816
 CanvasRenderer:
