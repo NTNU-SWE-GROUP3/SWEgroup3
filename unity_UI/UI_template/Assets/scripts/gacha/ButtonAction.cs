@@ -5,7 +5,8 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 
 
-public enum GatchaMode {
+public enum GatchaMode
+{
     coin,
     cash
 }
@@ -18,39 +19,92 @@ public class ButtonAction : MonoBehaviour
     // default playerId = 1, mode = coin, times = 1
     [SerializeField] string playerId = "1";
     [SerializeField] string mode = "coin";
-    // [SerializeField] GatchaMode mode = GatchaMode.coin;
-
     private GotchaPanel gotchaPanel;
+    public GameObject MessagePanel;
+    public Button yesButton;
+    public Button noButton;
+    bool yesClicked = false;
+    bool noClicked = false;
 
+    void Start()
+    {
+        MessagePanel.SetActive(false);
+        yesClicked = false;
+        noClicked = false;
+    }
     void Awake()
     {
         gotchaPanel = GetComponentInChildren<GotchaPanel>();
     }
 
-    public void DrawButtonSingle()
+    public IEnumerator CashModeDraw(string times)
     {
+        MessagePanel.SetActive(true);   // Show confirmation dialog
+        yesClicked = false;
+        noClicked = false;
+
+        while (!yesClicked && !noClicked)
+        {
+            yesButton.onClick.AddListener(() => OnYesButtonClick());
+            noButton.onClick.AddListener(() => OnNoButtonClick());
+            yield return null;
+        }
+
+        if (yesClicked)
+        {
+            Debug.Log("Yes, Start Drawing");
+            mode = "cash";
+            StartCoroutine(SendRequest(playerId, mode, times));
+        }
+        else if (noClicked)
+        {
+            Debug.Log("noClicked");
+        }
+
+        MessagePanel.SetActive(false);   // Hide confirmation dialog
+        yesClicked = false;
+        noClicked = false;
+    }
+
+    // void update()
+    // {
+    //     yesButton.onClick.AddListener(() => OnYesButtonClick());
+    //     noButton.onClick.AddListener(() => OnNoButtonClick()); // Disable
+    // }
+
+    void OnYesButtonClick()
+    {
+        yesClicked = true;
+        noClicked = false;
+        MessagePanel.SetActive(false);
+    }
+    void OnNoButtonClick()
+    {
+        yesClicked = false;
+        noClicked = true;
+        MessagePanel.SetActive(false);
+    }
+
+    public void DrawButton(bool isSingleDraw)
+    {
+        string times = isSingleDraw ? "1" : "5";
+
         switch (gotchaPanel.currentPage)
         {
             case 1:
                 mode = "coin";
+                StartCoroutine(SendRequest(playerId, mode, times));
                 break;
             case 2:
-                mode = "cash";
+                StartCoroutine(CashModeDraw(times));
                 break;
-
             default:
                 break;
+
         };
-        StartCoroutine(SendRequest(playerId, mode, "1"));   
-        Debug.Log("Single");
-    }
 
-    public void DrawButtonMult()
-    {
-        StartCoroutine(SendRequest(playerId, mode, "5"));
-        Debug.Log("Mult");
+        Debug.Log(isSingleDraw ? "Single" : "Mult");
     }
-
     IEnumerator SendRequest(string playerId, string mode, string times)
     {
         WWWForm form = new WWWForm();
@@ -70,7 +124,7 @@ public class ButtonAction : MonoBehaviour
         else
         {
             string response = www.downloadHandler.text;
-            
+
             ShowResponse(response);
             // Debug.Log("API Response: " + response);
 
