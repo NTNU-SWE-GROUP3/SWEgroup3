@@ -38,14 +38,17 @@ public class ShowCard : MonoBehaviour
         // 判斷(可以用PlayerCard.cardName & OpponentCard.cardName，如果是平民有技能可以比PlayerCard.id & OpponentCard.id)
         if(PlayerCard.cardName == "國王")
         {
+            // 玩家贏
             StartCoroutine(ToPlayerEarn());
         }
         else if(PlayerCard.cardName == "皇后")
         {
+            // 對手贏
            StartCoroutine(ToOpponentEarn());
         }
         else
         {
+            // 平手
             StartCoroutine(ToDrawArea());
         }
 
