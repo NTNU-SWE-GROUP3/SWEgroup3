@@ -26,7 +26,7 @@ public class DropZone : MonoBehaviour,IDropHandler
                     
                     eventData.pointerDrag.transform.SetParent(gameObject.transform,true);
                     eventData.pointerDrag.GetComponent<RectTransform>().position = showDisplay.transform.position;
-                    eventData.pointerDrag.layer = LayerMask.NameToLayer("Show");
+                    eventData.pointerDrag.layer = LayerMask.NameToLayer("CardBack");
                     backToHand = false;
                     haveCard = true;
                 }

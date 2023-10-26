@@ -21,9 +21,14 @@ public class CardBack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // if(this.gameObject.layer == 10)
-        // {
-        //     cardBack.SetActive(true);
-        // }
+        switch(this.gameObject.layer)
+        {
+            case 10 :
+                cardBack.SetActive(false);
+                break;
+            case 11 :
+                cardBack.SetActive(true);
+                break;
+        }
     }
 }

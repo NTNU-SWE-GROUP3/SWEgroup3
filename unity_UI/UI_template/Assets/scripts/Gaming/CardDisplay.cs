@@ -7,7 +7,6 @@ using UnityEngine.EventSystems;
 public class CardDisplay : MonoBehaviour
 {
     public List<Card> displayCard = new List<Card>();
-    public int displayId;
     public GameObject PlayerArea;
     public int id;
     public string cardName;

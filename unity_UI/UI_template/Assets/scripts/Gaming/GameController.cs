@@ -27,15 +27,20 @@ public class GameController : MonoBehaviour
 
     public void GameBegin()
     {
+        Trun = 1;
         drawCard.Draw();
         // Game Start
-        TrunText.text = "回合:" + Trun.ToString();
-        StartCoroutine(Timer.TurnCountdown());
-        if(isCom == true)
-        {
-            ComPlayer.PlayRandomCard();
-        }
-        Trun++;
+        TrunStart();
+    }
+    public void TrunStart()
+    {
+            TrunText.text = "回合:" + Trun.ToString();
+            StartCoroutine(Timer.TurnCountdown());
+            if(isCom == true)
+            {
+                ComPlayer.PlayRandomCard();
+            }
+            Trun++;
     }
     
 }
