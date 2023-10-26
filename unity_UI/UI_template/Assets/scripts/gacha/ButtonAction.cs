@@ -4,23 +4,16 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 
-
-public enum GatchaMode
-{
-    coin,
-    cash
-}
-
 public class ButtonAction : MonoBehaviour
 {
-    // call api
-    [SerializeField] string apiUrl = "http://127.0.0.1:5000/gacha/draw";
-    
+    [SerializeField] string apiUrl = "http://127.0.0.1:5000/gacha/draw";       // call API endpoint
+
     // default playerId = 1, mode = coin, times = 1
     [SerializeField] string playerId = "1";
     [SerializeField] string mode = "coin";
     private GotchaPanel gotchaPanel;
-    public GameObject MessagePanel;
+    public GameObject messagePanel;
+    public GameObject mask;
     public Button yesButton;
     public Button noButton;
     bool yesClicked = false;
@@ -28,7 +21,8 @@ public class ButtonAction : MonoBehaviour
 
     void Start()
     {
-        MessagePanel.SetActive(false);
+        messagePanel.SetActive(false);
+        mask.SetActive(false);
         yesClicked = false;
         noClicked = false;
     }
@@ -39,7 +33,8 @@ public class ButtonAction : MonoBehaviour
 
     public IEnumerator CashModeDraw(string times)
     {
-        MessagePanel.SetActive(true);   // Show confirmation dialog
+        messagePanel.SetActive(true);   // Show confirmation dialog
+        mask.SetActive(true);
         yesClicked = false;
         noClicked = false;
 
@@ -61,28 +56,24 @@ public class ButtonAction : MonoBehaviour
             Debug.Log("noClicked");
         }
 
-        MessagePanel.SetActive(false);   // Hide confirmation dialog
+        messagePanel.SetActive(false);   // Hide confirmation dialog
         yesClicked = false;
         noClicked = false;
     }
-
-    // void update()
-    // {
-    //     yesButton.onClick.AddListener(() => OnYesButtonClick());
-    //     noButton.onClick.AddListener(() => OnNoButtonClick()); // Disable
-    // }
 
     void OnYesButtonClick()
     {
         yesClicked = true;
         noClicked = false;
-        MessagePanel.SetActive(false);
+        messagePanel.SetActive(false);
+        mask.SetActive(false);
     }
     void OnNoButtonClick()
     {
         yesClicked = false;
         noClicked = true;
-        MessagePanel.SetActive(false);
+        messagePanel.SetActive(false);
+        mask.SetActive(false);
     }
 
     public void DrawButton(bool isSingleDraw)
