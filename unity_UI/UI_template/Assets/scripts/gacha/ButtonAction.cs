@@ -31,7 +31,7 @@ public class ButtonAction : MonoBehaviour
         gotchaPanel = GetComponentInChildren<GotchaPanel>();
     }
 
-    public IEnumerator CashModeDraw(string times)
+    public IEnumerator ExecuteDraw(string times,string mode)
     {
         messagePanel.SetActive(true);   // Show confirmation dialog
         mask.SetActive(true);
@@ -48,7 +48,7 @@ public class ButtonAction : MonoBehaviour
         if (yesClicked)
         {
             Debug.Log("Yes, Start Drawing");
-            mode = "cash";
+            // mode = "cash";
             StartCoroutine(SendRequest(playerId, mode, times));
         }
         else if (noClicked)
@@ -84,10 +84,14 @@ public class ButtonAction : MonoBehaviour
         {
             case 1:
                 mode = "coin";
-                StartCoroutine(SendRequest(playerId, mode, times));
+                Debug.Log("Coin Mode");
+                // StartCoroutine(SendRequest(playerId, mode, times));
+                StartCoroutine(ExecuteDraw(times,mode));
                 break;
             case 2:
-                StartCoroutine(CashModeDraw(times));
+                mode = "cash";
+                Debug.Log("Cash Mode");
+                StartCoroutine(ExecuteDraw(times,mode));
                 break;
             default:
                 break;

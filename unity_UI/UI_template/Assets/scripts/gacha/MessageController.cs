@@ -5,33 +5,79 @@ using TMPro;
 
 public class MessageController : MonoBehaviour
 {
-    public GameObject textSingle;
-    public GameObject textMult;
-    
+    public GameObject textSingleCash;
+    public GameObject textMultCash;
+    public GameObject textSingleCoin;
+    public GameObject textMultCoin;
+    private GotchaPanel gotchaPanel;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        textSingle.SetActive(false);
-        textMult.SetActive(false);
+        textSingleCoin.SetActive(false);
+        textMultCoin.SetActive(false);
+        textSingleCash.SetActive(false);
+        textMultCash.SetActive(false);
+    }
+
+    void Awake()
+    {
+        gotchaPanel = GetComponentInChildren<GotchaPanel>();
     }
 
     public void ShowMessage(int textType)
     {
-        switch (textType)
+        Debug.Log(gotchaPanel.currentPage);
+        if (gotchaPanel.currentPage == 1)
         {
-            case 1:
-                textSingle.SetActive(true);
-                textMult.SetActive(false);
-                break;
-            case 2:
-                textSingle.SetActive(false);
-                textMult.SetActive(true);
-                break;
-            default:
-                textSingle.SetActive(false);
-                textMult.SetActive(false);
-                break;
+            switch (textType)
+            {
+                case 1:
+                    textSingleCoin.SetActive(true);
+                    textMultCoin.SetActive(false);
+                    textSingleCash.SetActive(false);
+                    textMultCash.SetActive(false);
+                    break;
+                case 2:
+                    textSingleCoin.SetActive(false);
+                    textMultCoin.SetActive(true);
+                    textSingleCash.SetActive(false);
+                    textMultCash.SetActive(false);
+                    break;
+                default:
+                    textSingleCoin.SetActive(false);
+                    textMultCoin.SetActive(false);
+                    textSingleCash.SetActive(false);
+                    textMultCash.SetActive(false);
+                    break;
+            }
         }
+        else if (gotchaPanel.currentPage == 2)
+        {
+            switch (textType)
+            {
+                case 1:
+                    textSingleCoin.SetActive(false);
+                    textMultCoin.SetActive(false);
+                    textSingleCash.SetActive(true);
+                    textMultCash.SetActive(false);
+
+                    break;
+                case 2:
+                    textSingleCoin.SetActive(false);
+                    textMultCoin.SetActive(false);
+                    textSingleCash.SetActive(false);
+                    textMultCash.SetActive(true);
+                    break;
+                default:
+                    textSingleCoin.SetActive(false);
+                    textMultCoin.SetActive(false);
+                    textSingleCash.SetActive(false);
+                    textMultCash.SetActive(false);
+                    break;
+            }
+        }
+
     }
 }
