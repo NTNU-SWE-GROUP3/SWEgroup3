@@ -38,7 +38,6 @@ public class ShowCard : MonoBehaviour
         // 判斷(可以用PlayerCard.cardName & OpponentCard.cardName，如果是平民有技能可以比PlayerCard.id & OpponentCard.id)
 
         //-------------------------\\
-
         if(PlayerCard.cardName == "國王" && (OpponentCard.cardName == "王子" || OpponentCard.cardName == "騎士" || OpponentCard.cardName == "平民"))
         {
             // 玩家贏
@@ -94,7 +93,7 @@ public class ShowCard : MonoBehaviour
             // 平手
             StartCoroutine(ToDrawArea());
         }
-
+        //-------------------------\\
 
     }
     // 玩家贏
