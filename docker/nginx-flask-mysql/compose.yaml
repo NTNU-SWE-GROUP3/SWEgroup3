@@ -39,6 +39,8 @@ services:
       - db-password
     ports:
       - 8000:8000
+    volumes:
+      - ./backend:/code
     networks:
       - backnet
       - frontnet
