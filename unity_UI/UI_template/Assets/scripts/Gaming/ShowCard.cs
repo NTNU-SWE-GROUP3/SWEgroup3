@@ -33,25 +33,69 @@ public class ShowCard : MonoBehaviour
         PlayerCardObject.layer = LayerMask.NameToLayer("Show");
         OpponentCardObject.layer = LayerMask.NameToLayer("Show");
         PlayerCard = PlayerCardObject.GetComponent<CardDisplay>();
-        OpponentCard= OpponentCardObject.GetComponent<CardDisplay>();
+        OpponentCard = OpponentCardObject.GetComponent<CardDisplay>();
 
         // 判斷(可以用PlayerCard.cardName & OpponentCard.cardName，如果是平民有技能可以比PlayerCard.id & OpponentCard.id)
-        if(PlayerCard.cardName == "國王")
+
+        //-------------------------\\
+        if(PlayerCard.cardName == "國王" && (OpponentCard.cardName == "王子" || OpponentCard.cardName == "騎士" || OpponentCard.cardName == "平民"))
         {
             // 玩家贏
             StartCoroutine(ToPlayerEarn());
         }
-        else if(PlayerCard.cardName == "皇后")
+        else if(OpponentCard.cardName == "國王" && (PlayerCard.cardName == "王子" || PlayerCard.cardName == "騎士" || PlayerCard.cardName == "平民"))
         {
             // 對手贏
-           StartCoroutine(ToOpponentEarn());
+            StartCoroutine(ToOpponentEarn());
+        }
+        else if(PlayerCard.cardName == "皇后" && (OpponentCard.cardName == "國王" || OpponentCard.cardName == "騎士" || OpponentCard.cardName == "平民"))
+        {
+            // 玩家贏
+            StartCoroutine(ToPlayerEarn());
+        }
+        else if(OpponentCard.cardName == "皇后" && (PlayerCard.cardName == "國王" || PlayerCard.cardName == "騎士" || PlayerCard.cardName == "平民"))
+        {
+            // 對手贏
+            StartCoroutine(ToOpponentEarn());
+        }
+        else if(PlayerCard.cardName == "王子" && (OpponentCard.cardName == "皇后" || OpponentCard.cardName == "騎士" || OpponentCard.cardName == "平民"))
+        {
+            // 玩家贏
+            StartCoroutine(ToPlayerEarn());
+        }
+        else if(OpponentCard.cardName == "王子" && (PlayerCard.cardName == "皇后" || PlayerCard.cardName == "騎士" || PlayerCard.cardName == "平民"))
+        {
+            // 對手贏
+            StartCoroutine(ToOpponentEarn());
+        }
+        else if(PlayerCard.cardName == "騎士" && (OpponentCard.cardName == "王子" || OpponentCard.cardName == "殺手" || OpponentCard.cardName == "平民"))
+        {
+            // 玩家贏
+            StartCoroutine(ToPlayerEarn());
+        }
+        else if(OpponentCard.cardName == "騎士" && (PlayerCard.cardName == "王子" || PlayerCard.cardName == "殺手" || PlayerCard.cardName == "平民"))
+        {
+            // 對手贏
+            StartCoroutine(ToOpponentEarn());
+        }
+        else if (PlayerCard.cardName == "殺手" && (OpponentCard.cardName == "國王" || OpponentCard.cardName == "王子" || OpponentCard.cardName == "皇后"))
+        {
+            // 玩家贏
+            StartCoroutine(ToPlayerEarn());
+        }
+        else if (OpponentCard.cardName == "殺手" && (PlayerCard.cardName == "國王" || PlayerCard.cardName == "王子" || PlayerCard.cardName == "皇后")) 
+        {
+            // 對手贏
+            StartCoroutine(ToOpponentEarn());
         }
         else
         {
             // 平手
             StartCoroutine(ToDrawArea());
         }
-
+        DropZone.haveCard = false;
+        DropZone.backToHand = true;
+        //-------------------------\\
 
     }
     // 玩家贏
@@ -79,6 +123,7 @@ public class ShowCard : MonoBehaviour
         OpponentCardObject.transform.position =PlayerEarn.transform.position;
         // 玩家贏牌顯示
         PlayerEarnText.text = PlayerEarn.transform.childCount.ToString();
+
         //下回合Start    
         yield return new WaitForSeconds(1);
         if(PlayerEarn.transform.childCount < 10)

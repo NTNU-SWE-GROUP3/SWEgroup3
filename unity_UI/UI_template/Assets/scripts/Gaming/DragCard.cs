@@ -20,7 +20,7 @@ public class DragCard : MonoBehaviour,IDragHandler,IEndDragHandler,IBeginDragHan
     public void OnBeginDrag(PointerEventData eventData)
     {
         Debug.Log("OnBeginDrag");
-        if(eventData.pointerDrag.GetComponent<CardDisplay>().cardBack == false)
+        if(eventData.pointerDrag.GetComponent<CardDisplay>().cardBack == false && this.transform.parent.name == "PlayerArea")
         {
             
             originalRectPosition = rectTransform.position;
@@ -31,8 +31,9 @@ public class DragCard : MonoBehaviour,IDragHandler,IEndDragHandler,IBeginDragHan
 
     public void OnDrag(PointerEventData eventData)
     {
-        // Debug.Log("OnDrag");
-        if(eventData.pointerDrag.GetComponent<CardDisplay>().cardBack == false)
+        //Debug.Log("OnDrag");
+        Debug.Log(this.transform.parent.name);
+        if(eventData.pointerDrag.GetComponent<CardDisplay>().cardBack == false && this.transform.parent.name == "PlayerArea")
         {
             rectTransform.position = eventData.position;
         }
@@ -42,9 +43,9 @@ public class DragCard : MonoBehaviour,IDragHandler,IEndDragHandler,IBeginDragHan
     public void OnEndDrag(PointerEventData eventData)
     {
         Debug.Log("OnEndDrag");
-        if(eventData.pointerDrag.GetComponent<CardDisplay>().cardBack == false)
+        if(eventData.pointerDrag.GetComponent<CardDisplay>().cardBack == false && this.transform.parent.name == "PlayerArea")
         {
-            if(DropZone.backToHand)
+            if(DropZone.backToHand || DropZone.haveCard)
             {
                 rectTransform.position = originalRectPosition;
             }
