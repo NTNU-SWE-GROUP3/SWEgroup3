@@ -802,7 +802,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b7b16ad13dd61c4596abfced9d062d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  countdownTime: 3
+  countdownTime: 0
   countdownDisplay: {fileID: 425344038}
   TimerText: {fileID: 1164825670}
   PlayerArea: {fileID: 4935448267223214921}
@@ -825,8 +825,8 @@ MonoBehaviour:
   isCom: 0
   ComPlayer: {fileID: 0}
   Timer: {fileID: 0}
-  Trun: 0
-  TrunText: {fileID: 327947321}
+  Turn: 0
+  TurnText: {fileID: 0}
 --- !u!4 &1211442829
 Transform:
   m_ObjectHideFlags: 0

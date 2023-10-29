@@ -67,6 +67,7 @@ public class ShowCard : MonoBehaviour
             Card =DrawArea.transform.GetChild(DrawArea.transform.childCount - 1);
             Card.SetParent(PlayerEarn.transform,false);
             Card.position = PlayerEarn.transform.position;
+            // 玩家贏牌顯示
             PlayerEarnText.text  = PlayerEarn.transform.childCount.ToString();
         }
         
@@ -76,12 +77,13 @@ public class ShowCard : MonoBehaviour
         PlayerCardObject.transform.position =PlayerEarn.transform.position;
         OpponentCardObject.transform.SetParent(PlayerEarn.transform,false);
         OpponentCardObject.transform.position =PlayerEarn.transform.position;
+        // 玩家贏牌顯示
         PlayerEarnText.text = PlayerEarn.transform.childCount.ToString();
         //下回合Start    
         yield return new WaitForSeconds(1);
         if(PlayerEarn.transform.childCount < 10)
         {
-            GC.TrunStart();
+            GC.TurnStart();
         }
         WhoWins.gameObject.SetActive(false);
     }
@@ -98,6 +100,7 @@ public class ShowCard : MonoBehaviour
             Card =DrawArea.transform.GetChild(DrawArea.transform.childCount - 1);
             Card.SetParent(OpponentEarn.transform,false);
             Card.position = OpponentEarn.transform.position;
+            // 對手贏牌顯示
             OpponentEarnText.text  = OpponentEarn.transform.childCount.ToString();
         }
         //兩張卡移至OpponentEarn
@@ -106,12 +109,13 @@ public class ShowCard : MonoBehaviour
         PlayerCardObject.transform.position =OpponentEarn.transform.position;
         OpponentCardObject.transform.SetParent(OpponentEarn.transform,false);
         OpponentCardObject.transform.position =OpponentEarn.transform.position;
+        // 對手贏牌顯示
         OpponentEarnText.text  = OpponentEarn.transform.childCount.ToString();
         //下回合Start   
         yield return new WaitForSeconds(1);
         if(OpponentEarn.transform.childCount < 10)
         {
-            GC.TrunStart();
+            GC.TurnStart();
         }
         WhoWins.gameObject.SetActive(false);
     }
@@ -127,7 +131,7 @@ public class ShowCard : MonoBehaviour
         OpponentCardObject.transform.SetParent(DrawArea.transform,false);
         //下回合Start
         yield return new WaitForSeconds(1);
-        GC.TrunStart();
+        GC.TurnStart();
         WhoWins.gameObject.SetActive(false);
     }
 

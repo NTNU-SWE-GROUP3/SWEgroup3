@@ -16,7 +16,7 @@ public class CardDatabase : MonoBehaviour
         cardList.Add(new Card(5,"殺手","無技能","就是殺手",'A',Resources.Load<Sprite>("images/king")));
         cardList.Add(new Card(6,"殺手","無技能","就是殺手",'A',Resources.Load<Sprite>("images/king")));
         cardList.Add(new Card(7,"平民","簡易剔除","觸發條件:<平手>\n從對手手排中選出一張卡牌移出遊戲",'A',Resources.Load<Sprite>("images/king")));
-        cardList.Add(new Card(8,"平民","全部重置","觸發條件:<平手>\n將對手贏到的牌全部放到揭牌區",'A',Resources.Load<Sprite>("images/king")));
+        cardList.Add(new Card(8,"平民","全部重置","觸發條件:<平手>\n將對手贏到的牌全部放到平手區",'A',Resources.Load<Sprite>("images/king")));
         cardList.Add(new Card(9,"平民","不敗的勇者","觸發條件:<不限>\n可以贏過任何一張牌",'A',Resources.Load<Sprite>("images/king")));
         cardList.Add(new Card(10,"國王","無技能","就是國王",'B',Resources.Load<Sprite>("images/king")));//路徑可改
         cardList.Add(new Card(11,"皇后","無技能","就是皇后",'B',Resources.Load<Sprite>("images/king")));
