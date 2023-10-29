@@ -40,11 +40,7 @@ public class ShowCard : MonoBehaviour
 
         //-------------------------\\
         Debug.Log(isRevolution);
-        //大革命
-        if (PlayerCard.id == 16 || OpponentCard.id == 16)
-        {
-            isRevolution = true;
-        }
+        
         // 不敗的勇者
         if (PlayerCard.id == 9)
         {
@@ -162,6 +158,11 @@ public class ShowCard : MonoBehaviour
             else
             {
                 // 平手
+                // 大革命
+                if (PlayerCard.id == 16 || OpponentCard.id == 16)
+                {
+                    isRevolution = true;
+                }
                 StartCoroutine(ToDrawArea());
             }
         }
