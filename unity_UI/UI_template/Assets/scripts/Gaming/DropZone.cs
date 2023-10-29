@@ -11,7 +11,7 @@ public class DropZone : MonoBehaviour,IDropHandler
     
     public void OnDrop(PointerEventData eventData)
     {
-        if(eventData.pointerDrag.GetComponent<CardDisplay>().cardBack == false)
+        if(eventData.pointerDrag.GetComponent<CardDisplay>().cardBack == false )
         {
             if(haveCard)
             {

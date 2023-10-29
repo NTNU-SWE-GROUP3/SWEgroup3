@@ -93,6 +93,8 @@ public class ShowCard : MonoBehaviour
             // 平手
             StartCoroutine(ToDrawArea());
         }
+        DropZone.haveCard = false;
+        DropZone.backToHand = true;
         //-------------------------\\
 
     }
@@ -119,6 +121,7 @@ public class ShowCard : MonoBehaviour
         OpponentCardObject.transform.SetParent(PlayerEarn.transform,false);
         OpponentCardObject.transform.position =PlayerEarn.transform.position;
         PlayerEarnText.text = PlayerEarn.transform.childCount.ToString();
+
         //下回合Start    
         yield return new WaitForSeconds(1);
         if(PlayerEarn.transform.childCount < 10)
