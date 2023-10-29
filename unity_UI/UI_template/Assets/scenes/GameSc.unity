@@ -224,7 +224,7 @@ GameObject:
   - component: {fileID: 327947322}
   - component: {fileID: 327947321}
   m_Layer: 5
-  m_Name: TrunText
+  m_Name: TurnText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -402,8 +402,8 @@ RectTransform:
   - {fileID: 993464733}
   - {fileID: 425344040}
   - {fileID: 125422826}
-  - {fileID: 1164825668}
   - {fileID: 327947320}
+  - {fileID: 1164825668}
   - {fileID: 1605720187}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -826,7 +826,7 @@ MonoBehaviour:
   ComPlayer: {fileID: 0}
   Timer: {fileID: 0}
   Turn: 0
-  TurnText: {fileID: 0}
+  TurnText: {fileID: 327947321}
 --- !u!4 &1211442829
 Transform:
   m_ObjectHideFlags: 0
