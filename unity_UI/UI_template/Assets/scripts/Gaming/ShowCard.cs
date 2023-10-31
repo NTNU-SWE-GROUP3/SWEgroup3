@@ -45,11 +45,13 @@ public class ShowCard : MonoBehaviour
         if (PlayerCard.id == 9)
         {
             // 玩家贏
+            Debug.Log("不敗的勇者");
             StartCoroutine(ToPlayerEarn());
         }
         else if (OpponentCard.id == 9)
         {
             // 對手贏
+            Debug.Log("不敗的勇者");
             StartCoroutine(ToOpponentEarn());
         }
         else
@@ -57,8 +59,16 @@ public class ShowCard : MonoBehaviour
 
             if (PlayerCard.cardName == "國王" && (OpponentCard.cardName == "王子" || OpponentCard.cardName == "騎士" || OpponentCard.cardName == "平民"))
             {
+<<<<<<< Updated upstream
                 if (isRevolution == false)
                 {
+=======
+                if (OpponentCard.id == 17)
+                {
+                    StartCoroutine(Trojan(2));// 特洛伊木馬
+                }
+                if (isRevolution == false){
+>>>>>>> Stashed changes
                     StartCoroutine(ToPlayerEarn());// 玩家贏
                 }
                 else
@@ -68,8 +78,16 @@ public class ShowCard : MonoBehaviour
             }
             else if (OpponentCard.cardName == "國王" && (PlayerCard.cardName == "王子" || PlayerCard.cardName == "騎士" || PlayerCard.cardName == "平民"))
             {
+<<<<<<< Updated upstream
                 if (isRevolution == false)
                 {
+=======
+                if (PlayerCard.id == 17)
+                {
+                    StartCoroutine(Trojan(1));// 特洛伊木馬
+                }
+                if (isRevolution == false){
+>>>>>>> Stashed changes
                     StartCoroutine(ToOpponentEarn());// 對手贏
                 }
                 else
@@ -79,8 +97,16 @@ public class ShowCard : MonoBehaviour
             }
             else if (PlayerCard.cardName == "皇后" && (OpponentCard.cardName == "國王" || OpponentCard.cardName == "騎士" || OpponentCard.cardName == "平民"))
             {
+<<<<<<< Updated upstream
                 if (isRevolution == false)
                 {
+=======
+                if (OpponentCard.id == 17)
+                {
+                    StartCoroutine(Trojan(2));// 特洛伊木馬
+                }
+                if (isRevolution == false){
+>>>>>>> Stashed changes
                     StartCoroutine(ToPlayerEarn());// 玩家贏
                 }
                 else
@@ -90,8 +116,16 @@ public class ShowCard : MonoBehaviour
             }
             else if (OpponentCard.cardName == "皇后" && (PlayerCard.cardName == "國王" || PlayerCard.cardName == "騎士" || PlayerCard.cardName == "平民"))
             {
+<<<<<<< Updated upstream
                 if (isRevolution == false)
                 {
+=======
+                if (PlayerCard.id == 17)
+                {
+                    StartCoroutine(Trojan(1));// 特洛伊木馬
+                }
+                if (isRevolution == false){
+>>>>>>> Stashed changes
                     StartCoroutine(ToOpponentEarn());// 對手贏
                 }
                 else
@@ -101,8 +135,16 @@ public class ShowCard : MonoBehaviour
             }
             else if (PlayerCard.cardName == "王子" && (OpponentCard.cardName == "皇后" || OpponentCard.cardName == "騎士" || OpponentCard.cardName == "平民"))
             {
+<<<<<<< Updated upstream
                 if (isRevolution == false)
                 {
+=======
+                if (OpponentCard.id == 17)
+                {
+                    StartCoroutine(Trojan(2));// 特洛伊木馬
+                }
+                if (isRevolution == false){
+>>>>>>> Stashed changes
                     StartCoroutine(ToPlayerEarn());// 玩家贏
                 }
                 else
@@ -112,8 +154,16 @@ public class ShowCard : MonoBehaviour
             }
             else if (OpponentCard.cardName == "王子" && (PlayerCard.cardName == "皇后" || PlayerCard.cardName == "騎士" || PlayerCard.cardName == "平民"))
             {
+<<<<<<< Updated upstream
                 if (isRevolution == false)
                 {
+=======
+                if (PlayerCard.id == 17)
+                {
+                    StartCoroutine(Trojan(1));// 特洛伊木馬
+                }
+                if (isRevolution == false){
+>>>>>>> Stashed changes
                     StartCoroutine(ToOpponentEarn());// 對手贏
                 }
                 else
@@ -123,8 +173,16 @@ public class ShowCard : MonoBehaviour
             }
             else if (PlayerCard.cardName == "騎士" && (OpponentCard.cardName == "殺手" || OpponentCard.cardName == "平民"))
             {
+<<<<<<< Updated upstream
                 if (isRevolution == false)
                 {
+=======
+                if (OpponentCard.id == 17)
+                {
+                    StartCoroutine(Trojan(2));// 特洛伊木馬
+                }
+                if (isRevolution == false){
+>>>>>>> Stashed changes
                     StartCoroutine(ToPlayerEarn());// 玩家贏
                 }
                 else
@@ -134,8 +192,16 @@ public class ShowCard : MonoBehaviour
             }
             else if (OpponentCard.cardName == "騎士" && (PlayerCard.cardName == "殺手" || PlayerCard.cardName == "平民"))
             {
+<<<<<<< Updated upstream
                 if (isRevolution == false)
                 {
+=======
+                if (PlayerCard.id == 17)
+                {
+                    StartCoroutine(Trojan(1));// 特洛伊木馬
+                }
+                if (isRevolution == false){
+>>>>>>> Stashed changes
                     StartCoroutine(ToOpponentEarn());// 對手贏
                 }
                 else
@@ -226,22 +292,25 @@ public class ShowCard : MonoBehaviour
             else
             {
                 // 平手
-
+                StartCoroutine(ToDrawArea());
                 // 大革命
                 if (PlayerCard.id == 16 || OpponentCard.id == 16)
                 {
+                    Debug.Log("大革命");
                     isRevolution = true;
                 }
                 // 爆發式成長 p.s. 不太確定為何turn會多1
                 else if (PlayerCard.id == 15)
                 {
+                    Debug.Log("爆發式成長");
                     PlayerX = GameController.Turn - 1;
                 }
                 else if (OpponentCard.id == 15)
                 {
+                    Debug.Log("爆發式成長");
                     OpponentX = GameController.Turn - 1;
                 }
-                StartCoroutine(ToDrawArea());
+
             }
         }
         DropZone.haveCard = false;
@@ -371,5 +440,37 @@ public class ShowCard : MonoBehaviour
         GC.TurnStart();
         WhoWins.gameObject.SetActive(false);
     }
-
+    IEnumerator Trojan(int who)
+    {
+        Debug.Log("特洛伊");
+        // 1 => player  | 2 => com
+        if (who == 1)
+        {
+            yield return new WaitForSeconds(1);
+            double halfOfCards = Mathf.Ceil(OpponentEarn.transform.childCount / 2);
+            Debug.Log(halfOfCards);
+            for(;OpponentEarn.transform.childCount > halfOfCards;)
+            {
+                Card = OpponentEarn.transform.GetChild(OpponentEarn.transform.childCount - 1);
+                Card.SetParent(PlayerEarn.transform,false);
+                Card.position = PlayerEarn.transform.position;
+                // 玩家贏牌顯示
+                PlayerEarnText.text  = (PlayerEarn.transform.childCount + PlayerX).ToString();
+            }
+        }
+        if (who == 2)
+        {
+            yield return new WaitForSeconds(1);
+            double halfOfCards = Mathf.Ceil(PlayerEarn.transform.childCount / 2);
+            Debug.Log(halfOfCards);
+            for(;PlayerEarn.transform.childCount > halfOfCards;)
+            {
+                Card = PlayerEarn.transform.GetChild(PlayerEarn.transform.childCount - 1);
+                Card.SetParent(OpponentEarn.transform,false);
+                Card.position = OpponentEarn.transform.position;
+                // 玩家贏牌顯示
+                OpponentEarnText.text  = (OpponentEarn.transform.childCount + OpponentX).ToString();
+            }
+        }
+    }
 }
