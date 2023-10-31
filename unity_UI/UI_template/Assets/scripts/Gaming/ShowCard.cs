@@ -21,7 +21,6 @@ public class ShowCard : MonoBehaviour
     CardDisplay PlayerCard;
     CardDisplay OpponentCard;
     Transform Card;
-
     
     void Start()
     {
@@ -156,6 +155,56 @@ public class ShowCard : MonoBehaviour
                     StartCoroutine(ToPlayerEarn());// 玩家贏
                 }
             }
+            else if (PlayerCard.cardName == "平民" && PlayerCard.cardSkill == "全部重置" && (OpponentCard.cardName == "平民" || OpponentCard.cardName == "殺手"))
+            {
+                //玩家觸發全部重置
+                if(OpponentCard.cardSkill == "爆發式成長"){
+                    //StartCoroutine();
+                    StartCoroutine(PlayerResetAll());
+                }
+                else if(OpponentCard.cardSkill == "大革命"){
+                    //StartCoroutine();
+                    StartCoroutine(PlayerResetAll());
+                }
+                else if(OpponentCard.cardSkill == "特洛伊木馬"){
+                    //StartCoroutine();
+                    StartCoroutine(PlayerResetAll());
+                } 
+                else {
+                    StartCoroutine(PlayerResetAll());
+                }
+            }
+            else if (OpponentCard.cardName == "平民" && OpponentCard.cardSkill == "全部重置" && (PlayerCard.cardName == "平民" || PlayerCard.cardName == "殺手"))
+            {
+                //玩家觸發全部重置
+                if(PlayerCard.cardSkill == "爆發式成長"){
+                    //StartCoroutine();
+                    StartCoroutine(OpponentResetAll());
+                }
+                else if(PlayerCard.cardSkill == "大革命"){
+                    //StartCoroutine();
+                    StartCoroutine(OpponentResetAll());
+                }
+                else if(PlayerCard.cardSkill == "特洛伊木馬"){
+                    //StartCoroutine();
+                    StartCoroutine(OpponentResetAll());
+                } 
+                else {
+                    StartCoroutine(OpponentResetAll());
+                }
+            }
+            else if (PlayerCard.cardName == "平民" && PlayerCard.cardSkill == "簡易剔除" && (OpponentCard.cardName == "平民" || OpponentCard.cardName == "殺手"))
+            {
+                //玩家觸發簡易剔除
+                //StartCoroutine(PlayerSimpleRejection());
+                StartCoroutine(ToDrawArea());
+            }
+            else if (OpponentCard.cardName == "平民" && PlayerCard.cardName == "平民" && OpponentCard.cardSkill == "簡易剔除") 
+            {
+                //對手觸發簡易剔除
+                //StartCoroutine(OpponentSimpleRejection());
+                StartCoroutine(ToDrawArea());
+            }
             else
             {
                 // 平手
@@ -226,7 +275,7 @@ public class ShowCard : MonoBehaviour
         yield return new WaitForSeconds(1);
         for(;DrawArea.transform.childCount > 0;)
         {
-            Card =DrawArea.transform.GetChild(DrawArea.transform.childCount - 1);
+            Card = DrawArea.transform.GetChild(DrawArea.transform.childCount - 1);
             Card.SetParent(OpponentEarn.transform,false);
             Card.position = OpponentEarn.transform.position;
             // 對手贏牌顯示
@@ -235,9 +284,9 @@ public class ShowCard : MonoBehaviour
         //兩張卡移至OpponentEarn
         yield return new WaitForSeconds(1);
         PlayerCardObject.transform.SetParent(OpponentEarn.transform,false);
-        PlayerCardObject.transform.position =OpponentEarn.transform.position;
+        PlayerCardObject.transform.position  = OpponentEarn.transform.position;
         OpponentCardObject.transform.SetParent(OpponentEarn.transform,false);
-        OpponentCardObject.transform.position =OpponentEarn.transform.position;
+        OpponentCardObject.transform.position = OpponentEarn.transform.position;
         // 對手贏牌顯示
         OpponentEarnText.text  = (OpponentEarn.transform.childCount + OpponentX).ToString();
         //下回合Start   
@@ -248,6 +297,45 @@ public class ShowCard : MonoBehaviour
         }
         WhoWins.gameObject.SetActive(false);
     }
+    //玩家觸發全部重置
+    IEnumerator PlayerResetAll()
+    {
+        yield return new WaitForSeconds(1);
+        WhoWins.gameObject.SetActive(true);
+        WhoWins.text = "全部重置!";
+
+        //兩張卡移至DrawArea
+        yield return new WaitForSeconds(1);
+        PlayerCardObject.transform.SetParent(DrawArea.transform,false);
+        OpponentCardObject.transform.SetParent(DrawArea.transform,false);
+        OpponentEarn.transform.SetParent(DrawArea.transform,false);
+        //下回合Start
+        yield return new WaitForSeconds(1);
+        GC.TurnStart();
+        WhoWins.gameObject.SetActive(false);
+    }
+    //對手觸發全部重置
+    IEnumerator OpponentResetAll()
+    {
+        yield return new WaitForSeconds(1);
+        WhoWins.gameObject.SetActive(true);
+        WhoWins.text = "全部重置!";
+
+        //兩張卡移至DrawArea
+        yield return new WaitForSeconds(1);
+        PlayerCardObject.transform.SetParent(DrawArea.transform,false);
+        OpponentCardObject.transform.SetParent(DrawArea.transform,false);
+        PlayerEarn.transform.SetParent(DrawArea.transform,false);
+        //下回合Start
+        yield return new WaitForSeconds(1);
+        GC.TurnStart();
+        WhoWins.gameObject.SetActive(false);
+    }
+    //玩家簡易剔除
+    /*IEnumerator PlayerSimpleRejection()
+    {
+        //從對手手排中選出一張卡牌移出遊戲... 什麼意思...
+    }*/
     // 平手
     IEnumerator ToDrawArea()
     {
