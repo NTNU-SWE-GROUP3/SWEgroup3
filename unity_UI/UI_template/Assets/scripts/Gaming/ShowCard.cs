@@ -14,6 +14,8 @@ public class ShowCard : MonoBehaviour
     public Text PlayerEarnText;
     public Text OpponentEarnText;
     public bool isRevolution;
+    public int PlayerX;
+    public int OpponentX;
     GameObject PlayerCardObject;
     GameObject OpponentCardObject;
     CardDisplay PlayerCard;
@@ -26,6 +28,7 @@ public class ShowCard : MonoBehaviour
         isRevolution = false;
         WhoWins.gameObject.SetActive(false);
         GC = GameObject.Find("GameController").GetComponent<GameController>();
+       
     }
     public void Show()
     {
@@ -35,11 +38,9 @@ public class ShowCard : MonoBehaviour
         OpponentCardObject.layer = LayerMask.NameToLayer("Show");
         PlayerCard = PlayerCardObject.GetComponent<CardDisplay>();
         OpponentCard = OpponentCardObject.GetComponent<CardDisplay>();
-
         // 判斷(可以用PlayerCard.cardName & OpponentCard.cardName，如果是平民有技能可以比PlayerCard.id & OpponentCard.id)
 
         //-------------------------\\
-        Debug.Log(isRevolution);
         
         // 不敗的勇者
         if (PlayerCard.id == 9)
@@ -158,10 +159,20 @@ public class ShowCard : MonoBehaviour
             else
             {
                 // 平手
+
                 // 大革命
                 if (PlayerCard.id == 16 || OpponentCard.id == 16)
                 {
                     isRevolution = true;
+                }
+                // 爆發式成長 p.s. 不太確定為何turn會多1
+                else if (PlayerCard.id == 15)
+                {
+                    PlayerX = GameController.Turn - 1;
+                }
+                else if (OpponentCard.id == 15)
+                {
+                    OpponentX = GameController.Turn - 1;
                 }
                 StartCoroutine(ToDrawArea());
             }
@@ -185,7 +196,7 @@ public class ShowCard : MonoBehaviour
             Card.SetParent(PlayerEarn.transform,false);
             Card.position = PlayerEarn.transform.position;
             // 玩家贏牌顯示
-            PlayerEarnText.text  = PlayerEarn.transform.childCount.ToString();
+            PlayerEarnText.text  = (PlayerEarn.transform.childCount + PlayerX).ToString();
         }
         
         //兩張卡移至PlayerEarn
@@ -195,7 +206,7 @@ public class ShowCard : MonoBehaviour
         OpponentCardObject.transform.SetParent(PlayerEarn.transform,false);
         OpponentCardObject.transform.position =PlayerEarn.transform.position;
         // 玩家贏牌顯示
-        PlayerEarnText.text = PlayerEarn.transform.childCount.ToString();
+        PlayerEarnText.text = (PlayerEarn.transform.childCount + PlayerX).ToString();
 
         //下回合Start    
         yield return new WaitForSeconds(1);
@@ -219,7 +230,7 @@ public class ShowCard : MonoBehaviour
             Card.SetParent(OpponentEarn.transform,false);
             Card.position = OpponentEarn.transform.position;
             // 對手贏牌顯示
-            OpponentEarnText.text  = OpponentEarn.transform.childCount.ToString();
+            OpponentEarnText.text  = (OpponentEarn.transform.childCount + OpponentX).ToString();
         }
         //兩張卡移至OpponentEarn
         yield return new WaitForSeconds(1);
@@ -228,7 +239,7 @@ public class ShowCard : MonoBehaviour
         OpponentCardObject.transform.SetParent(OpponentEarn.transform,false);
         OpponentCardObject.transform.position =OpponentEarn.transform.position;
         // 對手贏牌顯示
-        OpponentEarnText.text  = OpponentEarn.transform.childCount.ToString();
+        OpponentEarnText.text  = (OpponentEarn.transform.childCount + OpponentX).ToString();
         //下回合Start   
         yield return new WaitForSeconds(1);
         if(OpponentEarn.transform.childCount < 10)
@@ -247,6 +258,8 @@ public class ShowCard : MonoBehaviour
         yield return new WaitForSeconds(1);
         PlayerCardObject.transform.SetParent(DrawArea.transform,false);
         OpponentCardObject.transform.SetParent(DrawArea.transform,false);
+        PlayerEarnText.text = (PlayerEarn.transform.childCount + PlayerX).ToString();
+        OpponentEarnText.text = (OpponentEarn.transform.childCount + OpponentX).ToString();
         //下回合Start
         yield return new WaitForSeconds(1);
         GC.TurnStart();

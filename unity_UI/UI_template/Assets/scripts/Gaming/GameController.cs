@@ -10,7 +10,7 @@ public class GameController : MonoBehaviour
     public bool isCom;
     public ComputerPlayer ComPlayer;
     public CountDown Timer;
-    public int Turn;
+    public static int Turn;
     public Text TurnText;
     
     void Start()
