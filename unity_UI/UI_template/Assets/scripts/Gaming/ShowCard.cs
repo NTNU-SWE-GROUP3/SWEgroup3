@@ -13,18 +13,21 @@ public class ShowCard : MonoBehaviour
     public Text WhoWins;
     public Text PlayerEarnText;
     public Text OpponentEarnText;
-    
+    public bool isRevolution;
+    public int PlayerX;
+    public int OpponentX;
     GameObject PlayerCardObject;
     GameObject OpponentCardObject;
     CardDisplay PlayerCard;
     CardDisplay OpponentCard;
     Transform Card;
-
     
     void Start()
     {
+        isRevolution = false;
         WhoWins.gameObject.SetActive(false);
         GC = GameObject.Find("GameController").GetComponent<GameController>();
+       
     }
     public void Show()
     {
@@ -34,7 +37,6 @@ public class ShowCard : MonoBehaviour
         OpponentCardObject.layer = LayerMask.NameToLayer("Show");
         PlayerCard = PlayerCardObject.GetComponent<CardDisplay>();
         OpponentCard = OpponentCardObject.GetComponent<CardDisplay>();
-
         // 判斷(可以用PlayerCard.cardName & OpponentCard.cardName，如果是平民有技能可以比PlayerCard.id & OpponentCard.id)
 
         //-------------------------\\
@@ -55,53 +57,103 @@ public class ShowCard : MonoBehaviour
     
             if(PlayerCard.cardName == "國王" && (OpponentCard.cardName == "王子" || OpponentCard.cardName == "騎士" || OpponentCard.cardName == "平民"))
             {
-                // 玩家贏
-                StartCoroutine(ToPlayerEarn());
+                if (isRevolution == false){
+                    StartCoroutine(ToPlayerEarn());// 玩家贏
+                }
+                else
+                {
+                    StartCoroutine(ToOpponentEarn());// 對手贏
+                }
             }
             else if(OpponentCard.cardName == "國王" && (PlayerCard.cardName == "王子" || PlayerCard.cardName == "騎士" || PlayerCard.cardName == "平民"))
             {
-                // 對手贏
-                StartCoroutine(ToOpponentEarn());
+                if (isRevolution == false){
+                    StartCoroutine(ToOpponentEarn());// 對手贏
+                }
+                else
+                {
+                    StartCoroutine(ToPlayerEarn());// 玩家贏
+                }
             }
             else if(PlayerCard.cardName == "皇后" && (OpponentCard.cardName == "國王" || OpponentCard.cardName == "騎士" || OpponentCard.cardName == "平民"))
             {
-                // 玩家贏
-                StartCoroutine(ToPlayerEarn());
+                if (isRevolution == false){
+                    StartCoroutine(ToPlayerEarn());// 玩家贏
+                }
+                else
+                {
+                    StartCoroutine(ToOpponentEarn());// 對手贏
+                }
             }
             else if(OpponentCard.cardName == "皇后" && (PlayerCard.cardName == "國王" || PlayerCard.cardName == "騎士" || PlayerCard.cardName == "平民"))
             {
-                // 對手贏
-                StartCoroutine(ToOpponentEarn());
+                if (isRevolution == false){
+                    StartCoroutine(ToOpponentEarn());// 對手贏
+                }
+                else
+                {
+                    StartCoroutine(ToPlayerEarn());// 玩家贏
+                }
             }
             else if(PlayerCard.cardName == "王子" && (OpponentCard.cardName == "皇后" || OpponentCard.cardName == "騎士" || OpponentCard.cardName == "平民"))
             {
-                // 玩家贏
-                StartCoroutine(ToPlayerEarn());
+                if (isRevolution == false){
+                    StartCoroutine(ToPlayerEarn());// 玩家贏
+                }
+                else
+                {
+                    StartCoroutine(ToOpponentEarn());// 對手贏
+                }
             }
             else if(OpponentCard.cardName == "王子" && (PlayerCard.cardName == "皇后" || PlayerCard.cardName == "騎士" || PlayerCard.cardName == "平民"))
             {
-                // 對手贏
-                StartCoroutine(ToOpponentEarn());
+                if (isRevolution == false){
+                    StartCoroutine(ToOpponentEarn());// 對手贏
+                }
+                else
+                {
+                    StartCoroutine(ToPlayerEarn());// 玩家贏
+                }
             }
             else if(PlayerCard.cardName == "騎士" && (OpponentCard.cardName == "殺手" || OpponentCard.cardName == "平民"))
             {
-                // 玩家贏
-                StartCoroutine(ToPlayerEarn());
+                if (isRevolution == false){
+                    StartCoroutine(ToPlayerEarn());// 玩家贏
+                }
+                else
+                {
+                    StartCoroutine(ToOpponentEarn());// 對手贏
+                }
             }
             else if(OpponentCard.cardName == "騎士" && (PlayerCard.cardName == "殺手" || PlayerCard.cardName == "平民"))
             {
-                // 對手贏
-                StartCoroutine(ToOpponentEarn());
+                if (isRevolution == false){
+                    StartCoroutine(ToOpponentEarn());// 對手贏
+                }
+                else
+                {
+                    StartCoroutine(ToPlayerEarn());// 玩家贏
+                }
             }
             else if (PlayerCard.cardName == "殺手" && (OpponentCard.cardName == "國王" || OpponentCard.cardName == "王子" || OpponentCard.cardName == "皇后"))
             {
-                // 玩家贏
-                StartCoroutine(ToPlayerEarn());
+                if (isRevolution == false){
+                    StartCoroutine(ToPlayerEarn());// 玩家贏
+                }
+                else
+                {
+                    StartCoroutine(ToOpponentEarn());// 對手贏
+                }
             }
             else if (OpponentCard.cardName == "殺手" && (PlayerCard.cardName == "國王" || PlayerCard.cardName == "王子" || PlayerCard.cardName == "皇后")) 
             {
-                // 對手贏
-                StartCoroutine(ToOpponentEarn());
+                if (isRevolution == false){
+                    StartCoroutine(ToOpponentEarn());// 對手贏
+                }
+                else
+                {
+                    StartCoroutine(ToPlayerEarn());// 玩家贏
+                }
             }
             else if (PlayerCard.cardName == "平民" && PlayerCard.cardSkill == "全部重置" && (OpponentCard.cardName == "平民" || OpponentCard.cardName == "殺手"))
             {
@@ -156,6 +208,21 @@ public class ShowCard : MonoBehaviour
             else
             {
                 // 平手
+
+                // 大革命
+                if (PlayerCard.id == 16 || OpponentCard.id == 16)
+                {
+                    isRevolution = true;
+                }
+                // 爆發式成長 p.s. 不太確定為何turn會多1
+                else if (PlayerCard.id == 15)
+                {
+                    PlayerX = GameController.Turn - 1;
+                }
+                else if (OpponentCard.id == 15)
+                {
+                    OpponentX = GameController.Turn - 1;
+                }
                 StartCoroutine(ToDrawArea());
             }
         }
