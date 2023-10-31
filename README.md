@@ -4,8 +4,11 @@
 ----
 ### 文件  
 HackMD空間：https://hackmd.io/team/ntnuseteam3?nav=overview  
-會議記錄總表：https://hackmd.io/X4tS1BY0RKCvELo291u0gw  
+會議記錄總表+日程：https://hackmd.io/X4tS1BY0RKCvELo291u0gw  
+
 設計書：https://hackmd.io/Iwxu2qzWSFiB47NaHk6aLQ#git  
+測試書：https://hackmd.io/NASmIXV-S_aTA09MN6Mfew  
+
 函式變數紀錄：https://hackmd.io/vplKQYbARmqOX-gS5sZ_Tg  
 問題和筆記：https://hackmd.io/oV8HkRxVTXWSSk2R5OSMKg  
 
@@ -16,8 +19,9 @@ HackMD空間：https://hackmd.io/team/ntnuseteam3?nav=overview
 資料庫：MySQL (8.1.0)  
 虛擬機：  
 * OS：ubuntu server 22.04  
-* 儲存空間：160G  
-Docker：https://github.com/ToshaETang/SWEgroup3/tree/main/docker/nginx-flask-mysql  
+* 儲存空間：160G
+* 帳密洽外部
+Docker：https://github.com/ToshaETang/SWEgroup3/tree/dev/docker/nginx-flask-mysql  
 
 ----
 ### 命名方式  
@@ -34,4 +38,5 @@ body：遊戲本體組
 gaming：遊戲本體B組  
 UI：設計組  
 other-function：其他功能組  
+gachs：抽卡  
 document：文件在這裡改  
