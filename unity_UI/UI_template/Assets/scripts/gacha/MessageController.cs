@@ -9,21 +9,21 @@ public class MessageController : MonoBehaviour
     public GameObject textMultCash;
     public GameObject textSingleCoin;
     public GameObject textMultCoin;
-    private GotchaPanel gotchaPanel;
+    [SerializeField] GotchaPanel gotchaPanel;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        Init();
+    }
+
+    void Init()
+    {
         textSingleCoin.SetActive(false);
         textMultCoin.SetActive(false);
         textSingleCash.SetActive(false);
         textMultCash.SetActive(false);
-    }
-
-    void Awake()
-    {
-        gotchaPanel = GetComponentInChildren<GotchaPanel>();
     }
 
     public void ShowMessage(int textType)

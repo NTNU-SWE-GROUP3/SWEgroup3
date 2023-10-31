@@ -5,20 +5,27 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 using MiniJSON;
 
-public class ButtonAction : MonoBehaviour
+public class Action : MonoBehaviour
 {
     [SerializeField] string apiUrl = "http://127.0.0.1:5000/gacha/draw";       // call API endpoint
 
     // default playerId = 1, mode = coin, times = 1
     [SerializeField] string playerId = "1";
     [SerializeField] string mode = "coin";
-    private GotchaPanel gotchaPanel;
-    public GameObject messagePanel;
-    public GameObject mask;
-    public Button yesButton;
-    public Button noButton;
+    [SerializeField] GotchaPanel gotchaPanel;
+    [SerializeField] GameObject messagePanel;
+    [SerializeField] GameObject resultPanel;
+    [SerializeField] GameObject mask;
+    [SerializeField] GameObject okButton1;
+    [SerializeField] GameObject okButton10;
+    [SerializeField] Button yesButton;
+    [SerializeField] Button noButton;
+    public Animator gachaAnimator;
+
     bool yesClicked = false;
     bool noClicked = false;
+
+    public string response;
 
     [System.Serializable]
     public class apiResponse
@@ -28,16 +35,20 @@ public class ButtonAction : MonoBehaviour
         public string note;
     }
 
-    void Start()
-    {
-        messagePanel.SetActive(false);
-        mask.SetActive(false);
-        yesClicked = false;
-        noClicked = false;
-    }
     void Awake()
     {
-        gotchaPanel = GetComponentInChildren<GotchaPanel>();
+        Init();
+    }
+
+    void Init()
+    {
+        messagePanel.SetActive(false);
+        resultPanel.SetActive(false);
+        mask.SetActive(false);
+        okButton1.SetActive(false);
+        okButton10.SetActive(false);
+        yesClicked = false;
+        noClicked = false;
     }
 
     public IEnumerator ExecuteDraw(string times, string mode)
@@ -57,7 +68,6 @@ public class ButtonAction : MonoBehaviour
         if (yesClicked)
         {
             Debug.Log("Yes, Start Drawing");
-            // mode = "cash";
             StartCoroutine(SendRequest(playerId, mode, times));
         }
         else if (noClicked)
@@ -75,6 +85,7 @@ public class ButtonAction : MonoBehaviour
         yesClicked = true;
         noClicked = false;
         messagePanel.SetActive(false);
+        resultPanel.SetActive(false);
         mask.SetActive(false);
     }
     void OnNoButtonClick()
@@ -127,16 +138,29 @@ public class ButtonAction : MonoBehaviour
         }
         else
         {
-            string response = www.downloadHandler.text;
+            response = www.downloadHandler.text;
 
             ShowResponse(response);
+            if (int.Parse(times) == 1)
+            {
+                StartCoroutine(ShowResponseAnimation1(response));
+            }
             // Debug.Log("API Response: " + response);
-
         }
+    }
+
+    IEnumerator ShowResponseAnimation1(string response)
+    {
+        gachaAnimator.SetTrigger("ShowAnimate");
+        yield return new WaitForSecondsRealtime(gachaAnimator.GetCurrentAnimatorStateInfo(0).length);
+
+        okButton1.SetActive(true);
     }
 
     void ShowResponse(string response)
     {
+        resultPanel.SetActive(true);
+
         List<object> jsonArray = Json.Deserialize(response) as List<object>;
 
         if (jsonArray != null)
@@ -164,5 +188,6 @@ public class ButtonAction : MonoBehaviour
         }
         // Debug.Log(response);
     }
+    
 
 }
