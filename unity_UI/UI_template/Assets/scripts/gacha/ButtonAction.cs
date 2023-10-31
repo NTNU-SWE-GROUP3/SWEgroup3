@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
+using MiniJSON;
 
 public class ButtonAction : MonoBehaviour
 {
@@ -19,6 +20,14 @@ public class ButtonAction : MonoBehaviour
     bool yesClicked = false;
     bool noClicked = false;
 
+    [System.Serializable]
+    public class apiResponse
+    {
+        public string id;
+        public string type;
+        public string note;
+    }
+
     void Start()
     {
         messagePanel.SetActive(false);
@@ -31,7 +40,7 @@ public class ButtonAction : MonoBehaviour
         gotchaPanel = GetComponentInChildren<GotchaPanel>();
     }
 
-    public IEnumerator ExecuteDraw(string times,string mode)
+    public IEnumerator ExecuteDraw(string times, string mode)
     {
         messagePanel.SetActive(true);   // Show confirmation dialog
         mask.SetActive(true);
@@ -78,7 +87,7 @@ public class ButtonAction : MonoBehaviour
 
     public void DrawButton(bool isSingleDraw)
     {
-        string times = isSingleDraw ? "1" : "5";
+        string times = isSingleDraw ? "1" : "10";
 
         switch (gotchaPanel.currentPage)
         {
@@ -86,12 +95,12 @@ public class ButtonAction : MonoBehaviour
                 mode = "coin";
                 Debug.Log("Coin Mode");
                 // StartCoroutine(SendRequest(playerId, mode, times));
-                StartCoroutine(ExecuteDraw(times,mode));
+                StartCoroutine(ExecuteDraw(times, mode));
                 break;
             case 2:
                 mode = "cash";
                 Debug.Log("Cash Mode");
-                StartCoroutine(ExecuteDraw(times,mode));
+                StartCoroutine(ExecuteDraw(times, mode));
                 break;
             default:
                 break;
@@ -128,7 +137,32 @@ public class ButtonAction : MonoBehaviour
 
     void ShowResponse(string response)
     {
-        Debug.Log(response);
+        List<object> jsonArray = Json.Deserialize(response) as List<object>;
+
+        if (jsonArray != null)
+        {
+            foreach (var item in jsonArray)
+            {
+                // Check if each item is a dictionary
+                Dictionary<string, object> dict = item as Dictionary<string, object>;
+                if (dict != null)
+                {
+                    // Access values by key
+                    string id = dict["id"].ToString();
+                    string type = dict["type"].ToString();
+                    string note = dict["note"].ToString();
+
+                    Debug.Log("ID: " + id);
+                    Debug.Log("Type: " + type);
+                    Debug.Log("Note: " + note);
+                }
+            }
+        }
+        else
+        {
+            Debug.LogError("Failed to parse JSON array.");
+        }
+        // Debug.Log(response);
     }
 
 }
