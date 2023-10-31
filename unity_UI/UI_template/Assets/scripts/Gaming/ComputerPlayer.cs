@@ -12,8 +12,9 @@ public class ComputerPlayer : MonoBehaviour
     
     public void PlayCard()
     {
-        int randomIndex = Random.Range(0,OpponentArea.transform.childCount);
-        Card = OpponentArea.transform.GetChild(randomIndex);
+        //int randomIndex = Random.Range(0,OpponentArea.transform.childCount);
+        //Card = OpponentArea.transform.GetChild(randomIndex);
+        Card = OpponentArea.transform.GetChild(OpponentArea.transform.childCount-1);
         Card.SetParent(OpponentShow.transform,false);
         Card.position = OpponentShow.transform.position;
         Card.gameObject.layer = LayerMask.NameToLayer("CardBack");
