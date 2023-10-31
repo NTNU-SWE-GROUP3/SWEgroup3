@@ -59,16 +59,11 @@ public class ShowCard : MonoBehaviour
 
             if (PlayerCard.cardName == "國王" && (OpponentCard.cardName == "王子" || OpponentCard.cardName == "騎士" || OpponentCard.cardName == "平民"))
             {
-<<<<<<< Updated upstream
-                if (isRevolution == false)
-                {
-=======
                 if (OpponentCard.id == 17)
                 {
                     StartCoroutine(Trojan(2));// 特洛伊木馬
                 }
                 if (isRevolution == false){
->>>>>>> Stashed changes
                     StartCoroutine(ToPlayerEarn());// 玩家贏
                 }
                 else
@@ -78,16 +73,11 @@ public class ShowCard : MonoBehaviour
             }
             else if (OpponentCard.cardName == "國王" && (PlayerCard.cardName == "王子" || PlayerCard.cardName == "騎士" || PlayerCard.cardName == "平民"))
             {
-<<<<<<< Updated upstream
-                if (isRevolution == false)
-                {
-=======
                 if (PlayerCard.id == 17)
                 {
                     StartCoroutine(Trojan(1));// 特洛伊木馬
                 }
                 if (isRevolution == false){
->>>>>>> Stashed changes
                     StartCoroutine(ToOpponentEarn());// 對手贏
                 }
                 else
@@ -97,16 +87,11 @@ public class ShowCard : MonoBehaviour
             }
             else if (PlayerCard.cardName == "皇后" && (OpponentCard.cardName == "國王" || OpponentCard.cardName == "騎士" || OpponentCard.cardName == "平民"))
             {
-<<<<<<< Updated upstream
-                if (isRevolution == false)
-                {
-=======
                 if (OpponentCard.id == 17)
                 {
                     StartCoroutine(Trojan(2));// 特洛伊木馬
                 }
                 if (isRevolution == false){
->>>>>>> Stashed changes
                     StartCoroutine(ToPlayerEarn());// 玩家贏
                 }
                 else
@@ -116,16 +101,11 @@ public class ShowCard : MonoBehaviour
             }
             else if (OpponentCard.cardName == "皇后" && (PlayerCard.cardName == "國王" || PlayerCard.cardName == "騎士" || PlayerCard.cardName == "平民"))
             {
-<<<<<<< Updated upstream
-                if (isRevolution == false)
-                {
-=======
                 if (PlayerCard.id == 17)
                 {
                     StartCoroutine(Trojan(1));// 特洛伊木馬
                 }
                 if (isRevolution == false){
->>>>>>> Stashed changes
                     StartCoroutine(ToOpponentEarn());// 對手贏
                 }
                 else
@@ -135,16 +115,11 @@ public class ShowCard : MonoBehaviour
             }
             else if (PlayerCard.cardName == "王子" && (OpponentCard.cardName == "皇后" || OpponentCard.cardName == "騎士" || OpponentCard.cardName == "平民"))
             {
-<<<<<<< Updated upstream
-                if (isRevolution == false)
-                {
-=======
                 if (OpponentCard.id == 17)
                 {
                     StartCoroutine(Trojan(2));// 特洛伊木馬
                 }
                 if (isRevolution == false){
->>>>>>> Stashed changes
                     StartCoroutine(ToPlayerEarn());// 玩家贏
                 }
                 else
@@ -154,16 +129,11 @@ public class ShowCard : MonoBehaviour
             }
             else if (OpponentCard.cardName == "王子" && (PlayerCard.cardName == "皇后" || PlayerCard.cardName == "騎士" || PlayerCard.cardName == "平民"))
             {
-<<<<<<< Updated upstream
-                if (isRevolution == false)
-                {
-=======
                 if (PlayerCard.id == 17)
                 {
                     StartCoroutine(Trojan(1));// 特洛伊木馬
                 }
                 if (isRevolution == false){
->>>>>>> Stashed changes
                     StartCoroutine(ToOpponentEarn());// 對手贏
                 }
                 else
@@ -173,16 +143,11 @@ public class ShowCard : MonoBehaviour
             }
             else if (PlayerCard.cardName == "騎士" && (OpponentCard.cardName == "殺手" || OpponentCard.cardName == "平民"))
             {
-<<<<<<< Updated upstream
-                if (isRevolution == false)
-                {
-=======
                 if (OpponentCard.id == 17)
                 {
                     StartCoroutine(Trojan(2));// 特洛伊木馬
                 }
                 if (isRevolution == false){
->>>>>>> Stashed changes
                     StartCoroutine(ToPlayerEarn());// 玩家贏
                 }
                 else
@@ -192,16 +157,11 @@ public class ShowCard : MonoBehaviour
             }
             else if (OpponentCard.cardName == "騎士" && (PlayerCard.cardName == "殺手" || PlayerCard.cardName == "平民"))
             {
-<<<<<<< Updated upstream
-                if (isRevolution == false)
-                {
-=======
                 if (PlayerCard.id == 17)
                 {
                     StartCoroutine(Trojan(1));// 特洛伊木馬
                 }
                 if (isRevolution == false){
->>>>>>> Stashed changes
                     StartCoroutine(ToOpponentEarn());// 對手贏
                 }
                 else
