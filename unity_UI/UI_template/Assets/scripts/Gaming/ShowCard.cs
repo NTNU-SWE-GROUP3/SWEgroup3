@@ -259,16 +259,16 @@ public class ShowCard : MonoBehaviour
                     Debug.Log("大革命");
                     isRevolution = true;
                 }
-                // 爆發式成長 p.s. 不太確定為何turn會多1
+                // 爆發式成長
                 else if (PlayerCard.id == 15)
                 {
                     Debug.Log("爆發式成長");
-                    PlayerX = GameController.Turn - 1;
+                    PlayerX = GameController.Turn;
                 }
                 else if (OpponentCard.id == 15)
                 {
                     Debug.Log("爆發式成長");
-                    OpponentX = GameController.Turn - 1;
+                    OpponentX = GameController.Turn;
                 }
 
             }

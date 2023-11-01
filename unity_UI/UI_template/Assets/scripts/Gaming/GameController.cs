@@ -15,7 +15,7 @@ public class GameController : MonoBehaviour
     
     void Start()
     {
-        Turn = 1;
+        Turn = 0;
         isCom = true;
         drawCard = GameObject.Find("GameController").GetComponent<DrawCard>();
         Timer = GameObject.Find("GameController").GetComponent<CountDown>();
@@ -34,13 +34,14 @@ public class GameController : MonoBehaviour
     }
     public void TurnStart()
     {
+            Turn++;
             TurnText.text = "回合:" + Turn.ToString();
             StartCoroutine(Timer.TurnCountdown());
             if(isCom == true)
             {
                 ComPlayer.PlayRandomCard();
             }
-            Turn++;
+            
     }
     
 }
