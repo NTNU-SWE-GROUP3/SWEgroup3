@@ -15,7 +15,6 @@ public class GameController : MonoBehaviour
     
     void Start()
     {
-        Turn = 0;
         isCom = true;
         drawCard = GameObject.Find("GameController").GetComponent<DrawCard>();
         Timer = GameObject.Find("GameController").GetComponent<CountDown>();
@@ -27,7 +26,7 @@ public class GameController : MonoBehaviour
 
     public void GameBegin()
     {
-        Turn = 1;
+        Turn = 0;
         drawCard.Draw();
         // Game Start
         TurnStart();
