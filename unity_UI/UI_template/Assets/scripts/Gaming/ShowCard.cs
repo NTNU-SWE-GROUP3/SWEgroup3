@@ -61,7 +61,7 @@ public class ShowCard : MonoBehaviour
             {
                 if (OpponentCard.id == 17)
                 {
-                    StartCoroutine(Trojan(2));// 特洛伊木馬
+                    StartCoroutine(Trojan(OpponentEarn,PlayerEarn));// 特洛伊木馬
                 }
                 if (isRevolution == false){
                     StartCoroutine(ToPlayerEarn());// 玩家贏
@@ -75,7 +75,7 @@ public class ShowCard : MonoBehaviour
             {
                 if (PlayerCard.id == 17)
                 {
-                    StartCoroutine(Trojan(1));// 特洛伊木馬
+                    StartCoroutine(Trojan(PlayerEarn,OpponentEarn));// 特洛伊木馬
                 }
                 if (isRevolution == false){
                     StartCoroutine(ToOpponentEarn());// 對手贏
@@ -89,7 +89,7 @@ public class ShowCard : MonoBehaviour
             {
                 if (OpponentCard.id == 17)
                 {
-                    StartCoroutine(Trojan(2));// 特洛伊木馬
+                    StartCoroutine(Trojan(OpponentEarn,PlayerEarn));// 特洛伊木馬
                 }
                 if (isRevolution == false){
                     StartCoroutine(ToPlayerEarn());// 玩家贏
@@ -103,7 +103,7 @@ public class ShowCard : MonoBehaviour
             {
                 if (PlayerCard.id == 17)
                 {
-                    StartCoroutine(Trojan(1));// 特洛伊木馬
+                    StartCoroutine(Trojan(PlayerEarn,OpponentEarn));// 特洛伊木馬
                 }
                 if (isRevolution == false){
                     StartCoroutine(ToOpponentEarn());// 對手贏
@@ -117,7 +117,7 @@ public class ShowCard : MonoBehaviour
             {
                 if (OpponentCard.id == 17)
                 {
-                    StartCoroutine(Trojan(2));// 特洛伊木馬
+                    StartCoroutine(Trojan(OpponentEarn,PlayerEarn));// 特洛伊木馬
                 }
                 if (isRevolution == false){
                     StartCoroutine(ToPlayerEarn());// 玩家贏
@@ -131,7 +131,7 @@ public class ShowCard : MonoBehaviour
             {
                 if (PlayerCard.id == 17)
                 {
-                    StartCoroutine(Trojan(1));// 特洛伊木馬
+                    StartCoroutine(Trojan(PlayerEarn,OpponentEarn));// 特洛伊木馬
                 }
                 if (isRevolution == false){
                     StartCoroutine(ToOpponentEarn());// 對手贏
@@ -145,7 +145,7 @@ public class ShowCard : MonoBehaviour
             {
                 if (OpponentCard.id == 17)
                 {
-                    StartCoroutine(Trojan(2));// 特洛伊木馬
+                    StartCoroutine(Trojan(OpponentEarn,PlayerEarn));// 特洛伊木馬
                 }
                 if (isRevolution == false){
                     StartCoroutine(ToPlayerEarn());// 玩家贏
@@ -159,7 +159,7 @@ public class ShowCard : MonoBehaviour
             {
                 if (PlayerCard.id == 17)
                 {
-                    StartCoroutine(Trojan(1));// 特洛伊木馬
+                    StartCoroutine(Trojan(PlayerEarn,OpponentEarn));// 特洛伊木馬
                 }
                 if (isRevolution == false){
                     StartCoroutine(ToOpponentEarn());// 對手贏
@@ -400,37 +400,20 @@ public class ShowCard : MonoBehaviour
         GC.TurnStart();
         WhoWins.gameObject.SetActive(false);
     }
-    IEnumerator Trojan(int who)
+    IEnumerator Trojan(GameObject WhoEarn,GameObject WhoLoss)
     {
         Debug.Log("特洛伊");
-        // 1 => player  | 2 => com
-        if (who == 1)
+        yield return new WaitForSeconds(1);
+        double halfOfCards = Mathf.Ceil(WhoLoss.transform.childCount / 2);
+        Debug.Log(halfOfCards);
+        for(;WhoLoss.transform.childCount > halfOfCards;)
         {
-            yield return new WaitForSeconds(1);
-            double halfOfCards = Mathf.Ceil(OpponentEarn.transform.childCount / 2);
-            Debug.Log(halfOfCards);
-            for(;OpponentEarn.transform.childCount > halfOfCards;)
-            {
-                Card = OpponentEarn.transform.GetChild(OpponentEarn.transform.childCount - 1);
-                Card.SetParent(PlayerEarn.transform,false);
-                Card.position = PlayerEarn.transform.position;
-                // 玩家贏牌顯示
-                PlayerEarnText.text  = (PlayerEarn.transform.childCount + PlayerX).ToString();
-            }
-        }
-        if (who == 2)
-        {
-            yield return new WaitForSeconds(1);
-            double halfOfCards = Mathf.Ceil(PlayerEarn.transform.childCount / 2);
-            Debug.Log(halfOfCards);
-            for(;PlayerEarn.transform.childCount > halfOfCards;)
-            {
-                Card = PlayerEarn.transform.GetChild(PlayerEarn.transform.childCount - 1);
-                Card.SetParent(OpponentEarn.transform,false);
-                Card.position = OpponentEarn.transform.position;
-                // 玩家贏牌顯示
-                OpponentEarnText.text  = (OpponentEarn.transform.childCount + OpponentX).ToString();
-            }
+            Card = WhoLoss.transform.GetChild(WhoLoss.transform.childCount - 1);
+            Card.SetParent(WhoEarn.transform,false);
+            Card.position = WhoEarn.transform.position;
+            // 玩家贏牌顯示
+            OpponentEarnText.text  = (OpponentEarn.transform.childCount + OpponentX).ToString();
+            PlayerEarnText.text  = (PlayerEarn.transform.childCount + PlayerX).ToString();
         }
     }
 }
