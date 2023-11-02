@@ -15,12 +15,14 @@ public class CountDown : MonoBehaviour
     public GameObject PlayerArea;
     public GameObject PlayerShow;
     public GameObject ShowDisplay;
+    public GameObject MessagePanel;
     public Transform Card;
     ShowCard showcard;
 
     // Start is called before the first frame update
     private void Start()
     {
+        MessagePanel.SetActive(false);
         GC = GameObject.Find("GameController").GetComponent<GameController>();
         showcard = GameObject.Find("GameController").GetComponent<ShowCard>();
         StartCoroutine(CountdownToStart());
@@ -42,6 +44,7 @@ public class CountDown : MonoBehaviour
 
     public IEnumerator TurnCountdown()
     {
+        MessagePanel.SetActive(false);
         TurnTime = 5;
         TimerText.gameObject.SetActive(true);
         while(TurnTime >= 0)
@@ -57,6 +60,8 @@ public class CountDown : MonoBehaviour
         yield return new WaitForSeconds(1f);
         showcard.Show(); 
         TimerText.gameObject.SetActive(false);
+        yield return new WaitForSeconds(1f);
+        MessagePanel.SetActive(true);
     }
 
     public void NoPlayCard()
