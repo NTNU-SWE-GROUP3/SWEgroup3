@@ -35,7 +35,7 @@ public class Pg1PanelController : MonoBehaviour
     }
     public void ShowPrincePanel(){
         BackToSkinMain();
-        KnightPanel.SetActive(true);
+        PrincePanel.SetActive(true);
     }
     public void ShowKnightPanel(){
         BackToSkinMain();
