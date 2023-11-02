@@ -9,7 +9,7 @@ public class CountDown : MonoBehaviour
 {
     GameController GC;
     public int countdownTime;
-    public static int TurnTime = 3;
+    public static int TurnTime = 5;
     public Text countdownDisplay;
     public Text TimerText;
     public GameObject PlayerArea;
@@ -42,7 +42,7 @@ public class CountDown : MonoBehaviour
 
     public IEnumerator TurnCountdown()
     {
-        TurnTime = 3;
+        TurnTime = 5;
         TimerText.gameObject.SetActive(true);
         while(TurnTime >= 0)
         {
