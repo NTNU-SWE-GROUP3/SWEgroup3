@@ -197,21 +197,21 @@ public class ShowCard : MonoBehaviour
                 if (OpponentCard.cardSkill == "爆發式成長")
                 {
                     //StartCoroutine();
-                    StartCoroutine(PlayerResetAll());
+                    StartCoroutine(ResetAll(OpponentEarn));
                 }
                 else if (OpponentCard.cardSkill == "大革命")
                 {
                     //StartCoroutine();
-                    StartCoroutine(PlayerResetAll());
+                    StartCoroutine(ResetAll(OpponentEarn));
                 }
                 else if (OpponentCard.cardSkill == "特洛伊木馬")
                 {
                     //StartCoroutine();
-                    StartCoroutine(PlayerResetAll());
+                    StartCoroutine(ResetAll(OpponentEarn));
                 }
                 else
                 {
-                    StartCoroutine(PlayerResetAll());
+                    StartCoroutine(ResetAll(OpponentEarn));
                 }
             }
             else if (OpponentCard.cardName == "平民" && OpponentCard.cardSkill == "全部重置" && (PlayerCard.cardName == "平民" || PlayerCard.cardName == "殺手"))
@@ -220,21 +220,21 @@ public class ShowCard : MonoBehaviour
                 if (PlayerCard.cardSkill == "爆發式成長")
                 {
                     //StartCoroutine();
-                    StartCoroutine(OpponentResetAll());
+                    StartCoroutine(ResetAll(PlayerEarn));
                 }
                 else if (PlayerCard.cardSkill == "大革命")
                 {
                     //StartCoroutine();
-                    StartCoroutine(OpponentResetAll());
+                    StartCoroutine(ResetAll(PlayerEarn));
                 }
                 else if (PlayerCard.cardSkill == "特洛伊木馬")
                 {
                     //StartCoroutine();
-                    StartCoroutine(OpponentResetAll());
+                    StartCoroutine(ResetAll(PlayerEarn));
                 }
                 else
                 {
-                    StartCoroutine(OpponentResetAll());
+                    StartCoroutine(ResetAll(PlayerEarn));
                 }
             }
             else if (PlayerCard.cardName == "平民" && PlayerCard.cardSkill == "簡易剔除" && (OpponentCard.cardName == "平民" || OpponentCard.cardName == "殺手"))
@@ -345,34 +345,26 @@ public class ShowCard : MonoBehaviour
         WhoWins.gameObject.SetActive(false);
     }
     //玩家觸發全部重置
-    IEnumerator PlayerResetAll()
+    IEnumerator ResetAll(GameObject WhoLoss)
     {
         yield return new WaitForSeconds(1);
         WhoWins.gameObject.SetActive(true);
         WhoWins.text = "全部重置!";
 
-        //兩張卡移至DrawArea
-        yield return new WaitForSeconds(1);
-        PlayerCardObject.transform.SetParent(DrawArea.transform, false);
-        OpponentCardObject.transform.SetParent(DrawArea.transform, false);
-        OpponentEarn.transform.SetParent(DrawArea.transform, false);
-        //下回合Start
-        yield return new WaitForSeconds(1);
-        GC.TurnStart();
-        WhoWins.gameObject.SetActive(false);
-    }
-    //對手觸發全部重置
-    IEnumerator OpponentResetAll()
-    {
-        yield return new WaitForSeconds(1);
-        WhoWins.gameObject.SetActive(true);
-        WhoWins.text = "全部重置!";
+        for (; WhoLoss.transform.childCount != 0;)
+        {
+            Card = WhoLoss.transform.GetChild(WhoLoss.transform.childCount - 1);
+            Card.SetParent(DrawArea.transform, false);
+            Card.position = DrawArea.transform.position;
+        }
 
-        //兩張卡移至DrawArea
+        //OpponentEarn移至DrawArea
         yield return new WaitForSeconds(1);
         PlayerCardObject.transform.SetParent(DrawArea.transform, false);
         OpponentCardObject.transform.SetParent(DrawArea.transform, false);
-        PlayerEarn.transform.SetParent(DrawArea.transform, false);
+        PlayerEarnText.text = (PlayerEarn.transform.childCount + PlayerX).ToString();
+        OpponentEarnText.text = (OpponentEarn.transform.childCount + OpponentX).ToString();
+
         //下回合Start
         yield return new WaitForSeconds(1);
         GC.TurnStart();
