@@ -284,8 +284,7 @@ public class ShowCard : MonoBehaviour
                 StartCoroutine(ToDrawArea());
             }
         }
-        DropZone.haveCard = false;
-        DropZone.backToHand = true;
+        
         //-------------------------\\
 
     }

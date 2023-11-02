@@ -33,6 +33,9 @@ public class GameController : MonoBehaviour
     }
     public void TurnStart()
     {
+        DropZone.haveCard = false;
+        DropZone.backToHand = true;
+
             Turn++;
             TurnText.text = "回合:" + Turn.ToString();
             StartCoroutine(Timer.TurnCountdown());
