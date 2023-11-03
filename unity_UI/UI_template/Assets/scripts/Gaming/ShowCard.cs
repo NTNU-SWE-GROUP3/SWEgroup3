@@ -316,7 +316,7 @@ public class ShowCard : MonoBehaviour
 
         //下回合Start    
         yield return new WaitForSeconds(1);
-        if (PlayerEarn.transform.childCount < 10)
+        if (PlayerEarn.transform.childCount + PlayerX< 10)
         {
             GC.TurnStart();
         }
@@ -348,7 +348,7 @@ public class ShowCard : MonoBehaviour
         OpponentEarnText.text = (OpponentEarn.transform.childCount + OpponentX).ToString();
         //下回合Start   
         yield return new WaitForSeconds(1);
-        if (OpponentEarn.transform.childCount < 10)
+        if (OpponentEarn.transform.childCount+ OpponentX < 10)
         {
             GC.TurnStart();
         }
