@@ -26,7 +26,7 @@ public class CardDisplay : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(this.gameObject.layer == 9)
+        if(this.gameObject.layer == 9 ||this.gameObject.layer == 12)
         {
             cardBack = false;
         }

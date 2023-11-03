@@ -17,6 +17,8 @@ GameObject:
   - component: {fileID: 6221166439560918153}
   - component: {fileID: 7103141091513705875}
   - component: {fileID: 723506179968665737}
+  - component: {fileID: 3884580701388975830}
+  - component: {fileID: 7661644025375733563}
   m_Layer: 8
   m_Name: Card
   m_TagString: Card
@@ -102,7 +104,6 @@ MonoBehaviour:
     cardDescription: 
     set: 0
     cardSprite: {fileID: 0}
-  displayId: 0
   PlayerArea: {fileID: 0}
   id: 0
   cardName: 
@@ -229,6 +230,43 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 7661644025375733563}
+          m_TargetAssemblyTypeName: ClickDetector, Assembly-CSharp
+          m_MethodName: OnPointerClick
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &3884580701388975830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 225055715617019185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0baa7740f2eafbf48bb16d7577f02ef4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardPanel: {fileID: 0}
+--- !u!114 &7661644025375733563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 225055715617019185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0f88a308dacfdf4784deaf626c033a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3110913138135134500
 GameObject:
   m_ObjectHideFlags: 0

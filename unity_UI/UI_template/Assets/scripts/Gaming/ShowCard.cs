@@ -5,11 +5,15 @@ using UnityEngine.UI;
 public class ShowCard : MonoBehaviour
 {
     GameController GC;
+
+    
     public GameObject PlayerShow;
     public GameObject OpponentShow;
     public GameObject PlayerEarn;
     public GameObject OpponentEarn;
     public GameObject DrawArea;
+    public GameObject OpponentArea;
+    public Text skillMessage;
     public Text WhoWins;
     public Text PlayerEarnText;
     public Text OpponentEarnText;
@@ -37,10 +41,8 @@ public class ShowCard : MonoBehaviour
         OpponentCardObject.layer = LayerMask.NameToLayer("Show");
         PlayerCard = PlayerCardObject.GetComponent<CardDisplay>();
         OpponentCard = OpponentCardObject.GetComponent<CardDisplay>();
-        // 判斷(可以用PlayerCard.cardName & OpponentCard.cardName，如果是平民有技能可以比PlayerCard.id & OpponentCard.id)
-
+        // 判斷
         //-------------------------\\
-
         // 不敗的勇者
         if (PlayerCard.id == 9)
         {
@@ -171,6 +173,7 @@ public class ShowCard : MonoBehaviour
             }
             else if (PlayerCard.cardName == "殺手" && (OpponentCard.cardName == "國王" || OpponentCard.cardName == "王子" || OpponentCard.cardName == "皇后"))
             {
+                
                 if (isRevolution == false)
                 {
                     StartCoroutine(ToPlayerEarn());// 玩家贏
@@ -179,6 +182,8 @@ public class ShowCard : MonoBehaviour
                 {
                     StartCoroutine(ToOpponentEarn());// 對手贏
                 }
+                // 測試用，現在第一張出殺手會發動簡易剃除
+                StartCoroutine(PlayerSimpleRejection());
             }
             else if (OpponentCard.cardName == "殺手" && (PlayerCard.cardName == "國王" || PlayerCard.cardName == "王子" || PlayerCard.cardName == "皇后"))
             {
@@ -191,64 +196,6 @@ public class ShowCard : MonoBehaviour
                     StartCoroutine(ToPlayerEarn());// 玩家贏
                 }
             }
-            // else if (PlayerCard.cardName == "平民" && PlayerCard.cardSkill == "全部重置" && (OpponentCard.cardName == "平民" || OpponentCard.cardName == "殺手"))
-            // {
-            //     //玩家觸發全部重置
-            //     if (OpponentCard.cardSkill == "爆發式成長")
-            //     {
-            //         //StartCoroutine();
-            //         StartCoroutine(ResetAll(OpponentEarn));
-            //     }
-            //     else if (OpponentCard.cardSkill == "大革命")
-            //     {
-            //         //StartCoroutine();
-            //         StartCoroutine(ResetAll(OpponentEarn));
-            //     }
-            //     else if (OpponentCard.cardSkill == "特洛伊木馬")
-            //     {
-            //         //StartCoroutine();
-            //         StartCoroutine(ResetAll(OpponentEarn));
-            //     }
-            //     else
-            //     {
-            //         StartCoroutine(ResetAll(OpponentEarn));
-            //     }
-            // }
-            // else if (OpponentCard.cardName == "平民" && OpponentCard.cardSkill == "全部重置" && (PlayerCard.cardName == "平民" || PlayerCard.cardName == "殺手"))
-            // {
-            //     //玩家觸發全部重置
-            //     if (PlayerCard.cardSkill == "爆發式成長")
-            //     {
-            //         //StartCoroutine();
-            //         StartCoroutine(ResetAll(PlayerEarn));
-            //     }
-            //     else if (PlayerCard.cardSkill == "大革命")
-            //     {
-            //         //StartCoroutine();
-            //         StartCoroutine(ResetAll(PlayerEarn));
-            //     }
-            //     else if (PlayerCard.cardSkill == "特洛伊木馬")
-            //     {
-            //         //StartCoroutine();
-            //         StartCoroutine(ResetAll(PlayerEarn));
-            //     }
-            //     else
-            //     {
-            //         StartCoroutine(ResetAll(PlayerEarn));
-            //     }
-            // }
-            // else if (PlayerCard.cardName == "平民" && PlayerCard.cardSkill == "簡易剔除" && (OpponentCard.cardName == "平民" || OpponentCard.cardName == "殺手"))
-            // {
-            //     //玩家觸發簡易剔除
-            //     //StartCoroutine(PlayerSimpleRejection());
-            //     StartCoroutine(ToDrawArea());
-            // }
-            // else if (OpponentCard.cardName == "平民" && PlayerCard.cardName == "平民" && OpponentCard.cardSkill == "簡易剔除")
-            // {
-            //     //對手觸發簡易剔除
-            //     //StartCoroutine(OpponentSimpleRejection());
-            //     StartCoroutine(ToDrawArea());
-            // }
             else
             {
                 
@@ -376,10 +323,20 @@ public class ShowCard : MonoBehaviour
         OpponentEarnText.text = (OpponentEarn.transform.childCount + OpponentX).ToString();
     }
     //玩家簡易剔除
-    /*IEnumerator PlayerSimpleRejection()
+    IEnumerator PlayerSimpleRejection()
     {
-        //從對手手排中選出一張卡牌移出遊戲... 什麼意思...
-    }*/
+        ToMessagePanel card;
+        yield return new WaitForSeconds(1);
+        WhoWins.gameObject.SetActive(false);
+        skillMessage.gameObject.SetActive(true);
+        skillMessage.text = "發動簡易剔除!";
+        for(int i = 0;i<OpponentArea.transform.childCount;i++)
+        {
+            card = OpponentArea.transform.GetChild(i).GetComponent<ToMessagePanel>();
+            card.ShowOnMessagePanel();
+        }
+
+    }
     // 平手
     IEnumerator ToDrawArea()
     {
