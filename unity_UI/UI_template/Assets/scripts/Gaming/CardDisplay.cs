@@ -79,7 +79,17 @@ public class CardDisplay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(this.gameObject.layer == 12)
+        {
+            if(ClickDetector.cardId == this.id)
+            {
+                this.GetComponent<Image>().color = new Color32(0, 255, 0,100);
+            }
+            else
+            {
+                this.GetComponent<Image>().color = new Color32(0,0,0,0);
+            }
+        }
         
 
         

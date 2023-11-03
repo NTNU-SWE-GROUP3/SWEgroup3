@@ -30,10 +30,10 @@ public class DrawCard : MonoBehaviour
     }
     IEnumerator Drawing()
     {
-        var n = Random.Range(0, 2);
+        var n = Random.Range(1, 100);
         GameObject First ;
         GameObject Second;
-        if(n == 0)
+        if(n % 2 == 0)
         {
             First = OpponentArea;
             Second = PlayerArea;

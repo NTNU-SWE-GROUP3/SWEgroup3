@@ -32,7 +32,7 @@ public class DragCard : MonoBehaviour,IDragHandler,IEndDragHandler,IBeginDragHan
     public void OnDrag(PointerEventData eventData)
     {
         //Debug.Log("OnDrag");
-        Debug.Log(this.transform.parent.name);
+        // Debug.Log(this.transform.parent.name);
         if(eventData.pointerDrag.GetComponent<CardDisplay>().cardBack == false && this.transform.parent.name == "PlayerArea"&& !DropZone.haveCard)
         {
             rectTransform.position = eventData.position;

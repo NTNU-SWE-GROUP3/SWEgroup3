@@ -5,13 +5,13 @@ using UnityEngine.UI;
 public class ShowCard : MonoBehaviour
 {
     GameController GC;
-
-    
+    DeleteChange deletChange;
     public GameObject PlayerShow;
     public GameObject OpponentShow;
     public GameObject PlayerEarn;
     public GameObject OpponentEarn;
     public GameObject DrawArea;
+    public GameObject PlayerArea;
     public GameObject OpponentArea;
     public Text skillMessage;
     public Text WhoWins;
@@ -20,6 +20,7 @@ public class ShowCard : MonoBehaviour
     public bool isRevolution;
     public int PlayerX;
     public int OpponentX;
+    bool useSkill;
     GameObject PlayerCardObject;
     GameObject OpponentCardObject;
     CardDisplay PlayerCard;
@@ -31,6 +32,7 @@ public class ShowCard : MonoBehaviour
         isRevolution = false;
         WhoWins.gameObject.SetActive(false);
         GC = GameObject.Find("GameController").GetComponent<GameController>();
+        deletChange = GameObject.Find("GameController").GetComponent<DeleteChange>();
 
     }
     public void Show()
@@ -44,6 +46,7 @@ public class ShowCard : MonoBehaviour
         // 判斷
         //-------------------------\\
         // 不敗的勇者
+        useSkill = false;
         if (PlayerCard.id == 9)
         {
             // 玩家贏
@@ -182,8 +185,7 @@ public class ShowCard : MonoBehaviour
                 {
                     StartCoroutine(ToOpponentEarn());// 對手贏
                 }
-                // 測試用，現在第一張出殺手會發動簡易剃除
-                StartCoroutine(PlayerSimpleRejection());
+                
             }
             else if (OpponentCard.cardName == "殺手" && (PlayerCard.cardName == "國王" || PlayerCard.cardName == "王子" || PlayerCard.cardName == "皇后"))
             {
@@ -198,7 +200,8 @@ public class ShowCard : MonoBehaviour
             }
             else
             {
-                
+                // 平手
+                StartCoroutine(ToDrawArea());
                 // 大革命
                 if (PlayerCard.id == 16 || OpponentCard.id == 16)
                 {
@@ -219,16 +222,30 @@ public class ShowCard : MonoBehaviour
                 // 全部重製
                 if (PlayerCard.id == 8)
                 {
-                    Debug.Log("玩家發動全部重製");
+                    useSkill = true;
+                    Debug.Log("玩家發動全部重置");
                     StartCoroutine(ResetAll(OpponentEarn));
                 }
                 else if (OpponentCard.id == 8)
                 {
-                    Debug.Log("對手發動全部重製");
+                    useSkill = true;
+                    Debug.Log("對手發動全部重置");
                     StartCoroutine(ResetAll(PlayerEarn));
                 }
-                // 平手
-                StartCoroutine(ToDrawArea());
+                // 簡易剔除
+                if (PlayerCard.id == 7)
+                {
+                    useSkill = true;
+                    Debug.Log("玩家發動簡易剔除");
+                    StartCoroutine(PlayerSimpleRejection());
+                }
+                else if(OpponentCard.id == 7)
+                {
+                    useSkill = true;
+                    Debug.Log("對手發動簡易剔除");
+                    StartCoroutine(OpponentSimpleRejection());;
+                }
+                
             }
         }
         
@@ -239,6 +256,7 @@ public class ShowCard : MonoBehaviour
     IEnumerator ToPlayerEarn()
     {
         yield return new WaitForSeconds(1);
+        skillMessage.gameObject.SetActive(false);
         WhoWins.gameObject.SetActive(true);
         WhoWins.text = "你贏了!";
         //DrawArea有牌 => 移至PlayerEarn
@@ -261,8 +279,8 @@ public class ShowCard : MonoBehaviour
         // 玩家贏牌顯示
         PlayerEarnText.text = (PlayerEarn.transform.childCount + PlayerX).ToString();
 
-        //下回合Start    
-        yield return new WaitForSeconds(1);
+        // 下回合Start    
+        yield return new WaitForSeconds(3);
         if (PlayerEarn.transform.childCount + PlayerX< 10)
         {
             GC.TurnStart();
@@ -273,6 +291,7 @@ public class ShowCard : MonoBehaviour
     IEnumerator ToOpponentEarn()
     {
         yield return new WaitForSeconds(1);
+        skillMessage.gameObject.SetActive(false);
         WhoWins.gameObject.SetActive(true);
         WhoWins.text = "你輸了!";
         //DrawArea有牌 => 移至OpponentEarn
@@ -294,7 +313,7 @@ public class ShowCard : MonoBehaviour
         // 對手贏牌顯示
         OpponentEarnText.text = (OpponentEarn.transform.childCount + OpponentX).ToString();
         //下回合Start   
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(3);
         if (OpponentEarn.transform.childCount+ OpponentX < 10)
         {
             GC.TurnStart();
@@ -321,6 +340,9 @@ public class ShowCard : MonoBehaviour
         OpponentCardObject.transform.SetParent(DrawArea.transform, false);
         PlayerEarnText.text = (PlayerEarn.transform.childCount + PlayerX).ToString();
         OpponentEarnText.text = (OpponentEarn.transform.childCount + OpponentX).ToString();
+        yield return new WaitForSeconds(5);
+        GC.TurnStart();
+        WhoWins.gameObject.SetActive(false);
     }
     //玩家簡易剔除
     IEnumerator PlayerSimpleRejection()
@@ -329,28 +351,28 @@ public class ShowCard : MonoBehaviour
         yield return new WaitForSeconds(1);
         WhoWins.gameObject.SetActive(false);
         skillMessage.gameObject.SetActive(true);
-        skillMessage.text = "發動簡易剔除!";
+        skillMessage.text = "簡易剔除!";
         for(int i = 0;i<OpponentArea.transform.childCount;i++)
         {
             card = OpponentArea.transform.GetChild(i).GetComponent<ToMessagePanel>();
             card.ShowOnMessagePanel();
         }
+        yield return new WaitForSeconds(8);
+        GC.TurnStart();
+        WhoWins.gameObject.SetActive(false);
 
     }
-    // 平手
-    IEnumerator ToDrawArea()
+    IEnumerator OpponentSimpleRejection()
     {
         yield return new WaitForSeconds(1);
-        WhoWins.gameObject.SetActive(true);
-        WhoWins.text = "平手!";
-        //兩張卡移至DrawArea
-        yield return new WaitForSeconds(1);
-        PlayerCardObject.transform.SetParent(DrawArea.transform, false);
-        OpponentCardObject.transform.SetParent(DrawArea.transform, false);
-        PlayerEarnText.text = (PlayerEarn.transform.childCount + PlayerX).ToString();
-        OpponentEarnText.text = (OpponentEarn.transform.childCount + OpponentX).ToString();
-        //下回合Start
-        yield return new WaitForSeconds(1);
+        WhoWins.gameObject.SetActive(false);
+        skillMessage.gameObject.SetActive(true);
+        skillMessage.text = "簡易剔除!";
+        if(GC.isCom == true)
+        {
+            deletChange.Delete(PlayerArea,PlayerArea.transform.GetChild(0).gameObject.GetComponent<CardDisplay>().id);
+        }
+        yield return new WaitForSeconds(3);
         GC.TurnStart();
         WhoWins.gameObject.SetActive(false);
     }
@@ -370,4 +392,29 @@ public class ShowCard : MonoBehaviour
             PlayerEarnText.text  = (PlayerEarn.transform.childCount + PlayerX).ToString();
         }
     }
+    // 平手
+    IEnumerator ToDrawArea()
+    {
+        yield return new WaitForSeconds(1);
+        skillMessage.gameObject.SetActive(false);
+        WhoWins.gameObject.SetActive(true);
+        WhoWins.text = "平手!";
+        //兩張卡移至DrawArea
+        yield return new WaitForSeconds(1);
+        PlayerCardObject.transform.SetParent(DrawArea.transform, false);
+        OpponentCardObject.transform.SetParent(DrawArea.transform, false);
+        PlayerEarnText.text = (PlayerEarn.transform.childCount + PlayerX).ToString();
+        OpponentEarnText.text = (OpponentEarn.transform.childCount + OpponentX).ToString();
+        //下回合Start
+        if(useSkill == false)
+        {
+        yield return new WaitForSeconds(3);
+        if (PlayerEarn.transform.childCount + PlayerX< 10)
+        {
+            GC.TurnStart();
+        }
+        WhoWins.gameObject.SetActive(false);
+        }
+    }
+    
 }
