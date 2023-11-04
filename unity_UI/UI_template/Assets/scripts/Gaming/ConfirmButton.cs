@@ -21,14 +21,8 @@ public class ConfirmButton : MonoBehaviour
         if(skillName.text == "簡易剔除!")
         {
             deletChange.Delete(OpponentArea,ClickDetector.cardId);
+            ShowCard.RejectTimer = 1;
         }
-        ClickDetector.cardId = -1;
-        for(int i = 0 ; i < Panel.transform.childCount;i++)
-        {
-            Destroy(Panel.transform.GetChild(i).gameObject);
-        }
-        gameObject.SetActive(false);
-        CancelButton.SetActive(false);
         MessagePanel.SetActive(false);
     }
 }

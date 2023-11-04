@@ -57,8 +57,8 @@ public class CountDown : MonoBehaviour
             NoPlayCard();
         yield return new WaitForSeconds(0.5f);
         TimerText.text = "Show!";
-        yield return new WaitForSeconds(1f);
-        showcard.Show(); 
+        yield return new WaitForSeconds(0.5f);
+        StartCoroutine(showcard.Show()); 
         TimerText.gameObject.SetActive(false);
         yield return new WaitForSeconds(1f);
         MessagePanel.SetActive(true);

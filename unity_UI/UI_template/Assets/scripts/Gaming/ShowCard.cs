@@ -14,13 +14,17 @@ public class ShowCard : MonoBehaviour
     public GameObject PlayerArea;
     public GameObject OpponentArea;
     public Text skillMessage;
+    public Text skillDescription;
     public Text WhoWins;
+    public GameObject WinImage;
+    public GameObject SkillImage;
     public Text PlayerEarnText;
     public Text OpponentEarnText;
     public bool isRevolution;
     public int PlayerX;
     public int OpponentX;
-    bool useSkill;
+    public static int RejectTimer;
+    public Text RejectTimerText;
     GameObject PlayerCardObject;
     GameObject OpponentCardObject;
     CardDisplay PlayerCard;
@@ -29,13 +33,14 @@ public class ShowCard : MonoBehaviour
 
     void Start()
     {
+        RejectTimer = 8;
         isRevolution = false;
-        WhoWins.gameObject.SetActive(false);
+        RejectTimerText.gameObject.SetActive(false);
         GC = GameObject.Find("GameController").GetComponent<GameController>();
         deletChange = GameObject.Find("GameController").GetComponent<DeleteChange>();
 
     }
-    public void Show()
+    public IEnumerator Show()
     {
         PlayerCardObject = PlayerShow.transform.GetChild(0).gameObject;
         OpponentCardObject = OpponentShow.transform.GetChild(0).gameObject;
@@ -46,132 +51,153 @@ public class ShowCard : MonoBehaviour
         // 判斷
         //-------------------------\\
         // 不敗的勇者
-        useSkill = false;
-        if (PlayerCard.id == 9)
+        if (PlayerCard.id == 9 || OpponentCard.id == 9)
         {
-            // 玩家贏
-            Debug.Log("不敗的勇者");
-            StartCoroutine(ToPlayerEarn());
-        }
-        else if (OpponentCard.id == 9)
-        {
-            // 對手贏
-            Debug.Log("不敗的勇者");
-            StartCoroutine(ToOpponentEarn());
+            WinImage.SetActive(false);
+            SkillImage.SetActive(true);
+            skillMessage.gameObject.SetActive(true);
+            skillDescription.gameObject.SetActive(true);
+            skillMessage.text = "不敗的勇者!";
+            skillDescription.text = "可以贏過任何一張牌";
+            yield return new WaitForSeconds(3f);
+            if(PlayerCard.id == 9 )
+                StartCoroutine(ToPlayerEarn());
+            else
+                StartCoroutine(ToOpponentEarn());
+            yield return new WaitForSeconds(3f);
         }
         else
         {
 
             if (PlayerCard.cardName == "國王" && (OpponentCard.cardName == "王子" || OpponentCard.cardName == "騎士" || OpponentCard.cardName == "平民"))
             {
-                if (OpponentCard.id == 17)
-                {
-                    StartCoroutine(Trojan(OpponentEarn,PlayerEarn));// 特洛伊木馬
-                }
                 if (isRevolution == false){
                     StartCoroutine(ToPlayerEarn());// 玩家贏
                 }
                 else
                 {
                     StartCoroutine(ToOpponentEarn());// 對手贏
+                }
+                yield return new WaitForSeconds(3f);
+                if (OpponentCard.id == 17)
+                {
+                    StartCoroutine(Trojan(OpponentEarn,PlayerEarn));
+                    yield return new WaitForSeconds(3f);
                 }
             }
             else if (OpponentCard.cardName == "國王" && (PlayerCard.cardName == "王子" || PlayerCard.cardName == "騎士" || PlayerCard.cardName == "平民"))
             {
-                if (PlayerCard.id == 17)
-                {
-                    StartCoroutine(Trojan(PlayerEarn,OpponentEarn));// 特洛伊木馬
-                }
+                
                 if (isRevolution == false){
                     StartCoroutine(ToOpponentEarn());// 對手贏
                 }
                 else
                 {
                     StartCoroutine(ToPlayerEarn());// 玩家贏
+                }
+                yield return new WaitForSeconds(3f);
+                if (PlayerCard.id == 17)
+                {
+                    StartCoroutine(Trojan(PlayerEarn,OpponentEarn));
+                    yield return new WaitForSeconds(3f);
                 }
             }
             else if (PlayerCard.cardName == "皇后" && (OpponentCard.cardName == "國王" || OpponentCard.cardName == "騎士" || OpponentCard.cardName == "平民"))
             {
-                if (OpponentCard.id == 17)
-                {
-                    StartCoroutine(Trojan(OpponentEarn,PlayerEarn));// 特洛伊木馬
-                }
                 if (isRevolution == false){
                     StartCoroutine(ToPlayerEarn());// 玩家贏
                 }
                 else
                 {
                     StartCoroutine(ToOpponentEarn());// 對手贏
+                }
+                yield return new WaitForSeconds(3f);
+                if (OpponentCard.id == 17)
+                {
+                    StartCoroutine(Trojan(OpponentEarn,PlayerEarn));
+                    yield return new WaitForSeconds(3f);// 特洛伊木馬
                 }
             }
             else if (OpponentCard.cardName == "皇后" && (PlayerCard.cardName == "國王" || PlayerCard.cardName == "騎士" || PlayerCard.cardName == "平民"))
             {
-                if (PlayerCard.id == 17)
-                {
-                    StartCoroutine(Trojan(PlayerEarn,OpponentEarn));// 特洛伊木馬
-                }
                 if (isRevolution == false){
                     StartCoroutine(ToOpponentEarn());// 對手贏
                 }
                 else
                 {
                     StartCoroutine(ToPlayerEarn());// 玩家贏
+                }
+                yield return new WaitForSeconds(3f);
+                if (PlayerCard.id == 17)
+                {
+                    StartCoroutine(Trojan(PlayerEarn,OpponentEarn));
+                    yield return new WaitForSeconds(3f);
                 }
             }
             else if (PlayerCard.cardName == "王子" && (OpponentCard.cardName == "皇后" || OpponentCard.cardName == "騎士" || OpponentCard.cardName == "平民"))
             {
-                if (OpponentCard.id == 17)
-                {
-                    StartCoroutine(Trojan(OpponentEarn,PlayerEarn));// 特洛伊木馬
-                }
                 if (isRevolution == false){
                     StartCoroutine(ToPlayerEarn());// 玩家贏
                 }
                 else
                 {
                     StartCoroutine(ToOpponentEarn());// 對手贏
+                }
+                yield return new WaitForSeconds(3f);// 特洛伊木馬
+                if (OpponentCard.id == 17)
+                {
+                    StartCoroutine(Trojan(OpponentEarn,PlayerEarn));
+                    yield return new WaitForSeconds(3f);
                 }
             }
             else if (OpponentCard.cardName == "王子" && (PlayerCard.cardName == "皇后" || PlayerCard.cardName == "騎士" || PlayerCard.cardName == "平民"))
             {
-                if (PlayerCard.id == 17)
-                {
-                    StartCoroutine(Trojan(PlayerEarn,OpponentEarn));// 特洛伊木馬
-                }
                 if (isRevolution == false){
                     StartCoroutine(ToOpponentEarn());// 對手贏
                 }
                 else
                 {
                     StartCoroutine(ToPlayerEarn());// 玩家贏
+                }
+                yield return new WaitForSeconds(3f);// 特洛伊木馬
+                if (PlayerCard.id == 17)
+                {
+                    StartCoroutine(Trojan(PlayerEarn,OpponentEarn));
+                    yield return new WaitForSeconds(3f);
                 }
             }
             else if (PlayerCard.cardName == "騎士" && (OpponentCard.cardName == "殺手" || OpponentCard.cardName == "平民"))
             {
-                if (OpponentCard.id == 17)
-                {
-                    StartCoroutine(Trojan(OpponentEarn,PlayerEarn));// 特洛伊木馬
-                }
+                
                 if (isRevolution == false){
                     StartCoroutine(ToPlayerEarn());// 玩家贏
                 }
                 else
                 {
                     StartCoroutine(ToOpponentEarn());// 對手贏
+                }
+                yield return new WaitForSeconds(3f);
+                if (OpponentCard.id == 17)
+                {
+                    StartCoroutine(Trojan(OpponentEarn,PlayerEarn));
+                    yield return new WaitForSeconds(3f);
                 }
             }
             else if (OpponentCard.cardName == "騎士" && (PlayerCard.cardName == "殺手" || PlayerCard.cardName == "平民"))
             {
-                if (PlayerCard.id == 17)
-                {
-                    StartCoroutine(Trojan(PlayerEarn,OpponentEarn));// 特洛伊木馬
-                }
                 if (isRevolution == false){
-                    StartCoroutine(ToOpponentEarn());// 對手贏
+                    StartCoroutine(ToOpponentEarn());
+                    // 對手贏
                 }
                 else
                 {
                     StartCoroutine(ToPlayerEarn());// 玩家贏
+                }
+                yield return new WaitForSeconds(3f);
+                if (PlayerCard.id == 17)
+                {
+                    StartCoroutine(Trojan(PlayerEarn,OpponentEarn));
+                    yield return new WaitForSeconds(3f);
                 }
             }
             else if (PlayerCard.cardName == "殺手" && (OpponentCard.cardName == "國王" || OpponentCard.cardName == "王子" || OpponentCard.cardName == "皇后"))
@@ -185,6 +211,7 @@ public class ShowCard : MonoBehaviour
                 {
                     StartCoroutine(ToOpponentEarn());// 對手贏
                 }
+                 yield return new WaitForSeconds(3f);
                 
             }
             else if (OpponentCard.cardName == "殺手" && (PlayerCard.cardName == "國王" || PlayerCard.cardName == "王子" || PlayerCard.cardName == "皇后"))
@@ -197,66 +224,108 @@ public class ShowCard : MonoBehaviour
                 {
                     StartCoroutine(ToPlayerEarn());// 玩家贏
                 }
+                yield return new WaitForSeconds(3f);
             }
             else
             {
                 // 平手
                 StartCoroutine(ToDrawArea());
+                yield return new WaitForSeconds(3f);
+                WinImage.SetActive(false);
+                SkillImage.SetActive(true);
+                skillMessage.gameObject.SetActive(true);
+                skillDescription.gameObject.SetActive(true);
                 // 大革命
                 if (PlayerCard.id == 16 || OpponentCard.id == 16)
                 {
-                    Debug.Log("大革命");
+                    skillMessage.text = "大革命!";
+                    skillDescription.text = "從此回合卡牌強弱翻轉";
                     isRevolution = true;
+                    yield return new WaitForSeconds(3f);
                 }
                 // 爆發式成長
                 if (PlayerCard.id == 15)
                 {
-                    Debug.Log("玩家發動爆發式成長");
+                    skillMessage.text = "爆發式成長!";
+                    skillDescription.text = "玩家獲得 "+ GameController.Turn.ToString() + " 張牌";
                     PlayerX = GameController.Turn;
+                    yield return new WaitForSeconds(3f);
                 }
                 else if (OpponentCard.id == 15)
                 {
-                    Debug.Log("對手發動爆發式成長");
+                    skillMessage.text = "爆發式成長!";
+                    skillDescription.text = "對手獲得 "+ GameController.Turn.ToString() + " 張牌";
                     OpponentX = GameController.Turn;
+                    yield return new WaitForSeconds(3f);
                 }
                 // 全部重製
                 if (PlayerCard.id == 8)
                 {
-                    useSkill = true;
+                    skillMessage.text = "全部重置!";
+                    skillDescription.text = "將對手全部贏牌移至平手區";
                     Debug.Log("玩家發動全部重置");
-                    StartCoroutine(ResetAll(OpponentEarn));
+                    ResetAll(OpponentEarn);
+                    yield return new WaitForSeconds(3f);
                 }
                 else if (OpponentCard.id == 8)
                 {
-                    useSkill = true;
-                    Debug.Log("對手發動全部重置");
-                    StartCoroutine(ResetAll(PlayerEarn));
+                    skillMessage.text = "全部重置!";
+                    skillDescription.text = "玩家全部贏牌移至平手區";
+                    ResetAll(PlayerEarn);
+                    yield return new WaitForSeconds(3f);
                 }
                 // 簡易剔除
                 if (PlayerCard.id == 7)
                 {
-                    useSkill = true;
-                    Debug.Log("玩家發動簡易剔除");
-                    StartCoroutine(PlayerSimpleRejection());
+                    skillMessage.text = "簡易剔除!";
+                    skillDescription.text = "請選擇一張牌剔除";
+                    PlayerSimpleRejection();
+                    RejectTimerText.gameObject.SetActive(true);
+                    while(RejectTimer >= 0)
+                    {
+                        RejectTimerText.text = RejectTimer.ToString();
+                        yield return new WaitForSeconds(1);
+                        RejectTimer -- ;
+                    }
+                    RejectTimerText.gameObject.SetActive(false);
                 }
                 else if(OpponentCard.id == 7)
                 {
-                    useSkill = true;
-                    Debug.Log("對手發動簡易剔除");
-                    StartCoroutine(OpponentSimpleRejection());;
+                    skillMessage.text = "簡易剔除!";
+                    skillDescription.text = "對手將選擇一張牌剔除";
+                    OpponentSimpleRejection();
+                    yield return new WaitForSeconds(3f);
                 }
+
                 
             }
+            
         }
-        
         //-------------------------\\
+        OpponentEarnText.text  = (OpponentEarn.transform.childCount + OpponentX).ToString();
+        PlayerEarnText.text  = (PlayerEarn.transform.childCount + PlayerX).ToString();
+        if(OpponentEarn.transform.childCount + OpponentX < 10 && PlayerEarn.transform.childCount + PlayerX < 10)
+            StartCoroutine(GC.TurnStart());
+        else
+        {
+            WinImage.SetActive(true);
+            WhoWins.gameObject.SetActive(true);
+            if(PlayerEarn.transform.childCount + PlayerX >= 10 )
+            {
+                 WhoWins.text = "VICTORY";
+            }
+            else
+            {
+                WhoWins.text = "DEFEAT";
+            }
+        }
 
     }
     // 玩家贏
     IEnumerator ToPlayerEarn()
     {
-        yield return new WaitForSeconds(1);
-        skillMessage.gameObject.SetActive(false);
+        SkillImage.SetActive(false);
+        WinImage.SetActive(true);
         WhoWins.gameObject.SetActive(true);
         WhoWins.text = "你贏了!";
         //DrawArea有牌 => 移至PlayerEarn
@@ -268,6 +337,7 @@ public class ShowCard : MonoBehaviour
             Card.position = PlayerEarn.transform.position;
             // 玩家贏牌顯示
             PlayerEarnText.text = (PlayerEarn.transform.childCount + PlayerX).ToString();
+            yield return new WaitForSeconds(0.5f);
         }
 
         //兩張卡移至PlayerEarn
@@ -279,19 +349,13 @@ public class ShowCard : MonoBehaviour
         // 玩家贏牌顯示
         PlayerEarnText.text = (PlayerEarn.transform.childCount + PlayerX).ToString();
 
-        // 下回合Start    
-        yield return new WaitForSeconds(3);
-        if (PlayerEarn.transform.childCount + PlayerX< 10)
-        {
-            GC.TurnStart();
-        }
-        WhoWins.gameObject.SetActive(false);
+
     }
     // 對手贏
     IEnumerator ToOpponentEarn()
     {
-        yield return new WaitForSeconds(1);
-        skillMessage.gameObject.SetActive(false);
+        SkillImage.SetActive(false);
+        WinImage.SetActive(true);
         WhoWins.gameObject.SetActive(true);
         WhoWins.text = "你輸了!";
         //DrawArea有牌 => 移至OpponentEarn
@@ -303,6 +367,7 @@ public class ShowCard : MonoBehaviour
             Card.position = OpponentEarn.transform.position;
             // 對手贏牌顯示
             OpponentEarnText.text = (OpponentEarn.transform.childCount + OpponentX).ToString();
+            yield return new WaitForSeconds(0.5f);
         }
         //兩張卡移至OpponentEarn
         yield return new WaitForSeconds(1);
@@ -312,74 +377,48 @@ public class ShowCard : MonoBehaviour
         OpponentCardObject.transform.position = OpponentEarn.transform.position;
         // 對手贏牌顯示
         OpponentEarnText.text = (OpponentEarn.transform.childCount + OpponentX).ToString();
-        //下回合Start   
-        yield return new WaitForSeconds(3);
-        if (OpponentEarn.transform.childCount+ OpponentX < 10)
-        {
-            GC.TurnStart();
-        }
-        WhoWins.gameObject.SetActive(false);
     }
     //玩家觸發全部重置
-    IEnumerator ResetAll(GameObject WhoLoss)
+    void ResetAll(GameObject WhoLoss)
     {
-        yield return new WaitForSeconds(1);
-        WhoWins.gameObject.SetActive(true);
-        WhoWins.text = "全部重置!";
-
         for (; WhoLoss.transform.childCount != 0;)
         {
             Card = WhoLoss.transform.GetChild(WhoLoss.transform.childCount - 1);
             Card.SetParent(DrawArea.transform, false);
             Card.position = DrawArea.transform.position;
         }
-
-        //OpponentEarn移至DrawArea
-        yield return new WaitForSeconds(1);
         PlayerCardObject.transform.SetParent(DrawArea.transform, false);
         OpponentCardObject.transform.SetParent(DrawArea.transform, false);
-        PlayerEarnText.text = (PlayerEarn.transform.childCount + PlayerX).ToString();
-        OpponentEarnText.text = (OpponentEarn.transform.childCount + OpponentX).ToString();
-        yield return new WaitForSeconds(5);
-        GC.TurnStart();
-        WhoWins.gameObject.SetActive(false);
+
     }
     //玩家簡易剔除
-    IEnumerator PlayerSimpleRejection()
+    void PlayerSimpleRejection()
     {
         ToMessagePanel card;
-        yield return new WaitForSeconds(1);
-        WhoWins.gameObject.SetActive(false);
-        skillMessage.gameObject.SetActive(true);
-        skillMessage.text = "簡易剔除!";
         for(int i = 0;i<OpponentArea.transform.childCount;i++)
         {
             card = OpponentArea.transform.GetChild(i).GetComponent<ToMessagePanel>();
             card.ShowOnMessagePanel();
         }
-        yield return new WaitForSeconds(8);
-        GC.TurnStart();
-        WhoWins.gameObject.SetActive(false);
 
     }
-    IEnumerator OpponentSimpleRejection()
+    void OpponentSimpleRejection()
     {
-        yield return new WaitForSeconds(1);
-        WhoWins.gameObject.SetActive(false);
-        skillMessage.gameObject.SetActive(true);
-        skillMessage.text = "簡易剔除!";
+        
         if(GC.isCom == true)
         {
             deletChange.Delete(PlayerArea,PlayerArea.transform.GetChild(0).gameObject.GetComponent<CardDisplay>().id);
         }
-        yield return new WaitForSeconds(3);
-        GC.TurnStart();
-        WhoWins.gameObject.SetActive(false);
+        
     }
     IEnumerator Trojan(GameObject WhoEarn,GameObject WhoLoss)
     {
-        Debug.Log("特洛伊");
-        yield return new WaitForSeconds(1);
+        WinImage.SetActive(false);
+        SkillImage.SetActive(true);
+        skillMessage.gameObject.SetActive(true);
+        skillDescription.gameObject.SetActive(true);
+        skillMessage.text = "特洛伊木馬!";
+        skillDescription.text = "贏得對手一半贏牌";
         double halfOfCards = Mathf.Ceil(WhoLoss.transform.childCount / 2);
         Debug.Log(halfOfCards);
         for(;WhoLoss.transform.childCount > halfOfCards;)
@@ -390,14 +429,17 @@ public class ShowCard : MonoBehaviour
             // 玩家贏牌顯示
             OpponentEarnText.text  = (OpponentEarn.transform.childCount + OpponentX).ToString();
             PlayerEarnText.text  = (PlayerEarn.transform.childCount + PlayerX).ToString();
+            yield return new WaitForSeconds(0.5f);
         }
+        
     }
     // 平手
     IEnumerator ToDrawArea()
     {
-        yield return new WaitForSeconds(1);
-        skillMessage.gameObject.SetActive(false);
+        WinImage.SetActive(true);
         WhoWins.gameObject.SetActive(true);
+        skillDescription.gameObject.SetActive(false);
+        skillMessage.gameObject.SetActive(false);
         WhoWins.text = "平手!";
         //兩張卡移至DrawArea
         yield return new WaitForSeconds(1);
@@ -405,16 +447,6 @@ public class ShowCard : MonoBehaviour
         OpponentCardObject.transform.SetParent(DrawArea.transform, false);
         PlayerEarnText.text = (PlayerEarn.transform.childCount + PlayerX).ToString();
         OpponentEarnText.text = (OpponentEarn.transform.childCount + OpponentX).ToString();
-        //下回合Start
-        if(useSkill == false)
-        {
-        yield return new WaitForSeconds(3);
-        if (PlayerEarn.transform.childCount + PlayerX< 10)
-        {
-            GC.TurnStart();
-        }
-        WhoWins.gameObject.SetActive(false);
-        }
     }
     
 }

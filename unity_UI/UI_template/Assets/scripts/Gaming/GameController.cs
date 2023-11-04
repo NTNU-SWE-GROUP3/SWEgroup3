@@ -12,10 +12,20 @@ public class GameController : MonoBehaviour
     public CountDown Timer;
     public static int Turn;
     public Text TurnText;
+    public GameObject ConfirmButton;
+    public GameObject CancelButton;
+    public GameObject Panel;
+    public GameObject MessagePanel;
+    public GameObject SkillName;
+    public GameObject WinImage;
+    public Text NextRoundText;
     
     void Start()
     {
         isCom = true;
+        SkillName.SetActive(false);
+        ConfirmButton.SetActive(false);
+        CancelButton.SetActive(false);
         drawCard = GameObject.Find("GameController").GetComponent<DrawCard>();
         Timer = GameObject.Find("GameController").GetComponent<CountDown>();
         if(isCom == true)
@@ -29,20 +39,34 @@ public class GameController : MonoBehaviour
         Turn = 0;
         drawCard.Draw();
         // Game Start
-        TurnStart();
+        StartCoroutine(TurnStart());
     }
-    public void TurnStart()
+    public IEnumerator TurnStart()
     {
+       
+        Turn++;
+        MessagePanel.SetActive(true);
+        ClickDetector.cardId = -1;
+        for(int i = 0 ; i < Panel.transform.childCount;i++)
+        {
+            Destroy(Panel.transform.GetChild(i).gameObject);
+        }
+        ConfirmButton.SetActive(false);
+        CancelButton.SetActive(false);
+        SkillName.gameObject.SetActive(false);
+        WinImage.SetActive(true);
+        NextRoundText.gameObject.SetActive(true);
+        NextRoundText.text = "Round" + Turn.ToString();
+        yield return new WaitForSeconds(1);
+        MessagePanel.SetActive(false);
         DropZone.haveCard = false;
         DropZone.backToHand = true;
-
-            Turn++;
-            TurnText.text = "回合:" + Turn.ToString();
-            StartCoroutine(Timer.TurnCountdown());
-            if(isCom == true)
-            {
-                ComPlayer.PlayRandomCard();
-            }
+        TurnText.text = "回合:" + Turn.ToString();
+        StartCoroutine(Timer.TurnCountdown());
+        if(isCom == true)
+        {
+            ComPlayer.PlayRandomCard();
+        }
             
     }
     
