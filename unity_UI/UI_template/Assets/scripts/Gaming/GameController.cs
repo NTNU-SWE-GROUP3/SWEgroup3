@@ -18,6 +18,8 @@ public class GameController : MonoBehaviour
     public GameObject MessagePanel;
     public GameObject SkillName;
     public GameObject WinImage;
+    public GameObject DrawArea;
+    public Text DrawAreaCount;
     public Text NextRoundText;
     
     void Start()
@@ -32,6 +34,10 @@ public class GameController : MonoBehaviour
         {
             ComPlayer = GameObject.Find("ComputerPlayer").GetComponent<ComputerPlayer>();
         }
+    }
+    void Update()
+    {
+        DrawAreaCount.text = "平手區累積牌數: " + DrawArea.transform.childCount.ToString() + "張";
     }
 
     public void GameBegin()
@@ -53,7 +59,7 @@ public class GameController : MonoBehaviour
         }
         ConfirmButton.SetActive(false);
         CancelButton.SetActive(false);
-        SkillName.gameObject.SetActive(false);
+        SkillName.SetActive(false);
         WinImage.SetActive(true);
         NextRoundText.gameObject.SetActive(true);
         NextRoundText.text = "Round" + Turn.ToString();
@@ -69,5 +75,26 @@ public class GameController : MonoBehaviour
         }
             
     }
+
+    public void FinishCheck(int PlayerCardNum,int OpponentCardNum)
+    {
+        if(OpponentCardNum < 10 && PlayerCardNum < 10)
+            StartCoroutine(TurnStart());
+        else
+        {
+            SkillName.SetActive(false);
+            WinImage.SetActive(true);
+            NextRoundText.gameObject.SetActive(true);
+            if(PlayerCardNum >= 10 )
+            {
+                NextRoundText.text = "VICTORY";
+            }
+            else
+            {
+                NextRoundText.text = "DEFEAT";
+            }
+        }
+    }
+
     
 }
