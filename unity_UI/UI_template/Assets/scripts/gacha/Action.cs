@@ -18,9 +18,12 @@ public class Action : MonoBehaviour
     [SerializeField] GameObject mask;
     [SerializeField] GameObject okButton1;
     [SerializeField] GameObject okButton10;
+    [SerializeField] GameObject gachaResult1;
+    [SerializeField] GameObject gachaResult10;
     [SerializeField] Button yesButton;
     [SerializeField] Button noButton;
-    public Animator gachaAnimator;
+    public Animator gachaAnimator1;
+    public Animator gachaAnimator10;
 
     bool yesClicked = false;
     bool noClicked = false;
@@ -45,6 +48,8 @@ public class Action : MonoBehaviour
         messagePanel.SetActive(false);
         resultPanel.SetActive(false);
         mask.SetActive(false);
+        gachaResult1.SetActive(false);
+        gachaResult10.SetActive(false);
         okButton1.SetActive(false);
         okButton10.SetActive(false);
         yesClicked = false;
@@ -143,7 +148,13 @@ public class Action : MonoBehaviour
             ShowResponse(response);
             if (int.Parse(times) == 1)
             {
+                gachaResult1.SetActive(true);
                 StartCoroutine(ShowResponseAnimation1(response));
+            }
+            else if (int.Parse(times) == 10)
+            {
+                gachaResult10.SetActive(true);
+                StartCoroutine(ShowResponseAnimation10(response));
             }
             // Debug.Log("API Response: " + response);
         }
@@ -151,8 +162,15 @@ public class Action : MonoBehaviour
 
     IEnumerator ShowResponseAnimation1(string response)
     {
-        gachaAnimator.SetTrigger("ShowAnimate");
-        yield return new WaitForSecondsRealtime(gachaAnimator.GetCurrentAnimatorStateInfo(0).length);
+        gachaAnimator1.SetTrigger("ShowAnimate");
+        yield return new WaitForSecondsRealtime(gachaAnimator1.GetCurrentAnimatorStateInfo(0).length);
+
+        okButton1.SetActive(true);
+    }
+    IEnumerator ShowResponseAnimation10(string response)
+    {
+        gachaAnimator10.SetTrigger("ShowAnimate");
+        yield return new WaitForSecondsRealtime(gachaAnimator10.GetCurrentAnimatorStateInfo(0).length);
 
         okButton1.SetActive(true);
     }
@@ -188,6 +206,6 @@ public class Action : MonoBehaviour
         }
         // Debug.Log(response);
     }
-    
+
 
 }
