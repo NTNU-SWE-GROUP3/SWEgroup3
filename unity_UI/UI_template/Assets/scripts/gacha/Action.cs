@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 using MiniJSON;
+using ResultAnimation;
 
 public class Action : MonoBehaviour
 {
@@ -172,7 +173,7 @@ public class Action : MonoBehaviour
         gachaAnimator10.SetTrigger("ShowAnimate");
         yield return new WaitForSecondsRealtime(gachaAnimator10.GetCurrentAnimatorStateInfo(0).length);
 
-        okButton1.SetActive(true);
+        okButton10.SetActive(true);
     }
 
     void ShowResponse(string response)

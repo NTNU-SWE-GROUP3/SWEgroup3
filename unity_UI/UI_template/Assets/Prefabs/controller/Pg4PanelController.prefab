@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4436682766119827445}
   - component: {fileID: 8041044610724349160}
   - component: {fileID: 6373189785584892490}
+  - component: {fileID: 7690228223650693897}
   m_Layer: 5
   m_Name: Pg4PanelController
   m_TagString: Untagged
@@ -88,7 +89,26 @@ MonoBehaviour:
   messagePanel: {fileID: 0}
   resultPanel: {fileID: 0}
   mask: {fileID: 0}
+  okButton1: {fileID: 0}
+  okButton10: {fileID: 0}
+  gachaResult1: {fileID: 0}
+  gachaResult10: {fileID: 0}
   yesButton: {fileID: 0}
   noButton: {fileID: 0}
-  gachaAnimator: {fileID: 0}
+  gachaAnimator1: {fileID: 0}
+  gachaAnimator10: {fileID: 0}
   response: 
+--- !u!114 &7690228223650693897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1953962081316898176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e60adce98e1e7489ea8e0599f7cb4a5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GachaResult1: {fileID: 0}
+  GachaResult10: {fileID: 0}
