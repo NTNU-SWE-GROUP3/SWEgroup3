@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace ResultAnimation
 {
@@ -9,14 +10,34 @@ namespace ResultAnimation
     {
         [SerializeField] GameObject GachaResult1;
         [SerializeField] GameObject GachaResult10;
-        public enum GachaResultType
+        [SerializeField] Image resultImage;
+        [SerializeField] Sprite coinSprite;
+        [SerializeField] Sprite skillSprite;
+        [SerializeField] Sprite cardStyleSprite;
+
+
+        public void DisplayCardResult(string resultType)
         {
-            Coins,
-            Skills,
-            CardStyles
+            Debug.Log("check: " + resultType);
+            switch (resultType)
+            {
+                case "coins":
+                    resultImage.sprite = coinSprite;
+                    break;
+                case "skill":
+                    resultImage.sprite = skillSprite;
+                    break;
+                case "card_style":
+                    resultImage.sprite = cardStyleSprite;
+                    break;
+                default:
+                    break;
+            }
         }
 
+
         
+
 
 
     }

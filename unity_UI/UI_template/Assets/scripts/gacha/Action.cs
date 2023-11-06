@@ -25,7 +25,7 @@ public class Action : MonoBehaviour
     [SerializeField] Button noButton;
     public Animator gachaAnimator1;
     public Animator gachaAnimator10;
-
+    public AnimationController animationController;
     bool yesClicked = false;
     bool noClicked = false;
 
@@ -92,7 +92,7 @@ public class Action : MonoBehaviour
         noClicked = false;
         messagePanel.SetActive(false);
         resultPanel.SetActive(false);
-        mask.SetActive(false);
+        // mask.SetActive(false);
     }
     void OnNoButtonClick()
     {
@@ -194,6 +194,9 @@ public class Action : MonoBehaviour
                     string id = dict["id"].ToString();
                     string type = dict["type"].ToString();
                     string note = dict["note"].ToString();
+
+                    // AnimationController animationController = new AnimationController();
+                    animationController.DisplayCardResult(type);
 
                     Debug.Log("ID: " + id);
                     Debug.Log("Type: " + type);
