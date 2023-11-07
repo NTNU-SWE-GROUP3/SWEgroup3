@@ -9,22 +9,6 @@ import secrets, string, datetime
 server = Flask(__name__)
 conn = None
 
-# from . import auth
-# server.register_blueprint(auth.bp)
-
-# @server.route('/')
-# def listBlog():
-#     global conn
-#     if not conn:
-#         conn = DBManager(password_file='/run/secrets/db-password')
-#         conn.populate_db()
-#     rec = conn.query_titles()
-
-#     response = ''
-#     for c in rec:
-#         response = response  + '<div>   Hello  ' + c + '</div>'
-#     return response
-
 
 
 # =================
@@ -66,19 +50,6 @@ def ApiLoginPost():
         return jsonify(status = "failure", tokenId = "")
 
 
-
-# @server.route('/api/data', methods=['POST'])
-# def get_current_user():
-#     user_name = 'watashi'
-#     email = 'watashi@gmail.com'
-#     id = 'watashi123'
-#     unity_json = request.json['text']
-#     return jsonify(
-#         id=id,
-#         userName = user_name,
-#         email = email,
-#         unityText = unity_json
-#         )
 
 if __name__ == '__main__':
     # server.run()
