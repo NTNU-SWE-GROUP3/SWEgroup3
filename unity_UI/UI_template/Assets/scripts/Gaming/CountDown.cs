@@ -19,6 +19,8 @@ public class CountDown : MonoBehaviour
     public Transform Card;
     ShowCard showcard;
 
+    public AudioClip StartSound;
+    AudioSource audioSource;
     // Start is called before the first frame update
     private void Start()
     {
@@ -37,6 +39,8 @@ public class CountDown : MonoBehaviour
             countdownTime -- ;
         }
         countdownDisplay.text = "START!";
+        audioSource = GetComponent<AudioSource>();
+        audioSource.PlayOneShot(StartSound);
         yield return new WaitForSeconds(1f);
         GC.GameBegin();
         countdownDisplay.gameObject.SetActive(false);

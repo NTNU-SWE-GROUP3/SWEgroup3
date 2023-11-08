@@ -8,7 +8,7 @@ public class ClickDetector : MonoBehaviour
     public static int cardId;
     public Transform ConfirmButton;
     public Transform CancelButton;
-    
+
     public void Awake()
     {
         cardId = -1;

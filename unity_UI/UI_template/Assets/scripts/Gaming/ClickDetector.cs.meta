@@ -3,7 +3,10 @@ guid: c0f88a308dacfdf4784deaf626c033a3
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - ConfirmButton: {instanceID: 0}
+  - CancelButton: {instanceID: 0}
+  - Click2: {fileID: 8300000, guid: 33b031d57a485469693565f7fd7214aa, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

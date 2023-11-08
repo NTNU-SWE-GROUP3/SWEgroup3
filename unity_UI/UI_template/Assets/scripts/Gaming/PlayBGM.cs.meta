@@ -1,11 +1,10 @@
 fileFormatVersion: 2
-guid: 33db0ea15a457f447b2623f484e79b63
+guid: d2319acf0ef174a95a89c8eb972fae32
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - ConfirmButton: {instanceID: 0}
-  - Click1: {fileID: 8300000, guid: b886837dc5dbf42ab8a608d93ebe0d40, type: 3}
+  - BGM: {fileID: 8300000, guid: fe88743d7e87249a2a32fc8684f32dad, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
