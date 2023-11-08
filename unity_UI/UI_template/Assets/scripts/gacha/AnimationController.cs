@@ -10,30 +10,9 @@ namespace ResultAnimation
     {
         [SerializeField] GameObject GachaResult1;
         [SerializeField] GameObject GachaResult10;
-        [SerializeField] Image resultImage;
         [SerializeField] Sprite coinSprite;
         [SerializeField] Sprite skillSprite;
         [SerializeField] Sprite cardStyleSprite;
-
-
-        // public void DisplayCardResult(string resultType)
-        // {
-        //     Debug.Log("check: " + resultType);
-        //     switch (resultType)
-        //     {
-        //         case "coins":
-        //             resultImage.sprite = coinSprite;
-        //             break;
-        //         case "skill":
-        //             resultImage.sprite = skillSprite;
-        //             break;
-        //         case "card_style":
-        //             resultImage.sprite = cardStyleSprite;
-        //             break;
-        //         default:
-        //             break;
-        //     }
-        // }
 
         public void DisplayCardResults(List<object> jsonArray)
         {
@@ -77,7 +56,7 @@ namespace ResultAnimation
                     }
                 }
             }
-            else
+            else if (jsonArray.Count == 1)
             {
                 Dictionary<string, object> dict = jsonArray[0] as Dictionary<string, object>;
 
@@ -98,12 +77,11 @@ namespace ResultAnimation
                         break;
                 }
             }
+            else
+            {
+                Debug.Log("Error to parse json array result")
+            }
         }
-
-
-
-
-
 
     }
 
