@@ -79,7 +79,7 @@ namespace ResultAnimation
             }
             else
             {
-                Debug.Log("Error to parse json array result")
+                Debug.Log("Error to parse json array result");
             }
         }
 
