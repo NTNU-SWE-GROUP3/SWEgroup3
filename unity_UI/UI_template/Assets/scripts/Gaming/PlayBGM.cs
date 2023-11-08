@@ -38,4 +38,9 @@ public class AudioManager : MonoBehaviour
         return obj is AudioManager change &&
                EqualityComparer<Image>.Default.Equals(img, change.img);
     }
+
+    public override int GetHashCode()
+    {
+        return img.GetHashCode(); // ここではImageオブジェクトのハッシュコードを返す例です
+    }
 }
