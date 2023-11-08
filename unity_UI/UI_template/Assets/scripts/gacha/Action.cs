@@ -171,7 +171,7 @@ public class Action : MonoBehaviour
     IEnumerator ShowResponseAnimation10(string response)
     {
         gachaAnimator10.SetTrigger("ShowAnimate");
-        yield return new WaitForSecondsRealtime(gachaAnimator10.GetCurrentAnimatorStateInfo(0).length);
+        yield return new WaitForSecondsRealtime(gachaAnimator10.GetCurrentAnimatorStateInfo(0).length * 8);
 
         okButton10.SetActive(true);
     }
@@ -184,6 +184,7 @@ public class Action : MonoBehaviour
 
         if (jsonArray != null)
         {
+            animationController.DisplayCardResults(jsonArray);
             foreach (var item in jsonArray)
             {
                 // Check if each item is a dictionary
@@ -195,12 +196,7 @@ public class Action : MonoBehaviour
                     string type = dict["type"].ToString();
                     string note = dict["note"].ToString();
 
-                    // AnimationController animationController = new AnimationController();
-                    animationController.DisplayCardResult(type);
-
-                    Debug.Log("ID: " + id);
-                    Debug.Log("Type: " + type);
-                    Debug.Log("Note: " + note);
+                    Debug.Log("ID: " + id + ", Type: " + type + ", Note: " + note);
                 }
             }
         }
