@@ -60,6 +60,8 @@ namespace ResultAnimation
             {
                 Dictionary<string, object> dict = jsonArray[0] as Dictionary<string, object>;
 
+                Image resultImage = GachaResult1.GetComponentInChildren<Image>();
+
                 string resultType = dict["type"].ToString();
                 Debug.Log("check: " + resultType);
                 switch (resultType)
