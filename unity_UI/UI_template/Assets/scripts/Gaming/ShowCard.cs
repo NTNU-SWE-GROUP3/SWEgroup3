@@ -67,8 +67,9 @@ public class ShowCard : MonoBehaviour
             skillDescription.gameObject.SetActive(true);
             skillMessage.text = "不敗的勇者!";
             skillDescription.text = "可以贏過任何一張牌";
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(0.5f);
             PlaySE(SkillSound);
+            yield return new WaitForSeconds(2.5f);
             if(PlayerCard.id == 9 )
                 yield return StartCoroutine(ToPlayerEarn());
             else
@@ -253,14 +254,14 @@ public class ShowCard : MonoBehaviour
                     yield return new WaitForSeconds(3f);
                 }
                 // 全部重製
-                if (PlayerCard.id == 8)
+                if (PlayerCard.id == 8 && OpponentEarn.transform.childCount != 0)
                 {
                     PlaySE(SkillSound);
                     skillMessage.text = "全部重置!";
                     skillDescription.text = "將對手全部贏牌移至平手區";
                     yield return StartCoroutine(ResetAll(OpponentEarn));
                 }
-                else if (OpponentCard.id == 8)
+                else if (OpponentCard.id == 8 && PlayerEarn.transform.childCount != 0)
                 {
                     PlaySE(SkillSound);
                     skillMessage.text = "全部重置!";
@@ -341,7 +342,6 @@ public class ShowCard : MonoBehaviour
         SkillImage.SetActive(false);
         WinImage.SetActive(true);
         WhoWins.gameObject.SetActive(true);
-
         WhoWins.text = "你輸了!";
         //DrawArea有牌 => 移至OpponentEarn
         yield return new WaitForSeconds(1);
@@ -371,7 +371,6 @@ public class ShowCard : MonoBehaviour
     {
         for (; WhoLoss.transform.childCount != 0;)
         {
-            PlaySE(SkillSound);
             Card = WhoLoss.transform.GetChild(WhoLoss.transform.childCount - 1);
             Card.SetParent(DrawArea.transform, false);
             Card.position = DrawArea.transform.position;
@@ -410,7 +409,6 @@ public class ShowCard : MonoBehaviour
         SkillImage.SetActive(true);
         skillMessage.gameObject.SetActive(true);
         skillDescription.gameObject.SetActive(true);
-        PlaySE(SkillSound);
         skillMessage.text = "特洛伊木馬!";
         skillDescription.text = "贏得對手一半贏牌";
         double halfOfCards = Mathf.Ceil(WhoLoss.transform.childCount / 2);
