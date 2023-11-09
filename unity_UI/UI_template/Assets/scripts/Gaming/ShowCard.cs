@@ -31,6 +31,14 @@ public class ShowCard : MonoBehaviour
     CardDisplay OpponentCard;
     Transform Card;
 
+    public AudioClip WinSound;
+    public AudioClip LoseSound;
+    public AudioClip DrawSound;
+    public AudioClip CardSound;
+    public AudioClip SkillSound;
+
+    AudioSource audioSource;
+
     void Start()
     {
         RejectTimer = 8;
@@ -38,7 +46,6 @@ public class ShowCard : MonoBehaviour
         RejectTimerText.gameObject.SetActive(false);
         GC = GameObject.Find("GameController").GetComponent<GameController>();
         deletChange = GameObject.Find("GameController").GetComponent<DeleteChange>();
-
     }
     public IEnumerator Show()
     {
@@ -46,6 +53,7 @@ public class ShowCard : MonoBehaviour
         OpponentCardObject = OpponentShow.transform.GetChild(0).gameObject;
         PlayerCardObject.layer = LayerMask.NameToLayer("Show");
         OpponentCardObject.layer = LayerMask.NameToLayer("Show");
+        PlaySE(CardSound);
         PlayerCard = PlayerCardObject.GetComponent<CardDisplay>();
         OpponentCard = OpponentCardObject.GetComponent<CardDisplay>();
         // 判斷
@@ -60,6 +68,7 @@ public class ShowCard : MonoBehaviour
             skillMessage.text = "不敗的勇者!";
             skillDescription.text = "可以贏過任何一張牌";
             yield return new WaitForSeconds(3f);
+            PlaySE(SkillSound);
             if(PlayerCard.id == 9 )
                 yield return StartCoroutine(ToPlayerEarn());
             else
@@ -218,6 +227,7 @@ public class ShowCard : MonoBehaviour
                 // 大革命
                 if (PlayerCard.id == 16 || OpponentCard.id == 16)
                 {
+                    PlaySE(SkillSound);
                     skillMessage.text = "大革命!";
                     skillDescription.text = "從此回合卡牌強弱翻轉";
                     isRevolution = true;
@@ -226,6 +236,7 @@ public class ShowCard : MonoBehaviour
                 // 爆發式成長
                 if (PlayerCard.id == 15)
                 {
+                    PlaySE(SkillSound);
                     skillMessage.text = "爆發式成長!";
                     skillDescription.text = "玩家獲得 "+ GameController.Turn.ToString() + " 張牌";
                     PlayerX = GameController.Turn;
@@ -234,6 +245,7 @@ public class ShowCard : MonoBehaviour
                 }
                 else if (OpponentCard.id == 15)
                 {
+                    PlaySE(SkillSound);
                     skillMessage.text = "爆發式成長!";
                     skillDescription.text = "對手獲得 "+ GameController.Turn.ToString() + " 張牌";
                     OpponentX = GameController.Turn;
@@ -243,12 +255,14 @@ public class ShowCard : MonoBehaviour
                 // 全部重製
                 if (PlayerCard.id == 8)
                 {
+                    PlaySE(SkillSound);
                     skillMessage.text = "全部重置!";
                     skillDescription.text = "將對手全部贏牌移至平手區";
                     yield return StartCoroutine(ResetAll(OpponentEarn));
                 }
                 else if (OpponentCard.id == 8)
                 {
+                    PlaySE(SkillSound);
                     skillMessage.text = "全部重置!";
                     skillDescription.text = "玩家全部贏牌移至平手區";
                     yield return StartCoroutine(ResetAll(PlayerEarn));
@@ -256,6 +270,7 @@ public class ShowCard : MonoBehaviour
                 // 簡易剔除
                 if (PlayerCard.id == 7)
                 {
+                    PlaySE(SkillSound);
                     skillMessage.text = "簡易剔除!";
                     skillDescription.text = "請選擇一張牌剔除";
                     PlayerSimpleRejection();
@@ -270,6 +285,7 @@ public class ShowCard : MonoBehaviour
                 }
                 else if(OpponentCard.id == 7)
                 {
+                    PlaySE(SkillSound);
                     skillMessage.text = "簡易剔除!";
                     skillDescription.text = "對手將選擇一張牌剔除";
                     OpponentSimpleRejection();
@@ -293,9 +309,11 @@ public class ShowCard : MonoBehaviour
         SkillImage.SetActive(false);
         WinImage.SetActive(true);
         WhoWins.gameObject.SetActive(true);
+
         WhoWins.text = "你贏了!";
         //DrawArea有牌 => 移至PlayerEarn
         yield return new WaitForSeconds(1);
+        PlaySE(WinSound);
         for (; DrawArea.transform.childCount > 0;)
         {
             Card = DrawArea.transform.GetChild(DrawArea.transform.childCount - 1);
@@ -323,9 +341,11 @@ public class ShowCard : MonoBehaviour
         SkillImage.SetActive(false);
         WinImage.SetActive(true);
         WhoWins.gameObject.SetActive(true);
+
         WhoWins.text = "你輸了!";
         //DrawArea有牌 => 移至OpponentEarn
         yield return new WaitForSeconds(1);
+        PlaySE(LoseSound);
         for (; DrawArea.transform.childCount > 0;)
         {
             Card = DrawArea.transform.GetChild(DrawArea.transform.childCount - 1);
@@ -351,6 +371,7 @@ public class ShowCard : MonoBehaviour
     {
         for (; WhoLoss.transform.childCount != 0;)
         {
+            PlaySE(SkillSound);
             Card = WhoLoss.transform.GetChild(WhoLoss.transform.childCount - 1);
             Card.SetParent(DrawArea.transform, false);
             Card.position = DrawArea.transform.position;
@@ -389,6 +410,7 @@ public class ShowCard : MonoBehaviour
         SkillImage.SetActive(true);
         skillMessage.gameObject.SetActive(true);
         skillDescription.gameObject.SetActive(true);
+        PlaySE(SkillSound);
         skillMessage.text = "特洛伊木馬!";
         skillDescription.text = "贏得對手一半贏牌";
         double halfOfCards = Mathf.Ceil(WhoLoss.transform.childCount / 2);
@@ -412,14 +434,19 @@ public class ShowCard : MonoBehaviour
         WhoWins.gameObject.SetActive(true);
         skillDescription.gameObject.SetActive(false);
         skillMessage.gameObject.SetActive(false);
-        WhoWins.text = "平手!";
         //兩張卡移至DrawArea
         yield return new WaitForSeconds(1f);
+        WhoWins.text = "平手!";
+        PlaySE(DrawSound);
         PlayerCardObject.transform.SetParent(DrawArea.transform, false);
         PlayerEarnText.text = (PlayerEarn.transform.childCount + PlayerX).ToString();
         OpponentCardObject.transform.SetParent(DrawArea.transform, false);
         OpponentEarnText.text = (OpponentEarn.transform.childCount + OpponentX).ToString();
         yield return new WaitForSeconds(1);
     }
-    
+    public void PlaySE(AudioClip clip)
+    {
+        audioSource = GetComponent<AudioSource>();
+        audioSource.PlayOneShot(clip);
+    }
 }

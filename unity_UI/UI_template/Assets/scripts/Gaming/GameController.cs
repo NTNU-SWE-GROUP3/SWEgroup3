@@ -21,6 +21,8 @@ public class GameController : MonoBehaviour
     public GameObject DrawArea;
     public Text DrawAreaCount;
     public Text NextRoundText;
+    public AudioClip EndSound;
+    AudioSource audioSource;
     
     void Start()
     {
@@ -30,6 +32,7 @@ public class GameController : MonoBehaviour
         CancelButton.SetActive(false);
         drawCard = GameObject.Find("GameController").GetComponent<DrawCard>();
         Timer = GameObject.Find("GameController").GetComponent<CountDown>();
+        audioSource = GetComponent<AudioSource>();
         if(isCom == true)
         {
             ComPlayer = GameObject.Find("ComputerPlayer").GetComponent<ComputerPlayer>();
@@ -82,6 +85,7 @@ public class GameController : MonoBehaviour
             StartCoroutine(TurnStart());
         else
         {
+            audioSource.PlayOneShot(EndSound);
             SkillName.SetActive(false);
             WinImage.SetActive(true);
             NextRoundText.gameObject.SetActive(true);

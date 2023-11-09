@@ -18,7 +18,7 @@ public class ConfirmButton : MonoBehaviour
     }
     public void ClickConfirm()
     {
-        if(skillName.text == "簡易剔除!")
+        if (skillName.text == "簡易剔除!")
         {
             deletChange.Delete(OpponentArea,ClickDetector.cardId);
             ShowCard.RejectTimer = 1;
