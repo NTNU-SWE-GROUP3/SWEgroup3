@@ -5,40 +5,58 @@ using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour
 {
-
-    // Update is called once per frame
+    public Animator Transition; 
+    public float transitionTime = 1f;
     
     void Update()
     {
         if (Input.GetKey("[0]"))
         {
-            LoadSceneZero();
+            StartCoroutine(LoadSceneZero());
         }
         else if(Input.GetKey("[1]"))
         {
-            LoadSceneOne();
+            StartCoroutine(LoadSceneOne());
         }
         else if(Input.GetKey("[2]"))
         {
-            LoadSceneTwo();
+            StartCoroutine(LoadSceneTwo());
         }
 
         
     }
 
-    public void LoadSceneZero()
+
+    IEnumerator LoadSceneZero()
     {
+
+        Transition.SetTrigger("Start");
+
+        yield return new WaitForSeconds(transitionTime);
+
         SceneManager.LoadScene(0);
-        
+
     }
-    public void LoadSceneOne()
+
+        IEnumerator LoadSceneOne()
     {
+
+        Transition.SetTrigger("Start");
+
+        yield return new WaitForSeconds(transitionTime);
+
         SceneManager.LoadScene(1);
-        
+
     }
-    public void LoadSceneTwo()
+
+        IEnumerator LoadSceneTwo()
     {
+
+        Transition.SetTrigger("Start");
+
+        yield return new WaitForSeconds(transitionTime);
+
         SceneManager.LoadScene(2);
-        
+
     }
 }
