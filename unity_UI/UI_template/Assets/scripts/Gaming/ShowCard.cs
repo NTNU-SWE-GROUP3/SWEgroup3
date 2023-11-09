@@ -301,7 +301,7 @@ public class ShowCard : MonoBehaviour
         
         OpponentEarnText.text  = (OpponentEarn.transform.childCount + OpponentX).ToString();
         PlayerEarnText.text  = (PlayerEarn.transform.childCount + PlayerX).ToString();
-        GC.FinishCheck(PlayerEarn.transform.childCount + PlayerX,OpponentEarn.transform.childCount + OpponentX);
+        GC.FinishCheck(PlayerEarn.transform.childCount + PlayerX,OpponentEarn.transform.childCount + OpponentX,PlayerArea.transform.childCount,OpponentArea.transform.childCount);
 
     }
     // 玩家贏

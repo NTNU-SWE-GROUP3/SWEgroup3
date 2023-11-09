@@ -79,9 +79,9 @@ public class GameController : MonoBehaviour
             
     }
 
-    public void FinishCheck(int PlayerCardNum,int OpponentCardNum)
+    public void FinishCheck(int PlayerEarnCard,int OpponentEarnCard,int PlayerHandCard,int OpponentHandCard)
     {
-        if(OpponentCardNum < 10 && PlayerCardNum < 10)
+        if( OpponentEarnCard< 10 && PlayerEarnCard < 10 && PlayerHandCard > 0 && OpponentHandCard > 0)
             StartCoroutine(TurnStart());
         else
         {
@@ -89,13 +89,29 @@ public class GameController : MonoBehaviour
             SkillName.SetActive(false);
             WinImage.SetActive(true);
             NextRoundText.gameObject.SetActive(true);
-            if(PlayerCardNum >= 10 )
+            if(PlayerEarnCard >= 10 )
             {
                 NextRoundText.text = "VICTORY";
             }
-            else
+            else if (OpponentEarnCard >= 10)
             {
                 NextRoundText.text = "DEFEAT";
+            }
+            else
+            {
+                if(PlayerEarnCard > OpponentEarnCard)
+                {
+                    NextRoundText.text = "VICTORY";
+                }
+                else if(OpponentEarnCard > PlayerEarnCard)
+                {
+                    NextRoundText.text = "DEFEAT";
+                }
+                else
+                {
+                    NextRoundText.text = "Draw";
+                }
+
             }
         }
     }
