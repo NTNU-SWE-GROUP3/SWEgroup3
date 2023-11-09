@@ -41,6 +41,6 @@ public class AudioManager : MonoBehaviour
 
     public override int GetHashCode()
     {
-        return img.GetHashCode(); // ここではImageオブジェクトのハッシュコードを返す例です
+        return img.GetHashCode();
     }
 }
