@@ -6,9 +6,12 @@ using UnityEngine.EventSystems;
 
 public class DrawCard : MonoBehaviour
 {
-    public GameObject Hand;
-    public GameObject handCard;
+    public GameObject Card;
+    public GameObject PlayerArea;
+    public GameObject OpponentArea;
+    public static bool CpGetSetA;
 
+    public static int x = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,10 +21,44 @@ public class DrawCard : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Hand = GameObject.Find("Hand");
-        handCard.transform.SetParent(Hand.transform);
-        handCard.transform.localScale = Vector3.one;
-        handCard.transform.position = new Vector3(transform.position.x, transform.position.y, -48);
-        handCard.transform.eulerAngles = new Vector3(25,0,0);
+       
     }
+
+    public void Draw()
+    {
+       StartCoroutine(Drawing());
+    }
+    IEnumerator Drawing()
+    {
+        var n = Random.Range(1, 100);
+        GameObject First ;
+        GameObject Second;
+        if(n % 2 == 0)
+        {
+            First = OpponentArea;
+            Second = PlayerArea;
+            CpGetSetA = true;
+        }
+        else
+        {
+            First = PlayerArea;
+            Second = OpponentArea;
+            CpGetSetA = false;
+        }
+        x = 0;
+        for(int i = 0;i<10;i++)
+        {
+            yield return new WaitForSeconds(0.1f);
+            GameObject handCard = Instantiate(Card,transform.position,transform.rotation);
+            handCard.transform.SetParent(First.transform,true);
+        }  
+        for(int i = 0;i<10;i++)
+        {
+            yield return new WaitForSeconds(0.1f);
+            GameObject handCard = Instantiate(Card,transform.position,transform.rotation);
+            handCard.transform.SetParent(Second.transform,true);
+        }  
+    }
+
+
 }
