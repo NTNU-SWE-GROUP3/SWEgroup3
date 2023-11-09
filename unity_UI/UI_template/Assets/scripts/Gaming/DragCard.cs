@@ -43,7 +43,7 @@ public class DragCard : MonoBehaviour,IDragHandler,IEndDragHandler,IBeginDragHan
     public void OnEndDrag(PointerEventData eventData)
     {
         Debug.Log("OnEndDrag");
-        if(eventData.pointerDrag.GetComponent<CardDisplay>().cardBack == false && this.transform.parent.name == "PlayerArea" && !DropZone.haveCard)
+        if (eventData.pointerDrag.GetComponent<CardDisplay>().cardBack == false && this.transform.parent.name == "PlayerArea" && !DropZone.haveCard)
         {
             if(DropZone.backToHand)
             {
