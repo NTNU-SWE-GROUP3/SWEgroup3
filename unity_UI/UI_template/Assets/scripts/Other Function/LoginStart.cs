@@ -29,12 +29,14 @@ public class strat : MonoBehaviour
     private TMP_InputField SignUp_EmailInput;
     private TMP_InputField SignUp_PasswordInput;
     private Button SignUp_SignUpButton;
+    private Button SignUp_BackButton;
 
     //PasswordPanel1
 
     private TMP_InputField PP1_AccountInput;
     private TMP_InputField PP1_EmailInput;
     private Button PP1_ValidButton;
+    private Button PP1_BackButton;
 
     //PasswordPanel2
 
@@ -42,6 +44,7 @@ public class strat : MonoBehaviour
     private TMP_InputField PP2_PasswordInput;
     private TMP_InputField PP2_PasswordCheckInput;
     private Button PP2_ConfirmButton;
+    private Button PP2_BackButton;
 
     //WarningPanel 
 
@@ -79,12 +82,14 @@ public class strat : MonoBehaviour
         SignUp_EmailInput = SignUpPanel.transform.Find("EnterEmail").GetComponent<TMP_InputField>();
         SignUp_PasswordInput = SignUpPanel.transform.Find("EnterPassword").GetComponent<TMP_InputField>();
         SignUp_SignUpButton = SignUpPanel.transform.Find("SignUpButton").GetComponent<Button>();
+        SignUp_BackButton = SignUpPanel.transform.Find("BackButton").GetComponent<Button>();
 
         //PasswordPanel1
 
         PP1_AccountInput = PasswordPanel1.transform.Find("EnterAccount").GetComponent<TMP_InputField>();
         PP1_EmailInput = PasswordPanel1.transform.Find("EnterEmail").GetComponent<TMP_InputField>();
         PP1_ValidButton = PasswordPanel1.transform.Find("GetValidButton").GetComponent<Button>();
+        PP1_BackButton = PasswordPanel1.transform.Find("BackButton").GetComponent<Button>();
 
         //PasswordPanel2
 
@@ -92,6 +97,7 @@ public class strat : MonoBehaviour
         PP2_PasswordInput = PasswordPanel2.transform.Find("EnterPassword").GetComponent<TMP_InputField>();
         PP2_PasswordCheckInput = PasswordPanel2.transform.Find("ReEnterPassword").GetComponent<TMP_InputField>();
         PP2_ConfirmButton = PasswordPanel2.transform.Find("ConfirmButton").GetComponent<Button>();
+        PP2_BackButton = PasswordPanel2.transform.Find("BackButton").GetComponent<Button>();
 
         //WarningPanel 
 
@@ -112,6 +118,21 @@ public class strat : MonoBehaviour
         PP1_ValidButton.onClick.AddListener(CheckAccountRequest);
         PP2_ConfirmButton.onClick.AddListener(ChangePasswordRequest);
         Warning_ConfirmButton.onClick.AddListener(CloseWarning);
+        SignUp_BackButton.onClick.AddListener(BackToLogin);
+        PP1_BackButton.onClick.AddListener(BackToLogin);
+        PP2_BackButton.onClick.AddListener(BackToLogin);
+
+    }
+
+
+    private void BackToLogin()
+    {
+
+        LoginPanel.SetActive(true);
+        SignUpPanel.SetActive(false);
+        PasswordPanel1.SetActive(false);
+        PasswordPanel2.SetActive(false);
+        Debug.Log("Back to login page");
 
     }
 
