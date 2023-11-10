@@ -19,24 +19,10 @@ public class AudioManager : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         img = GameObject.Find("MusicButton").GetComponent<Image>();
     }
-    private void Update()
+    public void StopBGM()
     {
-        if(OpponentEarn.transform.childCount >= 10 || PlayerEarn.transform.childCount >= 10)
-        {
-            StartCoroutine(StopBGM());
-        }
-        //Debug.Log(OpponentEarn.transform.childCount);
+        audioSource.Stop();
     }
-    public IEnumerator StopBGM()
-    {
-        
-        while (audioSource.volume > 0)
-        {
-            audioSource.volume -= 0.0006f;
-            yield return new WaitForSeconds(0.5f);
-        }
-    }
-
     public void ToggleAudio()
     {
         Next();

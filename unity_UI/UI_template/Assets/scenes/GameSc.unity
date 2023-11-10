@@ -1743,7 +1743,6 @@ MonoBehaviour:
   SkillName: {fileID: 312526179}
   WinImage: {fileID: 1214895670}
   DrawArea: {fileID: 1715371806}
-  MusicButton: {fileID: 0}
   DrawAreaCount: {fileID: 975557086}
   NextRoundText: {fileID: 257896043}
   EndSound: {fileID: 8300000, guid: 9e2ee70f36edf4f099cc93a88970ac52, type: 3}
@@ -1751,6 +1750,7 @@ MonoBehaviour:
   VictoryVoice: {fileID: 8300000, guid: 4d148fbb3b9cb4f459081e621c1338d1, type: 3}
   DefeatMusic: {fileID: 8300000, guid: fa2ba04fe9d5d45c6b274635f9a01d90, type: 3}
   DefeatVoice: {fileID: 8300000, guid: 531dbadaab51248b7821dfa40bfba2c3, type: 3}
+  audioManager: {fileID: 0}
   MusicImg: {fileID: 0}
 --- !u!4 &1211442829
 Transform:
@@ -1764,8 +1764,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1475208977}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1211442830
@@ -2567,7 +2566,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1211442829}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1475208978
 MonoBehaviour:
@@ -3875,6 +3874,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3923778682509121961, guid: 71613f38c60424a40816f3ff0f26ca3c, type: 3}
+      propertyPath: Dragsound
+      value: 
+      objectReference: {fileID: 8300000, guid: a7cafb3f4d47049c8aac84f484e0d3ec, type: 3}
+    - target: {fileID: 3923778682509121961, guid: 71613f38c60424a40816f3ff0f26ca3c, type: 3}
       propertyPath: showDisplay
       value: 
       objectReference: {fileID: 1605720186}
@@ -4534,6 +4537,7 @@ SceneRoots:
   - {fileID: 618714807}
   - {fileID: 2130717431}
   - {fileID: 1211442829}
+  - {fileID: 1475208977}
   - {fileID: 1999543286}
   - {fileID: 965809087}
   - {fileID: 2027270114}

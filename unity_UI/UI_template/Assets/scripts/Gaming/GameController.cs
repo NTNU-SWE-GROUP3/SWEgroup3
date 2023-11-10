@@ -26,6 +26,7 @@ public class GameController : MonoBehaviour
     public AudioClip VictoryVoice;
     public AudioClip DefeatMusic;
     public AudioClip DefeatVoice;
+    public AudioManager audioManager;
     public Image MusicImg;
 
     AudioSource audioSource;
@@ -38,6 +39,7 @@ public class GameController : MonoBehaviour
         CancelButton.SetActive(false);
         drawCard = GameObject.Find("GameController").GetComponent<DrawCard>();
         Timer = GameObject.Find("GameController").GetComponent<CountDown>();
+        audioManager = GameObject.Find("AudioBox").GetComponent<AudioManager>();
         audioSource = GetComponent<AudioSource>();
         if(isCom == true)
         {
@@ -91,6 +93,7 @@ public class GameController : MonoBehaviour
             StartCoroutine(TurnStart());
         else
         {
+            audioManager.StopBGM();
             audioSource.PlayOneShot(EndSound);
             SkillName.SetActive(false);
             WinImage.SetActive(true);

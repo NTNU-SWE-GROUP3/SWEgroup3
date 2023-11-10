@@ -11,6 +11,9 @@ public class DragCard : MonoBehaviour,IDragHandler,IEndDragHandler,IBeginDragHan
     public Vector2 originalRectPosition;
     private CanvasGroup canvasGroup;
 
+    
+    
+
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
@@ -22,9 +25,9 @@ public class DragCard : MonoBehaviour,IDragHandler,IEndDragHandler,IBeginDragHan
         Debug.Log("OnBeginDrag");
         if(eventData.pointerDrag.GetComponent<CardDisplay>().cardBack == false && this.transform.parent.name == "PlayerArea"&& !DropZone.haveCard)
         {
-            
             originalRectPosition = rectTransform.position;
             canvasGroup.blocksRaycasts = false;
+            
         }
         
     }
