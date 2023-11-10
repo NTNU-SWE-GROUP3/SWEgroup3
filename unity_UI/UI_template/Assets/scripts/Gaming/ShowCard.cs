@@ -36,6 +36,7 @@ public class ShowCard : MonoBehaviour
     public AudioClip DrawSound;
     public AudioClip CardSound;
     public AudioClip SkillSound;
+    public AudioClip MoveSound;
 
     AudioSource audioSource;
 
@@ -322,6 +323,7 @@ public class ShowCard : MonoBehaviour
             Card.position = PlayerEarn.transform.position;
             // 玩家贏牌顯示
             PlayerEarnText.text = (PlayerEarn.transform.childCount + PlayerX).ToString();
+            PlaySE(MoveSound);
             yield return new WaitForSeconds(0.5f);
         }
 
@@ -330,10 +332,12 @@ public class ShowCard : MonoBehaviour
         PlayerCardObject.transform.SetParent(PlayerEarn.transform, false);
         PlayerCardObject.transform.position = PlayerEarn.transform.position;
         PlayerEarnText.text = (PlayerEarn.transform.childCount + PlayerX).ToString();
+        PlaySE(MoveSound);
         yield return new WaitForSeconds(0.5f);
         OpponentCardObject.transform.SetParent(PlayerEarn.transform, false);
         OpponentCardObject.transform.position = PlayerEarn.transform.position;
         PlayerEarnText.text = (PlayerEarn.transform.childCount + PlayerX).ToString();
+        PlaySE(MoveSound);
         yield return new WaitForSeconds(0.5f);
     }
     // 對手贏
@@ -353,6 +357,7 @@ public class ShowCard : MonoBehaviour
             Card.position = OpponentEarn.transform.position;
             // 對手贏牌顯示
             OpponentEarnText.text = (OpponentEarn.transform.childCount + OpponentX).ToString();
+            PlaySE(MoveSound);
             yield return new WaitForSeconds(0.5f);
         }
         //兩張卡移至OpponentEarn
@@ -360,10 +365,12 @@ public class ShowCard : MonoBehaviour
         PlayerCardObject.transform.SetParent(OpponentEarn.transform, false);
         PlayerCardObject.transform.position = OpponentEarn.transform.position;
         OpponentEarnText.text = (OpponentEarn.transform.childCount + OpponentX).ToString();
+        PlaySE(MoveSound);
         yield return new WaitForSeconds(0.5f);
         OpponentCardObject.transform.SetParent(OpponentEarn.transform, false);
         OpponentCardObject.transform.position = OpponentEarn.transform.position;
         OpponentEarnText.text = (OpponentEarn.transform.childCount + OpponentX).ToString();
+        PlaySE(MoveSound);
         yield return new WaitForSeconds(0.5f);
     }
     //玩家觸發全部重置
@@ -376,6 +383,7 @@ public class ShowCard : MonoBehaviour
             Card.position = DrawArea.transform.position;
             OpponentEarnText.text  = (OpponentEarn.transform.childCount + OpponentX).ToString();
             PlayerEarnText.text  = (PlayerEarn.transform.childCount + PlayerX).ToString();
+            PlaySE(MoveSound);
             yield return new WaitForSeconds(0.5f);
             
         }
@@ -421,6 +429,7 @@ public class ShowCard : MonoBehaviour
             // 玩家贏牌顯示
             OpponentEarnText.text  = (OpponentEarn.transform.childCount + OpponentX).ToString();
             PlayerEarnText.text  = (PlayerEarn.transform.childCount + PlayerX).ToString();
+            PlaySE(MoveSound);
             yield return new WaitForSeconds(0.5f);
         }
         
@@ -440,6 +449,7 @@ public class ShowCard : MonoBehaviour
         PlayerEarnText.text = (PlayerEarn.transform.childCount + PlayerX).ToString();
         OpponentCardObject.transform.SetParent(DrawArea.transform, false);
         OpponentEarnText.text = (OpponentEarn.transform.childCount + OpponentX).ToString();
+        PlaySE(MoveSound);
         yield return new WaitForSeconds(1);
     }
     public void PlaySE(AudioClip clip)

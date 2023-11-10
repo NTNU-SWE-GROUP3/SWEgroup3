@@ -19,12 +19,12 @@ MonoImporter:
   - PlayerEarnText: {instanceID: 0}
   - OpponentEarnText: {instanceID: 0}
   - RejectTimerText: {instanceID: 0}
-  - StartSound: {fileID: 8300000, guid: 881fe3dee1d3a47a3b93ba08de6918c9, type: 3}
   - WinSound: {fileID: 8300000, guid: e928b72fdf7554750aeca1e302ba7662, type: 3}
   - LoseSound: {fileID: 8300000, guid: db84a8c175c6e43f4a0aa4e4502d6c4e, type: 3}
   - DrawSound: {fileID: 8300000, guid: 54758be23312f474c89cfde4a6fe2753, type: 3}
   - CardSound: {fileID: 8300000, guid: c7e9331306df6417aac3b8dcd857d71d, type: 3}
   - SkillSound: {fileID: 8300000, guid: 199e5977d4edb4d5a97821984930f453, type: 3}
+  - MoveSound: {fileID: 8300000, guid: a7cafb3f4d47049c8aac84f484e0d3ec, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
