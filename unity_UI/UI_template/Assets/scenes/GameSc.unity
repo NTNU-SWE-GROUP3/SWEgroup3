@@ -1743,9 +1743,15 @@ MonoBehaviour:
   SkillName: {fileID: 312526179}
   WinImage: {fileID: 1214895670}
   DrawArea: {fileID: 1715371806}
+  MusicButton: {fileID: 0}
   DrawAreaCount: {fileID: 975557086}
   NextRoundText: {fileID: 257896043}
   EndSound: {fileID: 8300000, guid: 9e2ee70f36edf4f099cc93a88970ac52, type: 3}
+  VictoryMusic: {fileID: 8300000, guid: a5ef5ab0abba645efb62112bbee1e224, type: 3}
+  VictoryVoice: {fileID: 8300000, guid: 4d148fbb3b9cb4f459081e621c1338d1, type: 3}
+  DefeatMusic: {fileID: 8300000, guid: fa2ba04fe9d5d45c6b274635f9a01d90, type: 3}
+  DefeatVoice: {fileID: 8300000, guid: 531dbadaab51248b7821dfa40bfba2c3, type: 3}
+  MusicImg: {fileID: 0}
 --- !u!4 &1211442829
 Transform:
   m_ObjectHideFlags: 0
@@ -1758,7 +1764,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1475208977}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1211442830
@@ -1839,6 +1846,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2319acf0ef174a95a89c8eb972fae32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OpponentEarn: {fileID: 278370388}
+  PlayerEarn: {fileID: 334211531}
 --- !u!82 &1211442834
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2553,12 +2562,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1475208975}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1211442829}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1475208978
 MonoBehaviour:
@@ -2572,6 +2581,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2319acf0ef174a95a89c8eb972fae32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OpponentEarn: {fileID: 278370388}
+  PlayerEarn: {fileID: 334211531}
 --- !u!1 &1561420042
 GameObject:
   m_ObjectHideFlags: 0
@@ -4526,5 +4537,4 @@ SceneRoots:
   - {fileID: 1999543286}
   - {fileID: 965809087}
   - {fileID: 2027270114}
-  - {fileID: 1475208977}
   - {fileID: 1611320027}
