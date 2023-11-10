@@ -1814,6 +1814,7 @@ MonoBehaviour:
   DrawSound: {fileID: 8300000, guid: 54758be23312f474c89cfde4a6fe2753, type: 3}
   CardSound: {fileID: 8300000, guid: c7e9331306df6417aac3b8dcd857d71d, type: 3}
   SkillSound: {fileID: 8300000, guid: 199e5977d4edb4d5a97821984930f453, type: 3}
+  MoveSound: {fileID: 8300000, guid: a7cafb3f4d47049c8aac84f484e0d3ec, type: 3}
 --- !u!114 &1211442832
 MonoBehaviour:
   m_ObjectHideFlags: 0
