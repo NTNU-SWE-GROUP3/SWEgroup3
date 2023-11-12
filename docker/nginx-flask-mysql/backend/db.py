@@ -15,20 +15,59 @@ class DBManager:
 
 
 
-    def AccountExist(self, accountName, accountPassword):
-        self.cursor.execute('SELECT count(*) FROM account a WHERE a.name = %s AND a.password = %s LIMIT 1',
-            (accountName, accountPassword))
+    def AccountExist(self, accountName):
+        insert_stmt = (
+            "SELECT count(*) FROM account a "
+            "WHERE a.name = %s LIMIT 1"
+        )
+        data = (accountName,)   # it have to be tuple style here.
+        self.cursor.execute(insert_stmt, data)
         rec = []
         for c in self.cursor:
             rec.append(c[0])
-        return rec
+        return True if rec[0] == 1 else False
 
 
 
-    def AccountLogin(self, accountName, accountPassword, tokenId, tokenValidity):
+    def AccountPasswordCheck(self, accountName, accountPassword):
+        insertStmt = (
+            "SELECT a.id FROM account a "
+            "WHERE a.password = SHA1(CONCAT("
+            "%s,"
+            "(SELECT a.salt FROM account a WHERE a.name = %s))) "
+            "LIMIT 1"
+        )
+        data = (accountPassword, accountName)
+        self.cursor.execute(insertStmt, data)
+        rec = []
+        for c in self.cursor:
+            rec.append(c[0])
+        if(bool(rec)):
+            return rec[0]
+        else:
+            return -1
+
+
+    # Use this when sign up and reset password(forget password)
+    def GenerateSalt(self, accountId):
+        # SHA1 generates a hexadecimal code,
+        # so I specified 32 digits,
+        # which is the same as 2^128.(large enough?)
+        insert_stmt = (
+            "UPDATE account a "
+            "SET a.salt = SUBSTRING(SHA1(RAND()), 1, 32) "
+            "WHERE a.id = %s"
+        )
+        data = (accountId,)
+        self.cursor.execute(insert_stmt, data)
+        self.connection.commit()
+
+
+
+    def SetTokenIdAndValidity(self, accountId, tokenId, tokenValidity):
         self.cursor.execute(
-            'UPDATE	account a SET a.token_id = %s, token_validity = %s WHERE a.name = %s AND a.password = %s',
-            (tokenId, tokenValidity, accountName, accountPassword))
+            'UPDATE	account a SET a.token_id = %s, token_validity = %s WHERE a.id = %s',
+            (tokenId, tokenValidity, accountId))
         self.connection.commit()
 
 

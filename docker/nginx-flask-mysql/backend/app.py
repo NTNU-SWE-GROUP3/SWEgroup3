@@ -22,32 +22,63 @@ def get():
 
 
 
-# ===================================================
-# account login
-# input: account name, account password
-# ===================================================
-@server.route("/api/login", methods=['POST'])
-def ApiLoginPost():
-    accountName = request.form['account'].replace("\u200b", "")
-    accountPassword = request.form['password'].replace("\u200b", "")
+''' ==============================
+account login
+input
+    account name
+    account password
+output
+    status
+        400000 : Success
+        403001 : No such account
+        403002 : Wrong password
+    token ID
+============================== '''
+@server.route("/account/login", methods=['POST'])
+def AccountLogin():
+
+    # DataBase connection
     global conn
     if not conn:
         conn = DBManager(password_file='/run/secrets/db-password')
-    # server.logger.info(accountName)
-    # server.logger.info(accountPassword)
-    isAccount = conn.AccountExist(accountName, accountPassword)
-    if(isAccount[0] == 1):
-        # account exists
-        alphabet = string.ascii_letters + string.digits
-        tokenId = ''.join(secrets.choice(alphabet) for i in range(128))
-        now = datetime.datetime.now()
-        now += datetime.timedelta(days=3)
-        tokenValidity = now.strftime('%Y-%m-%d %H:%M:%S')
-        conn.AccountLogin(accountName, accountPassword, tokenId, tokenValidity)
-        return jsonify(status = "success", tokenId = tokenId)
-    else:
-        # account not exists
-        return jsonify(status = "failure", tokenId = "")
+
+    # Input
+    accountName = request.form.get('Account')
+    accountPassword = request.form.get('Password')
+
+    server.logger.info("accountName: %s", accountName)
+    server.logger.info("accountPassword: %s", accountPassword)
+    server.logger.info(request.form.items())
+
+    # Input validation
+    # there should check if the input are dangerous
+
+    # Account check
+    if(not conn.AccountExist(accountName)):
+        # No such account
+        return jsonify(status = "403001", tokenId = "")
+
+    # Password check
+    accountId = conn.AccountPasswordCheck(accountName, accountPassword)
+    server.logger.info("accountId: %s", accountId)
+    if(accountId == -1):
+        # Wrong password
+        return jsonify(status = "403002", tokenId = "")
+
+    # Generate token
+    alphabet = string.ascii_letters + string.digits
+    tokenId = ''.join(secrets.choice(alphabet) for i in range(20))
+
+    # Generate token validity datetime
+    now = datetime.datetime.now()
+    now += datetime.timedelta(days=3)
+    tokenValidity = now.strftime('%Y-%m-%d %H:%M:%S')
+
+    # Set token and validity datetime
+    conn.SetTokenIdAndValidity(accountId, tokenId, tokenValidity)
+
+    # Success
+    return jsonify(status = "400000", tokenId = tokenId)
 
 
 
