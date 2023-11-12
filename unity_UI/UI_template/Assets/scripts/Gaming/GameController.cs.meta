@@ -1,0 +1,25 @@
+fileFormatVersion: 2
+guid: 1dcd2e795d0d50248b301dded5fb713a
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - drawCard: {instanceID: 0}
+  - ComPlayer: {instanceID: 0}
+  - Timer: {instanceID: 0}
+  - TurnText: {instanceID: 0}
+  - ConfirmButton: {instanceID: 0}
+  - CancelButton: {instanceID: 0}
+  - Panel: {instanceID: 0}
+  - MessagePanel: {instanceID: 0}
+  - SkillName: {instanceID: 0}
+  - WinImage: {instanceID: 0}
+  - DrawArea: {instanceID: 0}
+  - DrawAreaCount: {instanceID: 0}
+  - NextRoundText: {instanceID: 0}
+  - EndSound: {fileID: 8300000, guid: 9e2ee70f36edf4f099cc93a88970ac52, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -7,9 +7,7 @@ using UnityEngine.EventSystems;
 public class CardDisplay : MonoBehaviour
 {
     public List<Card> displayCard = new List<Card>();
-
-    public int displayId;
-
+    public GameObject PlayerArea;
     public int id;
     public string cardName;
     public string cardSkill;
@@ -28,18 +26,39 @@ public class CardDisplay : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(PlayerHandCard.x < 10)
+        if(this.gameObject.layer == 9 ||this.gameObject.layer == 12)
         {
-            displayCard[0] = PlayerHandCard.staticHandCardSetA[PlayerHandCard.x];
-            cardBack =false;
+            cardBack = false;
         }
-        else
+        else if(this.gameObject.layer == 8)
         {
-            displayCard[0] = PlayerHandCard.staticHandCardSetB[PlayerHandCard.x-10];
-            cardBack = true;
-        }
+            if(DrawCard.x<10)
+            {
+                displayCard[0] = PlayerHandCard.staticHandCardSetA[DrawCard.x];
+                if(this.transform.parent.tag == "Player")
+                {
+                    cardBack =false;
+                }
+                else 
+                {
+                    cardBack = true;
+                }
+            }
+            else
+            {
+                displayCard[0] = PlayerHandCard.staticHandCardSetB[DrawCard.x-10];
+                if(this.transform.parent.tag == "Player")
+                {
+                    cardBack =false;
+                }
+                else 
+                {
+                    cardBack = true;
+                }
+            }
 
-        PlayerHandCard.x++;
+            DrawCard.x++;
+        }
 
         
         id = displayCard[0].id;
@@ -60,22 +79,21 @@ public class CardDisplay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(this.gameObject.layer == 12)
+        {
+            if(ClickDetector.cardId == this.id)
+            {
+                this.GetComponent<Image>().color = new Color32(0, 255, 0,100);
+            }
+            else
+            {
+                this.GetComponent<Image>().color = new Color32(0,0,0,0);
+            }
+        }
         
 
         
-        
-        // if(this.tag == "Clone")
-        // {
-        //     displayCard[0] = PlayerHandCard.staticHandCardSetA[PlayerHandCard.x + 1];
-        //     PlayerHandCard.x ++;
-        //     cardBack =false;
-        //     this.tag = "Untagged";
-        // }
-        
     }
 
-    void drawCardA(int index)
-    {
-        
-    }
+    
 }
