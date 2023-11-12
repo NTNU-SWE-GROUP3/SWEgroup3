@@ -54,7 +54,8 @@ public class strat : MonoBehaviour
 
 
     //URL
-    private string serverURL_login = "http://127.0.0.1:5000/login";
+    private static string serverUrl = "http://127.0.0.1:80";
+    private string serverURL_login = serverUrl + "/account/login";
     private string serverURL_signup = "http://127.0.0.1:5000/signup";
     private string serverURL_checkaccount = "http://127.0.0.1:5000/checkaccount";
     private string serverURL_changepassword = "http://127.0.0.1:5000/changepassword";
