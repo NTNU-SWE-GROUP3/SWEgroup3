@@ -1689,7 +1689,6 @@ GameObject:
   - component: {fileID: 1211442830}
   - component: {fileID: 1211442831}
   - component: {fileID: 1211442832}
-  - component: {fileID: 1211442833}
   - component: {fileID: 1211442834}
   m_Layer: 0
   m_Name: GameController
@@ -1749,7 +1748,9 @@ MonoBehaviour:
   VictoryMusic: {fileID: 8300000, guid: a5ef5ab0abba645efb62112bbee1e224, type: 3}
   VictoryVoice: {fileID: 8300000, guid: 4d148fbb3b9cb4f459081e621c1338d1, type: 3}
   DefeatMusic: {fileID: 8300000, guid: fa2ba04fe9d5d45c6b274635f9a01d90, type: 3}
-  DefeatVoice: {fileID: 8300000, guid: 531dbadaab51248b7821dfa40bfba2c3, type: 3}
+  DefeatVoice1: {fileID: 8300000, guid: 7d07c07a7420d44bbb49ca1b7c912525, type: 3}
+  DefeatVoice2: {fileID: 8300000, guid: 4df30ff70193c44ce875f94483e2ed05, type: 3}
+  DefeatVoice3: {fileID: 8300000, guid: 20dea5616fbd840a7ad7e52dd418ce87, type: 3}
   audioManager: {fileID: 0}
   MusicImg: {fileID: 0}
 --- !u!4 &1211442829
@@ -1833,20 +1834,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ebe5a2b68854dc499a16e19361ed187, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1211442833
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1211442826}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2319acf0ef174a95a89c8eb972fae32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OpponentEarn: {fileID: 278370388}
-  PlayerEarn: {fileID: 334211531}
 --- !u!82 &1211442834
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2580,8 +2567,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2319acf0ef174a95a89c8eb972fae32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OpponentEarn: {fileID: 278370388}
-  PlayerEarn: {fileID: 334211531}
 --- !u!1 &1561420042
 GameObject:
   m_ObjectHideFlags: 0
@@ -2684,7 +2669,7 @@ GameObject:
   - component: {fileID: 1611320028}
   m_Layer: 0
   m_Name: SEBox
-  m_TagString: GameController
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2815,6 +2800,7 @@ MonoBehaviour:
   PlayerShow: {fileID: 0}
   rectTransform: {fileID: 0}
   originalRectPosition: {x: 0, y: 0}
+  DragSound: {fileID: 8300000, guid: 33b031d57a485469693565f7fd7214aa, type: 3}
 --- !u!1 &1715371806 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9143562386135196759, guid: 62d2ecb5bcbc8d14982303110362e974, type: 3}
@@ -3122,7 +3108,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0ed4f4cc7ce0e4991a29996196e5d906, type: 3}
+  m_Sprite: {fileID: 21300000, guid: aedb82ab2149b47fbaa0568819a0a65e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

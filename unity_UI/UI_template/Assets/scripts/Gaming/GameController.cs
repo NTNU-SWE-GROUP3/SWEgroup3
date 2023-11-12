@@ -25,7 +25,9 @@ public class GameController : MonoBehaviour
     public AudioClip VictoryMusic;
     public AudioClip VictoryVoice;
     public AudioClip DefeatMusic;
-    public AudioClip DefeatVoice;
+    public AudioClip DefeatVoice1;
+    public AudioClip DefeatVoice2;
+    public AudioClip DefeatVoice3;
     public AudioManager audioManager;
     public Image MusicImg;
 
@@ -143,7 +145,20 @@ public class GameController : MonoBehaviour
     {
         MusicImg = GameObject.Find("MusicButton").GetComponent<Image>();
         yield return new WaitForSeconds(2.5f);
-        audioSource.PlayOneShot(DefeatVoice);
+        int RandNum = Random.Range(0, 2);
+        if(RandNum == 0)
+        {
+            audioSource.PlayOneShot(DefeatVoice1);
+        }
+        else if(RandNum == 1)
+        {
+            audioSource.PlayOneShot(DefeatVoice2);
+        }
+        else
+        {
+            audioSource.PlayOneShot(DefeatVoice3);
+        }
+
         if(MusicImg.sprite == Resources.Load<Sprite>("images/Music1")){
             audioSource.PlayOneShot(DefeatMusic);
         }

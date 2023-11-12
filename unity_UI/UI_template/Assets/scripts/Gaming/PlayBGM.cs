@@ -6,11 +6,8 @@ using UnityEngine.UI;
 
 public class AudioManager : MonoBehaviour
 {
-    GameController GC;
     private Image img;
     private int count = 1;
-    public GameObject OpponentEarn;
-    public GameObject PlayerEarn;
 
     private AudioSource audioSource;
 
@@ -21,7 +18,9 @@ public class AudioManager : MonoBehaviour
     }
     public void StopBGM()
     {
-        audioSource.Stop();
+        //audioSource.Stop();
+        //慢慢的把音樂切掉才比較好聽 所以我一開始就使用的方式
+        StartCoroutine(FadeOut());
     }
     public void ToggleAudio()
     {
@@ -45,6 +44,15 @@ public class AudioManager : MonoBehaviour
     {
         return obj is AudioManager change &&
                EqualityComparer<Image>.Default.Equals(img, change.img);
+    }
+
+    public IEnumerator FadeOut()
+    {
+        while (audioSource.volume > 0)
+        {
+            audioSource.volume -= 0.005f;
+            yield return new WaitForSeconds(0.02f);
+        }
     }
 
     public override int GetHashCode()

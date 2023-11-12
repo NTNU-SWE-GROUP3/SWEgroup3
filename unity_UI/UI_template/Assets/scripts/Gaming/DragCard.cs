@@ -10,12 +10,13 @@ public class DragCard : MonoBehaviour,IDragHandler,IEndDragHandler,IBeginDragHan
     public RectTransform rectTransform;
     public Vector2 originalRectPosition;
     private CanvasGroup canvasGroup;
-
+    public AudioClip DragSound;
+    AudioSource audioSource;
     
     
-
     private void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
         rectTransform = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();
     }
@@ -46,6 +47,7 @@ public class DragCard : MonoBehaviour,IDragHandler,IEndDragHandler,IBeginDragHan
     public void OnEndDrag(PointerEventData eventData)
     {
         Debug.Log("OnEndDrag");
+        //audioSource.PlayOneShot(DragSound);
         if (eventData.pointerDrag.GetComponent<CardDisplay>().cardBack == false && this.transform.parent.name == "PlayerArea" && !DropZone.haveCard)
         {
             if(DropZone.backToHand)
