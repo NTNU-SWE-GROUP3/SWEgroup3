@@ -29,6 +29,7 @@ CREATE TABLE `account` (
   `password` varchar(255) DEFAULT NULL,
   `token_id` varchar(255) DEFAULT NULL,
   `token_validity` datetime DEFAULT NULL,
+  `salt` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `token_id` (`token_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
