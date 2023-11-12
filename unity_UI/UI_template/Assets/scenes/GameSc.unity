@@ -3872,15 +3872,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 712016594536387416, guid: 71613f38c60424a40816f3ff0f26ca3c, type: 3}
       propertyPath: m_Color.b
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 712016594536387416, guid: 71613f38c60424a40816f3ff0f26ca3c, type: 3}
       propertyPath: m_Color.g
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 712016594536387416, guid: 71613f38c60424a40816f3ff0f26ca3c, type: 3}
       propertyPath: m_Color.r
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 712016594536387416, guid: 71613f38c60424a40816f3ff0f26ca3c, type: 3}
       propertyPath: m_Enabled
@@ -4074,6 +4074,10 @@ PrefabInstance:
     - target: {fileID: 3243715292028838269, guid: 10761a2b84106844c9739628b37da254, type: 3}
       propertyPath: m_Name
       value: OpponentEarn
+      objectReference: {fileID: 0}
+    - target: {fileID: 4381215996554636741, guid: 10761a2b84106844c9739628b37da254, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4502,6 +4506,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5954439736523527427, guid: 3614c5492f2454e48b7a3e340835d953, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7507251697276993839, guid: 3614c5492f2454e48b7a3e340835d953, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
