@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-
 public class CountDown : MonoBehaviour
 {
     GameController GC;
@@ -59,7 +58,6 @@ public class CountDown : MonoBehaviour
         }
         if(PlayerShow.transform.childCount == 0)
             NoPlayCard();
-        yield return new WaitForSeconds(0.5f);
         TimerText.text = "Show!";
         yield return new WaitForSeconds(0.5f);
         StartCoroutine(showcard.Show()); 
