@@ -16,6 +16,7 @@ public class Action : MonoBehaviour
     [SerializeField] GotchaPanel gotchaPanel;
     [SerializeField] GameObject messagePanel;
     [SerializeField] GameObject resultPanel;
+    [SerializeField] GameObject purchasePanel;
     [SerializeField] GameObject mask;
     [SerializeField] GameObject okButton1;
     [SerializeField] GameObject okButton10;
@@ -49,6 +50,7 @@ public class Action : MonoBehaviour
         messagePanel.SetActive(false);
         resultPanel.SetActive(false);
         mask.SetActive(false);
+        purchasePanel.SetActive(false);
         gachaResult1.SetActive(false);
         gachaResult10.SetActive(false);
         okButton1.SetActive(false);
@@ -73,8 +75,16 @@ public class Action : MonoBehaviour
 
         if (yesClicked)
         {
-            Debug.Log("Yes, Start Drawing");
-            StartCoroutine(SendRequest(playerId, mode, times));
+            if (mode == "cash")
+            {
+                purchasePanel.SetActive(true);
+
+            }
+            else if (mode == "coin")
+            {
+                Debug.Log("Yes, Start Drawing");
+                StartCoroutine(SendRequest(playerId, mode, times));
+            }
         }
         else if (noClicked)
         {
