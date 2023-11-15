@@ -6082,31 +6082,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 841921563}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 967236768}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1531474926}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &841921563
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10890,6 +10866,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 37e76d74e80a14b4cb084eb11399c3a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1488098389 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2819200370825405276, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
+  m_PrefabInstance: {fileID: 3915036173632937927}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 710a9b4863b754831a264f870f85395a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1510542842
@@ -16185,9 +16172,41 @@ PrefabInstance:
       value: Pg4PanelController
       objectReference: {fileID: 0}
     - target: {fileID: 2819200370825405276, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
+      propertyPath: purchasePanel
+      value: 
+      objectReference: {fileID: 967236768}
+    - target: {fileID: 2819200370825405276, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
       propertyPath: dropdownRegion
       value: 
       objectReference: {fileID: 1792183649}
+    - target: {fileID: 2819200370825405276, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
+      propertyPath: actionReferences
+      value: 
+      objectReference: {fileID: 1488098388}
+    - target: {fileID: 2819200370825405276, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
+      propertyPath: inputFields.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2819200370825405276, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
+      propertyPath: inputFields.Array.data[0]
+      value: 
+      objectReference: {fileID: 1159939258}
+    - target: {fileID: 2819200370825405276, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
+      propertyPath: inputFields.Array.data[1]
+      value: 
+      objectReference: {fileID: 1832404345}
+    - target: {fileID: 2819200370825405276, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
+      propertyPath: inputFields.Array.data[2]
+      value: 
+      objectReference: {fileID: 1888863134}
+    - target: {fileID: 2819200370825405276, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
+      propertyPath: inputFields.Array.data[3]
+      value: 
+      objectReference: {fileID: 1189296797}
+    - target: {fileID: 2819200370825405276, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
+      propertyPath: inputFields.Array.data[4]
+      value: 
+      objectReference: {fileID: 194828341}
     - target: {fileID: 4436682766119827445, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
       propertyPath: gotchaPanel
       value: 
@@ -16217,6 +16236,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2137463890}
     - target: {fileID: 6373189785584892490, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
+      propertyPath: buyButton
+      value: 
+      objectReference: {fileID: 841921562}
+    - target: {fileID: 6373189785584892490, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
       propertyPath: okButton1
       value: 
       objectReference: {fileID: 2019806955}
@@ -16236,6 +16259,10 @@ PrefabInstance:
       propertyPath: resultPanel
       value: 
       objectReference: {fileID: 34531448}
+    - target: {fileID: 6373189785584892490, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
+      propertyPath: cancelButton
+      value: 
+      objectReference: {fileID: 2099448774}
     - target: {fileID: 6373189785584892490, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
       propertyPath: gachaResult1
       value: 
@@ -16260,6 +16287,10 @@ PrefabInstance:
       propertyPath: gachaAnimator10
       value: 
       objectReference: {fileID: 2127197517}
+    - target: {fileID: 6373189785584892490, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
+      propertyPath: purchaseController
+      value: 
+      objectReference: {fileID: 1488098389}
     - target: {fileID: 7690228223650693897, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
       propertyPath: GachaResult1
       value: 

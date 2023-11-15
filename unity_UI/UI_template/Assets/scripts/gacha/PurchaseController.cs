@@ -3,38 +3,62 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PurchaseController : MonoBehaviour
+namespace PurchaseControl
 {
-    public InputField cardNumberInput;
-    public Dropdown dropdownRegion;
-    string[] allOptions = { "Japan", "Taiwan", "Korea", "China", "Germany", "Italy", "France", "Spain", "Canada" };
-
-
-
-    void Start()
+    public class PurchaseController : MonoBehaviour
     {
-        if (dropdownRegion != null)
-        {
-            dropdownRegion.ClearOptions();
-            Debug.Log("Dropdown cleared.");
+        [SerializeField] GameObject purchasePanel;
+        [SerializeField] InputField[] inputFields;
+        public Dropdown dropdownRegion;
+        string[] allOptions = { "Japan", "Taiwan", "Korea", "China", "Germany", "Italy", "France", "Spain", "Canada" };
+        public Action actionReferences;
 
-            foreach (var option in allOptions)
+        void Start()
+        {
+            DropdownInit();
+        }
+
+        void DropdownInit()
+        {
+            if (dropdownRegion != null)
             {
-                dropdownRegion.options.Add(new Dropdown.OptionData(option));
-                Debug.Log("Option added: " + option);
+                dropdownRegion.ClearOptions();
+                Debug.Log("Dropdown cleared.");
+
+                foreach (var option in allOptions)
+                {
+                    dropdownRegion.options.Add(new Dropdown.OptionData(option));
+                    Debug.Log("Option added: " + option);
+                }
+
+                dropdownRegion.value = 1; // default option
+                Debug.Log("Default option set.");
             }
-
-            dropdownRegion.value = 1; // default option
-            Debug.Log("Default option set.");
+            else
+            {
+                Debug.LogError("Can't find dropdown.");
+            }
         }
-        else
+
+        void ClearInputFields()
         {
-            Debug.LogError("Can't find dropdown.");
+            foreach (InputField inputField in inputFields)
+            {
+                if (inputField != null)
+                {
+                    inputField.text = "";
+                }
+            }
         }
+
+        public void OpenPurchasePanel()
+        {
+            purchasePanel.SetActive(true);
+            actionReferences.buyClicked = false;
+            actionReferences.cancelClicked = false;
+            ClearInputFields();
+        }
+
     }
 
-    void InputChecker()
-    {
-
-    }
 }

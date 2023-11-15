@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 namespace ResultAnimation
 {
-
     public class AnimationController : MonoBehaviour
     {
         [SerializeField] GameObject GachaResult1;

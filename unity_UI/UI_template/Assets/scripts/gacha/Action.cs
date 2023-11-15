@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 using MiniJSON;
 using ResultAnimation;
+using PurchaseControl;
 
 public class Action : MonoBehaviour
 {
@@ -24,12 +25,16 @@ public class Action : MonoBehaviour
     [SerializeField] GameObject gachaResult10;
     [SerializeField] Button yesButton;
     [SerializeField] Button noButton;
+    [SerializeField] Button buyButton;
+    [SerializeField] Button cancelButton;
     public Animator gachaAnimator1;
     public Animator gachaAnimator10;
     public AnimationController animationController;
-    bool yesClicked = false;
-    bool noClicked = false;
-
+    public PurchaseController purchaseController;
+    public bool yesClicked = false;
+    public bool noClicked = false;
+    public bool buyClicked = false;
+    public bool cancelClicked = false;
     public string response;
 
     [System.Serializable]
@@ -57,6 +62,8 @@ public class Action : MonoBehaviour
         okButton10.SetActive(false);
         yesClicked = false;
         noClicked = false;
+        buyClicked = false;
+        cancelClicked = false;
     }
 
     public IEnumerator ExecuteDraw(string times, string mode)
@@ -66,19 +73,39 @@ public class Action : MonoBehaviour
         yesClicked = false;
         noClicked = false;
 
+        yesButton.onClick.AddListener(() => OnYesButtonClick());
+        noButton.onClick.AddListener(() => OnNoButtonClick());
         while (!yesClicked && !noClicked)
         {
-            yesButton.onClick.AddListener(() => OnYesButtonClick());
-            noButton.onClick.AddListener(() => OnNoButtonClick());
             yield return null;
         }
+        yesButton.onClick.RemoveAllListeners();
+        noButton.onClick.RemoveAllListeners();
 
         if (yesClicked)
         {
             if (mode == "cash")
             {
-                purchasePanel.SetActive(true);
+                purchaseController.OpenPurchasePanel();
 
+                buyButton.onClick.AddListener(() => OnBuyButtonClick());
+                cancelButton.onClick.AddListener(() => OnCancelButtonClick());
+                while (!buyClicked && !cancelClicked)
+                {
+                    yield return null;
+                }
+                buyButton.onClick.RemoveAllListeners();
+                cancelButton.onClick.RemoveAllListeners();
+
+                if (buyClicked)
+                {
+                    Debug.Log("Get info, start drawing...");
+                    StartCoroutine(SendRequest(playerId, mode, times));
+                }
+                else if (cancelClicked)
+                {
+                    Debug.Log("Canceled");
+                }
             }
             else if (mode == "coin")
             {
@@ -94,6 +121,53 @@ public class Action : MonoBehaviour
         messagePanel.SetActive(false);   // Hide confirmation dialog
         yesClicked = false;
         noClicked = false;
+    }
+
+    bool InputChecker()
+    {
+        Debug.Log("Check input");
+        if (purchasePanel != null)
+        {
+            // Get all InputFields under the purchasePanel
+            InputField[] inputFields = purchasePanel.GetComponentsInChildren<InputField>();
+
+            // Iterate through each InputField
+            foreach (InputField inputField in inputFields)
+            {
+                if (string.IsNullOrEmpty(inputField.text))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+        else
+        {
+            Debug.LogError("purchasePanel is null. Please assign a valid GameObject reference.");
+            return false;
+        }
+    }
+
+    void OnBuyButtonClick()
+    {
+        if (InputChecker())
+        {
+            buyClicked = true;
+            cancelClicked = false;
+            purchasePanel.SetActive(false);
+        }
+        else
+        {
+            Debug.Log("There are some empty fields.");
+        }
+    }
+
+    void OnCancelButtonClick()
+    {
+        cancelClicked = true;
+        buyClicked = false;
+        purchasePanel.SetActive(false);
     }
 
     void OnYesButtonClick()
@@ -121,7 +195,6 @@ public class Action : MonoBehaviour
             case 1:
                 mode = "coin";
                 Debug.Log("Coin Mode");
-                // StartCoroutine(SendRequest(playerId, mode, times));
                 StartCoroutine(ExecuteDraw(times, mode));
                 break;
             case 2:
@@ -130,6 +203,7 @@ public class Action : MonoBehaviour
                 StartCoroutine(ExecuteDraw(times, mode));
                 break;
             default:
+                Debug.Log("Failed to get mode.");
                 break;
 
         };
