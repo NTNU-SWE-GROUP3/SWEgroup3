@@ -32,9 +32,12 @@ public class GameController : MonoBehaviour
     public Image MusicImg;
 
     AudioSource audioSource;
-    
+    //  public GameObject Skill;
     void Start()
     {
+        // WinImage.SetActive(true);
+        // Instantiate(Skill,transform.position,transform.rotation).transform.SetParent(WinImage.transform,true);
+
         isCom = true;
         SkillName.SetActive(false);
         ConfirmButton.SetActive(false);
