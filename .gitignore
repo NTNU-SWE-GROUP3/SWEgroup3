@@ -1,3 +1,0 @@
-.DS_Store
-docker/nginx-flask-mysql/backend/__pycache__/*.pyc
-.vscode

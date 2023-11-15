@@ -144,6 +144,7 @@ MonoBehaviour:
   PlayerShow: {fileID: 0}
   rectTransform: {fileID: 0}
   originalRectPosition: {x: 0, y: 0}
+  Dragsound: {fileID: 8300000, guid: a7cafb3f4d47049c8aac84f484e0d3ec, type: 3}
 --- !u!225 &6221166439560918153
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -267,6 +268,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0f88a308dacfdf4784deaf626c033a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ConfirmButton: {fileID: 0}
+  CancelButton: {fileID: 0}
 --- !u!1 &3110913138135134500
 GameObject:
   m_ObjectHideFlags: 0
