@@ -17,7 +17,15 @@ MonoImporter:
   - DrawArea: {instanceID: 0}
   - DrawAreaCount: {instanceID: 0}
   - NextRoundText: {instanceID: 0}
-  - EndSound: {fileID: 8300000, guid: 9e2ee70f36edf4f099cc93a88970ac52, type: 3}
+  - EndSound: {instanceID: 0}
+  - VictoryMusic: {instanceID: 0}
+  - VictoryVoice: {instanceID: 0}
+  - DefeatMusic: {instanceID: 0}
+  - DefeatVoice1: {instanceID: 0}
+  - DefeatVoice2: {instanceID: 0}
+  - DefeatVoice3: {instanceID: 0}
+  - audioManager: {instanceID: 0}
+  - MusicImg: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

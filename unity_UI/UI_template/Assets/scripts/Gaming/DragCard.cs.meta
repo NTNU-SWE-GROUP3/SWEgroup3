@@ -3,7 +3,11 @@ guid: f37e687223bc9a74da1e45a25bdb3a9e
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - PlayerShow: {instanceID: 0}
+  - rectTransform: {instanceID: 0}
+  - DragSound: {fileID: 8300000, guid: 33b031d57a485469693565f7fd7214aa, type: 3}
+  - audioSource: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

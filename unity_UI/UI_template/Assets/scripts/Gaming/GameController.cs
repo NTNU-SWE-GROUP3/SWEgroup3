@@ -22,6 +22,15 @@ public class GameController : MonoBehaviour
     public Text DrawAreaCount;
     public Text NextRoundText;
     public AudioClip EndSound;
+    public AudioClip VictoryMusic;
+    public AudioClip VictoryVoice;
+    public AudioClip DefeatMusic;
+    public AudioClip DefeatVoice1;
+    public AudioClip DefeatVoice2;
+    public AudioClip DefeatVoice3;
+    public AudioManager audioManager;
+    public Image MusicImg;
+
     AudioSource audioSource;
     
     void Start()
@@ -32,6 +41,7 @@ public class GameController : MonoBehaviour
         CancelButton.SetActive(false);
         drawCard = GameObject.Find("GameController").GetComponent<DrawCard>();
         Timer = GameObject.Find("GameController").GetComponent<CountDown>();
+        audioManager = GameObject.Find("AudioBox").GetComponent<AudioManager>();
         audioSource = GetComponent<AudioSource>();
         if(isCom == true)
         {
@@ -79,26 +89,78 @@ public class GameController : MonoBehaviour
             
     }
 
-    public void FinishCheck(int PlayerCardNum,int OpponentCardNum)
+    public void FinishCheck(int PlayerEarnCard,int OpponentEarnCard,int PlayerHandCard,int OpponentHandCard)
     {
-        if(OpponentCardNum < 10 && PlayerCardNum < 10)
+        if( OpponentEarnCard< 10 && PlayerEarnCard < 10 && PlayerHandCard > 0 && OpponentHandCard > 0)
             StartCoroutine(TurnStart());
         else
         {
+            audioManager.StopBGM();
             audioSource.PlayOneShot(EndSound);
             SkillName.SetActive(false);
             WinImage.SetActive(true);
             NextRoundText.gameObject.SetActive(true);
-            if(PlayerCardNum >= 10 )
+            if(PlayerEarnCard >= 10 )
             {
                 NextRoundText.text = "VICTORY";
+                StartCoroutine(VictorySE());
+            }
+            else if (OpponentEarnCard >= 10)
+            {
+                NextRoundText.text = "DEFEAT";
+                StartCoroutine(DefeatSE());
             }
             else
             {
-                NextRoundText.text = "DEFEAT";
+                if(PlayerEarnCard > OpponentEarnCard)
+                {
+                    NextRoundText.text = "VICTORY";
+                    StartCoroutine(VictorySE());
+                }
+                else if(OpponentEarnCard > PlayerEarnCard)
+                {
+                    NextRoundText.text = "DEFEAT";
+                    StartCoroutine(DefeatSE());
+                }
+                else
+                {
+                    NextRoundText.text = "Draw";
+                }
+
             }
         }
     }
 
     
+    IEnumerator VictorySE()
+    {
+        MusicImg = GameObject.Find("MusicButton").GetComponent<Image>();
+        yield return new WaitForSeconds(2.5f);
+        audioSource.PlayOneShot(VictoryVoice);
+        if(MusicImg.sprite == Resources.Load<Sprite>("images/Music1")){
+            audioSource.PlayOneShot(VictoryMusic);
+        }
+    }
+    IEnumerator DefeatSE()
+    {
+        MusicImg = GameObject.Find("MusicButton").GetComponent<Image>();
+        yield return new WaitForSeconds(2.5f);
+        int RandNum = Random.Range(0, 2);
+        if(RandNum == 0)
+        {
+            audioSource.PlayOneShot(DefeatVoice1);
+        }
+        else if(RandNum == 1)
+        {
+            audioSource.PlayOneShot(DefeatVoice2);
+        }
+        else
+        {
+            audioSource.PlayOneShot(DefeatVoice3);
+        }
+
+        if(MusicImg.sprite == Resources.Load<Sprite>("images/Music1")){
+            audioSource.PlayOneShot(DefeatMusic);
+        }
+    }   
 }
