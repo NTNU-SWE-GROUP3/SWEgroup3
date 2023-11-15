@@ -29,6 +29,8 @@ CREATE TABLE `account` (
   `password` varchar(255) DEFAULT NULL,
   `token_id` varchar(255) DEFAULT NULL,
   `token_validity` int DEFAULT NULL,
+  `verify_code` varchar(255) DEFAULT NULL,
+  `expiration_time` timestamp DEFAULT NULL,
   `salt` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `token_id` (`token_id`)
