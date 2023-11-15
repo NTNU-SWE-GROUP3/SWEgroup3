@@ -33,7 +33,7 @@ public class CardDatabase : MonoBehaviour
         cardList.Add(new Card(14,"殺手","無技能","若對手為騎士落敗，國王、皇后或王子則獲勝，其他及相同則平手。",'B',Resources.Load<Sprite>(ImageAddress+ KillerSkin + "/Killer")));
         cardList.Add(new Card(15,"平民","爆發式成長","觸發條件：<平手>\n自身增加X張的贏取卡(X為回合數)。",'B',Resources.Load<Sprite>(ImageAddress+ CivilSkin+ "/Civil")));
         cardList.Add(new Card(16,"平民","大革命","觸發條件：<平手>\n觸發成功後，所有卡牌優劣反轉。",'B',Resources.Load<Sprite>(ImageAddress+ CivilSkin + "/Civil")));
-        cardList.Add(new Card(17,"平民","特洛伊木馬","觸發條件：<輸王家或騎士>對手一半贏牌轉為玩家贏。牌",'B',Resources.Load<Sprite>(ImageAddress+ CivilSkin + "/Civil")));
+        cardList.Add(new Card(17,"平民","特洛伊木馬","觸發條件：<輸王家或騎士>對手一半贏牌轉為玩家贏牌。",'B',Resources.Load<Sprite>(ImageAddress+ CivilSkin + "/Civil")));
         cardList.Add(new Card(18,"平民","無技能","看似軟弱但淺藏無限力量，尤其在大革命發動以後。",'B',Resources.Load<Sprite>(ImageAddress+ CivilSkin + "/Civil")));
         cardList.Add(new Card(19,"平民","無技能","看似軟弱但淺藏無限力量，尤其在大革命發動以後。",'B',Resources.Load<Sprite>(ImageAddress+ CivilSkin + "/Civil")));
     
