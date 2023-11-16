@@ -398,7 +398,7 @@ public class ShowCard : MonoBehaviour
         for(int i = 0;i<OpponentArea.transform.childCount;i++)
         {
             card = OpponentArea.transform.GetChild(i).GetComponent<ToMessagePanel>();
-            card.ShowOnMessagePanel();
+            card.CardShowOnMessagePanel();
         }
 
     }

@@ -21,13 +21,6 @@ public class DrawCard : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-       
-    }
-
     public void Draw()
     {
        StartCoroutine(Drawing());

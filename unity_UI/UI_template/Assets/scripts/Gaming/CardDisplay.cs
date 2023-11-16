@@ -79,6 +79,7 @@ public class CardDisplay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         if(this.gameObject.layer == 12)
         {
             if(ClickDetector.cardId == this.id)

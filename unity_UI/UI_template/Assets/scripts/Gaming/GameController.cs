@@ -14,11 +14,13 @@ public class GameController : MonoBehaviour
     public Text TurnText;
     public GameObject ConfirmButton;
     public GameObject CancelButton;
-    public GameObject Panel;
+    public GameObject CardPanel;
     public GameObject MessagePanel;
-    public GameObject SkillName;
+    public GameObject SkillPanel;
+    public GameObject SkillImage;
     public GameObject WinImage;
     public GameObject DrawArea;
+    public Text SkillMassage;
     public Text DrawAreaCount;
     public Text NextRoundText;
     public AudioClip EndSound;
@@ -32,14 +34,12 @@ public class GameController : MonoBehaviour
     public Image MusicImg;
 
     AudioSource audioSource;
-    //  public GameObject Skill;
+    
     void Start()
     {
-        // WinImage.SetActive(true);
-        // Instantiate(Skill,transform.position,transform.rotation).transform.SetParent(WinImage.transform,true);
-
         isCom = true;
-        SkillName.SetActive(false);
+        SkillPanel.SetActive(false);
+        SkillImage.SetActive(false);
         ConfirmButton.SetActive(false);
         CancelButton.SetActive(false);
         drawCard = GameObject.Find("GameController").GetComponent<DrawCard>();
@@ -69,17 +69,25 @@ public class GameController : MonoBehaviour
         Turn++;
         MessagePanel.SetActive(true);
         ClickDetector.cardId = -1;
-        for(int i = 0 ; i < Panel.transform.childCount;i++)
+        for(int i = 0 ; i < CardPanel.transform.childCount;i++)
         {
-            Destroy(Panel.transform.GetChild(i).gameObject);
+            Destroy(CardPanel.transform.GetChild(i).gameObject);
         }
+        SkillPanel.SetActive(false);
         ConfirmButton.SetActive(false);
         CancelButton.SetActive(false);
-        SkillName.SetActive(false);
+        SkillImage.SetActive(false);
         WinImage.SetActive(true);
         NextRoundText.gameObject.SetActive(true);
         NextRoundText.text = "Round" + Turn.ToString();
         yield return new WaitForSeconds(1);
+        
+        WinImage.SetActive(false);
+        SkillPanel.SetActive(true);
+        SkillImage.SetActive(true);
+        SkillMassage.text = "請選擇要使用的技能";
+
+        yield return new WaitForSeconds(5);
         MessagePanel.SetActive(false);
         DropZone.haveCard = false;
         DropZone.backToHand = true;
@@ -100,7 +108,7 @@ public class GameController : MonoBehaviour
         {
             audioManager.StopBGM();
             audioSource.PlayOneShot(EndSound);
-            SkillName.SetActive(false);
+            SkillImage.SetActive(false);
             WinImage.SetActive(true);
             NextRoundText.gameObject.SetActive(true);
             if(PlayerEarnCard >= 10 )

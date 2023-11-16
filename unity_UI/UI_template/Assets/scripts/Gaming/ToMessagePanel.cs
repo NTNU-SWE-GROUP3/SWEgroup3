@@ -18,9 +18,9 @@ public class ToMessagePanel : MonoBehaviour
     private Image cardImage;
     public void  Awake()
     {
-        CardPanel = GameObject.Find("Canvas").GetComponentInChildren<Transform>().Find("MessagePanel/Panel");
+        CardPanel = GameObject.Find("Canvas").GetComponentInChildren<Transform>().Find("MessagePanel/CardPanel");
     }
-    public void ShowOnMessagePanel()
+    public void CardShowOnMessagePanel()
     {
             zoomCard = Instantiate(gameObject,CardPanel.position,Quaternion.identity);
             border = zoomCard.GetComponentInChildren<Transform>().Find("Border");

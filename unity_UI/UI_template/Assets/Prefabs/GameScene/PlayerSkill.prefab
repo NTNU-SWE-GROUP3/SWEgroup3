@@ -87,6 +87,8 @@ GameObject:
   - component: {fileID: 5685908636487025993}
   - component: {fileID: 1590579797493135384}
   - component: {fileID: -2256540239410268621}
+  - component: {fileID: 3499735923181331863}
+  - component: {fileID: 2445500723302499216}
   m_Layer: 5
   m_Name: PlayerSkill
   m_TagString: Untagged
@@ -168,7 +170,51 @@ MonoBehaviour:
   - SkillId: 0
     SkillDescription: 
     SkillSprite: {fileID: 0}
-  skillId: 0
+  id: 0
   skillDescription: 
   skillSprite: {fileID: 0}
+  SkillDescriptionText: {fileID: 0}
   skillImage: {fileID: 4584031635039663022}
+--- !u!114 &3499735923181331863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 458964808584310843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0f88a308dacfdf4784deaf626c033a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConfirmButton: {fileID: 0}
+  CancelButton: {fileID: 0}
+--- !u!114 &2445500723302499216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 458964808584310843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3499735923181331863}
+          m_TargetAssemblyTypeName: ClickDetector, Assembly-CSharp
+          m_MethodName: OnPointerClick
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
