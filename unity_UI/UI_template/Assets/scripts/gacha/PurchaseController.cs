@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 namespace PurchaseControl
 {
@@ -10,9 +11,10 @@ namespace PurchaseControl
         [SerializeField] GameObject purchasePanel;
         [SerializeField] InputField[] inputFields;
         [SerializeField] Dropdown dropdownRegion;
+        [SerializeField] TextMeshProUGUI messageText;
         public Action actionReferences;
         string[] allOptions = { "Japan", "Taiwan", "Korea", "China", "Germany", "Italy", "France", "Spain", "Canada" };
-        Text messageText;
+        // Text messageText;
 
         void Start()
         {
@@ -28,6 +30,7 @@ namespace PurchaseControl
             actionReferences.cancelClicked = false;
             // ClearInputFields();
             ClearMessages();
+            HideMessage();
         }
 
         void DropdownInit()
@@ -100,7 +103,7 @@ namespace PurchaseControl
 
         void MessageInit()
         {
-            messageText = purchasePanel.transform.Find("Message").GetComponent<Text>();
+            // messageText = purchasePanel.transform.Find("Message").GetComponent<Text>();
             if (messageText == null)
             {
                 Debug.Log("Cannot find Text under purchase panel.");
@@ -119,6 +122,13 @@ namespace PurchaseControl
             {
                 messageText.gameObject.SetActive(false);
             }
+        }
+
+        public void DisplayMessage(string message)
+        {
+            messageText.color = Color.red;
+            messageText.gameObject.SetActive(true);
+            messageText.text = message;
         }
 
     }

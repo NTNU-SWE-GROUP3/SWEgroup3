@@ -159,6 +159,7 @@ public class Action : MonoBehaviour
         }
         else
         {
+            purchaseController.DisplayMessage("Please fill in all the required fields");
             Debug.Log("There are some empty fields.");
         }
     }
