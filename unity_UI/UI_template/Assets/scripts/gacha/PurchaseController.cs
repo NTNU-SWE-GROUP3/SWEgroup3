@@ -41,11 +41,11 @@ namespace PurchaseControl
                 InputField cardNumField = purchasePanel.GetComponentInChildren<InputField>();
                 if (cardNumField != null)
                 {
-                    if (cardNumField.Length < 12)
-                    {
-                        return false;
-                    }
-                    return true;
+                    // if (cardNumField.Length < 12)
+                    // {
+                    //     return false;
+                    // }
+                    // return true;
                 }
                 else
                 {
