@@ -26,7 +26,7 @@ namespace PurchaseControl
             purchasePanel.SetActive(true);
             actionReferences.buyClicked = false;
             actionReferences.cancelClicked = false;
-            ClearInputFields();
+            // ClearInputFields();
             ClearMessages();
         }
 
@@ -56,6 +56,7 @@ namespace PurchaseControl
         {
             if (inputFields != null)
             {
+                ClearInputFields();
                 inputFields[0].characterLimit = 12;
                 inputFields[0].contentType = InputField.ContentType.IntegerNumber;
 
