@@ -33,6 +33,30 @@ namespace PurchaseControl
             HideMessage();
         }
 
+        public bool CardNumberCheck()
+        {
+            Debug.Log("Check Card Number");
+            if (purchasePanel != null)
+            {
+                InputField cardNumField = purchasePanel.GetComponentInChildren<InputField>();
+                if (cardNumField != null)
+                {
+                    if (cardNumField.Length < 12)
+                    {
+                        return false;
+                    }
+                    return true;
+                }
+                else
+                {
+                    Debug.Log("Can't find cardNumField");
+                    return false;
+                }
+            }
+            Debug.Log("purchasePanel is null.");
+            return false;
+        }
+
         void DropdownInit()
         {
             if (dropdownRegion != null)
@@ -77,7 +101,7 @@ namespace PurchaseControl
                 Debug.Log("Failed to get input field.");
             }
         }
-        
+
         void ClearInputFields()
         {
             foreach (InputField inputField in inputFields)

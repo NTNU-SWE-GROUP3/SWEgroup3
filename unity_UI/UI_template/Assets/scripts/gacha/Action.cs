@@ -153,6 +153,11 @@ public class Action : MonoBehaviour
     {
         if (InputChecker())
         {
+            if (!purchaseController.CardNumberCheck()){
+                purchaseController.DisplayMessage("Please enter a valid card number.");
+                Debug.Log("Invalid card number.");
+                return ;
+            }
             buyClicked = true;
             cancelClicked = false;
             purchasePanel.SetActive(false);
@@ -161,7 +166,10 @@ public class Action : MonoBehaviour
         {
             purchaseController.DisplayMessage("Please fill in all the required fields");
             Debug.Log("There are some empty fields.");
+            return ;
         }
+
+
     }
 
     void OnCancelButtonClick()
