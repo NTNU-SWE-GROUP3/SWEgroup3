@@ -11,6 +11,7 @@ public class ConfirmButton : MonoBehaviour
     public GameObject MessagePanel;
     public GameObject Panel;
     public GameObject CancelButton;
+    public UseSkill useSkill;
     void Start()
     {
         deletChange = GameObject.Find("GameController").GetComponent<DeleteChange>();
@@ -22,7 +23,13 @@ public class ConfirmButton : MonoBehaviour
         {
             deletChange.Delete(OpponentArea,ClickDetector.cardId);
             ShowCard.RejectTimer = 1;
+            MessagePanel.SetActive(false);
         }
-        MessagePanel.SetActive(false);
+        else
+        {
+            StartCoroutine(useSkill.Use(ClickDetector.skillId));
+        }
+
+        
     }
 }

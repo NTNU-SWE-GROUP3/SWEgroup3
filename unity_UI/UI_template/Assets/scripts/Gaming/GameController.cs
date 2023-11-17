@@ -21,6 +21,7 @@ public class GameController : MonoBehaviour
     public GameObject WinImage;
     public GameObject DrawArea;
     public Text SkillMassage;
+    public Text SkillDescription;
     public Text DrawAreaCount;
     public Text NextRoundText;
     public AudioClip EndSound;
@@ -86,11 +87,19 @@ public class GameController : MonoBehaviour
         SkillPanel.SetActive(true);
         SkillImage.SetActive(true);
         SkillMassage.text = "請選擇要使用的技能";
+        SkillDescription.text = "";
+        yield return new WaitForSeconds(8);
+        ClickDetector.skillId = -1;
 
-        yield return new WaitForSeconds(5);
         MessagePanel.SetActive(false);
+        SkillPanel.SetActive(false);
+        SkillImage.SetActive(false);
+        ConfirmButton.SetActive(false);
+        CancelButton.SetActive(false);
+
         DropZone.haveCard = false;
         DropZone.backToHand = true;
+
         TurnText.text = "回合:" + Turn.ToString();
         StartCoroutine(Timer.TurnCountdown());
         if(isCom == true)

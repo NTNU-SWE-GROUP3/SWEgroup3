@@ -13,7 +13,10 @@ public class ShowSkill : MonoBehaviour
         skillIndex = 0;
         for(int i = 0;i<3;i++)
         {
-            Instantiate(Skill,gameObject.transform.position,gameObject.transform.rotation).transform.SetParent(gameObject.transform,false);
+            GameObject playerSkill  = Instantiate(Skill,gameObject.transform.position,gameObject.transform.rotation);
+            playerSkill.transform.SetParent(gameObject.transform,false);
+            playerSkill.layer = LayerMask.NameToLayer("Skill(Unused)");
+
         }
     }
    
