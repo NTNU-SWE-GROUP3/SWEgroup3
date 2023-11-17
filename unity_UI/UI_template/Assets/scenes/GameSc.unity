@@ -1563,8 +1563,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 19.731, y: -65}
-  m_SizeDelta: {x: 1080, y: 214.4386}
+  m_AnchoredPosition: {x: -0.0055208, y: -65}
+  m_SizeDelta: {x: 1036.2, y: 214.4386}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &933379069
 MonoBehaviour:
@@ -1588,10 +1588,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 80
+    m_FontSize: 70
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 8
+    m_MinSize: 0
     m_MaxSize: 80
     m_Alignment: 1
     m_AlignByGeometry: 0
@@ -2098,6 +2098,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b7b16ad13dd61c4596abfced9d062d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GC: {fileID: 1211442828}
   countdownTime: 3
   countdownDisplay: {fileID: 425344038}
   TimerText: {fileID: 1164825670}
@@ -2119,7 +2120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dcd2e795d0d50248b301dded5fb713a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  drawCard: {fileID: 0}
+  drawCard: {fileID: 1211442830}
   isCom: 0
   ComPlayer: {fileID: 965809086}
   Timer: {fileID: 0}
@@ -2789,8 +2790,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 20.984, y: 41}
-  m_SizeDelta: {x: 1080, y: 207.4609}
+  m_AnchoredPosition: {x: 10.491995, y: 41}
+  m_SizeDelta: {x: 1101, y: 207.4609}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1455593241
 MonoBehaviour:
@@ -2814,7 +2815,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 110
+    m_FontSize: 100
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
