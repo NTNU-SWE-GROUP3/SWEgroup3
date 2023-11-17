@@ -34,6 +34,7 @@ public class GameController : MonoBehaviour
     public AudioManager audioManager;
     public Image MusicImg;
 
+    public UseSkill useSkill;
     AudioSource audioSource;
     
     void Start()
@@ -88,7 +89,8 @@ public class GameController : MonoBehaviour
         SkillImage.SetActive(true);
         SkillMassage.text = "請選擇要使用的技能";
         SkillDescription.text = "";
-        yield return new WaitForSeconds(8);
+        yield return StartCoroutine(useSkill.Timer());
+
         ClickDetector.skillId = -1;
 
         MessagePanel.SetActive(false);
@@ -104,7 +106,7 @@ public class GameController : MonoBehaviour
         StartCoroutine(Timer.TurnCountdown());
         if(isCom == true)
         {
-            ComPlayer.PlayRandomCard();
+            yield return StartCoroutine(ComPlayer.PlayCard());
         }
             
     }

@@ -40,19 +40,20 @@ public class SkillDisplay : MonoBehaviour
     {
         if(this.gameObject.layer == 13)
         {
-        if(ClickDetector.skillId == this.id)
-        {
-            this.GetComponent<Image>().color = new Color32(0, 255, 0,100);
-            SkillDescriptionText.text = skillDescription ;
-            SkillNameText.text = skillName;
-        }
-        else
-        {
-            this.GetComponent<Image>().color = new Color32(0,0,0,0);
-        }
+            if(ClickDetector.skillId == this.id)
+            {
+                this.GetComponent<Image>().color = new Color32(0, 255, 0,100);
+                SkillDescriptionText.text = skillDescription ;
+                SkillNameText.text = skillName;
+            }
+            else
+            {
+                this.GetComponent<Image>().color = new Color32(0,0,0,0);
+            }
         }
         else if(this.gameObject.layer == 14)
         {
+            this.GetComponent<Image>().color = new Color32(0,0,0,0);
             UsedPanel.SetActive(true);
         }
 
