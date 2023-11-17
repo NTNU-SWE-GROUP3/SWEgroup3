@@ -25,6 +25,20 @@ class DBManager:
         rec = []
         for c in self.cursor:
             rec.append(c[0])
+        return True if rec[0] >= 1 else False
+
+
+
+    def EmailExist(self, accountEmail):
+        insert_stmt = (
+            "SELECT count(*) FROM account a "
+            "WHERE a.email = %s LIMIT 1"
+        )
+        data = (accountEmail,)   # it have to be tuple style here.
+        self.cursor.execute(insert_stmt, data)
+        rec = []
+        for c in self.cursor:
+            rec.append(c[0])
         return True if rec[0] == 1 else False
 
 
@@ -66,8 +80,47 @@ class DBManager:
 
     def SetTokenIdAndValidity(self, accountId, tokenId, tokenValidity):
         self.cursor.execute(
-            'UPDATE	account a SET a.token_id = %s, token_validity = %s WHERE a.id = %s',
+            'UPDATE	account a SET a.token_id = %s, a.token_validity = %s WHERE a.id = %s',
             (tokenId, tokenValidity, accountId))
         self.connection.commit()
 
 
+
+    def SetNewAccount(self, accountName, accountEmail, accountPassword):
+        insert_stmt = (
+            "INSERT INTO account(name, email, password, token_id, token_validity, salt) "
+            "VALUES(%s, %s, %s, NULL, NULL, SUBSTRING(SHA1(RAND()), 1, 32))"
+        )
+        data = (accountName, accountEmail, accountPassword,)
+        self.cursor.execute(insert_stmt, data)
+        self.connection.commit()
+
+
+
+    def UpdateNewAccountPassword(self, accountId):
+        insert_stmt = (
+            "UPDATE account a "
+            "SET a.password = SHA1(CONCAT(a.password, a.salt)) "
+            "WHERE a.id = %s"
+        )
+        data = (accountId,)
+        self.cursor.execute(insert_stmt, data)
+        self.connection.commit()
+
+
+
+    def FindAccountId(self, accountName):
+            insertStmt = (
+                "SELECT a.id FROM account a "
+                "WHERE a.name = %s "
+                "LIMIT 1"
+            )
+            data = (accountName,)
+            self.cursor.execute(insertStmt, data)
+            rec = []
+            for c in self.cursor:
+                rec.append(c[0])
+            if(bool(rec)):
+                return rec[0]
+            else:
+                return -1
