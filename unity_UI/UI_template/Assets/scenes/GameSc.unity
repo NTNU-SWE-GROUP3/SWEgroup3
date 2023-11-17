@@ -2078,6 +2078,7 @@ GameObject:
   - component: {fileID: 1211442831}
   - component: {fileID: 1211442832}
   - component: {fileID: 1211442834}
+  - component: {fileID: 1211442835}
   m_Layer: 0
   m_Name: GameController
   m_TagString: GameController
@@ -2132,6 +2133,7 @@ MonoBehaviour:
   WinImage: {fileID: 1214895670}
   DrawArea: {fileID: 1715371806}
   SkillMassage: {fileID: 1455593241}
+  SkillDescription: {fileID: 933379069}
   DrawAreaCount: {fileID: 975557086}
   NextRoundText: {fileID: 257896043}
   EndSound: {fileID: 8300000, guid: 9e2ee70f36edf4f099cc93a88970ac52, type: 3}
@@ -2320,6 +2322,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1211442835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1211442826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e341ddaf2b9b6484091236e09dc74db9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SkillPanel: {fileID: 0}
 --- !u!1 &1214895670
 GameObject:
   m_ObjectHideFlags: 0
@@ -2549,6 +2564,7 @@ MonoBehaviour:
   MessagePanel: {fileID: 931180408}
   Panel: {fileID: 603247139}
   CancelButton: {fileID: 1746798446}
+  useSkill: {fileID: 1211442835}
 --- !u!82 &1320759887
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2561,7 +2577,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.236
   m_Pitch: 1
   Loop: 0
   Mute: 0
