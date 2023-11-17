@@ -21,11 +21,7 @@ public class DrawCard : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
     }
-    public void Draw()
-    {
-       StartCoroutine(Drawing());
-    }
-    IEnumerator Drawing()
+    public IEnumerator Drawing()
     {
         var n = Random.Range(1, 100);
         GameObject First ;

@@ -30,7 +30,7 @@ public class UseSkill : MonoBehaviour
         {
            SkillObject = SkillPanel.transform.GetChild(i).gameObject;
            Skill = SkillObject.GetComponent<SkillDisplay>();
-           if(Skill.id == skillId)
+           if(SkillObject.layer == 13 && Skill.id == skillId)
            {
                 SkillObject.layer = LayerMask.NameToLayer("Skill(Used)");
                 break;

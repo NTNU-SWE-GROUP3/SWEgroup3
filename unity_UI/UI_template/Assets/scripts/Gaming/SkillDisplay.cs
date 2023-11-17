@@ -42,6 +42,14 @@ public class SkillDisplay : MonoBehaviour
         {
             if(ClickDetector.skillId == this.id)
             {
+                if(this.id == 8)
+                {
+                    SkillDescriptionText.fontSize = 60;
+                }
+                else
+                {
+                    SkillDescriptionText.fontSize = 70;
+                }
                 this.GetComponent<Image>().color = new Color32(0, 255, 0,100);
                 SkillDescriptionText.text = skillDescription ;
                 SkillNameText.text = skillName;

@@ -58,10 +58,10 @@ public class GameController : MonoBehaviour
         DrawAreaCount.text = "平手區累積牌數: " + DrawArea.transform.childCount.ToString() + "張";
     }
 
-    public void GameBegin()
+    public IEnumerator GameBegin()
     {
         Turn = 0;
-        drawCard.Draw();
+        yield return StartCoroutine(drawCard.Drawing());
         // Game Start
         StartCoroutine(TurnStart());
     }
