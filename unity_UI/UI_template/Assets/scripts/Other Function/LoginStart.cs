@@ -56,7 +56,7 @@ public class strat : MonoBehaviour
     //URL
     private static string serverUrl = "http://127.0.0.1:80";
     private string serverURL_login = serverUrl + "/account/login";
-    private string serverURL_signup = "http://127.0.0.1:5000/signup";
+    private string serverURL_signup = serverUrl + "/account/signup";
     private string serverURL_checkaccount = "http://127.0.0.1:5000/checkaccount";
     private string serverURL_changepassword = "http://127.0.0.1:5000/changepassword";
 
@@ -301,7 +301,7 @@ public class strat : MonoBehaviour
                 WarningPanel.SetActive(true);
 
             }
-            else 
+            else
             {
 
                 string responseText = www.downloadHandler.text;
