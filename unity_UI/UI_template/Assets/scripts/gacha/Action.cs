@@ -31,6 +31,7 @@ public class Action : MonoBehaviour
     public Animator gachaAnimator10;
     public AnimationController animationController;
     public PurchaseController purchaseController;
+    public ErrorMessage errorController;
     public bool yesClicked = false;
     public bool noClicked = false;
     public bool buyClicked = false;
@@ -232,6 +233,7 @@ public class Action : MonoBehaviour
 
         if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
         {
+            errorController.ShowErrorMessage("Please check your network connection.");
             Debug.Log("failed");
             Debug.LogError(www.error);
         }
