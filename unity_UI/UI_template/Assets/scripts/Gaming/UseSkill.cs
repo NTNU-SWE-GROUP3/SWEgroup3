@@ -37,11 +37,49 @@ public class UseSkill : MonoBehaviour
            }
         }
         //判斷技能的使用
-        if (skillId == 3)
+        switch (skillId)
         {
-            Debug.Log("Player Use Skill 3");
-            yield return new WaitForSeconds(1);
+            case 1: //時間限縮
+                Debug.Log("Player Use Skill 1");
+                yield return new WaitForSeconds(1);
+                break;
+            case 2: //階級流動
+                Debug.Log("Player Use Skill 2");
+                yield return new WaitForSeconds(1);
+                break;
+            case 3: //暗影轉職
+                Debug.Log("Player Use Skill 3");
+                yield return new WaitForSeconds(1);
+                break;
+            case 4: //技能封印
+                Debug.Log("Player Use Skill 4");
+                yield return new WaitForSeconds(1);
+                break;
+            case 5: //力量剝奪
+                Debug.Log("Player Use Skill 5");
+                yield return new WaitForSeconds(1);
+                break;
+            case 6: //黃金風暴
+                Debug.Log("Player Use Skill 6");
+                yield return new WaitForSeconds(1);
+                break;
+            case 7: //知己知彼
+                Debug.Log("Player Use Skill 7");
+                yield return new WaitForSeconds(1);
+                break;
+            case 8: //抉擇束縛
+                Debug.Log("Player Use Skill 8");
+                yield return new WaitForSeconds(1);
+                break;
+            case 9: //強制徵收
+                Debug.Log("Player Use Skill 9");
+                
+                yield return new WaitForSeconds(1);
+                break;
+            case 10: //勝者之堆
+                Debug.Log("Player Use Skill 10");
+                yield return new WaitForSeconds(1);
+                break;
         }
-        
     }
 }
