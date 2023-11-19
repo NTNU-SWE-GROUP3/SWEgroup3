@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 using MiniJSON;
 using ResultAnimation;
+using PurchaseControl;
 
 public class Action : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class Action : MonoBehaviour
     [SerializeField] GotchaPanel gotchaPanel;
     [SerializeField] GameObject messagePanel;
     [SerializeField] GameObject resultPanel;
+    [SerializeField] GameObject purchasePanel;
     [SerializeField] GameObject mask;
     [SerializeField] GameObject okButton1;
     [SerializeField] GameObject okButton10;
@@ -23,12 +25,17 @@ public class Action : MonoBehaviour
     [SerializeField] GameObject gachaResult10;
     [SerializeField] Button yesButton;
     [SerializeField] Button noButton;
+    [SerializeField] Button buyButton;
+    [SerializeField] Button cancelButton;
     public Animator gachaAnimator1;
     public Animator gachaAnimator10;
     public AnimationController animationController;
-    bool yesClicked = false;
-    bool noClicked = false;
-
+    public PurchaseController purchaseController;
+    public ErrorMessage errorController;
+    public bool yesClicked = false;
+    public bool noClicked = false;
+    public bool buyClicked = false;
+    public bool cancelClicked = false;
     public string response;
 
     [System.Serializable]
@@ -49,12 +56,15 @@ public class Action : MonoBehaviour
         messagePanel.SetActive(false);
         resultPanel.SetActive(false);
         mask.SetActive(false);
+        purchasePanel.SetActive(false);
         gachaResult1.SetActive(false);
         gachaResult10.SetActive(false);
         okButton1.SetActive(false);
         okButton10.SetActive(false);
         yesClicked = false;
         noClicked = false;
+        buyClicked = false;
+        cancelClicked = false;
     }
 
     public IEnumerator ExecuteDraw(string times, string mode)
@@ -64,17 +74,45 @@ public class Action : MonoBehaviour
         yesClicked = false;
         noClicked = false;
 
+        yesButton.onClick.AddListener(() => OnYesButtonClick());
+        noButton.onClick.AddListener(() => OnNoButtonClick());
         while (!yesClicked && !noClicked)
         {
-            yesButton.onClick.AddListener(() => OnYesButtonClick());
-            noButton.onClick.AddListener(() => OnNoButtonClick());
             yield return null;
         }
+        yesButton.onClick.RemoveAllListeners();
+        noButton.onClick.RemoveAllListeners();
 
         if (yesClicked)
         {
-            Debug.Log("Yes, Start Drawing");
-            StartCoroutine(SendRequest(playerId, mode, times));
+            if (mode == "cash")
+            {
+                purchaseController.OpenPurchasePanel();
+
+                buyButton.onClick.AddListener(() => OnBuyButtonClick());
+                cancelButton.onClick.AddListener(() => OnCancelButtonClick());
+                while (!buyClicked && !cancelClicked)
+                {
+                    yield return null;
+                }
+                buyButton.onClick.RemoveAllListeners();
+                cancelButton.onClick.RemoveAllListeners();
+
+                if (buyClicked)
+                {
+                    Debug.Log("Get info, start drawing...");
+                    StartCoroutine(SendRequest(playerId, mode, times));
+                }
+                else if (cancelClicked)
+                {
+                    Debug.Log("Canceled");
+                }
+            }
+            else if (mode == "coin")
+            {
+                Debug.Log("Yes, Start Drawing");
+                StartCoroutine(SendRequest(playerId, mode, times));
+            }
         }
         else if (noClicked)
         {
@@ -84,6 +122,62 @@ public class Action : MonoBehaviour
         messagePanel.SetActive(false);   // Hide confirmation dialog
         yesClicked = false;
         noClicked = false;
+    }
+
+    bool InputChecker()
+    {
+        Debug.Log("Check input");
+        if (purchasePanel != null)
+        {
+            // Get all InputFields under the purchasePanel
+            InputField[] inputFields = purchasePanel.GetComponentsInChildren<InputField>();
+
+            // Iterate through each InputField
+            foreach (InputField inputField in inputFields)
+            {
+                if (string.IsNullOrEmpty(inputField.text))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+        else
+        {
+            Debug.LogError("purchasePanel is null. Please assign a valid GameObject reference.");
+            return false;
+        }
+    }
+
+    void OnBuyButtonClick()
+    {
+        if (InputChecker())
+        {
+            // if (!purchaseController.CardNumberCheck()){
+            //     purchaseController.DisplayMessage("Please enter a valid card number.");
+            //     Debug.Log("Invalid card number.");
+            //     return ;
+            // }
+            buyClicked = true;
+            cancelClicked = false;
+            purchasePanel.SetActive(false);
+        }
+        else
+        {
+            purchaseController.DisplayMessage("Please fill in all the required fields");
+            Debug.Log("There are some empty fields.");
+            return ;
+        }
+
+
+    }
+
+    void OnCancelButtonClick()
+    {
+        cancelClicked = true;
+        buyClicked = false;
+        purchasePanel.SetActive(false);
     }
 
     void OnYesButtonClick()
@@ -111,7 +205,6 @@ public class Action : MonoBehaviour
             case 1:
                 mode = "coin";
                 Debug.Log("Coin Mode");
-                // StartCoroutine(SendRequest(playerId, mode, times));
                 StartCoroutine(ExecuteDraw(times, mode));
                 break;
             case 2:
@@ -120,6 +213,7 @@ public class Action : MonoBehaviour
                 StartCoroutine(ExecuteDraw(times, mode));
                 break;
             default:
+                Debug.Log("Failed to get mode.");
                 break;
 
         };
@@ -139,6 +233,7 @@ public class Action : MonoBehaviour
 
         if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
         {
+            errorController.ShowErrorMessage("Please check your network connection.");
             Debug.Log("failed");
             Debug.LogError(www.error);
         }
