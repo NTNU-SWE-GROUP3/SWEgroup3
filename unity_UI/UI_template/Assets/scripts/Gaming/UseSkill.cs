@@ -10,7 +10,11 @@ public class UseSkill : MonoBehaviour
     SkillDisplay Skill;
     int Clock = 8;
     public Text TimerText;
-
+    ShowCard SC;
+    void Start()
+    {
+        SC = GameObject.Find("GameController").GetComponent<ShowCard>();
+    }
     public IEnumerator Timer()
     {
         Clock = 10;
@@ -73,11 +77,12 @@ public class UseSkill : MonoBehaviour
                 break;
             case 9: //強制徵收
                 Debug.Log("Player Use Skill 9");
-                
+                SC.TriumphManipulation();
                 yield return new WaitForSeconds(1);
                 break;
             case 10: //勝者之堆
                 Debug.Log("Player Use Skill 10");
+                SC.VictoryBoost();
                 yield return new WaitForSeconds(1);
                 break;
         }
