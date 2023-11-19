@@ -293,12 +293,12 @@ RectTransform:
   - {fileID: 2037673648}
   - {fileID: 1581288624}
   - {fileID: 2127197516}
-  m_Father: {fileID: 1433501963}
+  m_Father: {fileID: 1524685072}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -42.000008}
-  m_SizeDelta: {x: 730, y: 1102}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &34531450
 MonoBehaviour:
@@ -3875,12 +3875,12 @@ RectTransform:
   m_Children:
   - {fileID: 1529130385}
   - {fileID: 1459318164}
-  m_Father: {fileID: 1433501963}
+  m_Father: {fileID: 1524685072}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -42}
-  m_SizeDelta: {x: 671.7733, y: 366.36084}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 41.773315, y: -635.63916}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &484884282
 MonoBehaviour:
@@ -4548,7 +4548,7 @@ GameObject:
   - component: {fileID: 549065048}
   - component: {fileID: 549065047}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Message
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6822,7 +6822,7 @@ GameObject:
   - component: {fileID: 729447870}
   - component: {fileID: 729447869}
   m_Layer: 5
-  m_Name: InputField (Legacy) (2)
+  m_Name: VerifyCode
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8705,19 +8705,19 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 889481090}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 140841764}
   - {fileID: 384156724}
-  m_Father: {fileID: 1433501963}
+  m_Father: {fileID: 1524685072}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 449.6929, y: 251.4411}
+  m_AnchoredPosition: {x: 0, y: 42}
+  m_SizeDelta: {x: -180.3071, y: -750.55896}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &889481092
 MonoBehaviour:
@@ -9789,7 +9789,7 @@ GameObject:
   - component: {fileID: 1065909224}
   - component: {fileID: 1065909223}
   m_Layer: 5
-  m_Name: InputField (Legacy) (4)
+  m_Name: PostNumber
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12876,11 +12876,8 @@ RectTransform:
   - {fileID: 2100926202}
   - {fileID: 516602513}
   - {fileID: 1531474927}
-  - {fileID: 34531449}
-  - {fileID: 484884281}
+  - {fileID: 1524685072}
   - {fileID: 611342212}
-  - {fileID: 1886781089}
-  - {fileID: 889481091}
   m_Father: {fileID: 1924956172}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -13661,6 +13658,45 @@ MonoBehaviour:
   SkinKingDescription: {fileID: 2130873342}
   SkinKingSellSkinButton: {fileID: 1884854459}
   SkinKingEquipSkinButton: {fileID: 1538500016}
+--- !u!1 &1524685071
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1524685072}
+  m_Layer: 5
+  m_Name: Page4Panels
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1524685072
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1524685071}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 34531449}
+  - {fileID: 484884281}
+  - {fileID: 1886781089}
+  - {fileID: 889481091}
+  m_Father: {fileID: 1433501963}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -42}
+  m_SizeDelta: {x: 730, y: 1102}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1529130384
 GameObject:
   m_ObjectHideFlags: 0
@@ -14908,7 +14944,7 @@ GameObject:
   - component: {fileID: 1699090326}
   - component: {fileID: 1699090325}
   m_Layer: 5
-  m_Name: InputField (Legacy) (1)
+  m_Name: Date
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16421,7 +16457,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1886781088}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -16429,12 +16465,12 @@ RectTransform:
   - {fileID: 549065046}
   - {fileID: 1554138839}
   - {fileID: 777320102}
-  m_Father: {fileID: 1433501963}
+  m_Father: {fileID: 1524685072}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -42}
-  m_SizeDelta: {x: 730, y: 1102}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1886781090
 MonoBehaviour:
@@ -16854,7 +16890,7 @@ GameObject:
   - component: {fileID: 1906994330}
   - component: {fileID: 1906994329}
   m_Layer: 5
-  m_Name: InputField (Legacy) (3)
+  m_Name: Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19182,7 +19218,7 @@ GameObject:
   - component: {fileID: 2048966880}
   - component: {fileID: 2048966879}
   m_Layer: 5
-  m_Name: InputField (Legacy)
+  m_Name: CardNumber
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20370,10 +20406,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 518470787}
     - target: {fileID: 3596307941874823376, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
-      propertyPath: inputFields.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3596307941874823376, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
       propertyPath: inputFields.Array.data[0]
       value: 
       objectReference: {fileID: 2048966879}
@@ -20393,6 +20425,10 @@ PrefabInstance:
       propertyPath: inputFields.Array.data[4]
       value: 
       objectReference: {fileID: 1065909223}
+    - target: {fileID: 4298997299974111394, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
+      propertyPath: action
+      value: 
+      objectReference: {fileID: 1488098388}
     - target: {fileID: 4436682766119827445, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
       propertyPath: gotchaPanel
       value: 

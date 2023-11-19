@@ -155,6 +155,27 @@ namespace PurchaseControl
             messageText.text = message;
         }
 
+        // public void CardNumSeperator()
+        // {
+        //     InputField cardNumField = purchasePanel.GetComponentInChildren<InputField>();
+        //     if (cardNumField != null)
+        //     {
+        //         string formatValue = cardNumField.text;
+        //         for (int i = 0; i < cardNumField.text.Length; i++)
+        //         {
+        //             if (i % 4 == 3)
+        //             {
+        //                 formatValue = formatValue.Insert(i," ");
+        //             }
+        //         }
+        //         cardNumField.text = formatValue;
+        //     }
+        //     else
+        //     {
+        //         Debug.Log("Cant find cardNumField");
+        //     }
+        // }
+
     }
 
 }

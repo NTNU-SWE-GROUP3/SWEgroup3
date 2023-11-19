@@ -36,6 +36,8 @@ public class Action : MonoBehaviour
     public bool noClicked = false;
     public bool buyClicked = false;
     public bool cancelClicked = false;
+    public bool skipAnimation = false;
+
     public string response;
 
     [System.Serializable]
@@ -51,6 +53,7 @@ public class Action : MonoBehaviour
         Init();
     }
 
+
     void Init()
     {
         messagePanel.SetActive(false);
@@ -65,6 +68,7 @@ public class Action : MonoBehaviour
         noClicked = false;
         buyClicked = false;
         cancelClicked = false;
+        skipAnimation = false;
     }
 
     public IEnumerator ExecuteDraw(string times, string mode)
@@ -167,7 +171,7 @@ public class Action : MonoBehaviour
         {
             purchaseController.DisplayMessage("Please fill in all the required fields");
             Debug.Log("There are some empty fields.");
-            return ;
+            return;
         }
 
 
