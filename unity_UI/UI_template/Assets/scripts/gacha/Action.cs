@@ -154,11 +154,11 @@ public class Action : MonoBehaviour
     {
         if (InputChecker())
         {
-            if (!purchaseController.CardNumberCheck()){
-                purchaseController.DisplayMessage("Please enter a valid card number.");
-                Debug.Log("Invalid card number.");
-                return ;
-            }
+            // if (!purchaseController.CardNumberCheck()){
+            //     purchaseController.DisplayMessage("Please enter a valid card number.");
+            //     Debug.Log("Invalid card number.");
+            //     return ;
+            // }
             buyClicked = true;
             cancelClicked = false;
             purchasePanel.SetActive(false);
