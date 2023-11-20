@@ -17,7 +17,7 @@ public class UseSkill : MonoBehaviour
     }
     public IEnumerator Timer()
     {
-        Clock = 10;
+        Clock = 3;
         TimerText.gameObject.SetActive(true);
         while(Clock >= 0)
         {
@@ -61,6 +61,7 @@ public class UseSkill : MonoBehaviour
                 break;
             case 5: //力量剝奪
                 Debug.Log("Player Use Skill 5");
+                SC.PeasantImmunity();
                 yield return new WaitForSeconds(1);
                 break;
             case 6: //黃金風暴
