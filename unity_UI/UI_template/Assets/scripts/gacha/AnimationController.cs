@@ -12,9 +12,16 @@ namespace ResultAnimation
         [SerializeField] Sprite coinSprite;
         [SerializeField] Sprite skillSprite;
         [SerializeField] Sprite cardStyleSprite;
+        public ImageManager imageManager;
+
 
         public void DisplayCardResults(List<object> jsonArray)
         {
+            if (imageManager == null)
+            {
+                Debug.LogError("SkillImageMapper is not assigned. Please assign it in the Inspector.");
+                return;
+            }
             if (jsonArray.Count > 1)
             {
                 Transform result10 = GachaResult10.transform.Find("Result10");
@@ -69,6 +76,9 @@ namespace ResultAnimation
                         resultImage.sprite = coinSprite;
                         break;
                     case "skill":
+                        int skill_id = int.Parse(dict["id"].ToString());
+                        Debug.Log("skill_id: " + skill_id);
+                        Sprite skillSprite = imageManager.GetSkillImage(skill_id);
                         resultImage.sprite = skillSprite;
                         break;
                     case "card_style":

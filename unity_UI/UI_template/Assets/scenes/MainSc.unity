@@ -13559,6 +13559,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37e76d74e80a14b4cb084eb11399c3a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1488098391 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7045561917990397920, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
+  m_PrefabInstance: {fileID: 3915036173632937927}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63be880beb3ab42de9ac8578f4eacced, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1512748295
 GameObject:
   m_ObjectHideFlags: 0
@@ -20425,10 +20436,6 @@ PrefabInstance:
       propertyPath: inputFields.Array.data[4]
       value: 
       objectReference: {fileID: 1065909223}
-    - target: {fileID: 4298997299974111394, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
-      propertyPath: action
-      value: 
-      objectReference: {fileID: 1488098388}
     - target: {fileID: 4436682766119827445, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
       propertyPath: gotchaPanel
       value: 
@@ -20517,6 +20524,10 @@ PrefabInstance:
       propertyPath: GachaResult1
       value: 
       objectReference: {fileID: 246800806}
+    - target: {fileID: 7690228223650693897, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
+      propertyPath: imageManager
+      value: 
+      objectReference: {fileID: 1488098391}
     - target: {fileID: 7690228223650693897, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
       propertyPath: GachaResult10
       value: 
