@@ -10,18 +10,16 @@ namespace ResultAnimation
         [SerializeField] GameObject GachaResult1;
         [SerializeField] GameObject GachaResult10;
         [SerializeField] Sprite coinSprite;
-        [SerializeField] Sprite skillSprite;
-        [SerializeField] Sprite cardStyleSprite;
         public ImageManager imageManager;
-
 
         public void DisplayCardResults(List<object> jsonArray)
         {
             if (imageManager == null)
             {
-                Debug.LogError("SkillImageMapper is not assigned. Please assign it in the Inspector.");
+                Debug.LogError("ImageManager is not assigned. Please assign it in the Inspector.");
                 return;
             }
+
             if (jsonArray.Count > 1)
             {
                 Transform result10 = GachaResult10.transform.Find("Result10");
@@ -45,17 +43,26 @@ namespace ResultAnimation
 
                     string resultType = dict["type"].ToString();
                     Debug.Log("check: " + resultType);
-                    // resultImage = resultImages[i];
+
                     switch (resultType)
                     {
                         case "coins":
                             resultImages[i].sprite = coinSprite;
+                            AdjustImageSize(resultImages[i], coinSprite);
                             break;
                         case "skill":
+                            int skill_id = int.Parse(dict["id"].ToString());
+                            Debug.Log("skill_id: " + skill_id);
+                            Sprite skillSprite = imageManager.GetSkillImage(skill_id);
                             resultImages[i].sprite = skillSprite;
+                            AdjustImageSize(resultImages[i], skillSprite);
                             break;
                         case "card_style":
-                            resultImages[i].sprite = cardStyleSprite;
+                            int style_id = int.Parse(dict["id"].ToString());
+                            Debug.Log("style_id: " + style_id);
+                            Sprite styleSprite = imageManager.GetCardStyleImage(style_id);
+                            resultImages[i].sprite = styleSprite;
+                            AdjustImageSize(resultImages[i], styleSprite);
                             break;
                         default:
                             break;
@@ -74,15 +81,21 @@ namespace ResultAnimation
                 {
                     case "coins":
                         resultImage.sprite = coinSprite;
+                        AdjustImageSize(resultImage, coinSprite);
                         break;
                     case "skill":
                         int skill_id = int.Parse(dict["id"].ToString());
                         Debug.Log("skill_id: " + skill_id);
                         Sprite skillSprite = imageManager.GetSkillImage(skill_id);
                         resultImage.sprite = skillSprite;
+                        AdjustImageSize(resultImage, skillSprite);
                         break;
                     case "card_style":
-                        resultImage.sprite = cardStyleSprite;
+                        int style_id = int.Parse(dict["id"].ToString());
+                        Debug.Log("style_id: " + style_id);
+                        Sprite styleSprite = imageManager.GetCardStyleImage(style_id);
+                        resultImage.sprite = styleSprite;
+                        AdjustImageSize(resultImage, styleSprite);
                         break;
                     default:
                         break;
@@ -90,10 +103,17 @@ namespace ResultAnimation
             }
             else
             {
-                Debug.Log("Error to parse json array result");
+                Debug.Log("Error parsing json array result");
             }
         }
 
+        void AdjustImageSize(Image image, Sprite sprite)
+        {
+            if (image != null && sprite != null)
+            {
+                Debug.Log($"{sprite.texture.width}, {sprite.texture.height}");
+                image.rectTransform.sizeDelta = new Vector2(sprite.texture.width/10, sprite.texture.height/10);
+            }
+        }
     }
-
 }
