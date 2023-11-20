@@ -57,8 +57,8 @@ public class strat : MonoBehaviour
     private static string serverUrl = "http://127.0.0.1:80";
     private string serverURL_login = serverUrl + "/account/login";
     private string serverURL_signup = serverUrl + "/account/signup";
-    private string serverURL_checkaccount = "http://127.0.0.1:5000/checkaccount";
-    private string serverURL_changepassword = "http://127.0.0.1:5000/changepassword";
+    private string serverURL_checkaccount = serverUrl + "/forget_password/checkaccount";
+    private string serverURL_changepassword = serverUrl + "/forget_password/changepassword";
 
 
     void Start()
@@ -133,6 +133,18 @@ public class strat : MonoBehaviour
         SignUpPanel.SetActive(false);
         PasswordPanel1.SetActive(false);
         PasswordPanel2.SetActive(false);
+
+
+        Login_AccountInput.text = "";
+        Login_PasswordInput.text = "";
+        SignUp_AccountInput.text = "";
+        SignUp_EmailInput.text = "";
+        SignUp_PasswordInput.text = "";
+        PP1_AccountInput.text = "";
+        PP1_EmailInput.text = "";
+        PP2_PasswordInput.text = "";
+        PP2_PasswordCheckInput.text = "";
+
         Debug.Log("Back to login page");
 
     }
@@ -194,6 +206,9 @@ public class strat : MonoBehaviour
                 {
                     case "400000":
                         Debug.Log("Login success!");
+                        Warning_Message.SetText("Login success!");
+                        WarningPanel.SetActive(true);
+                        
                         // 執行登入成功的操作
 
                         /////////////////////////////////////////////////////////////////////////////
@@ -402,7 +417,7 @@ public class strat : MonoBehaviour
                         Debug.Log("Email & Username match");
 
                         // Warning Panel
-                        Warning_Message.SetText("Veryfy code has sent to your Email address");
+                        Warning_Message.SetText("Veryfy code has sent\n to your Email address");
                         WarningPanel.SetActive(true);
 
                         Debug.Log("Turn to PasswordPanel2");
@@ -430,11 +445,12 @@ public class strat : MonoBehaviour
 
     private void ChangePasswordRequest() // On PasswordPanel2
     {
-        string account = PP2_VarifyCode.text;
+        string account = PP1_AccountInput.text;
+        string VarifyCode = PP2_VarifyCode.text;
         string Password = PP2_PasswordInput.text;
         string CheckPassword = PP2_PasswordCheckInput.text;
 
-        if (string.IsNullOrEmpty(account) || string.IsNullOrEmpty(Password) || string.IsNullOrEmpty(CheckPassword))
+        if (string.IsNullOrEmpty(VarifyCode) || string.IsNullOrEmpty(Password) || string.IsNullOrEmpty(CheckPassword))
         {
             // 如果為空，顯示錯誤消息或執行相應操作
             Debug.Log("Not fill in all required fields.");
@@ -452,15 +468,16 @@ public class strat : MonoBehaviour
         else
         {
             // 執行change password操作
-            StartCoroutine(SendpasswordRequest(account, Password));
+            StartCoroutine(SendpasswordRequest(account, VarifyCode, Password));
             Debug.Log("Try to find whether the account belongs to user...");
         }
     }
 
-    private IEnumerator SendpasswordRequest(string account, string Password)
+    private IEnumerator SendpasswordRequest(string account, string VarifyCode, string Password)
     {
         WWWForm form = new WWWForm();
         form.AddField("Account", account); // 
+        form.AddField("VarifyCode", VarifyCode); // 
         form.AddField("Password", Password); // 
 
         using (UnityWebRequest www = UnityWebRequest.Post(serverURL_changepassword, form))
@@ -510,6 +527,20 @@ public class strat : MonoBehaviour
                         // Warning Panel
                         Warning_Message.SetText("Password too long");
                         WarningPanel.SetActive(true);
+                        break;
+                    case "403009":
+                        Debug.Log("Wrong VarifyCode");
+                        // Warning Panel
+                        Warning_Message.SetText("Wrong VarifyCode");
+                        WarningPanel.SetActive(true);
+                        break;
+                    case "403010":
+                        Debug.Log("VarifyCode Expired");
+                        // Warning Panel
+                        Warning_Message.SetText("VarifyCode Expired");
+                        WarningPanel.SetActive(true);
+                        BackToLogin();
+                        Debug.Log("Return to LoginPanel");
                         break;
                 }
             }
