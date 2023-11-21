@@ -12,6 +12,7 @@ public class GameController : MonoBehaviour
     public CountDown Timer;
     public static int Turn;
     public Text TurnText;
+    public GameObject SkipButton;
     public GameObject ConfirmButton;
     public GameObject CancelButton;
     public GameObject CardPanel;
@@ -32,6 +33,7 @@ public class GameController : MonoBehaviour
     public AudioClip DefeatVoice2;
     public AudioClip DefeatVoice3;
     public AudioManager audioManager;
+    bool NoSkillCanUse;
     public Image MusicImg;
 
     public UseSkill useSkill;
@@ -39,7 +41,9 @@ public class GameController : MonoBehaviour
     
     void Start()
     {
+        NoSkillCanUse = false;
         isCom = true;
+        SkipButton.SetActive(false);
         SkillPanel.SetActive(false);
         SkillImage.SetActive(false);
         ConfirmButton.SetActive(false);
@@ -70,11 +74,7 @@ public class GameController : MonoBehaviour
        
         Turn++;
         MessagePanel.SetActive(true);
-        ClickDetector.cardId = -1;
-        for(int i = 0 ; i < CardPanel.transform.childCount;i++)
-        {
-            Destroy(CardPanel.transform.GetChild(i).gameObject);
-        }
+        DestoryCardOnPanel();
         SkillPanel.SetActive(false);
         ConfirmButton.SetActive(false);
         CancelButton.SetActive(false);
@@ -83,15 +83,30 @@ public class GameController : MonoBehaviour
         NextRoundText.gameObject.SetActive(true);
         NextRoundText.text = "Round" + Turn.ToString();
         yield return new WaitForSeconds(1);
-        
         WinImage.SetActive(false);
         SkillPanel.SetActive(true);
-        SkillImage.SetActive(true);
-        SkillMassage.text = "請選擇要使用的技能";
-        SkillDescription.text = "";
-        yield return StartCoroutine(useSkill.Timer());
+            SkillImage.SetActive(true);
+        if(NoSkillCanUse == false)
+        {
+            if(SkillPanel.transform.GetChild(0).gameObject.layer == 14 && SkillPanel.transform.GetChild(1).gameObject.layer == 14 && SkillPanel.transform.GetChild(2).gameObject.layer == 14)
+                NoSkillCanUse = true;
+        }
+        if(NoSkillCanUse == false)
+        {
+            SkillMassage.text = "請選擇要使用的技能";
+            SkillDescription.text = "";
+            yield return StartCoroutine(useSkill.Timer());
+            ClickDetector.skillId = -1;
+        }
+        else 
+        {
+            SkillMassage.text = "已無技能可以使用";
+            SkillDescription.text = "";
+            SkipButton.SetActive(true);
+            yield return StartCoroutine(useSkill.Timer());
+        }
 
-        ClickDetector.skillId = -1;
+        
 
         MessagePanel.SetActive(false);
         SkillPanel.SetActive(false);
@@ -185,4 +200,13 @@ public class GameController : MonoBehaviour
             audioSource.PlayOneShot(DefeatMusic);
         }
     }   
+    public void DestoryCardOnPanel()
+    {
+        Debug.Log("Start Delete");
+        for(int i = 0 ; i < CardPanel.transform.childCount;i++)
+        {
+            ClickDetector.cardId = -1;
+            Destroy(CardPanel.transform.GetChild(i).gameObject);
+        }
+    }
 }

@@ -30,6 +30,7 @@ public class ShowCard : MonoBehaviour
     GameObject OpponentCardObject;
     CardDisplay PlayerCard;
     CardDisplay OpponentCard;
+    CardDisplay CardDelete;
     Transform Card;
 
     public AudioClip WinSound;
@@ -422,7 +423,7 @@ public class ShowCard : MonoBehaviour
         for(int i = 0;i<OpponentArea.transform.childCount;i++)
         {
             card = OpponentArea.transform.GetChild(i).GetComponent<ToMessagePanel>();
-            card.CardShowOnMessagePanel();
+            card.CardShowOnMessagePanel(true);
         }
 
     }
@@ -431,8 +432,11 @@ public class ShowCard : MonoBehaviour
         
         if(GC.isCom == true)
         {
-            deletChange.Delete(PlayerArea,PlayerArea.transform.GetChild(0).gameObject.GetComponent<CardDisplay>().id);
+            CardDelete = PlayerArea.transform.GetChild(0).gameObject.GetComponent<CardDisplay>();
+            deletChange.Delete(PlayerArea,CardDelete.id);
         }
+        skillDescription.text = "對方替除了你的"+ CardDelete.cardName;
+
         
     }
     IEnumerator Trojan(GameObject WhoEarn,GameObject WhoLoss)
@@ -493,19 +497,29 @@ public class ShowCard : MonoBehaviour
             OpponentEarnText.text  = (OpponentEarn.transform.childCount + OpponentX).ToString();
         }
     }
-    public void PeasantAscension()
+    public void PeasantAscension(string skillName)
     {
-        skillMessage.text = "階級流動!";
+
+        if(skillName == "階級流動")
+        {
+            skillMessage.text = "階級流動!";
+            skillDescription.text = "請選擇一張要轉換的平民卡";
+        }
+        else if (skillName == "暗影轉職")
+        {
+            skillMessage.text = "暗影轉職!";
+            skillDescription.text = "請選擇一張要轉換的平民卡";
+        }
         ToMessagePanel card;
         for(int i = 0;i<PlayerArea.transform.childCount;i++)
         {
             card = PlayerArea.transform.GetChild(i).GetComponent<ToMessagePanel>();
             if (PlayerArea.transform.GetChild(i).gameObject.GetComponent<CardDisplay>().cardName == "平民")
             {
-                card.CardShowOnMessagePanel();
+                card.CardShowOnMessagePanel(true);
             }
         }
-        
+       
     }
     public void TriumphManipulation()
     {

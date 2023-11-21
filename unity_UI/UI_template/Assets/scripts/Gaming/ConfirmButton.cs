@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class ConfirmButton : MonoBehaviour
 {
+    GameController GC;
     DeleteChange deletChange;
     public Text skillName;
     public GameObject OpponentArea;
@@ -15,6 +16,7 @@ public class ConfirmButton : MonoBehaviour
     public UseSkill useSkill;
     void Start()
     {
+        GC = GameObject.Find("GameController").GetComponent<GameController>();
         deletChange = GameObject.Find("GameController").GetComponent<DeleteChange>();
         gameObject.SetActive(false);
     }
@@ -29,14 +31,22 @@ public class ConfirmButton : MonoBehaviour
         else if (skillName.text == "階級流動!")
         {
             deletChange.Change(PlayerArea,ClickDetector.cardId, "階級流動");
-            ShowCard.RejectTimer = 1;
+            UseSkill.Clock= 1;
             MessagePanel.SetActive(false);
+            GC.DestoryCardOnPanel();
         }
-
+        else if(skillName.text == "暗影轉職!")
+        {
+            deletChange.Change(PlayerArea,ClickDetector.cardId, "暗影轉職");
+            UseSkill.Clock = 1;
+            MessagePanel.SetActive(false);
+            GC.DestoryCardOnPanel();
+        }
         else
         {
             Debug.Log("useSkill");
             StartCoroutine(useSkill.Use(ClickDetector.skillId));
+            ClickDetector.skillId = -1;
         }
         
         

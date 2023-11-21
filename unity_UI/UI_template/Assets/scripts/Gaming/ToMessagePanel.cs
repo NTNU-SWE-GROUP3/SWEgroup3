@@ -20,7 +20,7 @@ public class ToMessagePanel : MonoBehaviour
     {
         CardPanel = GameObject.Find("Canvas").GetComponentInChildren<Transform>().Find("MessagePanel/CardPanel");
     }
-    public void CardShowOnMessagePanel()
+    public void CardShowOnMessagePanel(bool MoveToChoose)
     {
             zoomCard = Instantiate(gameObject,CardPanel.position,Quaternion.identity);
             border = zoomCard.GetComponentInChildren<Transform>().Find("Border");
@@ -32,7 +32,10 @@ public class ToMessagePanel : MonoBehaviour
             desText = zoomCard.GetComponentInChildren<Transform>().Find("Border/Description Border/Description Text").GetComponent<Text>();
             cardImage = zoomCard.GetComponentInChildren<Transform>().Find("Border/Image Border/Image").GetComponent<Image>();
             zoomCard.transform.SetParent(CardPanel,false);
-            zoomCard.layer = LayerMask.NameToLayer("Choose");
+            if(MoveToChoose == true)
+                zoomCard.layer = LayerMask.NameToLayer("Choose");
+            else
+                zoomCard.layer = LayerMask.NameToLayer("Check");
 
             RectTransform rect;
             rect = zoomCard.GetComponent<RectTransform>();
