@@ -158,11 +158,11 @@ public class Action : MonoBehaviour
     {
         if (InputChecker())
         {
-            // if (!purchaseController.CardNumberCheck()){
-            //     purchaseController.DisplayMessage("Please enter a valid card number.");
-            //     Debug.Log("Invalid card number.");
-            //     return ;
-            // }
+            if (!purchaseController.CardNumberCheck()){
+                purchaseController.DisplayMessage("Please enter a valid card number.");
+                Debug.Log("Invalid card number.");
+                return ;
+            }
             buyClicked = true;
             cancelClicked = false;
             purchasePanel.SetActive(false);
@@ -268,7 +268,6 @@ public class Action : MonoBehaviour
                     StartCoroutine(ShowResponseAnimation10(response));
                 }
             }
-            // Debug.Log("API Response: " + response);
         }
     }
     IEnumerator ShowResponseAnimation1(string response)
@@ -285,7 +284,6 @@ public class Action : MonoBehaviour
 
         okButton10.SetActive(true);
     }
-
     void ShowResponse(string response)
     {
         resultPanel.SetActive(true);
