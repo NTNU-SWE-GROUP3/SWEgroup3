@@ -110,17 +110,79 @@ class DBManager:
 
 
     def FindAccountId(self, accountName):
-            insertStmt = (
-                "SELECT a.id FROM account a "
-                "WHERE a.name = %s "
-                "LIMIT 1"
-            )
-            data = (accountName,)
-            self.cursor.execute(insertStmt, data)
-            rec = []
-            for c in self.cursor:
-                rec.append(c[0])
-            if(bool(rec)):
-                return rec[0]
-            else:
-                return -1
+        insertStmt = (
+            "SELECT a.id FROM account a "
+            "WHERE a.name = %s "
+            "LIMIT 1"
+        )
+        data = (accountName,)
+        self.cursor.execute(insertStmt, data)
+        rec = []
+        for c in self.cursor:
+            rec.append(c[0])
+        if(bool(rec)):
+            return rec[0]
+        else:
+            return -1
+
+    def AcountEmailCheck(self, account_id, input_email):
+        insertStmt = (
+            "SELECT a.email FROM account a "
+            "WHERE a.id = %s LIMIT 1"
+        )
+        data = (account_id,)
+        self.cursor.execute(insertStmt, data)
+        result = self.cursor.fetchone()
+
+        if result:
+            db_email = result[0]
+            return True if db_email == input_email else False
+        else:
+            return False
+
+    def SetVerifyCodeAndValidity(self, accountId, verifycode, expiretime):
+        self.cursor.execute(
+            'UPDATE	account a SET a.verify_code = %s, a.expiration_time = %s WHERE a.id = %s',
+            (verifycode, expiretime, accountId))
+        self.connection.commit()
+
+    def CheckVerifyCode(self, accountId, input_verifycode):
+        insertStmt = (
+            "SELECT a.verify_code FROM account a "
+            "WHERE a.id = %s LIMIT 1"
+        )
+        data = (accountId,)
+        self.cursor.execute(insertStmt, data)
+        result = self.cursor.fetchone()
+
+        if result:
+            db_verifycode = result[0]
+            return True if db_verifycode == input_verifycode else False
+        else:
+            return False
+
+    def GetVerifyCodeExpiredTime(self, accountId):
+        insertStmt = (
+            "SELECT a.expiration_time FROM account a "
+            "WHERE a.id = %s LIMIT 1"
+        )
+        data = (accountId,)
+        self.cursor.execute(insertStmt, data)
+        rec = []
+        for c in self.cursor:
+            rec.append(c[0])
+        if(bool(rec)):
+            return rec[0]
+        else:
+            return -1
+
+    def ReloadChangePassword(self, accountId, newpassword):
+        insert_stmt = (
+            "UPDATE account a "
+            "SET a.password = SHA1(CONCAT(%s, a.salt)) "
+            "WHERE a.id = %s"
+        )
+        data = (newpassword, accountId)
+        self.cursor.execute(insert_stmt, data)
+        self.connection.commit()
+        return insert_stmt

@@ -85,7 +85,7 @@ def AccountSignUp():
     conn.SetTokenIdAndValidity(accountId, tokenId, tokenValidity)
 
     # Success
-    return jsonify(status = "400000", tokenId = tokenId)
+    return jsonify(status = "400001", tokenId = tokenId) #bug:400000->400001
 
 
 
