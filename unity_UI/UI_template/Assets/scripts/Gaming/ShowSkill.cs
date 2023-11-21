@@ -7,7 +7,7 @@ public class ShowSkill : MonoBehaviour
 {
     public GameObject Skill;
     public static int skillIndex;
-    public static int[] PlayerSkillIdList = {9,10,5};
+    public static int[] PlayerSkillIdList = {9,10,2};
     void Start()
     {
         skillIndex = 0;

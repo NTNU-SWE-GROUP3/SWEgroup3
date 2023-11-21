@@ -493,6 +493,20 @@ public class ShowCard : MonoBehaviour
             OpponentEarnText.text  = (OpponentEarn.transform.childCount + OpponentX).ToString();
         }
     }
+    public void PeasantAscension()
+    {
+        skillMessage.text = "階級流動!";
+        ToMessagePanel card;
+        for(int i = 0;i<PlayerArea.transform.childCount;i++)
+        {
+            card = PlayerArea.transform.GetChild(i).GetComponent<ToMessagePanel>();
+            if (PlayerArea.transform.GetChild(i).gameObject.GetComponent<CardDisplay>().cardName == "平民")
+            {
+                card.CardShowOnMessagePanel();
+            }
+        }
+        
+    }
     public void TriumphManipulation()
     {
         WinImage.SetActive(false);

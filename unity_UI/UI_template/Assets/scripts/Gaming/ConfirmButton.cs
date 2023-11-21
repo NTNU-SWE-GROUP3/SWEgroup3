@@ -8,6 +8,7 @@ public class ConfirmButton : MonoBehaviour
     DeleteChange deletChange;
     public Text skillName;
     public GameObject OpponentArea;
+    public GameObject PlayerArea;
     public GameObject MessagePanel;
     public GameObject Panel;
     public GameObject CancelButton;
@@ -25,11 +26,19 @@ public class ConfirmButton : MonoBehaviour
             ShowCard.RejectTimer = 1;
             MessagePanel.SetActive(false);
         }
-        else
+        else if (skillName.text == "階級流動!")
         {
-            StartCoroutine(useSkill.Use(ClickDetector.skillId));
+            deletChange.Change(PlayerArea,ClickDetector.cardId, "階級流動");
+            ShowCard.RejectTimer = 1;
+            MessagePanel.SetActive(false);
         }
 
+        else
+        {
+            Debug.Log("useSkill");
+            StartCoroutine(useSkill.Use(ClickDetector.skillId));
+        }
+        
         
     }
 }

@@ -17,7 +17,7 @@ public class UseSkill : MonoBehaviour
     }
     public IEnumerator Timer()
     {
-        Clock = 3;
+        Clock = 10;
         TimerText.gameObject.SetActive(true);
         while(Clock >= 0)
         {
@@ -49,6 +49,8 @@ public class UseSkill : MonoBehaviour
                 break;
             case 2: //階級流動
                 Debug.Log("Player Use Skill 2");
+                SkillPanel.gameObject.SetActive(false);
+                SC.PeasantAscension();
                 yield return new WaitForSeconds(1);
                 break;
             case 3: //暗影轉職
