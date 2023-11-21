@@ -85,7 +85,7 @@ def AccountSignUp():
     conn.SetTokenIdAndValidity(accountId, tokenId, tokenValidity)
 
     # Success
-    return jsonify(status = "400001", tokenId = tokenId) #bug:400000->400001
+    return jsonify(status = "400001", tokenId = tokenId)
 
 
 
@@ -115,7 +115,6 @@ def AccountLogin():
 
     current_app.logger.info("accountName: %s", accountName)
     current_app.logger.info("accountPassword: %s", accountPassword)
-    current_app.logger.info(request.form.items())
 
     # Input validation
     # there should check if the input are dangerous
