@@ -1,4 +1,5 @@
 import mysql.connector
+from flask import current_app
 
 class DBManager:
     def __init__(self, database='swegroup3game', host="db", user="root", password_file=None):
@@ -22,6 +23,7 @@ class DBManager:
         )
         data = (accountName,)   # it have to be tuple style here.
         self.cursor.execute(insert_stmt, data)
+        current_app.logger.info(self.cursor._executed)
         rec = []
         for c in self.cursor:
             rec.append(c[0])
@@ -36,6 +38,7 @@ class DBManager:
         )
         data = (accountEmail,)   # it have to be tuple style here.
         self.cursor.execute(insert_stmt, data)
+        current_app.logger.info(self.cursor._executed)
         rec = []
         for c in self.cursor:
             rec.append(c[0])
@@ -53,6 +56,7 @@ class DBManager:
         )
         data = (accountPassword, accountName)
         self.cursor.execute(insertStmt, data)
+        current_app.logger.info(self.cursor._executed)
         rec = []
         for c in self.cursor:
             rec.append(c[0])
@@ -74,6 +78,7 @@ class DBManager:
         )
         data = (accountId,)
         self.cursor.execute(insert_stmt, data)
+        current_app.logger.info(self.cursor._executed)
         self.connection.commit()
 
 
@@ -82,6 +87,7 @@ class DBManager:
         self.cursor.execute(
             'UPDATE	account a SET a.token_id = %s, a.token_validity = %s WHERE a.id = %s',
             (tokenId, tokenValidity, accountId))
+        current_app.logger.info(self.cursor._executed)
         self.connection.commit()
 
 
@@ -93,6 +99,7 @@ class DBManager:
         )
         data = (accountName, accountEmail, accountPassword,)
         self.cursor.execute(insert_stmt, data)
+        current_app.logger.info(self.cursor._executed)
         self.connection.commit()
 
 
@@ -105,25 +112,27 @@ class DBManager:
         )
         data = (accountId,)
         self.cursor.execute(insert_stmt, data)
+        current_app.logger.info(self.cursor._executed)
         self.connection.commit()
 
 
 
     def FindAccountId(self, accountName):
-        insertStmt = (
-            "SELECT a.id FROM account a "
-            "WHERE a.name = %s "
-            "LIMIT 1"
-        )
-        data = (accountName,)
-        self.cursor.execute(insertStmt, data)
-        rec = []
-        for c in self.cursor:
-            rec.append(c[0])
-        if(bool(rec)):
-            return rec[0]
-        else:
-            return -1
+            insertStmt = (
+                "SELECT a.id FROM account a "
+                "WHERE a.name = %s "
+                "LIMIT 1"
+            )
+            data = (accountName,)
+            self.cursor.execute(insertStmt, data)
+            current_app.logger.info(self.cursor._executed)
+            rec = []
+            for c in self.cursor:
+                rec.append(c[0])
+            if(bool(rec)):
+                return rec[0]
+            else:
+                return -1
 
     def AcountEmailCheck(self, account_id, input_email):
         insertStmt = (
