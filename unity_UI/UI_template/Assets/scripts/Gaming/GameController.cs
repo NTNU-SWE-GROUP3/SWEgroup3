@@ -107,10 +107,10 @@ public class GameController : MonoBehaviour
         {
             //我想說以經沒有技能可以使用的情況下 可以不用按「跳過」就直接進入遊戲嗎
 
-            /*SkillMassage.text = "已無技能可以使用";
+            SkillMassage.text = "已無技能可以使用";
             SkillDescription.text = "";
             SkipButton.SetActive(true);
-            yield return StartCoroutine(useSkill.Timer());*/
+            yield return StartCoroutine(useSkill.Timer());
         }
 
         
@@ -120,6 +120,7 @@ public class GameController : MonoBehaviour
         SkillImage.SetActive(false);
         ConfirmButton.SetActive(false);
         CancelButton.SetActive(false);
+        SkipButton.SetActive(false);
 
         DropZone.haveCard = false;
         DropZone.backToHand = true;
