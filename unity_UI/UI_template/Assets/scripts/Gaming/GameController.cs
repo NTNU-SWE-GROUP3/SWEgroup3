@@ -32,6 +32,7 @@ public class GameController : MonoBehaviour
     public AudioClip DefeatVoice1;
     public AudioClip DefeatVoice2;
     public AudioClip DefeatVoice3;
+    public AudioClip DrawVoice1;
     public AudioManager audioManager;
     bool NoSkillCanUse;
     public Image MusicImg;
@@ -98,15 +99,18 @@ public class GameController : MonoBehaviour
         {
             SkillMassage.text = "請選擇要使用的技能";
             SkillDescription.text = "";
+            SkipButton.SetActive(true);
             yield return StartCoroutine(useSkill.Timer());
             ClickDetector.skillId = -1;
         }
         else 
         {
-            SkillMassage.text = "已無技能可以使用";
+            //我想說以經沒有技能可以使用的情況下 可以不用按「跳過」就直接進入遊戲嗎
+
+            /*SkillMassage.text = "已無技能可以使用";
             SkillDescription.text = "";
             SkipButton.SetActive(true);
-            yield return StartCoroutine(useSkill.Timer());
+            yield return StartCoroutine(useSkill.Timer());*/
         }
 
         
@@ -165,6 +169,7 @@ public class GameController : MonoBehaviour
                 else
                 {
                     NextRoundText.text = "Draw";
+                    StartCoroutine(DrawSE());
                 }
 
             }
@@ -202,7 +207,12 @@ public class GameController : MonoBehaviour
         if(MusicImg.sprite == Resources.Load<Sprite>("images/Music1")){
             audioSource.PlayOneShot(DefeatMusic);
         }
-    }   
+    }
+    IEnumerator DrawSE()
+    {
+        yield return new WaitForSeconds(2.5f);
+        audioSource.PlayOneShot(DrawVoice1);
+    }
     public void DestoryCardOnPanel()
     {
         Debug.Log("Start Delete");
