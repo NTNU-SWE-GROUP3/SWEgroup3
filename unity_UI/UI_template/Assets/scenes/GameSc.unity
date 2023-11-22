@@ -1094,6 +1094,7 @@ GameObject:
   - component: {fileID: 603247142}
   - component: {fileID: 603247141}
   - component: {fileID: 603247143}
+  - component: {fileID: 603247144}
   m_Layer: 5
   m_Name: CardPanel
   m_TagString: Untagged
@@ -1182,6 +1183,18 @@ MonoBehaviour:
   m_Spacing: {x: 85, y: 5}
   m_Constraint: 0
   m_ConstraintCount: 2
+--- !u!114 &603247144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 603247139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3fa2417e3967124e802a2a501bbbb46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &618714806
 GameObject:
   m_ObjectHideFlags: 0
