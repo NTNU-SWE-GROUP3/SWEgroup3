@@ -83,6 +83,9 @@ public class GameController : MonoBehaviour
         NextRoundText.gameObject.SetActive(true);
         NextRoundText.text = "Round" + Turn.ToString();
         yield return new WaitForSeconds(1);
+
+        DragCard.canDrag = true;
+        
         WinImage.SetActive(false);
         SkillPanel.SetActive(true);
             SkillImage.SetActive(true);

@@ -12,7 +12,7 @@ public class DragCard : MonoBehaviour,IDragHandler,IEndDragHandler,IBeginDragHan
     private CanvasGroup canvasGroup;
     public AudioClip DragSound;
     AudioSource audioSource;
-    
+    public static bool canDrag = false;
     
     private void Awake()
     {
@@ -24,7 +24,7 @@ public class DragCard : MonoBehaviour,IDragHandler,IEndDragHandler,IBeginDragHan
     public void OnBeginDrag(PointerEventData eventData)
     {
         Debug.Log("OnBeginDrag");
-        if(eventData.pointerDrag.GetComponent<CardDisplay>().cardBack == false && this.transform.parent.name == "PlayerArea"&& !DropZone.haveCard)
+        if(eventData.pointerDrag.GetComponent<CardDisplay>().cardBack == false && this.transform.parent.name == "PlayerArea"&& !DropZone.haveCard && canDrag)
         {
             originalRectPosition = rectTransform.position;
             canvasGroup.blocksRaycasts = false;
@@ -37,7 +37,7 @@ public class DragCard : MonoBehaviour,IDragHandler,IEndDragHandler,IBeginDragHan
     {
         //Debug.Log("OnDrag");
         // Debug.Log(this.transform.parent.name);
-        if(eventData.pointerDrag.GetComponent<CardDisplay>().cardBack == false && this.transform.parent.name == "PlayerArea"&& !DropZone.haveCard)
+        if(eventData.pointerDrag.GetComponent<CardDisplay>().cardBack == false && this.transform.parent.name == "PlayerArea"&& !DropZone.haveCard && canDrag)
         {
             rectTransform.position = eventData.position;
         }
@@ -48,7 +48,7 @@ public class DragCard : MonoBehaviour,IDragHandler,IEndDragHandler,IBeginDragHan
     {
         Debug.Log("OnEndDrag");
         //audioSource.PlayOneShot(DragSound);
-        if (eventData.pointerDrag.GetComponent<CardDisplay>().cardBack == false && this.transform.parent.name == "PlayerArea" && !DropZone.haveCard)
+        if (eventData.pointerDrag.GetComponent<CardDisplay>().cardBack == false && this.transform.parent.name == "PlayerArea" && !DropZone.haveCard && canDrag)
         {
             if(DropZone.backToHand)
             {
