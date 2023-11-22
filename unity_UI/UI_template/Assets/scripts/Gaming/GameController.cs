@@ -216,7 +216,6 @@ public class GameController : MonoBehaviour
     }
     public void DestoryCardOnPanel()
     {
-        Debug.Log("Start Delete");
         for(int i = 0 ; i < CardPanel.transform.childCount;i++)
         {
             ClickDetector.cardId = -1;
