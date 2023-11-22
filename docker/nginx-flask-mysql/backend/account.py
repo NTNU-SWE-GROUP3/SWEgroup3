@@ -85,7 +85,7 @@ def AccountSignUp():
     conn.SetTokenIdAndValidity(accountId, tokenId, tokenValidity)
 
     # Success
-    return jsonify(status = "400001", tokenId = tokenId) #bug:400000->400001
+    return jsonify(status = "400001", tokenId = tokenId)
 
 
 
@@ -115,7 +115,6 @@ def AccountLogin():
 
     current_app.logger.info("accountName: %s", accountName)
     current_app.logger.info("accountPassword: %s", accountPassword)
-    current_app.logger.info(request.form.items())
 
     # Input validation
     # there should check if the input are dangerous
@@ -146,3 +145,17 @@ def AccountLogin():
 
     # Success
     return jsonify(status = "400000", tokenId = tokenId)
+
+
+@account.route('/sql/injection/test', methods=['POST'])
+def sqlInjectionTest():
+    global conn
+    if not conn:
+        conn = DBManager(password_file='/run/secrets/db-password')
+
+    # Input
+    accountName = request.form.get('Account')
+    rec = conn.sqlInjectionTest(accountName)
+    current_app.logger.info("rec: %s", rec)
+
+    return jsonify(result = rec)
