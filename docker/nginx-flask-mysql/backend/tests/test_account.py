@@ -50,12 +50,6 @@ def test_AccountLogin_Success():
     assert response.json["tokenId"] != ""
 
 
-# status
-#     400001 : Success
-#     403003 : Username has been used
-#     403004 : Email already registered
-#     403005 : Password too short
-# token ID
 def test_AccountSignUp_UsernameHasBeenUsed():
     # Set a test client of flask application
     client = server.test_client()
@@ -120,3 +114,26 @@ def test_AccountSignUp_Success():
     assert response.status_code == 200
     assert response.json["status"] == "400001"
     assert response.json["tokenId"] != ""
+
+
+def test_AccountLogin_SqlInjection():
+    # Set a test client of flask application
+    client = server.test_client()
+
+    # Case normal
+    response = client.post("/account/sql/injection/test", data={
+        "Account": "test0001", })
+    assert response.status_code == 200
+    assert response.json["result"] != []  # result should not be empty.
+
+    # Case 1
+    response = client.post("/account/sql/injection/test", data={
+        "Account": "test0001'; select * from account; -- ", })
+    assert response.status_code == 200
+    assert response.json["result"] == []  # result should be empty.
+
+    # Case 2
+    response = client.post("/account/sql/injection/test", data={
+        "Account": "' or 1=1; -- ", })
+    assert response.status_code == 200
+    assert response.json["result"] == []  # result should be empty.

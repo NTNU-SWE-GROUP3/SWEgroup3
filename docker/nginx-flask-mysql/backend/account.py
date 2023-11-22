@@ -145,3 +145,17 @@ def AccountLogin():
 
     # Success
     return jsonify(status = "400000", tokenId = tokenId)
+
+
+@account.route('/sql/injection/test', methods=['POST'])
+def sqlInjectionTest():
+    global conn
+    if not conn:
+        conn = DBManager(password_file='/run/secrets/db-password')
+
+    # Input
+    accountName = request.form.get('Account')
+    rec = conn.sqlInjectionTest(accountName)
+    current_app.logger.info("rec: %s", rec)
+
+    return jsonify(result = rec)

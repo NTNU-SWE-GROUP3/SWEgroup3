@@ -195,3 +195,14 @@ class DBManager:
         self.cursor.execute(insert_stmt, data)
         self.connection.commit()
         return insert_stmt
+
+
+    def sqlInjectionTest(self, accountName):
+            insertStmt = (
+                "SELECT * FROM account a "
+                "WHERE a.name = %s"
+            )
+            data = (accountName,)
+            self.cursor.execute(insertStmt, data)
+            current_app.logger.info(self.cursor._executed)
+            return self.cursor.fetchall()
