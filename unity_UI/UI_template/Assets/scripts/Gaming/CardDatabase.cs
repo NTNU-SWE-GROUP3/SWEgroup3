@@ -14,8 +14,8 @@ public class CardDatabase : MonoBehaviour
     string CivilSkin = "Poker";
     void Awake()
     {
-        PrinceSkin = "Frozen";
-        KnightSkin = "Frozen";
+        // PrinceSkin = "Frozen";
+        // KnightSkin = "Frozen";
         cardList.Add(new Card(0,"國王","無技能","若對手為暗殺者或皇后落敗，反之則獲勝。",'A',Resources.Load<Sprite>(ImageAddress+ KingSkin + "/King")));//路徑可改
         cardList.Add(new Card(1,"皇后","無技能","若對手為暗殺者或王子落敗，反之則獲勝。",'A',Resources.Load<Sprite>(ImageAddress+ QueenSkin + "/Queen")));
         cardList.Add(new Card(2,"王子","無技能","若對手為暗殺者或國王落敗，反之則獲勝。",'A',Resources.Load<Sprite>(ImageAddress+ PrinceSkin + "/Prince")));
