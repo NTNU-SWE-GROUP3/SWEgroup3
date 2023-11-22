@@ -2145,12 +2145,13 @@ MonoBehaviour:
   DrawAreaCount: {fileID: 975557086}
   NextRoundText: {fileID: 257896043}
   EndSound: {fileID: 8300000, guid: 9e2ee70f36edf4f099cc93a88970ac52, type: 3}
-  VictoryMusic: {fileID: 8300000, guid: a5ef5ab0abba645efb62112bbee1e224, type: 3}
+  VictoryMusic: {fileID: 8300000, guid: 1ad7b48627b1941339407753a51923b7, type: 3}
   VictoryVoice: {fileID: 8300000, guid: 4d148fbb3b9cb4f459081e621c1338d1, type: 3}
   DefeatMusic: {fileID: 8300000, guid: fa2ba04fe9d5d45c6b274635f9a01d90, type: 3}
   DefeatVoice1: {fileID: 8300000, guid: 7d07c07a7420d44bbb49ca1b7c912525, type: 3}
   DefeatVoice2: {fileID: 8300000, guid: 4df30ff70193c44ce875f94483e2ed05, type: 3}
   DefeatVoice3: {fileID: 8300000, guid: 20dea5616fbd840a7ad7e52dd418ce87, type: 3}
+  DrawVoice1: {fileID: 8300000, guid: 1ad7b48627b1941339407753a51923b7, type: 3}
   audioManager: {fileID: 0}
   MusicImg: {fileID: 0}
   useSkill: {fileID: 1211442835}
@@ -2345,6 +2346,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e341ddaf2b9b6484091236e09dc74db9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerArea: {fileID: 0}
   OpponentArea: {fileID: 1001469411}
   SkillPanel: {fileID: 876056336}
   SkipButton: {fileID: 1564176768}
@@ -2956,7 +2958,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: fe88743d7e87249a2a32fc8684f32dad, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 1a8cba6cea0fa45efbcbbb596be9242c, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.3
   m_Pitch: 1
@@ -3492,7 +3494,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 277, y: -1782}
+  m_AnchoredPosition: {x: 256, y: -1782}
   m_SizeDelta: {x: 265.593, y: 105.325}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1746798448
