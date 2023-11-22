@@ -486,7 +486,7 @@ public class ShowCard : MonoBehaviour
         audioSource.PlayOneShot(clip);
     }
 
-    public void RefreshEarnText(int who)
+    public void RefreshEarnText(int who)//刷新EarnText
     {
         if (who == 1) // Player
         {
@@ -496,61 +496,5 @@ public class ShowCard : MonoBehaviour
         {
             OpponentEarnText.text  = (OpponentEarn.transform.childCount + OpponentX).ToString();
         }
-    }
-    public void PeasantAscension(string skillName)
-    {
-
-        if(skillName == "階級流動")
-        {
-            skillMessage.text = "階級流動!";
-            skillDescription.text = "請選擇一張要轉換的平民卡";
-        }
-        else if (skillName == "暗影轉職")
-        {
-            skillMessage.text = "暗影轉職!";
-            skillDescription.text = "請選擇一張要轉換的平民卡";
-        }
-        ToMessagePanel card;
-        for(int i = 0;i<PlayerArea.transform.childCount;i++)
-        {
-            card = PlayerArea.transform.GetChild(i).GetComponent<ToMessagePanel>();
-            if (PlayerArea.transform.GetChild(i).gameObject.GetComponent<CardDisplay>().cardName == "平民")
-            {
-                card.CardShowOnMessagePanel(true);
-            }
-        }
-       
-    }
-    public void TriumphManipulation()
-    {
-        WinImage.SetActive(false);
-        SkillImage.SetActive(true);
-        skillMessage.gameObject.SetActive(true);
-        skillDescription.gameObject.SetActive(true);
-        skillMessage.text = "強制徵收!";
-        skillDescription.text = "對手贏牌區張數-1";
-        OpponentX -= 1;
-        RefreshEarnText(2);
-    }
-    public void VictoryBoost()
-    {
-        WinImage.SetActive(false);
-        SkillImage.SetActive(true);
-        skillMessage.gameObject.SetActive(true);
-        skillDescription.gameObject.SetActive(true);
-        skillMessage.text = "勝者之堆!";
-        skillDescription.text = "我方贏牌區張數+1";
-        PlayerX += 1;
-        RefreshEarnText(1);
-    }
-    public void PeasantImmunity()
-    {
-        WinImage.SetActive(false);
-        SkillImage.SetActive(true);
-        skillMessage.gameObject.SetActive(true);
-        skillDescription.gameObject.SetActive(true);
-        skillMessage.text = "力量剝奪!";
-        skillDescription.text = "此回合對方平民卡技能無效";
-        isPeasantImmunity = true;
     }
 }
