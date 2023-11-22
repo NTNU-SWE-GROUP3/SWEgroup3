@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 public class CountDown : MonoBehaviour
 {
-    GameController GC;
+    public GameController GC;
     public int countdownTime;
     public static int TurnTime = 5;
     public Text countdownDisplay;
@@ -24,7 +24,6 @@ public class CountDown : MonoBehaviour
     private void Start()
     {
         MessagePanel.SetActive(false);
-        GC = GameObject.Find("GameController").GetComponent<GameController>();
         showcard = GameObject.Find("GameController").GetComponent<ShowCard>();
         StartCoroutine(CountdownToStart());
     }
@@ -41,7 +40,7 @@ public class CountDown : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         audioSource.PlayOneShot(StartSound);
         yield return new WaitForSeconds(1f);
-        GC.GameBegin();
+        StartCoroutine(GC.GameBegin());
         countdownDisplay.gameObject.SetActive(false);
     }
 
