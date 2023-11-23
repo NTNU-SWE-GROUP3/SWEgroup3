@@ -31,11 +31,11 @@ def EquipCardStyle():
     #input
     accountID = request.form.get('id')
     targetCardStyleID = request.form.get('card_style_id')
-
     current_app.logger.info("accountID: %s", accountID)
-    current_app.logger.info("targetCardStyleID: %s", targetCardStyleID)
-
+    current_app.logger.info("target card style id: %s", targetCardStyleID)
+    current_app.logger.info(request.form.items())
     #check if user have the card style
+    current_app.logger.info("have card style: ", conn.HaveCardStyle(accountID, targetCardStyleID))
     if not(conn.HaveCardStyle(accountID, targetCardStyleID)):
         current_app.logger.info("User does not have this item")
         return jsonify(status = "200021")
