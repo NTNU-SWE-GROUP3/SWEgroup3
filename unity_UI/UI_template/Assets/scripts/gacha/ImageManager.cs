@@ -17,16 +17,16 @@ public class ImageManager : MonoBehaviour
         skillImages = new Dictionary<int, Sprite>();
 
 
-        skillImages.Add(1, Resources.Load<Sprite>("images/Skin/Poker/Civil"));
-        skillImages.Add(2, Resources.Load<Sprite>("images/Skin/Poker/Killer"));
-        skillImages.Add(3, Resources.Load<Sprite>("images/Skin/Poker/King"));
-        skillImages.Add(4, Resources.Load<Sprite>("images/Skin/Poker/Knight"));
-        skillImages.Add(5, Resources.Load<Sprite>("images/Skin/Poker/Prince"));
-        skillImages.Add(6, Resources.Load<Sprite>("images/Skin/Poker/Queen"));
-        skillImages.Add(7, Resources.Load<Sprite>("images/Skin/Poker/Civil"));
-        skillImages.Add(8, Resources.Load<Sprite>("images/Skin/Poker/Killer"));
-        skillImages.Add(9, Resources.Load<Sprite>("images/Skin/Poker/King"));
-        skillImages.Add(10, Resources.Load<Sprite>("images/Skin/Poker/Knight"));
+        skillImages.Add(1, Resources.Load<Sprite>("images/GameSc/Skill/SkillAssassin"));
+        skillImages.Add(2, Resources.Load<Sprite>("images/GameSc/Skill/SkillKnight"));
+        skillImages.Add(3, Resources.Load<Sprite>("images/GameSc/Skill/SkillShowOpponentCard"));
+        skillImages.Add(4, Resources.Load<Sprite>("images/GameSc/Skill/SkillAssassin"));
+        skillImages.Add(5, Resources.Load<Sprite>("images/GameSc/Skill/SkillKnight"));
+        skillImages.Add(6, Resources.Load<Sprite>("images/GameSc/Skill/SkillShowOpponentCard"));
+        skillImages.Add(7, Resources.Load<Sprite>("images/GameSc/Skill/SkillAssassin"));
+        skillImages.Add(8, Resources.Load<Sprite>("images/GameSc/Skill/SkillKnight"));
+        skillImages.Add(9, Resources.Load<Sprite>("images/GameSc/Skill/SkillShowOpponentCard"));
+        skillImages.Add(10, Resources.Load<Sprite>("images/GameSc/Skill/SkillAssassin"));
     }
     void InitializeCardStyle()
     {
