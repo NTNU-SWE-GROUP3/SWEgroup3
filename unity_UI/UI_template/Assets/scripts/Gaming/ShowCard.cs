@@ -62,39 +62,28 @@ public class ShowCard : MonoBehaviour
         // 判斷
         //-------------------------\\
         // 不敗的勇者
-        if (PlayerCard.id == 9 || OpponentCard.id == 9)
+        if ((isPeasantImmunity == true && PlayerCard.id == 9) || (isPeasantImmunity == false && (PlayerCard.id == 9 || OpponentCard.id == 9)))
         {
-            if (isPeasantImmunity == true && OpponentCard.id == 9) //力量剝奪
-            {
-                Debug.Log("力量剝奪 不觸發技能");
-                WinImage.SetActive(false);
-                SkillImage.SetActive(true);
-                skillMessage.gameObject.SetActive(true);
-                skillDescription.gameObject.SetActive(true);
-                skillMessage.text = "力量剝奪!";
-                skillDescription.text = "此回合對方平民卡技能無效";
-                isPeasantImmunity = false;
-            }
+            WinImage.SetActive(false);
+            SkillImage.SetActive(true);
+            skillMessage.gameObject.SetActive(true);
+            skillDescription.gameObject.SetActive(true);
+            skillMessage.text = "不敗的勇者!";
+            skillDescription.text = "可以贏過任何一張牌";
+            yield return new WaitForSeconds(0.5f);
+            PlaySE(SkillSound);
+            yield return new WaitForSeconds(2.5f);
+            if(PlayerCard.id == 9 )
+                yield return StartCoroutine(ToPlayerEarn());
             else
-            {
-                WinImage.SetActive(false);
-                SkillImage.SetActive(true);
-                skillMessage.gameObject.SetActive(true);
-                skillDescription.gameObject.SetActive(true);
-                skillMessage.text = "不敗的勇者!";
-                skillDescription.text = "可以贏過任何一張牌";
-                yield return new WaitForSeconds(0.5f);
-                PlaySE(SkillSound);
-                yield return new WaitForSeconds(2.5f);
-                if(PlayerCard.id == 9 )
-                    yield return StartCoroutine(ToPlayerEarn());
-                else
-                    yield return StartCoroutine(ToOpponentEarn());
-            }
+                yield return StartCoroutine(ToOpponentEarn());
         }
         else
         {
-
+            if (isPeasantImmunity == true && OpponentCard.id == 9)
+            {
+                PeasantImmunity();
+            }
             if (PlayerCard.cardName == "國王" && (OpponentCard.cardName == "王子" || OpponentCard.cardName == "騎士" || OpponentCard.cardName == "平民"))
             {
                 if (isRevolution == false){
