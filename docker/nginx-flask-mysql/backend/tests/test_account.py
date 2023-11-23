@@ -5,7 +5,18 @@ from app import server
 
 def generateRandomString():
     alphabet = string.ascii_letters + string.digits
-    return ''.join(secrets.choice(alphabet) for i in range(5))
+    return ''.join(secrets.choice(alphabet) for i in range(10))
+
+
+def generateTestUser():
+    client = server.test_client()
+
+    response = client.post("/account/signup", data={
+        "Account": "test000001",
+        "Password": "test000001pass",
+        "Email": "test000001@ntnu.edu.tw", })
+
+    assert response.status_code == 200
 
 
 def test_AccountLogin_NoSuchAccount():
@@ -23,11 +34,14 @@ def test_AccountLogin_NoSuchAccount():
 
 
 def test_AccountLogin_WrongPassword():
+    # Prepare for testing
+    generateTestUser()
+
     # Set a test client of flask application
     client = server.test_client()
 
     response = client.post("/account/login", data={
-        "Account": "test0001",
+        "Account": "test000001",
         "Password": "WrongPassword", })
 
     # Validation
@@ -37,12 +51,15 @@ def test_AccountLogin_WrongPassword():
 
 
 def test_AccountLogin_Success():
+    # Prepare for testing
+    generateTestUser()
+
     # Set a test client of flask application
     client = server.test_client()
 
     response = client.post("/account/login", data={
-        "Account": "test0001",
-        "Password": "test0001pass", })
+        "Account": "test000001",
+        "Password": "test000001pass", })
 
     # Validation
     assert response.status_code == 200
@@ -51,13 +68,16 @@ def test_AccountLogin_Success():
 
 
 def test_AccountSignUp_UsernameHasBeenUsed():
+    # Prepare for testing
+    generateTestUser()
+
     # Set a test client of flask application
     client = server.test_client()
 
     response = client.post("/account/signup", data={
-        "Account": "test0001",
-        "Password": "IamNotTheFirst",
-        "Email": "IamNotTheFirst@ntnu.edu.tw", })
+        "Account": "test000001",
+        "Password": "UsernameHasBeenUsed",
+        "Email": "UsernameHasBeenUsed@ntnu.edu.tw", })
 
     # Validation
     assert response.status_code == 200
@@ -66,15 +86,18 @@ def test_AccountSignUp_UsernameHasBeenUsed():
 
 
 def test_AccountSignUp_EmailAlreadyRegistered():
+    # Prepare for testing
+    generateTestUser()
+
     # Set a test client of flask application
     client = server.test_client()
 
     randStr = generateRandomString()
 
     response = client.post("/account/signup", data={
-        "Account": "IamTheFirst" + randStr,
+        "Account": "EmailAlreadyRegistered",
         "Password": "EmailAlreadyRegistered",
-        "Email": "test0006@ntnu.edu.tw", })
+        "Email": "test000001@ntnu.edu.tw", })
 
     # Validation
     assert response.status_code == 200
@@ -89,9 +112,9 @@ def test_AccountSignUp_PasswordTooShort():
     randStr = generateRandomString()
 
     response = client.post("/account/signup", data={
-        "Account": "IamTheFirst" + randStr,
+        "Account": "PasswordTooShort",
         "Password": "123456789",
-        "Email": "PasswordTooShort" + randStr + "@ntnu.edu.tw", })
+        "Email": "PasswordTooShort@ntnu.edu.tw", })
 
     # Validation
     assert response.status_code == 200
@@ -106,9 +129,9 @@ def test_AccountSignUp_Success():
     randStr = generateRandomString()
 
     response = client.post("/account/signup", data={
-        "Account": "IamTheFirst" + randStr,
+        "Account": "test000001" + randStr,
         "Password": "1234567890",
-        "Email": "signup.success." + randStr + "@ntnu.edu.tw", })
+        "Email": "test000001" + randStr + "@ntnu.edu.tw", })
 
     # Validation
     assert response.status_code == 200
@@ -122,18 +145,18 @@ def test_AccountLogin_SqlInjection():
 
     # Case normal
     response = client.post("/account/sql/injection/test", data={
-        "Account": "test0001", })
+        "Account": "test000001", })
     assert response.status_code == 200
-    assert response.json["result"] != []  # result should not be empty.
+    assert response.json["result"] != [], f"result should not be empty."
 
     # Case 1
     response = client.post("/account/sql/injection/test", data={
-        "Account": "test0001'; select * from account; -- ", })
+        "Account": "test000001'; select * from account; -- ", })
     assert response.status_code == 200
-    assert response.json["result"] == []  # result should be empty.
+    assert response.json["result"] == [], f"result should be empty."
 
     # Case 2
     response = client.post("/account/sql/injection/test", data={
         "Account": "' or 1=1; -- ", })
     assert response.status_code == 200
-    assert response.json["result"] == []  # result should be empty.
+    assert response.json["result"] == [], f"result should be empty."
