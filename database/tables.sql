@@ -85,6 +85,7 @@ CREATE TABLE `account_card_style` (
   `id` int NOT NULL AUTO_INCREMENT,
   `account_id` int DEFAULT NULL,
   `card_style_id` int DEFAULT NULL,
+  `equip_status` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `account_id` (`account_id`),
   KEY `card_style_id` (`card_style_id`),
