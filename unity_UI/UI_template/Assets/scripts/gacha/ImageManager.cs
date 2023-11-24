@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 public class ImageManager : MonoBehaviour
 {
-    public Dictionary<int, Sprite> skillImages;
-    public Dictionary<int, Sprite> cardStyleImages;
+    public List<GachaItem> skillImages;
+    public List<GachaItem> cardStyleImages;
 
     void Start()
     {
@@ -14,61 +14,61 @@ public class ImageManager : MonoBehaviour
 
     void InitializeSkill()
     {
-        skillImages = new Dictionary<int, Sprite>();
+        skillImages = new List<GachaItem>();
 
 
-        skillImages.Add(1, Resources.Load<Sprite>("images/GameSc/Skill/SkillAssassin"));
-        skillImages.Add(2, Resources.Load<Sprite>("images/GameSc/Skill/SkillKnight"));
-        skillImages.Add(3, Resources.Load<Sprite>("images/GameSc/Skill/SkillShowOpponentCard"));
-        skillImages.Add(4, Resources.Load<Sprite>("images/GameSc/Skill/SkillAssassin"));
-        skillImages.Add(5, Resources.Load<Sprite>("images/GameSc/Skill/SkillKnight"));
-        skillImages.Add(6, Resources.Load<Sprite>("images/GameSc/Skill/SkillShowOpponentCard"));
-        skillImages.Add(7, Resources.Load<Sprite>("images/GameSc/Skill/SkillAssassin"));
-        skillImages.Add(8, Resources.Load<Sprite>("images/GameSc/Skill/SkillKnight"));
-        skillImages.Add(9, Resources.Load<Sprite>("images/GameSc/Skill/SkillShowOpponentCard"));
-        skillImages.Add(10, Resources.Load<Sprite>("images/GameSc/Skill/SkillAssassin"));
+        skillImages.Add(new GachaItem(1, "暗影轉職", Resources.Load<Sprite>("images/GameSc/Skill/SkillAssassin")));
+        skillImages.Add(new GachaItem(2, "階級流動", Resources.Load<Sprite>("images/GameSc/Skill/SkillKnight")));
+        skillImages.Add(new GachaItem(3, "知己知彼", Resources.Load<Sprite>("images/GameSc/Skill/SkillShowOpponentCard")));
+        skillImages.Add(new GachaItem(4, "暗影轉職", Resources.Load<Sprite>("images/GameSc/Skill/SkillAssassin")));
+        skillImages.Add(new GachaItem(5, "階級流動", Resources.Load<Sprite>("images/GameSc/Skill/SkillKnight")));
+        skillImages.Add(new GachaItem(6, "知己知彼", Resources.Load<Sprite>("images/GameSc/Skill/SkillShowOpponentCard")));
+        skillImages.Add(new GachaItem(7, "暗影轉職", Resources.Load<Sprite>("images/GameSc/Skill/SkillAssassin")));
+        skillImages.Add(new GachaItem(8, "階級流動", Resources.Load<Sprite>("images/GameSc/Skill/SkillKnight")));
+        skillImages.Add(new GachaItem(9, "知己知彼", Resources.Load<Sprite>("images/GameSc/Skill/SkillShowOpponentCard")));
+        skillImages.Add(new GachaItem(10, "暗影轉職", Resources.Load<Sprite>("images/GameSc/Skill/SkillAssassin")));
     }
     void InitializeCardStyle()
     {
-        cardStyleImages = new Dictionary<int, Sprite>();
+        cardStyleImages = new List<GachaItem>();
 
-        cardStyleImages.Add(1, Resources.Load<Sprite>("images/Skin/Frozen/Civil"));
-        cardStyleImages.Add(2, Resources.Load<Sprite>("images/Skin/Frozen/Killer"));
-        cardStyleImages.Add(3, Resources.Load<Sprite>("images/Skin/Frozen/King"));
-        cardStyleImages.Add(4, Resources.Load<Sprite>("images/Skin/Frozen/Knight"));
-        cardStyleImages.Add(5, Resources.Load<Sprite>("images/Skin/Frozen/Prince"));
-        cardStyleImages.Add(6, Resources.Load<Sprite>("images/Skin/Frozen/Queen"));
-        cardStyleImages.Add(7, Resources.Load<Sprite>("images/Skin/Frozen/Civil"));
-        cardStyleImages.Add(8, Resources.Load<Sprite>("images/Skin/Frozen/Killer"));
-        cardStyleImages.Add(9, Resources.Load<Sprite>("images/Skin/Frozen/King"));
-        cardStyleImages.Add(10, Resources.Load<Sprite>("images/Skin/Frozen/Knight"));
-        cardStyleImages.Add(11, Resources.Load<Sprite>("images/Skin/Frozen/Knight"));
-        cardStyleImages.Add(12, Resources.Load<Sprite>("images/Skin/Frozen/Knight"));
-        cardStyleImages.Add(13, Resources.Load<Sprite>("images/Skin/Frozen/Knight"));
-        cardStyleImages.Add(14, Resources.Load<Sprite>("images/Skin/Frozen/Knight"));
-        cardStyleImages.Add(15, Resources.Load<Sprite>("images/Skin/Frozen/Knight"));
-        cardStyleImages.Add(16, Resources.Load<Sprite>("images/Skin/Frozen/Knight"));
-        cardStyleImages.Add(17, Resources.Load<Sprite>("images/Skin/Frozen/Knight"));
-        cardStyleImages.Add(18, Resources.Load<Sprite>("images/Skin/Frozen/Knight"));
-        cardStyleImages.Add(19, Resources.Load<Sprite>("images/Skin/Frozen/Knight"));
-        cardStyleImages.Add(20, Resources.Load<Sprite>("images/Skin/Frozen/Knight"));
-        cardStyleImages.Add(21, Resources.Load<Sprite>("images/Skin/Frozen/Knight"));
-        cardStyleImages.Add(22, Resources.Load<Sprite>("images/Skin/Frozen/Knight"));
-        cardStyleImages.Add(23, Resources.Load<Sprite>("images/Skin/Frozen/Knight"));
-        cardStyleImages.Add(24, Resources.Load<Sprite>("images/Skin/Frozen/Knight"));
-        cardStyleImages.Add(25, Resources.Load<Sprite>("images/Skin/Frozen/Knight"));
-        cardStyleImages.Add(26, Resources.Load<Sprite>("images/Skin/Frozen/Knight"));
-        cardStyleImages.Add(27, Resources.Load<Sprite>("images/Skin/Frozen/Knight"));
-        cardStyleImages.Add(28, Resources.Load<Sprite>("images/Skin/Frozen/Knight"));
-        cardStyleImages.Add(29, Resources.Load<Sprite>("images/Skin/Frozen/Knight"));
-        cardStyleImages.Add(30, Resources.Load<Sprite>("images/Skin/Frozen/Knight"));
+        cardStyleImages.Add(new GachaItem(1, "Frozen(平民)",Resources.Load<Sprite>("images/Skin/Frozen/Civil")));
+        cardStyleImages.Add(new GachaItem(2, "Frozen(平民)",Resources.Load<Sprite>("images/Skin/Frozen/Killer")));
+        cardStyleImages.Add(new GachaItem(3, "Frozen(平民)",Resources.Load<Sprite>("images/Skin/Frozen/King")));
+        cardStyleImages.Add(new GachaItem(4, "Frozen(平民)",Resources.Load<Sprite>("images/Skin/Frozen/Knight")));
+        cardStyleImages.Add(new GachaItem(5, "Frozen(平民)",Resources.Load<Sprite>("images/Skin/Frozen/Prince")));
+        cardStyleImages.Add(new GachaItem(6, "Frozen(平民)",Resources.Load<Sprite>("images/Skin/Frozen/Queen")));
+        cardStyleImages.Add(new GachaItem(7, "Frozen(平民)",Resources.Load<Sprite>("images/Skin/Frozen/Civil")));
+        cardStyleImages.Add(new GachaItem(8, "Frozen(平民)",Resources.Load<Sprite>("images/Skin/Frozen/Killer")));
+        cardStyleImages.Add(new GachaItem(9, "Frozen(平民)",Resources.Load<Sprite>("images/Skin/Frozen/King")));
+        cardStyleImages.Add(new GachaItem(10,"Frozen(平民)",Resources.Load<Sprite>("images/Skin/Frozen/Knight")));
+        cardStyleImages.Add(new GachaItem(11,"Frozen(平民)",Resources.Load<Sprite>("images/Skin/Frozen/Knight")));
+        cardStyleImages.Add(new GachaItem(12,"Frozen(平民)",Resources.Load<Sprite>("images/Skin/Frozen/Knight")));
+        cardStyleImages.Add(new GachaItem(13,"Frozen(平民)",Resources.Load<Sprite>("images/Skin/Frozen/Knight")));
+        cardStyleImages.Add(new GachaItem(14,"Frozen(平民)",Resources.Load<Sprite>("images/Skin/Frozen/Knight")));
+        cardStyleImages.Add(new GachaItem(15,"Frozen(平民)",Resources.Load<Sprite>("images/Skin/Frozen/Knight")));
+        cardStyleImages.Add(new GachaItem(16,"Frozen(平民)",Resources.Load<Sprite>("images/Skin/Frozen/Knight")));
+        cardStyleImages.Add(new GachaItem(17,"Frozen(平民)",Resources.Load<Sprite>("images/Skin/Frozen/Knight")));
+        cardStyleImages.Add(new GachaItem(18,"Frozen(平民)",Resources.Load<Sprite>("images/Skin/Frozen/Knight")));
+        cardStyleImages.Add(new GachaItem(19,"Frozen(平民)",Resources.Load<Sprite>("images/Skin/Frozen/Knight")));
+        cardStyleImages.Add(new GachaItem(20,"Frozen(平民)",Resources.Load<Sprite>("images/Skin/Frozen/Knight")));
+        cardStyleImages.Add(new GachaItem(21,"Frozen(平民)",Resources.Load<Sprite>("images/Skin/Frozen/Knight")));
+        cardStyleImages.Add(new GachaItem(22,"Frozen(平民)",Resources.Load<Sprite>("images/Skin/Frozen/Knight")));
+        cardStyleImages.Add(new GachaItem(23,"Frozen(平民)",Resources.Load<Sprite>("images/Skin/Frozen/Knight")));
+        cardStyleImages.Add(new GachaItem(24,"Frozen(平民)",Resources.Load<Sprite>("images/Skin/Frozen/Knight")));
+        cardStyleImages.Add(new GachaItem(25,"Frozen(平民)",Resources.Load<Sprite>("images/Skin/Frozen/Knight")));
+        cardStyleImages.Add(new GachaItem(26,"Frozen(平民)",Resources.Load<Sprite>("images/Skin/Frozen/Knight")));
+        cardStyleImages.Add(new GachaItem(27,"Frozen(平民)",Resources.Load<Sprite>("images/Skin/Frozen/Knight")));
+        cardStyleImages.Add(new GachaItem(28,"Frozen(平民)",Resources.Load<Sprite>("images/Skin/Frozen/Knight")));
+        cardStyleImages.Add(new GachaItem(29,"Frozen(平民)",Resources.Load<Sprite>("images/Skin/Frozen/Knight")));
+        cardStyleImages.Add(new GachaItem(30,"Frozen(平民)",Resources.Load<Sprite>("images/Skin/Frozen/Knight")));
     }
 
     public Sprite GetSkillImage(int skill_id)
     {
-        if (skillImages.ContainsKey(skill_id))
+        if (skillImages[skill_id]!= null)
         {
-            return skillImages[skill_id];
+            return skillImages[skill_id].itemSprite;
         }
         else
         {
@@ -78,17 +78,17 @@ public class ImageManager : MonoBehaviour
     }
     public Sprite GetCardStyleImage(int style_id)
     {
-        if (cardStyleImages.ContainsKey(style_id))
+        if (cardStyleImages[style_id]!= null)
         {
-            return cardStyleImages[style_id];
+            return cardStyleImages[style_id].itemSprite;
         }
         else
         {
             Debug.LogWarning($"CardStyleImages: No image found for style with id {style_id}.");
-            foreach (var key in cardStyleImages.Keys)
-            {
-                Debug.Log($"Key in dictionary: {key}");
-            }
+            // foreach (var key in cardStyleImages.Keys)
+            // {
+            //     Debug.Log($"Key in dictionary: {key}");
+            // }
             return null;
         }
     }

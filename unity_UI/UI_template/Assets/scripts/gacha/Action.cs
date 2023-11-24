@@ -238,7 +238,7 @@ public class Action : MonoBehaviour
         if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
         {
             errorController.ShowErrorMessage("Please check your network connection.");
-            Debug.Log("failed");
+            // Debug.Log("failed");
             Debug.LogError(www.error);
         }
         else
