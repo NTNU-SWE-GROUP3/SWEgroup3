@@ -58,10 +58,9 @@ public class CountDown : MonoBehaviour
         if(PlayerShow.transform.childCount == 0)
             NoPlayCard();
         TimerText.text = "Show!";
-        yield return new WaitForSeconds(0.5f);
         StartCoroutine(showcard.Show()); 
-        TimerText.gameObject.SetActive(false);
         yield return new WaitForSeconds(1f);
+        TimerText.gameObject.SetActive(false);
         MessagePanel.SetActive(true);
     }
 
