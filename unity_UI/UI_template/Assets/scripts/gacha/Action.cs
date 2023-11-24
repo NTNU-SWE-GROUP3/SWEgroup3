@@ -9,7 +9,7 @@ using PurchaseControl;
 
 public class Action : MonoBehaviour
 {
-    [SerializeField] string apiUrl = "http://127.0.0.1:5000/gacha/draw";       // call API endpoint
+    [SerializeField] string apiUrl = "http://127.0.0.1:5050/gacha/draw";       // call API endpoint
 
     // default playerId = 1, mode = coin, times = 1
     [SerializeField] string playerId = "1";
@@ -238,7 +238,7 @@ public class Action : MonoBehaviour
         if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
         {
             errorController.ShowErrorMessage("Please check your network connection.");
-            Debug.Log("failed");
+            // Debug.Log("failed");
             Debug.LogError(www.error);
         }
         else
