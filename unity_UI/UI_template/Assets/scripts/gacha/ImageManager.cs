@@ -66,9 +66,21 @@ public class ImageManager : MonoBehaviour
 
     public Sprite GetSkillImage(int skill_id)
     {
-        if (skillImages[skill_id]!= null)
+        if (skillImages[skill_id-1]!= null)
         {
-            return skillImages[skill_id].itemSprite;
+            return skillImages[skill_id-1].itemSprite;
+        }
+        else
+        {
+            Debug.LogWarning($"SkillImageMapper: No image found for skill with id {skill_id}.");
+            return null;
+        }
+    }
+    public string GetSkillName(int skill_id)
+    {
+        if (skillImages[skill_id-1]!= null)
+        {
+            return skillImages[skill_id-1].itemName;
         }
         else
         {
@@ -78,9 +90,25 @@ public class ImageManager : MonoBehaviour
     }
     public Sprite GetCardStyleImage(int style_id)
     {
-        if (cardStyleImages[style_id]!= null)
+        if (cardStyleImages[style_id-1]!= null)
         {
-            return cardStyleImages[style_id].itemSprite;
+            return cardStyleImages[style_id-1].itemSprite;
+        }
+        else
+        {
+            Debug.LogWarning($"CardStyleImages: No image found for style with id {style_id}.");
+            // foreach (var key in cardStyleImages.Keys)
+            // {
+            //     Debug.Log($"Key in dictionary: {key}");
+            // }
+            return null;
+        }
+    }
+    public string GetCardStyleName(int style_id)
+    {
+        if (cardStyleImages[style_id-1]!= null)
+        {
+            return cardStyleImages[style_id-1].itemName;
         }
         else
         {

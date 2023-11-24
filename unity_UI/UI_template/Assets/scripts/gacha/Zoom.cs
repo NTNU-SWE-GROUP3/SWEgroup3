@@ -7,6 +7,7 @@ public class Zoom : MonoBehaviour
 {
     public GameObject ShowPanel;
     public Image ZoomImage;
+    public Text ZoomText;
 
     void Start()
     {
@@ -15,7 +16,15 @@ public class Zoom : MonoBehaviour
     public void ClickImage()
     {
         ShowPanel.SetActive(true);
-        ZoomImage = gameObject.GetComponent<Image>();
+        ZoomImage.sprite = this.gameObject.GetComponent<Image>().sprite;
+        ZoomText.text = this.gameObject.GetComponentInChildren<Text>().text;
+        if(this.gameObject.GetComponentInChildren<Text>().text == "coin")
+        {
+            ZoomText.text = "不是欸...金幣有什麼好看的?";
+            ZoomText.fontSize = 60;
+        }
+        else
+            ZoomText.fontSize = 100;
     }
 
     public  void ClickCloseButton()
