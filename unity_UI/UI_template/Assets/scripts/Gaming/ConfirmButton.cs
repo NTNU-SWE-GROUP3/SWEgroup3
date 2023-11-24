@@ -45,7 +45,7 @@ public class ConfirmButton : MonoBehaviour
         else
         {
             Debug.Log("useSkill");
-            StartCoroutine(useSkill.Use(ClickDetector.skillId));
+            StartCoroutine(useSkill.Use(ClickDetector.skillId,true));
             ClickDetector.skillId = -1;
         }
         

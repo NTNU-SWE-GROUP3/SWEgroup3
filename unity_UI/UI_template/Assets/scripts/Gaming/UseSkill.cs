@@ -7,6 +7,7 @@ public class UseSkill : MonoBehaviour
 {
     GameController GC;
     GameObject SkillObject;
+    public static bool skillForbidden;
     public GameObject PlayerArea;
     public GameObject OpponentArea;
     public GameObject SkillPanel;
@@ -20,6 +21,7 @@ public class UseSkill : MonoBehaviour
     ToMessagePanel card;
     void Start()
     {
+        skillForbidden = false;
         SC = GameObject.Find("GameController").GetComponent<ShowCard>();
         GC = GameObject.Find("GameController").GetComponent<GameController>();
     }
@@ -37,22 +39,25 @@ public class UseSkill : MonoBehaviour
         GC.DestoryCardOnPanel();
     }
 
-    public IEnumerator Use(int skillId)
+    public IEnumerator Use(int skillId,bool isPlayer)
     {
-        for(int i = 0; i < 3;i++)
+        if( isPlayer == true)
         {
-           SkillObject = SkillPanel.transform.GetChild(i).gameObject;
-           Skill = SkillObject.GetComponent<SkillDisplay>();
-           if(SkillObject.layer == 13 && Skill.id == skillId)
-           {
-                SkillObject.layer = LayerMask.NameToLayer("Skill(Used)");
-                break;
-           }
-        }
+            for(int i = 0; i < 3;i++)
+            {
+               SkillObject = SkillPanel.transform.GetChild(i).gameObject;
+               Skill = SkillObject.GetComponent<SkillDisplay>();
+               if(SkillObject.layer == 13 && Skill.id == skillId)
+               {
+                    SkillObject.layer = LayerMask.NameToLayer("Skill(Used)");
+                    break;
+               }
+            }
         //判斷技能的使用
-        yield return new WaitForSeconds(0.5f);
-        SkillPanel.gameObject.SetActive(false);
-        switch (skillId)
+            yield return new WaitForSeconds(0.5f);
+            SkillPanel.gameObject.SetActive(false);
+
+            switch (skillId)
         {
             case 1: //時間限縮
                 Debug.Log("Player Use Skill 1");
@@ -94,7 +99,7 @@ public class UseSkill : MonoBehaviour
                 break;
             case 5: //力量剝奪
                 Debug.Log("Player Use Skill 5");
-                Clock = 0;
+                Clock = 3;
                 SC.WinImage.SetActive(false);
                 SC.SkillImage.SetActive(true);
                 SC.skillMessage.gameObject.SetActive(true);
@@ -102,7 +107,7 @@ public class UseSkill : MonoBehaviour
                 SC.skillMessage.text = "力量剝奪!";
                 SC.skillDescription.text = "此回合對方平民卡技能無效";
                 SC.isPeasantImmunity = true;
-                yield return new WaitForSeconds(1);
+                // yield return new WaitForSeconds(3);
                 break;
             case 6: //黃金風暴
                 Debug.Log("Player Use Skill 6");
@@ -143,8 +148,67 @@ public class UseSkill : MonoBehaviour
                 SC.RefreshEarnText(1);
                 break;
         }
-        ConfirmButton.SetActive(false);
-        CancelButton.SetActive(false);
+            ConfirmButton.SetActive(false);
+            CancelButton.SetActive(false);
+        }
+        else 
+        {
+            switch (skillId)
+        {
+            case 1: //時間限縮
+                Debug.Log("Opponent Use Skill 1");
+                yield return new WaitForSeconds(1);
+                break;
+            case 2: //階級流動
+                Debug.Log("Opponent  Use Skill 2");
+                break;
+            case 3: //暗影轉職
+                Debug.Log("Opponent  Use Skill 3");
+                break;
+            case 4: //技能封印
+                Debug.Log("Opponent  Use Skill 4");
+                SC.WinImage.SetActive(false);
+                SC.SkillImage.SetActive(true);
+                SC.skillMessage.gameObject.SetActive(true);
+                SC.skillDescription.gameObject.SetActive(true);
+                SC.skillMessage.text = "技能封印!";
+                SC.skillDescription.text = "下回合玩家技能將被封印";
+                skillForbidden = true;
+                yield return new WaitForSeconds(3);
+                break;
+            case 5: //力量剝奪
+                Debug.Log("Opponent  Use Skill 5");
+                yield return new WaitForSeconds(1);
+                break;
+            case 6: //黃金風暴
+                Debug.Log("Opponent  Use Skill 6");
+                yield return new WaitForSeconds(1);
+                break;
+            case 7: //知己知彼
+                Debug.Log("Opponent  Use Skill 7");
+                Clock = 8;
+                deckRecon();
+                break;
+            case 8: //抉擇束縛
+                Debug.Log("Opponent  Use Skill 8");
+                SC.WinImage.SetActive(false);
+                SC.SkillImage.SetActive(true);
+                SC.skillMessage.gameObject.SetActive(true);
+                SC.skillDescription.gameObject.SetActive(true);
+                SC.skillMessage.text = "抉擇束縛!";
+                SC.skillDescription.text = "請從以下兩張牌中擇一出牌";
+                yield return StartCoroutine(Timer());
+                break;
+            case 9: //強制徵收
+                Debug.Log("Opponent  Use Skill 9");
+                yield return new WaitForSeconds(1);
+                break;
+            case 10: //勝者之堆
+                Debug.Log("Opponent  Use Skill 10");
+                break;
+        }
+        }
+    
     }
     void deckRecon()
     {

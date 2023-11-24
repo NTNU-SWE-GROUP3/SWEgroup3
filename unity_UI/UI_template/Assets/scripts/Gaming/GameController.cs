@@ -89,7 +89,9 @@ public class GameController : MonoBehaviour
         
         WinImage.SetActive(false);
         SkillPanel.SetActive(true);
-            SkillImage.SetActive(true);
+        SkillImage.SetActive(true);
+
+        
         if(NoSkillCanUse == false)
         {
             if(SkillPanel.transform.GetChild(0).gameObject.layer == 14 && SkillPanel.transform.GetChild(1).gameObject.layer == 14 && SkillPanel.transform.GetChild(2).gameObject.layer == 14)
@@ -97,41 +99,77 @@ public class GameController : MonoBehaviour
         }
         if(NoSkillCanUse == false)
         {
-            SkillMassage.text = "請選擇要使用的技能";
-            SkillDescription.text = "";
-            SkipButton.SetActive(true);
-            yield return StartCoroutine(useSkill.Timer());
-            ClickDetector.skillId = -1;
+            if(UseSkill.skillForbidden == false)
+            {
+                SkillMassage.text = "請選擇要使用的技能";
+                SkillDescription.text = "";
+                SkipButton.SetActive(true);
+
+                for(int i = 0; i<3;i++)
+                {
+                    if(SkillPanel.transform.GetChild(i).gameObject.layer == 15)
+                    SkillPanel.transform.GetChild(i).gameObject.layer = LayerMask.NameToLayer("Skill(Unused)");
+                }
+                
+                yield return StartCoroutine(useSkill.Timer());
+                ClickDetector.skillId = -1;
+            }
+            else
+            {
+                SkillMassage.text = "此回合無法使用技能";
+                SkillDescription.text = "";
+                SkipButton.SetActive(true);
+
+                for(int i = 0; i<3;i++)
+                {
+                    if(SkillPanel.transform.GetChild(i).gameObject.layer == 13)
+                    SkillPanel.transform.GetChild(i).gameObject.layer = LayerMask.NameToLayer("Skill(Forbidden)");
+                }
+                yield return StartCoroutine(useSkill.Timer());
+
+                ClickDetector.skillId = -1;
+                UseSkill.skillForbidden = false;
+            }
         }
         else 
         {
             //我想說以經沒有技能可以使用的情況下 可以不用按「跳過」就直接進入遊戲嗎
-
             SkillMassage.text = "已無技能可以使用";
             SkillDescription.text = "";
             SkipButton.SetActive(true);
             yield return StartCoroutine(useSkill.Timer());
         }
 
-        
-
-        MessagePanel.SetActive(false);
+        MessagePanel.SetActive(true);
         SkillPanel.SetActive(false);
+        ConfirmButton.SetActive(false);
+        CancelButton.SetActive(false);
+        SkipButton.SetActive(false);
+        SkillMassage.text = "等待對手使用技能";
+        SkillDescription.text = "";
+
+        if(isCom == true && ComputerPlayer.ComSkillIndex < 3)
+        {
+            Debug.Log("Opponent Start Using Skill");
+            yield return(StartCoroutine(ComPlayer.UseSkill()));
+        }
+
+        Debug.Log("Opponent Finish using skill");
+        MessagePanel.SetActive(false);
         SkillImage.SetActive(false);
         ConfirmButton.SetActive(false);
         CancelButton.SetActive(false);
         SkipButton.SetActive(false);
-
+        
         DropZone.haveCard = false;
-        DropZone.backToHand = true;
-
+        DropZone.backToHand = true; 
         TurnText.text = "回合:" + Turn.ToString();
         StartCoroutine(Timer.TurnCountdown());
         if(isCom == true)
         {
             yield return StartCoroutine(ComPlayer.PlayCard());
         }
-            
+
     }
 
     public void FinishCheck(int PlayerEarnCard,int OpponentEarnCard,int PlayerHandCard,int OpponentHandCard)

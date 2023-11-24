@@ -1654,6 +1654,7 @@ MonoBehaviour:
   OpponentArea: {fileID: 1001469411}
   OpponentShow: {fileID: 1907401954}
   Card: {fileID: 0}
+  useSkill: {fileID: 1211442835}
   test: 0
 --- !u!4 &965809087
 Transform:
