@@ -7,7 +7,8 @@ public class UseSkill : MonoBehaviour
 {
     GameController GC;
     GameObject SkillObject;
-    public static bool skillForbidden;
+    public static bool PlayerSkillForbidden;
+    public static bool ComSkillForbidden;
     public GameObject PlayerArea;
     public GameObject OpponentArea;
     public GameObject SkillPanel;
@@ -23,7 +24,8 @@ public class UseSkill : MonoBehaviour
     private int cardId = 0;
     void Start()
     {
-        skillForbidden = false;
+        PlayerSkillForbidden = false;
+        ComSkillForbidden = false;
         SC = GameObject.Find("GameController").GetComponent<ShowCard>();
         GC = GameObject.Find("GameController").GetComponent<GameController>();
         deleteChange = GameObject.Find("GameController").GetComponent<DeleteChange>();
@@ -99,6 +101,13 @@ public class UseSkill : MonoBehaviour
                     break;
                 case 4: //技能封印
                     Debug.Log("Player Use Skill 4");
+                    SC.WinImage.SetActive(false);
+                    SC.SkillImage.SetActive(true);
+                    SC.skillMessage.gameObject.SetActive(true);
+                    SC.skillDescription.gameObject.SetActive(true);
+                    SC.skillMessage.text = "技能封印!";
+                    SC.skillDescription.text = "下回合對手技能將被封印";
+                    ComSkillForbidden = true;
                     yield return new WaitForSeconds(1);
                     break;
                 case 5: //力量剝奪
@@ -109,7 +118,7 @@ public class UseSkill : MonoBehaviour
                     SC.skillMessage.gameObject.SetActive(true);
                     SC.skillDescription.gameObject.SetActive(true);
                     SC.skillMessage.text = "力量剝奪!";
-                    SC.skillDescription.text = "此回合對方平民卡技能無效";
+                    SC.skillDescription.text = "此回合對手民卡技能無效";
                     SC.isPeasantImmunity = true;
                     // yield return new WaitForSeconds(3);
                     break;
@@ -165,6 +174,12 @@ public class UseSkill : MonoBehaviour
                     break;
                 case 2: //階級流動
                     Debug.Log("Opponent  Use Skill 2");
+                    SC.WinImage.SetActive(false);
+                    SC.SkillImage.SetActive(true);
+                    SC.skillMessage.gameObject.SetActive(true);
+                    SC.skillDescription.gameObject.SetActive(true);
+                    SC.skillMessage.text = "階級流動!";
+                    SC.skillDescription.text = "請選擇一張要轉換的平民卡";
                     cardId = 0;
                     for(int i = OpponentArea.transform.childCount-1;i>=0;i--)
                     {
@@ -179,6 +194,12 @@ public class UseSkill : MonoBehaviour
                     break;
                 case 3: //暗影轉職
                     Debug.Log("Opponent  Use Skill 3");
+                    SC.WinImage.SetActive(false);
+                    SC.SkillImage.SetActive(true);
+                    SC.skillMessage.gameObject.SetActive(true);
+                    SC.skillDescription.gameObject.SetActive(true);
+                    SC.skillMessage.text = "暗影轉職!";
+                    SC.skillDescription.text = "請選擇一張要轉換的平民卡";
                     for(int i = OpponentArea.transform.childCount-1;i>=0;i--)
                     {
                         card = OpponentArea.transform.GetChild(i).GetComponent<ToMessagePanel>();
@@ -199,7 +220,7 @@ public class UseSkill : MonoBehaviour
                     SC.skillDescription.gameObject.SetActive(true);
                     SC.skillMessage.text = "技能封印!";
                     SC.skillDescription.text = "下回合玩家技能將被封印";
-                    skillForbidden = true;
+                    PlayerSkillForbidden = true;
                     yield return new WaitForSeconds(3);
                     break;
                 case 5: //力量剝奪

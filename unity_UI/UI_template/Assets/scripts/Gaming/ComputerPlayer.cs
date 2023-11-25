@@ -33,11 +33,19 @@ public class ComputerPlayer : MonoBehaviour
         Card.position = OpponentShow.transform.position;
         Card.gameObject.layer = LayerMask.NameToLayer("CardBack");
     }
-    public IEnumerator UseSkill()
+    public IEnumerator ToUseSkill()
     {
         yield return new WaitForSeconds(2f);
-        yield return(StartCoroutine(useSkill.Use(ComSkillIdList[ComSkillIndex],false)));
-        ComSkillIndex ++;
+        if (UseSkill.ComSkillForbidden == false)
+        {
+            yield return(StartCoroutine(useSkill.Use(ComSkillIdList[ComSkillIndex],false)));
+            ComSkillIndex ++;
+        }
+        else
+        {
+            UseSkill.PlayerSkillForbidden = false;
+            yield break;
+        }
     }
 
 }

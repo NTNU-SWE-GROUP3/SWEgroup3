@@ -99,7 +99,7 @@ public class GameController : MonoBehaviour
         }
         if(NoSkillCanUse == false)
         {
-            if(UseSkill.skillForbidden == false)
+            if(UseSkill.PlayerSkillForbidden == false)
             {
                 SkillMassage.text = "請選擇要使用的技能";
                 SkillDescription.text = "";
@@ -128,7 +128,7 @@ public class GameController : MonoBehaviour
                 yield return StartCoroutine(useSkill.Timer());
 
                 ClickDetector.skillId = -1;
-                UseSkill.skillForbidden = false;
+                UseSkill.PlayerSkillForbidden = false;
             }
         }
         else 
@@ -151,7 +151,7 @@ public class GameController : MonoBehaviour
         if(isCom == true && ComputerPlayer.ComSkillIndex < 3)
         {
             Debug.Log("Opponent Start Using Skill");
-            yield return(StartCoroutine(ComPlayer.UseSkill()));
+            yield return(StartCoroutine(ComPlayer.ToUseSkill()));
         }
 
         Debug.Log("Opponent Finish using skill");
