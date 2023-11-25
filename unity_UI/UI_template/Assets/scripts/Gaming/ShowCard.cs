@@ -21,7 +21,8 @@ public class ShowCard : MonoBehaviour
     public Text PlayerEarnText;
     public Text OpponentEarnText;
     public bool isRevolution;
-    public bool isPeasantImmunity;
+    public bool isPlayerPeasantImmunity;
+    public bool isComPeasantImmunity;
     public int PlayerX;
     public int OpponentX;
     public static int RejectTimer;
@@ -62,28 +63,18 @@ public class ShowCard : MonoBehaviour
         // 判斷
         //-------------------------\\
         // 不敗的勇者
-        if ((isPeasantImmunity == true && PlayerCard.id == 9) || (isPeasantImmunity == false && (PlayerCard.id == 9 || OpponentCard.id == 9)))
-        {
-            WinImage.SetActive(false);
-            SkillImage.SetActive(true);
-            skillMessage.gameObject.SetActive(true);
-            skillDescription.gameObject.SetActive(true);
-            skillMessage.text = "不敗的勇者!";
-            skillDescription.text = "可以贏過任何一張牌";
-            yield return new WaitForSeconds(0.5f);
-            PlaySE(SkillSound);
-            yield return new WaitForSeconds(2.5f);
-            if(PlayerCard.id == 9 )
-                yield return StartCoroutine(ToPlayerEarn());
-            else
-                yield return StartCoroutine(ToOpponentEarn());
-        }
+        if ((PlayerCard.id == 9 && isComPeasantImmunity == false) && OpponentCard.id == 9 && isPlayerPeasantImmunity == false)
+            yield return StartCoroutine(ToDrawArea());
+        else if (PlayerCard.id == 9 && isComPeasantImmunity == false)
+            Undefeated(1);
+        else if (OpponentCard.id == 9 && isPlayerPeasantImmunity == false)
+            Undefeated(2);
         else
         {
-            if (isPeasantImmunity == true && OpponentCard.id == 9)
-            {
-                PeasantImmunity();
-            }
+            if (isComPeasantImmunity == true && PlayerCard.id == 9)
+                PeasantImmunity(1);
+            if (isPlayerPeasantImmunity == true && OpponentCard.id == 9)
+                PeasantImmunity(2);
             if (PlayerCard.cardName == "國王" && (OpponentCard.cardName == "王子" || OpponentCard.cardName == "騎士" || OpponentCard.cardName == "平民"))
             {
                 if (isRevolution == false){
@@ -95,7 +86,10 @@ public class ShowCard : MonoBehaviour
                 }
                 if (isRevolution == false && OpponentCard.id == 17)
                 {
-                    yield return StartCoroutine(Trojan(OpponentEarn,PlayerEarn));
+                    if (isPlayerPeasantImmunity == false)
+                        yield return StartCoroutine(Trojan(OpponentEarn,PlayerEarn));
+                    else
+                        PeasantImmunity(2);
                 }
             }
             else if (OpponentCard.cardName == "國王" && (PlayerCard.cardName == "王子" || PlayerCard.cardName == "騎士" || PlayerCard.cardName == "平民"))
@@ -110,7 +104,10 @@ public class ShowCard : MonoBehaviour
                 }
                 if (isRevolution == false &&PlayerCard.id == 17)
                 {
-                    yield return StartCoroutine(Trojan(PlayerEarn,OpponentEarn));
+                    if (isComPeasantImmunity == false)
+                        yield return StartCoroutine(Trojan(PlayerEarn,OpponentEarn));
+                    else 
+                        PeasantImmunity(1);
                 }
             }
             else if (PlayerCard.cardName == "皇后" && (OpponentCard.cardName == "國王" || OpponentCard.cardName == "騎士" || OpponentCard.cardName == "平民"))
@@ -124,7 +121,10 @@ public class ShowCard : MonoBehaviour
                 }
                 if (isRevolution == false &&OpponentCard.id == 17)
                 {
-                    yield return StartCoroutine(Trojan(OpponentEarn,PlayerEarn));
+                    if (isPlayerPeasantImmunity == false)
+                        yield return StartCoroutine(Trojan(OpponentEarn,PlayerEarn));
+                    else 
+                        PeasantImmunity(2);
                 }
             }
             else if (OpponentCard.cardName == "皇后" && (PlayerCard.cardName == "國王" || PlayerCard.cardName == "騎士" || PlayerCard.cardName == "平民"))
@@ -138,7 +138,10 @@ public class ShowCard : MonoBehaviour
                 }
                 if (isRevolution == false &&PlayerCard.id == 17)
                 {
-                    yield return StartCoroutine(Trojan(PlayerEarn,OpponentEarn));
+                    if (isComPeasantImmunity == false)
+                        yield return StartCoroutine(Trojan(PlayerEarn,OpponentEarn));
+                    else 
+                        PeasantImmunity(1);
                 }
             }
             else if (PlayerCard.cardName == "王子" && (OpponentCard.cardName == "皇后" || OpponentCard.cardName == "騎士" || OpponentCard.cardName == "平民"))
@@ -152,7 +155,10 @@ public class ShowCard : MonoBehaviour
                 }
                 if (isRevolution == false && OpponentCard.id == 17)
                 {
-                    yield return StartCoroutine(Trojan(OpponentEarn,PlayerEarn));
+                    if (isPlayerPeasantImmunity == false)
+                        yield return StartCoroutine(Trojan(OpponentEarn,PlayerEarn));
+                    else 
+                        PeasantImmunity(2);
                 }
             }
             else if (OpponentCard.cardName == "王子" && (PlayerCard.cardName == "皇后" || PlayerCard.cardName == "騎士" || PlayerCard.cardName == "平民"))
@@ -166,7 +172,10 @@ public class ShowCard : MonoBehaviour
                 }
                 if (isRevolution == false && PlayerCard.id == 17)
                 {
-                    yield return StartCoroutine(Trojan(PlayerEarn,OpponentEarn));
+                    if (isComPeasantImmunity == false)
+                        yield return StartCoroutine(Trojan(PlayerEarn,OpponentEarn));
+                    else 
+                        PeasantImmunity(1);
                 }
             }
             else if (PlayerCard.cardName == "騎士" && (OpponentCard.cardName == "殺手" || OpponentCard.cardName == "平民"))
@@ -181,7 +190,10 @@ public class ShowCard : MonoBehaviour
                 }
                 if (isRevolution == false && OpponentCard.id == 17)
                 {
-                    yield return StartCoroutine(Trojan(OpponentEarn,PlayerEarn));
+                    if (isPlayerPeasantImmunity == false)
+                        yield return StartCoroutine(Trojan(OpponentEarn,PlayerEarn));
+                    else 
+                        PeasantImmunity(2);
                 }
             }
             else if (OpponentCard.cardName == "騎士" && (PlayerCard.cardName == "殺手" || PlayerCard.cardName == "平民"))
@@ -195,7 +207,10 @@ public class ShowCard : MonoBehaviour
                 }
                 if (isRevolution == false && PlayerCard.id == 17)
                 {
-                    yield return StartCoroutine(Trojan(PlayerEarn,OpponentEarn));
+                    if (isComPeasantImmunity == false)
+                        yield return StartCoroutine(Trojan(PlayerEarn,OpponentEarn));
+                    else 
+                        PeasantImmunity(1);
                 }
             }
             else if (PlayerCard.cardName == "殺手" && (OpponentCard.cardName == "國王" || OpponentCard.cardName == "王子" || OpponentCard.cardName == "皇后"))
@@ -233,10 +248,10 @@ public class ShowCard : MonoBehaviour
                 // 大革命
                 if (PlayerCard.id == 16 || OpponentCard.id == 16)
                 {
-                    if (isPeasantImmunity == true && OpponentCard.id == 16)
-                    {
-                        PeasantImmunity();
-                    }
+                    if (isPlayerPeasantImmunity == true && OpponentCard.id == 16)
+                        PeasantImmunity(2);
+                    else if (isComPeasantImmunity == true && PlayerCard.id == 16)
+                        PeasantImmunity(1);
                     else
                     {
                         PlaySE(SkillSound);
@@ -249,19 +264,22 @@ public class ShowCard : MonoBehaviour
                 // 爆發式成長
                 if (PlayerCard.id == 15)
                 {
-                    PlaySE(SkillSound);
-                    skillMessage.text = "爆發式成長!";
-                    skillDescription.text = "玩家獲得 "+ GameController.Turn.ToString() + " 張牌";
-                    PlayerX = GameController.Turn;
-                    RefreshEarnText(1);
-                    yield return new WaitForSeconds(3f);
-                }
-                else if (OpponentCard.id == 15)
-                {
-                    if (isPeasantImmunity == true)
+                    if (isComPeasantImmunity == true)
+                        PeasantImmunity(1);
+                    else
                     {
-                        PeasantImmunity();
+                        PlaySE(SkillSound);
+                        skillMessage.text = "爆發式成長!";
+                        skillDescription.text = "玩家獲得 "+ GameController.Turn.ToString() + " 張牌";
+                        PlayerX = GameController.Turn;
+                        RefreshEarnText(1);
+                        yield return new WaitForSeconds(3f);
                     }
+                }
+                if (OpponentCard.id == 15)
+                {
+                    if (isPlayerPeasantImmunity == true)
+                        PeasantImmunity(2);
                     else
                     {
                         PlaySE(SkillSound);
@@ -275,17 +293,20 @@ public class ShowCard : MonoBehaviour
                 // 全部重製
                 if (PlayerCard.id == 8 && OpponentEarn.transform.childCount != 0)
                 {
-                    PlaySE(SkillSound);
-                    skillMessage.text = "全部重置!";
-                    skillDescription.text = "將對手全部贏牌移至平手區";
-                    yield return StartCoroutine(ResetAll(OpponentEarn));
-                }
-                else if (OpponentCard.id == 8 && PlayerEarn.transform.childCount != 0)
-                {
-                    if (isPeasantImmunity == true)
+                    if (isComPeasantImmunity == true)
+                        PeasantImmunity(1);
+                    else
                     {
-                        PeasantImmunity();
+                        PlaySE(SkillSound);
+                        skillMessage.text = "全部重置!";
+                        skillDescription.text = "將對手全部贏牌移至平手區";
+                        yield return StartCoroutine(ResetAll(OpponentEarn));
                     }
+                }
+                if (OpponentCard.id == 8 && PlayerEarn.transform.childCount != 0)
+                {
+                    if (isPlayerPeasantImmunity == true)
+                        PeasantImmunity(2);
                     else
                     {
                         PlaySE(SkillSound);
@@ -297,28 +318,31 @@ public class ShowCard : MonoBehaviour
                 // 簡易剔除
                 if (PlayerCard.id == 7)
                 {
-                    PlaySE(SkillSound);
-                    skillMessage.text = "簡易剔除!";
-                    skillDescription.text = "請選擇一張牌剔除";
-                    PlayerSimpleRejection();
-                    RejectTimerText.gameObject.SetActive(true);
-                    while(RejectTimer >= 0)
-                    {
-                        RejectTimerText.text = RejectTimer.ToString();
-                        yield return new WaitForSeconds(1);
-                        RejectTimer -- ;
-                    }
-                    RejectTimerText.gameObject.SetActive(false);
-                }
-                else if(OpponentCard.id == 7)
-                {
-                    if (isPeasantImmunity == true)
-                    {
-                        PeasantImmunity();
-                    }
+                    if (isComPeasantImmunity == true)
+                        PeasantImmunity(1);
                     else
                     {
-                            PlaySE(SkillSound);
+                        PlaySE(SkillSound);
+                        skillMessage.text = "簡易剔除!";
+                        skillDescription.text = "請選擇一張牌剔除";
+                        PlayerSimpleRejection();
+                        RejectTimerText.gameObject.SetActive(true);
+                        while(RejectTimer >= 0)
+                        {
+                            RejectTimerText.text = RejectTimer.ToString();
+                            yield return new WaitForSeconds(1);
+                            RejectTimer -- ;
+                        }
+                        RejectTimerText.gameObject.SetActive(false);
+                    }
+                }
+                if(OpponentCard.id == 7)
+                {
+                    if (isPlayerPeasantImmunity == true)
+                        PeasantImmunity(2);
+                    else
+                    {
+                        PlaySE(SkillSound);
                         skillMessage.text = "簡易剔除!";
                         skillDescription.text = "對手將選擇一張牌剔除";
                         OpponentSimpleRejection();
@@ -442,7 +466,7 @@ public class ShowCard : MonoBehaviour
 
         
     }
-    void PeasantImmunity()
+    void PeasantImmunity(int WhoUse)
     {
         Debug.Log("力量剝奪 不觸發技能");
         WinImage.SetActive(false);
@@ -451,7 +475,27 @@ public class ShowCard : MonoBehaviour
         skillDescription.gameObject.SetActive(true);
         skillMessage.text = "力量剝奪!";
         skillDescription.text = "此回合對方平民卡技能無效";
-        isPeasantImmunity = false;
+        if (WhoUse == 1)
+            isComPeasantImmunity = false;
+        else
+            isPlayerPeasantImmunity = false;
+    }
+    
+    IEnumerator Undefeated(int WhoUse)
+    {
+        WinImage.SetActive(false);
+        SkillImage.SetActive(true);
+        skillMessage.gameObject.SetActive(true);
+        skillDescription.gameObject.SetActive(true);
+        skillMessage.text = "不敗的勇者!";
+        skillDescription.text = "可以贏過任何一張牌";
+        yield return new WaitForSeconds(0.5f);
+        PlaySE(SkillSound);
+        yield return new WaitForSeconds(2.5f);
+        if(WhoUse == 1 )
+            yield return StartCoroutine(ToPlayerEarn());
+        else
+            yield return StartCoroutine(ToOpponentEarn());
     }
     IEnumerator Trojan(GameObject WhoEarn,GameObject WhoLoss)
     {

@@ -119,7 +119,7 @@ public class UseSkill : MonoBehaviour
                     SC.skillDescription.gameObject.SetActive(true);
                     SC.skillMessage.text = "力量剝奪!";
                     SC.skillDescription.text = "此回合對手民卡技能無效";
-                    SC.isPeasantImmunity = true;
+                    SC.isPlayerPeasantImmunity = true;
                     // yield return new WaitForSeconds(3);
                     break;
                 case 6: //黃金風暴
@@ -225,7 +225,15 @@ public class UseSkill : MonoBehaviour
                     break;
                 case 5: //力量剝奪
                     Debug.Log("Opponent  Use Skill 5");
-                    yield return new WaitForSeconds(1);
+                    Clock = 3;
+                    SC.WinImage.SetActive(false);
+                    SC.SkillImage.SetActive(true);
+                    SC.skillMessage.gameObject.SetActive(true);
+                    SC.skillDescription.gameObject.SetActive(true);
+                    SC.skillMessage.text = "力量剝奪!";
+                    SC.skillDescription.text = "此回合對手民卡技能無效";
+                    SC.isComPeasantImmunity = true;
+                    // yield return new WaitForSeconds(3);
                     break;
                 case 6: //黃金風暴
                     Debug.Log("Opponent  Use Skill 6");

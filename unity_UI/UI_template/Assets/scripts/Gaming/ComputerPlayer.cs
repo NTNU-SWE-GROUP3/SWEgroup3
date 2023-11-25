@@ -11,7 +11,7 @@ public class ComputerPlayer : MonoBehaviour
     public Transform Card;
     public UseSkill useSkill;
     public int test = 0;
-    int[] ComSkillIdList = {10,3,9};
+    int[] ComSkillIdList = {10,5,9};
     public static int ComSkillIndex;
 
     void Start()
