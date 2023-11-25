@@ -9,6 +9,7 @@ public class CountDown : MonoBehaviour
     public GameController GC;
     public int countdownTime;
     public static int TurnTime = 5;
+    public static bool timeUp = false;
     public Text countdownDisplay;
     public Text TimerText;
     public GameObject PlayerArea;
@@ -48,6 +49,7 @@ public class CountDown : MonoBehaviour
     {
         MessagePanel.SetActive(false);
         TurnTime = 5;
+        timeUp = false;
         TimerText.gameObject.SetActive(true);
         while(TurnTime >= 0)
         {
@@ -55,6 +57,7 @@ public class CountDown : MonoBehaviour
             yield return new WaitForSeconds(1);
             TurnTime -- ;
         }
+        timeUp = true;
         DragCard.canDrag = false;
         DropZone.backToHand = true;
         if(PlayerShow.transform.childCount == 0)
