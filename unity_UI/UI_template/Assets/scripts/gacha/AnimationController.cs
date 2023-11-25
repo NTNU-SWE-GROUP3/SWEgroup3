@@ -64,7 +64,7 @@ namespace ResultAnimation
                             int style_id = int.Parse(dict["id"].ToString());
                             Debug.Log("style_id: " + style_id);
                             Sprite styleSprite = imageManager.GetCardStyleImage(style_id);
-                            resultImages[i].sprite = styleSprite; 
+                            resultImages[i].sprite = styleSprite;
                             resultText[i].text = imageManager.GetCardStyleName(style_id);
                             AdjustImageSize(resultImages[i], styleSprite);
                             break;
@@ -87,7 +87,7 @@ namespace ResultAnimation
                     case "coins":
                         resultImage.sprite = coinSprite;
                         resultText.text = "coin";
-                        AdjustImageSize(resultImage, coinSprite);
+                        // AdjustImageSize(resultImage, coinSprite);
                         break;
                     case "skill":
                         int skill_id = int.Parse(dict["id"].ToString());
@@ -95,7 +95,7 @@ namespace ResultAnimation
                         Sprite skillSprite = imageManager.GetSkillImage(skill_id);
                         resultImage.sprite = skillSprite;
                         resultText.text = imageManager.GetSkillName(skill_id);
-                        AdjustImageSize(resultImage, skillSprite);
+                        // AdjustImageSize(resultImage, skillSprite);
                         break;
                     case "card_style":
                         int style_id = int.Parse(dict["id"].ToString());
@@ -103,7 +103,7 @@ namespace ResultAnimation
                         Sprite styleSprite = imageManager.GetCardStyleImage(style_id);
                         resultImage.sprite = styleSprite;
                         resultText.text = imageManager.GetCardStyleName(style_id);
-                        AdjustImageSize(resultImage, styleSprite);
+                        // AdjustImageSize(resultImage, styleSprite);
                         break;
                     default:
                         break;
@@ -120,7 +120,7 @@ namespace ResultAnimation
             if (image != null && sprite != null)
             {
                 Debug.Log($"{sprite.texture.width}, {sprite.texture.height}");
-                image.rectTransform.sizeDelta = new Vector2(sprite.texture.width/10, sprite.texture.height/10);
+                image.rectTransform.sizeDelta = new Vector2(sprite.texture.width / 10, sprite.texture.height / 10);
             }
         }
     }
