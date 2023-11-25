@@ -58,10 +58,10 @@ public class DragCard : MonoBehaviour,IDragHandler,IEndDragHandler,IBeginDragHan
             DropZone.backToHand = true;
 
             
-            canvasGroup.blocksRaycasts = true;
+            
         }
         
-
+        canvasGroup.blocksRaycasts = true;
     }
 
 }
