@@ -55,11 +55,15 @@ public class CountDown : MonoBehaviour
             yield return new WaitForSeconds(1);
             TurnTime -- ;
         }
+        DragCard.canDrag = false;
+        DropZone.backToHand = true;
         if(PlayerShow.transform.childCount == 0)
             NoPlayCard();
-        TimerText.text = "Show!";
-        StartCoroutine(showcard.Show()); 
+        StartCoroutine(showcard.Show());
+        TimerText.text = "Show!"; 
         yield return new WaitForSeconds(1f);
+        DragCard.canDrag = true;
+        DropZone.haveCard = false;
         TimerText.gameObject.SetActive(false);
         MessagePanel.SetActive(true);
     }

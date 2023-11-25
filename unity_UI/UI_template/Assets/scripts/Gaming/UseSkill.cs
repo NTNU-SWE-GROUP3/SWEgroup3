@@ -29,6 +29,7 @@ public class UseSkill : MonoBehaviour
     {
         Clock = 8;
         TimerText.gameObject.SetActive(true);
+        SkipButton.gameObject.SetActive(true);
         while(Clock >= 0 )
         {
             TimerText.text = Clock.ToString();
