@@ -2229,7 +2229,8 @@ MonoBehaviour:
   PlayerEarnText: {fileID: 1561420044}
   OpponentEarnText: {fileID: 993464735}
   isRevolution: 0
-  isPeasantImmunity: 0
+  isPlayerPeasantImmunity: 0
+  isComPeasantImmunity: 0
   PlayerX: 0
   OpponentX: 0
   RejectTimerText: {fileID: 377826939}
@@ -4324,8 +4325,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 8670687176267134658, guid: 88b114c6362519748889e919a862bbff, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -4435,8 +4435,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerArea
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 5083800136852409340, guid: ba109f6aad84dd94285eecdf66bd296c, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -4449,30 +4448,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 368509981}
     m_Modifications:
-    - target: {fileID: 712016594536387416, guid: 71613f38c60424a40816f3ff0f26ca3c, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 712016594536387416, guid: 71613f38c60424a40816f3ff0f26ca3c, type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 712016594536387416, guid: 71613f38c60424a40816f3ff0f26ca3c, type: 3}
-      propertyPath: m_Color.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 712016594536387416, guid: 71613f38c60424a40816f3ff0f26ca3c, type: 3}
-      propertyPath: m_Color.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 712016594536387416, guid: 71613f38c60424a40816f3ff0f26ca3c, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 712016594536387416, guid: 71613f38c60424a40816f3ff0f26ca3c, type: 3}
-      propertyPath: m_Maskable
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 774172642033849534, guid: 71613f38c60424a40816f3ff0f26ca3c, type: 3}
       propertyPath: m_Name
       value: PlayerShow
@@ -4557,10 +4532,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3923778682509121961, guid: 71613f38c60424a40816f3ff0f26ca3c, type: 3}
-      propertyPath: Dragsound
-      value: 
-      objectReference: {fileID: 8300000, guid: a7cafb3f4d47049c8aac84f484e0d3ec, type: 3}
     - target: {fileID: 3923778682509121961, guid: 71613f38c60424a40816f3ff0f26ca3c, type: 3}
       propertyPath: showDisplay
       value: 
@@ -4661,10 +4632,6 @@ PrefabInstance:
     - target: {fileID: 3243715292028838269, guid: 10761a2b84106844c9739628b37da254, type: 3}
       propertyPath: m_Name
       value: OpponentEarn
-      objectReference: {fileID: 0}
-    - target: {fileID: 4381215996554636741, guid: 10761a2b84106844c9739628b37da254, type: 3}
-      propertyPath: m_Enabled
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4808,14 +4775,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 368509981}
     m_Modifications:
-    - target: {fileID: 219774118515909101, guid: 6ef8ebd16501de447a3e8126e2378964, type: 3}
-      propertyPath: m_Type
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 219774118515909101, guid: 6ef8ebd16501de447a3e8126e2378964, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: b4df38b9bf9de334bb1c117c6f1baf7e, type: 3}
     - target: {fileID: 1409124940322730627, guid: 6ef8ebd16501de447a3e8126e2378964, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4900,8 +4859,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: OpponentShow
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 219774118515909101, guid: 6ef8ebd16501de447a3e8126e2378964, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -5095,10 +5053,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7507251697276993839, guid: 3614c5492f2454e48b7a3e340835d953, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5112,18 +5066,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 368509981}
     m_Modifications:
-    - target: {fileID: 2612057164299363771, guid: 62d2ecb5bcbc8d14982303110362e974, type: 3}
-      propertyPath: m_Type
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2612057164299363771, guid: 62d2ecb5bcbc8d14982303110362e974, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: d19dacd9da799984d883ffb2c58f38b9, type: 3}
-    - target: {fileID: 6608479136636435036, guid: 62d2ecb5bcbc8d14982303110362e974, type: 3}
-      propertyPath: m_Spacing.x
-      value: -100
-      objectReference: {fileID: 0}
     - target: {fileID: 6769267504849743444, guid: 62d2ecb5bcbc8d14982303110362e974, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

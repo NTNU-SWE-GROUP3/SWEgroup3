@@ -39,6 +39,8 @@ public class GameController : MonoBehaviour
 
     public UseSkill useSkill;
     AudioSource audioSource;
+
+    bool ComSkillForbidden;
     
     void Start()
     {
@@ -91,6 +93,15 @@ public class GameController : MonoBehaviour
         SkillPanel.SetActive(true);
         SkillImage.SetActive(true);
 
+        if(isCom == true)
+        {
+            if (UseSkill.ComSkillNextForbidden == true)
+            {
+                ComSkillForbidden = true;
+                UseSkill.ComSkillNextForbidden = false;
+            }
+
+        }
         
         if(NoSkillCanUse == false)
         {
@@ -148,13 +159,23 @@ public class GameController : MonoBehaviour
         SkillMassage.text = "等待對手使用技能";
         SkillDescription.text = "";
 
-        if(isCom == true && ComputerPlayer.ComSkillIndex < 3)
+        if(isCom == true && ComputerPlayer.ComSkillIndex < 3 && ComSkillForbidden == false)
         {
             Debug.Log("Opponent Start Using Skill");
             yield return(StartCoroutine(ComPlayer.ToUseSkill()));
+            Debug.Log("Opponent Finish using skill");
+        }
+        else if(ComputerPlayer.ComSkillIndex >= 3)
+        {
+            Debug.Log("Opponent have no skill left");
+        }
+        else if(ComSkillForbidden == true)
+        {
+            Debug.Log("Opponent can't not use skill this round");
+            ComSkillForbidden = false;
         }
 
-        Debug.Log("Opponent Finish using skill");
+        
         MessagePanel.SetActive(false);
         SkillImage.SetActive(false);
         ConfirmButton.SetActive(false);

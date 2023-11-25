@@ -11,7 +11,7 @@ public class ComputerPlayer : MonoBehaviour
     public Transform Card;
     public UseSkill useSkill;
     public int test = 0;
-    int[] ComSkillIdList = {10,5,9};
+    int[] ComSkillIdList = {5,7,9};
     public static int ComSkillIndex;
 
     void Start()
@@ -28,7 +28,9 @@ public class ComputerPlayer : MonoBehaviour
         test++;
         }
         else
+        {
             Card = OpponentArea.transform.GetChild(OpponentArea.transform.childCount-1);
+        }
         Card.SetParent(OpponentShow.transform,false);
         Card.position = OpponentShow.transform.position;
         Card.gameObject.layer = LayerMask.NameToLayer("CardBack");
@@ -36,16 +38,9 @@ public class ComputerPlayer : MonoBehaviour
     public IEnumerator ToUseSkill()
     {
         yield return new WaitForSeconds(2f);
-        if (UseSkill.ComSkillForbidden == false)
-        {
-            yield return(StartCoroutine(useSkill.Use(ComSkillIdList[ComSkillIndex],false)));
-            ComSkillIndex ++;
-        }
-        else
-        {
-            UseSkill.PlayerSkillForbidden = false;
-            yield break;
-        }
+        yield return(StartCoroutine(useSkill.Use(ComSkillIdList[ComSkillIndex],false)));
+        ComSkillIndex ++;
+    
     }
 
 }
