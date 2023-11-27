@@ -256,6 +256,21 @@ public class UseSkill : MonoBehaviour
                     SC.skillDescription.gameObject.SetActive(true);
                     SC.skillMessage.text = "抉擇束縛!";
                     SC.skillDescription.text = "請從以下兩張牌中擇一出牌";
+                    
+                    int[] randomIndex = {0,0};
+                    randomIndex[0] = Random.Range(0,PlayerArea.transform.childCount);
+                    do
+                    {
+                        randomIndex[1] = Random.Range(0,PlayerArea.transform.childCount);
+                    } while (randomIndex[0] == randomIndex[1]);
+                    for(int i = 0;i<PlayerArea.transform.childCount;i++)
+                    {
+                        card = PlayerArea.transform.GetChild(i).GetComponent<ToMessagePanel>();
+                        if (i == randomIndex[0] || i == randomIndex[1])
+                        {
+                            card.CardShowOnMessagePanel(true);
+                        }
+                    }
                     yield return StartCoroutine(Timer());
                     break;
                 case 9: //強制徵收

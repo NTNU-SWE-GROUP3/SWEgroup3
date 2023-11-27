@@ -2674,6 +2674,7 @@ MonoBehaviour:
   skillName: {fileID: 1455593241}
   OpponentArea: {fileID: 1001469411}
   PlayerArea: {fileID: 4935448267223214921}
+  PlayerShow: {fileID: 789898237}
   MessagePanel: {fileID: 931180408}
   Panel: {fileID: 603247139}
   CancelButton: {fileID: 1746798446}

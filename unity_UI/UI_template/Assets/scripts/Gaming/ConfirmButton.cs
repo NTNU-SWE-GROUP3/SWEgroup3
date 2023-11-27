@@ -7,9 +7,12 @@ public class ConfirmButton : MonoBehaviour
 {
     GameController GC;
     DeleteChange deleteChange;
+    GameObject PlayerCardObject;
+    Transform Card;
     public Text skillName;
     public GameObject OpponentArea;
     public GameObject PlayerArea;
+    public GameObject PlayerShow;
     public GameObject MessagePanel;
     public GameObject Panel;
     public GameObject CancelButton;
@@ -41,6 +44,21 @@ public class ConfirmButton : MonoBehaviour
             UseSkill.Clock = 1;
             MessagePanel.SetActive(false);
             GC.DestoryCardOnPanel();
+        }
+        else if (skillName.text == "抉擇束縛!")
+        {
+            Debug.Log("抉擇束縛!");
+            for (int i = 0; i < PlayerArea.transform.childCount; i++)
+            {
+                Card = PlayerArea.transform.GetChild(i);
+                if(Card.gameObject.GetComponent<CardDisplay>().id == ClickDetector.cardId)
+                {
+                    Card.SetParent(PlayerShow.transform, false);
+                    Card.position = PlayerShow.transform.position;
+                    break;
+                }
+            }
+            UseSkill.Clock = 0;
         }
         else
         {
