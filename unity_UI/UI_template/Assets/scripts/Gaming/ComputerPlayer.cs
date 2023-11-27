@@ -13,23 +13,32 @@ public class ComputerPlayer : MonoBehaviour
     public int test = 0;
     int[] ComSkillIdList = {8,7,9};
     public static int ComSkillIndex;
-
+    public static bool isdilemmaDictator;
     void Start()
     {
         ComSkillIndex = 0;
+        isdilemmaDictator = false;
     }
     public IEnumerator PlayCard()
     {
         yield return new WaitForSeconds(4);
-        //int randomIndex = Random.Range(0,OpponentArea.transform.childCount);
-        //Card = OpponentArea.transform.GetChild(randomIndex);
-        if(test == 0){
-        Card = OpponentArea.transform.GetChild(0);
-        test++;
-        }
-        else
+        if (isdilemmaDictator == false)
         {
-            Card = OpponentArea.transform.GetChild(OpponentArea.transform.childCount-1);
+            //int randomIndex = Random.Range(0,OpponentArea.transform.childCount);
+            //Card = OpponentArea.transform.GetChild(randomIndex);
+            if(test == 0){
+                Card = OpponentArea.transform.GetChild(0);
+                test++;
+            }
+            else
+            {
+                Card = OpponentArea.transform.GetChild(OpponentArea.transform.childCount-1);
+            }
+        }
+        else 
+        {
+            int randomIndex = Random.Range(0,1);
+            Card = OpponentArea.transform.GetChild(UseSkill.dilemmaDictatorIndex[randomIndex]);
         }
         Card.SetParent(OpponentShow.transform,false);
         Card.position = OpponentShow.transform.position;

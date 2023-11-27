@@ -21,6 +21,7 @@ public class UseSkill : MonoBehaviour
     ShowCard SC;
     ToMessagePanel card;
     DeleteChange deleteChange;
+    public static int[] dilemmaDictatorIndex = {0,0};
     private int cardId = 0;
     void Start()
     {
@@ -134,6 +135,29 @@ public class UseSkill : MonoBehaviour
                     break;
                 case 8: //抉擇束縛
                     Debug.Log("Player Use Skill 8");
+                    SC.WinImage.SetActive(false);
+                    SC.SkillImage.SetActive(true);
+                    SC.skillMessage.gameObject.SetActive(true);
+                    SC.skillDescription.gameObject.SetActive(true);
+                    SC.skillMessage.text = "抉擇束縛!";
+                    SC.skillDescription.text = "對手只能從以下兩張牌中擇一出牌";
+                    ComputerPlayer.isdilemmaDictator = true;
+                    int[] randomIndex = {0,0};
+                    randomIndex[0] = Random.Range(0,OpponentArea.transform.childCount);
+                    do
+                    {
+                        randomIndex[1] = Random.Range(0,OpponentArea.transform.childCount);
+                    } while (randomIndex[0] == randomIndex[1]);
+                    dilemmaDictatorIndex[0] = randomIndex[0];
+                    dilemmaDictatorIndex[1] = randomIndex[1];
+                    for(int i = 0;i<OpponentArea.transform.childCount;i++)
+                    {
+                        card = OpponentArea.transform.GetChild(i).GetComponent<ToMessagePanel>();
+                        if (i == randomIndex[0] || i == randomIndex[1])
+                        {
+                            card.CardShowOnMessagePanel(false);
+                        }
+                    }
                     yield return new WaitForSeconds(2);
                     break;
                 case 9: //強制徵收
@@ -313,4 +337,5 @@ public class UseSkill : MonoBehaviour
             card.CardShowOnMessagePanel(false);
         }
     }
+
 }
