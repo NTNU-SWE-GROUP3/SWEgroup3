@@ -34,6 +34,8 @@ public class GameController : MonoBehaviour
     public AudioClip DefeatVoice2;
     public AudioClip DefeatVoice3;
     public AudioClip DrawVoice1;
+    public AudioClip PlayerSkillVoice1;
+    public AudioClip PlayerSkillVoice2;
     public AudioManager audioManager;
     bool NoSkillCanUse;
     public Image MusicImg;
@@ -113,6 +115,7 @@ public class GameController : MonoBehaviour
         {
             if(UseSkill.PlayerSkillForbidden == false)
             {
+                audioSource.PlayOneShot(PlayerSkillVoice1);
                 SkillMassage.text = "請選擇要使用的技能";
                 SkillDescription.text = "";
                 SkipButton.SetActive(true);
@@ -128,6 +131,7 @@ public class GameController : MonoBehaviour
             }
             else
             {
+                audioSource.PlayOneShot(PlayerSkillVoice2);
                 SkillMassage.text = "此回合無法使用技能";
                 SkillDescription.text = "";
                 SkipButton.SetActive(true);
@@ -145,7 +149,7 @@ public class GameController : MonoBehaviour
         }
         else 
         {
-            //我想說以經沒有技能可以使用的情況下 可以不用按「跳過」就直接進入遊戲嗎
+            audioSource.PlayOneShot(PlayerSkillVoice2);
             SkillMassage.text = "已無技能可以使用";
             SkillDescription.text = "";
             SkipButton.SetActive(true);
