@@ -12,6 +12,7 @@ public class GameController : MonoBehaviour
     public CountDown Timer;
     public static int Turn;
     public Text TurnText;
+    public GameObject PlayerShow;
     public GameObject SkipButton;
     public GameObject ConfirmButton;
     public GameObject CancelButton;
@@ -182,8 +183,17 @@ public class GameController : MonoBehaviour
         CancelButton.SetActive(false);
         SkipButton.SetActive(false);
         
-        DropZone.haveCard = false;
-        DropZone.backToHand = true; 
+        if(PlayerShow.transform.childCount == 0)
+        {
+            DropZone.haveCard = false;
+            DropZone.backToHand = true; 
+            DragCard.canDrag = true;
+        }
+        else
+        {
+             DragCard.canDrag = false;
+        }
+
         TurnText.text = "回合:" + Turn.ToString();
         StartCoroutine(Timer.TurnCountdown());
         if(isCom == true)

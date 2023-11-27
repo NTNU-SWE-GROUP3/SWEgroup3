@@ -55,6 +55,7 @@ public class ConfirmButton : MonoBehaviour
                 {
                     Card.SetParent(PlayerShow.transform, false);
                     Card.position = PlayerShow.transform.position;
+                    Card.gameObject.layer = LayerMask.NameToLayer("CardBack");
                     break;
                 }
             }

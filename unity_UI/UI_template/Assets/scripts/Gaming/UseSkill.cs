@@ -135,6 +135,7 @@ public class UseSkill : MonoBehaviour
                     break;
                 case 8: //抉擇束縛
                     Debug.Log("Player Use Skill 8");
+                    Clock = 5;
                     SC.WinImage.SetActive(false);
                     SC.SkillImage.SetActive(true);
                     SC.skillMessage.gameObject.SetActive(true);
@@ -158,7 +159,6 @@ public class UseSkill : MonoBehaviour
                             card.CardShowOnMessagePanel(false);
                         }
                     }
-                    yield return new WaitForSeconds(2);
                     break;
                 case 9: //強制徵收
                     Debug.Log("Player Use Skill 9");

@@ -2145,6 +2145,7 @@ MonoBehaviour:
   ComPlayer: {fileID: 965809086}
   Timer: {fileID: 0}
   TurnText: {fileID: 327947321}
+  PlayerShow: {fileID: 789898237}
   SkipButton: {fileID: 1564176768}
   ConfirmButton: {fileID: 1320759881}
   CancelButton: {fileID: 1746798446}
