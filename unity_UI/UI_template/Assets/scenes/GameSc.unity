@@ -2167,6 +2167,8 @@ MonoBehaviour:
   DefeatVoice2: {fileID: 8300000, guid: 4df30ff70193c44ce875f94483e2ed05, type: 3}
   DefeatVoice3: {fileID: 8300000, guid: 20dea5616fbd840a7ad7e52dd418ce87, type: 3}
   DrawVoice1: {fileID: 8300000, guid: 1ad7b48627b1941339407753a51923b7, type: 3}
+  PlayerSkillVoice1: {fileID: 8300000, guid: b886837dc5dbf42ab8a608d93ebe0d40, type: 3}
+  PlayerSkillVoice2: {fileID: 8300000, guid: 33b031d57a485469693565f7fd7214aa, type: 3}
   audioManager: {fileID: 0}
   MusicImg: {fileID: 0}
   useSkill: {fileID: 1211442835}
@@ -2239,7 +2241,7 @@ MonoBehaviour:
   LoseSound: {fileID: 8300000, guid: db84a8c175c6e43f4a0aa4e4502d6c4e, type: 3}
   DrawSound: {fileID: 8300000, guid: 54758be23312f474c89cfde4a6fe2753, type: 3}
   CardSound: {fileID: 8300000, guid: c7e9331306df6417aac3b8dcd857d71d, type: 3}
-  SkillSound: {fileID: 8300000, guid: 199e5977d4edb4d5a97821984930f453, type: 3}
+  SkillSound: {fileID: 8300000, guid: 2604d060c560d4011933553cffa90391, type: 3}
   MoveSound: {fileID: 8300000, guid: a7cafb3f4d47049c8aac84f484e0d3ec, type: 3}
 --- !u!114 &1211442832
 MonoBehaviour:
@@ -2369,6 +2371,7 @@ MonoBehaviour:
   ConfirmButton: {fileID: 1320759881}
   CancelButton: {fileID: 1746798446}
   TimerText: {fileID: 377826939}
+  UseSkillVoice: {fileID: 8300000, guid: 199e5977d4edb4d5a97821984930f453, type: 3}
 --- !u!1 &1214895670
 GameObject:
   m_ObjectHideFlags: 0
