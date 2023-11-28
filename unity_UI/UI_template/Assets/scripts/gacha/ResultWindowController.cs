@@ -8,7 +8,7 @@ public class ResultWindowController : MonoBehaviour
 {
     [SerializeField] Button okButton;
     [SerializeField] GameObject resultPanel;
-    // Start is called before the first frame update
+    
     void Start()
     {
         Init();

@@ -11,8 +11,9 @@ public class ComputerPlayer : MonoBehaviour
     public Transform Card;
     public int test = 0;
     
-    public void PlayCard()
+    public IEnumerator PlayCard()
     {
+        yield return new WaitForSeconds(4);
         //int randomIndex = Random.Range(0,OpponentArea.transform.childCount);
         //Card = OpponentArea.transform.GetChild(randomIndex);
         if(test == 0){
@@ -26,8 +27,4 @@ public class ComputerPlayer : MonoBehaviour
         Card.gameObject.layer = LayerMask.NameToLayer("CardBack");
     }
 
-    public void PlayRandomCard()
-    {
-        Invoke("PlayCard",3);
-    }
 }

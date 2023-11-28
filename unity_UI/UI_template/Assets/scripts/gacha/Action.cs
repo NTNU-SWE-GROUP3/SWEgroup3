@@ -5,10 +5,11 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 using MiniJSON;
 using ResultAnimation;
+using PurchaseControl;
 
 public class Action : MonoBehaviour
 {
-    [SerializeField] string apiUrl = "http://127.0.0.1:5000/gacha/draw";       // call API endpoint
+    [SerializeField] string apiUrl = "http://140.122.185.169:5050/gacha/draw";       // call API endpoint
 
     // default playerId = 1, mode = coin, times = 1
     [SerializeField] string playerId = "1";
@@ -16,6 +17,7 @@ public class Action : MonoBehaviour
     [SerializeField] GotchaPanel gotchaPanel;
     [SerializeField] GameObject messagePanel;
     [SerializeField] GameObject resultPanel;
+    [SerializeField] GameObject purchasePanel;
     [SerializeField] GameObject mask;
     [SerializeField] GameObject okButton1;
     [SerializeField] GameObject okButton10;
@@ -23,11 +25,18 @@ public class Action : MonoBehaviour
     [SerializeField] GameObject gachaResult10;
     [SerializeField] Button yesButton;
     [SerializeField] Button noButton;
+    [SerializeField] Button buyButton;
+    [SerializeField] Button cancelButton;
     public Animator gachaAnimator1;
     public Animator gachaAnimator10;
     public AnimationController animationController;
-    bool yesClicked = false;
-    bool noClicked = false;
+    public PurchaseController purchaseController;
+    public ErrorMessage errorController;
+    public bool yesClicked = false;
+    public bool noClicked = false;
+    public bool buyClicked = false;
+    public bool cancelClicked = false;
+    public bool skipAnimation = false;
 
     public string response;
 
@@ -44,17 +53,22 @@ public class Action : MonoBehaviour
         Init();
     }
 
+
     void Init()
     {
         messagePanel.SetActive(false);
         resultPanel.SetActive(false);
         mask.SetActive(false);
+        purchasePanel.SetActive(false);
         gachaResult1.SetActive(false);
         gachaResult10.SetActive(false);
         okButton1.SetActive(false);
         okButton10.SetActive(false);
         yesClicked = false;
         noClicked = false;
+        buyClicked = false;
+        cancelClicked = false;
+        skipAnimation = false;
     }
 
     public IEnumerator ExecuteDraw(string times, string mode)
@@ -64,17 +78,45 @@ public class Action : MonoBehaviour
         yesClicked = false;
         noClicked = false;
 
+        yesButton.onClick.AddListener(() => OnYesButtonClick());
+        noButton.onClick.AddListener(() => OnNoButtonClick());
         while (!yesClicked && !noClicked)
         {
-            yesButton.onClick.AddListener(() => OnYesButtonClick());
-            noButton.onClick.AddListener(() => OnNoButtonClick());
             yield return null;
         }
+        yesButton.onClick.RemoveAllListeners();
+        noButton.onClick.RemoveAllListeners();
 
         if (yesClicked)
         {
-            Debug.Log("Yes, Start Drawing");
-            StartCoroutine(SendRequest(playerId, mode, times));
+            if (mode == "cash")
+            {
+                purchaseController.OpenPurchasePanel();
+
+                buyButton.onClick.AddListener(() => OnBuyButtonClick());
+                cancelButton.onClick.AddListener(() => OnCancelButtonClick());
+                while (!buyClicked && !cancelClicked)
+                {
+                    yield return null;
+                }
+                buyButton.onClick.RemoveAllListeners();
+                cancelButton.onClick.RemoveAllListeners();
+
+                if (buyClicked)
+                {
+                    Debug.Log("Get info, start drawing...");
+                    StartCoroutine(SendRequest(playerId, mode, times));
+                }
+                else if (cancelClicked)
+                {
+                    Debug.Log("Canceled");
+                }
+            }
+            else if (mode == "coin")
+            {
+                Debug.Log("Yes, Start Drawing");
+                StartCoroutine(SendRequest(playerId, mode, times));
+            }
         }
         else if (noClicked)
         {
@@ -84,6 +126,62 @@ public class Action : MonoBehaviour
         messagePanel.SetActive(false);   // Hide confirmation dialog
         yesClicked = false;
         noClicked = false;
+    }
+
+    bool InputChecker()
+    {
+        Debug.Log("Check input");
+        if (purchasePanel != null)
+        {
+            // Get all InputFields under the purchasePanel
+            InputField[] inputFields = purchasePanel.GetComponentsInChildren<InputField>();
+
+            // Iterate through each InputField
+            foreach (InputField inputField in inputFields)
+            {
+                if (string.IsNullOrEmpty(inputField.text))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+        else
+        {
+            Debug.LogError("purchasePanel is null. Please assign a valid GameObject reference.");
+            return false;
+        }
+    }
+
+    void OnBuyButtonClick()
+    {
+        if (InputChecker())
+        {
+            if (!purchaseController.CardNumberCheck()){
+                purchaseController.DisplayMessage("Please enter a valid card number.");
+                Debug.Log("Invalid card number.");
+                return ;
+            }
+            buyClicked = true;
+            cancelClicked = false;
+            purchasePanel.SetActive(false);
+        }
+        else
+        {
+            purchaseController.DisplayMessage("Please fill in all the required fields");
+            Debug.Log("There are some empty fields.");
+            return;
+        }
+
+
+    }
+
+    void OnCancelButtonClick()
+    {
+        cancelClicked = true;
+        buyClicked = false;
+        purchasePanel.SetActive(false);
     }
 
     void OnYesButtonClick()
@@ -111,7 +209,6 @@ public class Action : MonoBehaviour
             case 1:
                 mode = "coin";
                 Debug.Log("Coin Mode");
-                // StartCoroutine(SendRequest(playerId, mode, times));
                 StartCoroutine(ExecuteDraw(times, mode));
                 break;
             case 2:
@@ -120,6 +217,7 @@ public class Action : MonoBehaviour
                 StartCoroutine(ExecuteDraw(times, mode));
                 break;
             default:
+                Debug.Log("Failed to get mode.");
                 break;
 
         };
@@ -139,28 +237,39 @@ public class Action : MonoBehaviour
 
         if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
         {
-            Debug.Log("failed");
+            errorController.ShowErrorMessage("Please check your network connection.");
+            // Debug.Log("failed");
             Debug.LogError(www.error);
         }
         else
         {
             response = www.downloadHandler.text;
 
-            ShowResponse(response);
-            if (int.Parse(times) == 1)
+            List<object> jsonArray = Json.Deserialize(response) as List<object>;
+            Dictionary<string, object> check = jsonArray[0] as Dictionary<string, object>;
+
+            int checkId = int.Parse(check["id"].ToString());
+            if (checkId < 0)
             {
-                gachaResult1.SetActive(true);
-                StartCoroutine(ShowResponseAnimation1(response));
+                string message = check["note"].ToString();
+                errorController.ShowErrorMessage(message);
             }
-            else if (int.Parse(times) == 10)
+            else
             {
-                gachaResult10.SetActive(true);
-                StartCoroutine(ShowResponseAnimation10(response));
+                ShowResponse(response);
+                if (int.Parse(times) == 1)
+                {
+                    gachaResult1.SetActive(true);
+                    StartCoroutine(ShowResponseAnimation1(response));
+                }
+                else if (int.Parse(times) == 10)
+                {
+                    gachaResult10.SetActive(true);
+                    StartCoroutine(ShowResponseAnimation10(response));
+                }
             }
-            // Debug.Log("API Response: " + response);
         }
     }
-
     IEnumerator ShowResponseAnimation1(string response)
     {
         gachaAnimator1.SetTrigger("ShowAnimate");
@@ -175,7 +284,6 @@ public class Action : MonoBehaviour
 
         okButton10.SetActive(true);
     }
-
     void ShowResponse(string response)
     {
         resultPanel.SetActive(true);
@@ -184,6 +292,16 @@ public class Action : MonoBehaviour
 
         if (jsonArray != null)
         {
+            Dictionary<string, object> check = jsonArray[0] as Dictionary<string, object>;
+
+            // int checkId = int.Parse(check["id"].ToString());
+            // if (checkId < 0)
+            // {
+            //     string message = check["note"].ToString();
+            //     errorController.ShowErrorMessage(message);
+            // }
+            // else
+            // {
             animationController.DisplayCardResults(jsonArray);
             foreach (var item in jsonArray)
             {
@@ -199,6 +317,7 @@ public class Action : MonoBehaviour
                     Debug.Log("ID: " + id + ", Type: " + type + ", Note: " + note);
                 }
             }
+            // }
         }
         else
         {

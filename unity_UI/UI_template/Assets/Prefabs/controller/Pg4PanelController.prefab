@@ -12,7 +12,10 @@ GameObject:
   - component: {fileID: 4436682766119827445}
   - component: {fileID: 8041044610724349160}
   - component: {fileID: 6373189785584892490}
+  - component: {fileID: 3596307941874823376}
+  - component: {fileID: 7045561917990397920}
   - component: {fileID: 7690228223650693897}
+  - component: {fileID: 4298997299974111394}
   m_Layer: 5
   m_Name: Pg4PanelController
   m_TagString: Untagged
@@ -88,6 +91,7 @@ MonoBehaviour:
   gotchaPanel: {fileID: 0}
   messagePanel: {fileID: 0}
   resultPanel: {fileID: 0}
+  purchasePanel: {fileID: 0}
   mask: {fileID: 0}
   okButton1: {fileID: 0}
   okButton10: {fileID: 0}
@@ -95,9 +99,53 @@ MonoBehaviour:
   gachaResult10: {fileID: 0}
   yesButton: {fileID: 0}
   noButton: {fileID: 0}
+  buyButton: {fileID: 0}
+  cancelButton: {fileID: 0}
   gachaAnimator1: {fileID: 0}
   gachaAnimator10: {fileID: 0}
+  animationController: {fileID: 7690228223650693897}
+  purchaseController: {fileID: 3596307941874823376}
+  errorController: {fileID: 0}
+  yesClicked: 0
+  noClicked: 0
+  buyClicked: 0
+  cancelClicked: 0
+  skipAnimation: 0
   response: 
+--- !u!114 &3596307941874823376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1953962081316898176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 710a9b4863b754831a264f870f85395a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  purchasePanel: {fileID: 0}
+  inputFields:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  dropdownRegion: {fileID: 0}
+  messageText: {fileID: 0}
+  actionReferences: {fileID: 6373189785584892490}
+--- !u!114 &7045561917990397920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1953962081316898176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63be880beb3ab42de9ac8578f4eacced, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7690228223650693897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,3 +160,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GachaResult1: {fileID: 0}
   GachaResult10: {fileID: 0}
+  coinSprite: {fileID: 132803025, guid: 91e7404700a7af84cbd4e238e3560854, type: 3}
+  skillSprite: {fileID: 21300000, guid: 367f6047ed3c64144bba0a5c86dceec4, type: 3}
+  cardStyleSprite: {fileID: 21300000, guid: e7a5d80905ac1714ba15e5eeac21a71e, type: 3}
+--- !u!114 &4298997299974111394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1953962081316898176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87d4c998f4d89400091ede44a2a8baac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

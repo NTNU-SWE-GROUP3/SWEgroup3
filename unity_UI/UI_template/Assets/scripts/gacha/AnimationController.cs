@@ -5,17 +5,21 @@ using UnityEngine.UI;
 
 namespace ResultAnimation
 {
-
     public class AnimationController : MonoBehaviour
     {
         [SerializeField] GameObject GachaResult1;
         [SerializeField] GameObject GachaResult10;
         [SerializeField] Sprite coinSprite;
-        [SerializeField] Sprite skillSprite;
-        [SerializeField] Sprite cardStyleSprite;
+        public ImageManager imageManager;
 
         public void DisplayCardResults(List<object> jsonArray)
         {
+            if (imageManager == null)
+            {
+                Debug.LogError("ImageManager is not assigned. Please assign it in the Inspector.");
+                return;
+            }
+
             if (jsonArray.Count > 1)
             {
                 Transform result10 = GachaResult10.transform.Find("Result10");
@@ -26,6 +30,7 @@ namespace ResultAnimation
                 }
 
                 Image[] resultImages = result10.GetComponentsInChildren<Image>();
+                Text[] resultText = result10.GetComponentsInChildren<Text>();
 
                 if (resultImages.Length != jsonArray.Count)
                 {
@@ -39,17 +44,29 @@ namespace ResultAnimation
 
                     string resultType = dict["type"].ToString();
                     Debug.Log("check: " + resultType);
-                    // resultImage = resultImages[i];
+
                     switch (resultType)
                     {
                         case "coins":
                             resultImages[i].sprite = coinSprite;
+                            resultText[i].text = "coin";
+                            AdjustImageSize(resultImages[i], coinSprite);
                             break;
                         case "skill":
+                            int skill_id = int.Parse(dict["id"].ToString());
+                            Debug.Log("skill_id: " + skill_id);
+                            Sprite skillSprite = imageManager.GetSkillImage(skill_id);
                             resultImages[i].sprite = skillSprite;
+                            resultText[i].text = imageManager.GetSkillName(skill_id);
+                            AdjustImageSize(resultImages[i], skillSprite);
                             break;
                         case "card_style":
-                            resultImages[i].sprite = cardStyleSprite;
+                            int style_id = int.Parse(dict["id"].ToString());
+                            Debug.Log("style_id: " + style_id);
+                            Sprite styleSprite = imageManager.GetCardStyleImage(style_id);
+                            resultImages[i].sprite = styleSprite;
+                            resultText[i].text = imageManager.GetCardStyleName(style_id);
+                            AdjustImageSize(resultImages[i], styleSprite);
                             break;
                         default:
                             break;
@@ -61,6 +78,7 @@ namespace ResultAnimation
                 Dictionary<string, object> dict = jsonArray[0] as Dictionary<string, object>;
 
                 Image resultImage = GachaResult1.GetComponentInChildren<Image>();
+                Text resultText = GachaResult1.GetComponentInChildren<Text>();
 
                 string resultType = dict["type"].ToString();
                 Debug.Log("check: " + resultType);
@@ -68,12 +86,24 @@ namespace ResultAnimation
                 {
                     case "coins":
                         resultImage.sprite = coinSprite;
+                        resultText.text = "coin";
+                        // AdjustImageSize(resultImage, coinSprite);
                         break;
                     case "skill":
+                        int skill_id = int.Parse(dict["id"].ToString());
+                        Debug.Log("skill_id: " + skill_id);
+                        Sprite skillSprite = imageManager.GetSkillImage(skill_id);
                         resultImage.sprite = skillSprite;
+                        resultText.text = imageManager.GetSkillName(skill_id);
+                        // AdjustImageSize(resultImage, skillSprite);
                         break;
                     case "card_style":
-                        resultImage.sprite = cardStyleSprite;
+                        int style_id = int.Parse(dict["id"].ToString());
+                        Debug.Log("style_id: " + style_id);
+                        Sprite styleSprite = imageManager.GetCardStyleImage(style_id);
+                        resultImage.sprite = styleSprite;
+                        resultText.text = imageManager.GetCardStyleName(style_id);
+                        // AdjustImageSize(resultImage, styleSprite);
                         break;
                     default:
                         break;
@@ -81,10 +111,17 @@ namespace ResultAnimation
             }
             else
             {
-                Debug.Log("Error to parse json array result");
+                Debug.Log("Error parsing json array result");
             }
         }
 
+        void AdjustImageSize(Image image, Sprite sprite)
+        {
+            if (image != null && sprite != null)
+            {
+                Debug.Log($"{sprite.texture.width}, {sprite.texture.height}");
+                image.rectTransform.sizeDelta = new Vector2(sprite.texture.width / 10, sprite.texture.height / 10);
+            }
+        }
     }
-
 }
