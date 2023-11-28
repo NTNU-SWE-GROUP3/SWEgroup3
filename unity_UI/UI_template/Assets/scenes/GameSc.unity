@@ -2167,6 +2167,8 @@ MonoBehaviour:
   DefeatVoice2: {fileID: 8300000, guid: 4df30ff70193c44ce875f94483e2ed05, type: 3}
   DefeatVoice3: {fileID: 8300000, guid: 20dea5616fbd840a7ad7e52dd418ce87, type: 3}
   DrawVoice1: {fileID: 8300000, guid: 1ad7b48627b1941339407753a51923b7, type: 3}
+  PlayerSkillVoice1: {fileID: 0}
+  PlayerSkillVoice2: {fileID: 0}
   audioManager: {fileID: 0}
   MusicImg: {fileID: 0}
   useSkill: {fileID: 1211442835}
@@ -2364,9 +2366,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerArea: {fileID: 4935448267223214921}
   OpponentArea: {fileID: 1001469411}
+  PlayerShow: {fileID: 789898237}
   SkillPanel: {fileID: 876056336}
   SkipButton: {fileID: 1564176768}
-  ConfirmButton: {fileID: 1320759881}
+  ToConfirmButton: {fileID: 1320759881}
   CancelButton: {fileID: 1746798446}
   TimerText: {fileID: 377826939}
 --- !u!1 &1214895670

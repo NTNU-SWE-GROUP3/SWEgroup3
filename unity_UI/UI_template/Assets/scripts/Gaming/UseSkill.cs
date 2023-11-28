@@ -11,9 +11,10 @@ public class UseSkill : MonoBehaviour
     public static bool ComSkillNextForbidden;
     public GameObject PlayerArea;
     public GameObject OpponentArea;
+    public GameObject PlayerShow;
     public GameObject SkillPanel;
     public GameObject SkipButton;
-    public GameObject ConfirmButton;
+    public GameObject ToConfirmButton;
     public GameObject CancelButton;
     SkillDisplay Skill;
     public static int Clock = 8;
@@ -187,7 +188,7 @@ public class UseSkill : MonoBehaviour
                     yield return new WaitForSeconds(2);
                     break;
             }
-            ConfirmButton.SetActive(false);
+            ToConfirmButton.SetActive(false);
             CancelButton.SetActive(false);
         }
         else 
@@ -280,13 +281,17 @@ public class UseSkill : MonoBehaviour
                     SC.skillDescription.gameObject.SetActive(true);
                     SC.skillMessage.text = "抉擇束縛!";
                     SC.skillDescription.text = "請從以下兩張牌中擇一出牌";
-                    
+
+                    //why ?                   
+                    SkipButton.SetActive(false);
                     int[] randomIndex = {0,0};
                     randomIndex[0] = Random.Range(0,PlayerArea.transform.childCount);
                     do
                     {
                         randomIndex[1] = Random.Range(0,PlayerArea.transform.childCount);
                     } while (randomIndex[0] == randomIndex[1]);
+                    dilemmaDictatorIndex[0] = randomIndex[0];
+                    dilemmaDictatorIndex[1] = randomIndex[1];
                     for(int i = 0;i<PlayerArea.transform.childCount;i++)
                     {
                         card = PlayerArea.transform.GetChild(i).GetComponent<ToMessagePanel>();
@@ -295,6 +300,9 @@ public class UseSkill : MonoBehaviour
                             card.CardShowOnMessagePanel(true);
                         }
                     }
+                   
+                    // 如未選牌
+                    
                     yield return StartCoroutine(Timer());
                     break;
                 case 9: //強制徵收
