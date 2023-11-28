@@ -24,6 +24,8 @@ public class UseSkill : MonoBehaviour
     DeleteChange deleteChange;
     public static int[] dilemmaDictatorIndex = {0,0};
     private int cardId = 0;
+    public AudioClip UseSkillVoice;
+    AudioSource audioSource;
     void Start()
     {
         PlayerSkillForbidden = false;
@@ -31,6 +33,7 @@ public class UseSkill : MonoBehaviour
         SC = GameObject.Find("GameController").GetComponent<ShowCard>();
         GC = GameObject.Find("GameController").GetComponent<GameController>();
         deleteChange = GameObject.Find("GameController").GetComponent<DeleteChange>();
+        audioSource = GetComponent<AudioSource>();
     }
     public IEnumerator Timer()
     {
@@ -74,6 +77,7 @@ public class UseSkill : MonoBehaviour
                 case 2: //階級流動
                     Debug.Log("Player Use Skill 2");
                     Clock = 8;
+                    audioSource.PlayOneShot(UseSkillVoice);
                     SC.skillMessage.text = "階級流動!";
                     SC.skillDescription.text = "請選擇一張要轉換的平民卡";
                     
@@ -89,6 +93,7 @@ public class UseSkill : MonoBehaviour
                 case 3: //暗影轉職
                     Debug.Log("Player Use Skill 3");
                     Clock = 8;
+                    audioSource.PlayOneShot(UseSkillVoice);
                     SC.skillMessage.text = "暗影轉職!";
                     SC.skillDescription.text = "請選擇一張要轉換的平民卡";
                     
@@ -108,6 +113,7 @@ public class UseSkill : MonoBehaviour
                     SC.SkillImage.SetActive(true);
                     SC.skillMessage.gameObject.SetActive(true);
                     SC.skillDescription.gameObject.SetActive(true);
+                    audioSource.PlayOneShot(UseSkillVoice);
                     SC.skillMessage.text = "技能封印!";
                     SC.skillDescription.text = "下回合對手技能將被封印";
                     ComSkillNextForbidden = true;
@@ -120,6 +126,7 @@ public class UseSkill : MonoBehaviour
                     SC.SkillImage.SetActive(true);
                     SC.skillMessage.gameObject.SetActive(true);
                     SC.skillDescription.gameObject.SetActive(true);
+                    audioSource.PlayOneShot(UseSkillVoice);
                     SC.skillMessage.text = "力量剝奪!";
                     SC.skillDescription.text = "此回合對手民卡技能無效";
                     SC.isPlayerPeasantImmunity = true;
@@ -141,6 +148,7 @@ public class UseSkill : MonoBehaviour
                     SC.SkillImage.SetActive(true);
                     SC.skillMessage.gameObject.SetActive(true);
                     SC.skillDescription.gameObject.SetActive(true);
+                    audioSource.PlayOneShot(UseSkillVoice);
                     SC.skillMessage.text = "抉擇束縛!";
                     SC.skillDescription.text = "對手只能從以下兩張牌中擇一出牌";
                     ComputerPlayer.isdilemmaDictator = true;
@@ -168,6 +176,7 @@ public class UseSkill : MonoBehaviour
                     SC.SkillImage.SetActive(true);
                     SC.skillMessage.gameObject.SetActive(true);
                     SC.skillDescription.gameObject.SetActive(true);
+                    audioSource.PlayOneShot(UseSkillVoice);
                     SC.skillMessage.text = "強制徵收!";
                     SC.skillDescription.text = "對手贏牌區張數-1";
                     SC.OpponentX -= 1;
@@ -181,6 +190,7 @@ public class UseSkill : MonoBehaviour
                     SC.SkillImage.SetActive(true);
                     SC.skillMessage.gameObject.SetActive(true);
                     SC.skillDescription.gameObject.SetActive(true);
+                    audioSource.PlayOneShot(UseSkillVoice);
                     SC.skillMessage.text = "勝者之堆!";
                     SC.skillDescription.text = "我方贏牌區張數+1";
                     SC.PlayerX += 1;
@@ -196,10 +206,12 @@ public class UseSkill : MonoBehaviour
                 switch (skillId)
             {
                 case 1: //時間限縮
+                    audioSource.PlayOneShot(UseSkillVoice);
                     Debug.Log("Opponent Use Skill 1");
                     yield return new WaitForSeconds(1);
                     break;
                 case 2: //階級流動
+                    audioSource.PlayOneShot(UseSkillVoice);
                     Debug.Log("Opponent  Use Skill 2");
                     SC.WinImage.SetActive(false);
                     SC.SkillImage.SetActive(true);
@@ -219,6 +231,7 @@ public class UseSkill : MonoBehaviour
                     yield return new WaitForSeconds(2);
                     break;
                 case 3: //暗影轉職
+                    audioSource.PlayOneShot(UseSkillVoice);
                     Debug.Log("Opponent  Use Skill 3");
                     SC.WinImage.SetActive(false);
                     SC.SkillImage.SetActive(true);
@@ -238,6 +251,7 @@ public class UseSkill : MonoBehaviour
                     yield return new WaitForSeconds(2);
                     break;
                 case 4: //技能封印
+                    audioSource.PlayOneShot(UseSkillVoice);
                     Debug.Log("Opponent  Use Skill 4");
                     SC.WinImage.SetActive(false);
                     SC.SkillImage.SetActive(true);
@@ -249,6 +263,7 @@ public class UseSkill : MonoBehaviour
                     yield return new WaitForSeconds(3);
                     break;
                 case 5: //力量剝奪
+                    audioSource.PlayOneShot(UseSkillVoice);
                     Debug.Log("Opponent  Use Skill 5");
                     SC.WinImage.SetActive(false);
                     SC.SkillImage.SetActive(true);
@@ -260,10 +275,12 @@ public class UseSkill : MonoBehaviour
                     yield return new WaitForSeconds(2);
                     break;
                 case 6: //黃金風暴
+                    audioSource.PlayOneShot(UseSkillVoice);
                     Debug.Log("Opponent  Use Skill 6");
                     yield return new WaitForSeconds(1);
                     break;
                 case 7: //知己知彼
+                    audioSource.PlayOneShot(UseSkillVoice);
                     Debug.Log("Opponent  Use Skill 7");
                     SC.WinImage.SetActive(false);
                     SC.SkillImage.SetActive(true);
@@ -274,6 +291,7 @@ public class UseSkill : MonoBehaviour
                     yield return new WaitForSeconds(4);
                     break;
                 case 8: //抉擇束縛
+                    audioSource.PlayOneShot(UseSkillVoice);
                     Debug.Log("Opponent  Use Skill 8");
                     SC.WinImage.SetActive(false);
                     SC.SkillImage.SetActive(true);
@@ -299,13 +317,11 @@ public class UseSkill : MonoBehaviour
                         {
                             card.CardShowOnMessagePanel(true);
                         }
-                    }
-                   
-                    // 如未選牌
-                    
+                    }  
                     yield return StartCoroutine(Timer());
                     break;
                 case 9: //強制徵收
+                    audioSource.PlayOneShot(UseSkillVoice);
                     Debug.Log("Opponent  Use Skill 9");
                     Clock = 0;
                     SC.WinImage.SetActive(false);
@@ -319,6 +335,7 @@ public class UseSkill : MonoBehaviour
                     yield return new WaitForSeconds(1);
                     break;
                 case 10: //勝者之堆
+                    audioSource.PlayOneShot(UseSkillVoice);
                     Debug.Log("Opponent  Use Skill 10");
                     Clock = 0;
                     SC.WinImage.SetActive(false);
