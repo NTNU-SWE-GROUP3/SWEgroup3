@@ -17,11 +17,13 @@ public class ConfirmButton : MonoBehaviour
     public GameObject Panel;
     public GameObject CancelButton;
     public UseSkill useSkill;
+    public static bool CardSelected;
     void Start()
     {
         GC = GameObject.Find("GameController").GetComponent<GameController>();
         deleteChange = GameObject.Find("GameController").GetComponent<DeleteChange>();
         gameObject.SetActive(false);
+        CardSelected = false;
     }
     public void ClickConfirm()
     {
@@ -47,6 +49,7 @@ public class ConfirmButton : MonoBehaviour
         }
         else if (skillName.text == "抉擇束縛!")
         {
+            
             Debug.Log("抉擇束縛!");
             for (int i = 0; i < PlayerArea.transform.childCount; i++)
             {
@@ -56,6 +59,7 @@ public class ConfirmButton : MonoBehaviour
                     Card.SetParent(PlayerShow.transform, false);
                     Card.position = PlayerShow.transform.position;
                     Card.gameObject.layer = LayerMask.NameToLayer("CardBack");
+                    CardSelected = true;
                     break;
                 }
             }

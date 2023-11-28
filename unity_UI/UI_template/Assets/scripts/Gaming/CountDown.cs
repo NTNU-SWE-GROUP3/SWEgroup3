@@ -51,6 +51,8 @@ public class CountDown : MonoBehaviour
         TurnTime = 5;
         timeUp = false;
         TimerText.gameObject.SetActive(true);
+        if (ConfirmButton.CardSelected == false)
+            dilemmaDictator();
         while(TurnTime >= 0)
         {
             TimerText.text = TurnTime.ToString();
@@ -76,6 +78,15 @@ public class CountDown : MonoBehaviour
         Card = PlayerArea.transform.GetChild(PlayerArea.transform.childCount - 1);
         Card.SetParent(PlayerShow.transform,false);
         Card.position = ShowDisplay.transform.position;
+        Card.gameObject.layer = LayerMask.NameToLayer("CardBack");
+    }
+    void dilemmaDictator()
+    {
+        Transform Card;
+        Debug.Log("no card selected");
+        Card = PlayerArea.transform.GetChild(UseSkill.dilemmaDictatorIndex[0]);
+        Card.SetParent(PlayerShow.transform, false);
+        Card.position = PlayerShow.transform.position;
         Card.gameObject.layer = LayerMask.NameToLayer("CardBack");
     }
 }

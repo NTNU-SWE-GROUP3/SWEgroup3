@@ -2366,9 +2366,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerArea: {fileID: 4935448267223214921}
   OpponentArea: {fileID: 1001469411}
+  PlayerShow: {fileID: 789898237}
   SkillPanel: {fileID: 876056336}
   SkipButton: {fileID: 1564176768}
-  ConfirmButton: {fileID: 1320759881}
+  ToConfirmButton: {fileID: 1320759881}
   CancelButton: {fileID: 1746798446}
   TimerText: {fileID: 377826939}
   UseSkillVoice: {fileID: 8300000, guid: 199e5977d4edb4d5a97821984930f453, type: 3}
