@@ -11,7 +11,7 @@ public class ComputerPlayer : MonoBehaviour
     public Transform Card;
     public UseSkill useSkill;
     public int test = 0;
-    int[] ComSkillIdList = {5,5,9};
+    int[] ComSkillIdList = {3,8,9};
     public static int ComSkillIndex;
     public static bool isdilemmaDictator;
     void Start()

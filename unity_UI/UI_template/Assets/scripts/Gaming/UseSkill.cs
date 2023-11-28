@@ -39,7 +39,8 @@ public class UseSkill : MonoBehaviour
     {
         Clock = 8;
         TimerText.gameObject.SetActive(true);
-        SkipButton.gameObject.SetActive(true);
+        if(SC.skillMessage.text != "抉擇束縛!" || SC.skillDescription.text != "請從以下兩張牌中擇一出牌")
+            SkipButton.gameObject.SetActive(true);
         while(Clock >= 0 )
         {
             TimerText.text = Clock.ToString();
@@ -302,6 +303,7 @@ public class UseSkill : MonoBehaviour
 
                     //why ?                   
                     SkipButton.SetActive(false);
+
                     int[] randomIndex = {0,0};
                     randomIndex[0] = Random.Range(0,PlayerArea.transform.childCount);
                     do
