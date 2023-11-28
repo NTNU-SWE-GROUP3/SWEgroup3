@@ -51,8 +51,12 @@ public class CountDown : MonoBehaviour
         TurnTime = 5;
         timeUp = false;
         TimerText.gameObject.SetActive(true);
-        if (ConfirmButton.CardSelected == false)
+        if (ConfirmButton.CardSelected == false && UseSkill.PlayerIsdilemmaDictator == true)
+        {
             dilemmaDictator();
+            UseSkill.PlayerIsdilemmaDictator = false;
+        }
+            
         while(TurnTime >= 0)
         {
             TimerText.text = TurnTime.ToString();

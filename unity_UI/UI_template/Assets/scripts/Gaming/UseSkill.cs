@@ -9,6 +9,8 @@ public class UseSkill : MonoBehaviour
     GameObject SkillObject;
     public static bool PlayerSkillForbidden;
     public static bool ComSkillNextForbidden;
+    public static bool PlayerIsdilemmaDictator;
+    public static bool ComIsdilemmaDictator;
     public GameObject PlayerArea;
     public GameObject OpponentArea;
     public GameObject PlayerShow;
@@ -34,6 +36,8 @@ public class UseSkill : MonoBehaviour
         GC = GameObject.Find("GameController").GetComponent<GameController>();
         deleteChange = GameObject.Find("GameController").GetComponent<DeleteChange>();
         audioSource = GetComponent<AudioSource>();
+        ComIsdilemmaDictator = false;
+        PlayerIsdilemmaDictator = false;
     }
     public IEnumerator Timer()
     {
@@ -152,7 +156,7 @@ public class UseSkill : MonoBehaviour
                     audioSource.PlayOneShot(UseSkillVoice);
                     SC.skillMessage.text = "抉擇束縛!";
                     SC.skillDescription.text = "對手只能從以下兩張牌中擇一出牌";
-                    ComputerPlayer.isdilemmaDictator = true;
+                    ComIsdilemmaDictator = true;
                     int[] randomIndex = {0,0};
                     randomIndex[0] = Random.Range(0,OpponentArea.transform.childCount);
                     do
@@ -300,8 +304,8 @@ public class UseSkill : MonoBehaviour
                     SC.skillDescription.gameObject.SetActive(true);
                     SC.skillMessage.text = "抉擇束縛!";
                     SC.skillDescription.text = "請從以下兩張牌中擇一出牌";
-
-                    //why ?                   
+                        
+                    PlayerIsdilemmaDictator = true;
                     SkipButton.SetActive(false);
 
                     int[] randomIndex = {0,0};

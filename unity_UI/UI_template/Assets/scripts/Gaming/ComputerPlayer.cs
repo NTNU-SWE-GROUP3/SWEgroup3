@@ -11,18 +11,17 @@ public class ComputerPlayer : MonoBehaviour
     public Transform Card;
     public UseSkill useSkill;
     public int test = 0;
-    int[] ComSkillIdList = {3,8,9};
+    int[] ComSkillIdList = {8,3,9};
     public static int ComSkillIndex;
-    public static bool isdilemmaDictator;
+    
     void Start()
     {
         ComSkillIndex = 0;
-        isdilemmaDictator = false;
     }
     public IEnumerator PlayCard()
     {
         yield return new WaitForSeconds(4);
-        if (isdilemmaDictator == false)
+        if (UseSkill.ComIsdilemmaDictator == false)
         {
             //int randomIndex = Random.Range(0,OpponentArea.transform.childCount);
             //Card = OpponentArea.transform.GetChild(randomIndex);
@@ -39,6 +38,7 @@ public class ComputerPlayer : MonoBehaviour
         {
             int randomIndex = Random.Range(0,1);
             Card = OpponentArea.transform.GetChild(UseSkill.dilemmaDictatorIndex[randomIndex]);
+            UseSkill.PlayerIsdilemmaDictator = false;
         }
         Card.SetParent(OpponentShow.transform,false);
         Card.position = OpponentShow.transform.position;
