@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 import mysql.connector
 from gacha import gacha
+from game import gaming
 import random
 
 app = Flask(__name__)
@@ -13,7 +14,10 @@ db_config = {
     "database": "game",
 }
 
+
 app.register_blueprint(gacha)
+app.register_blueprint(gaming)
+
 
 # Function to create a MySQL connection
 def create_mysql_connection():
