@@ -191,8 +191,9 @@ class DBManager:
             "SELECT a.token_validity FROM account a "
             "WHERE a.token_id = %s LIMIT 1"
         )
-        data = (accountId,)
+        data = (tokenid,)
         self.cursor.execute(insertStmt, data)
+        current_app.logger.info(self.cursor._executed)
         rec = []
         for c in self.cursor:
             rec.append(c[0])
@@ -228,9 +229,9 @@ class DBManager:
 
     def GetUserNickname(self, tokenid):
             insertStmt = (
-                "SELECT ad.nickname"
-                "FROM account a"
-                "JOIN account_data ad ON a.id = ad.account_id"
+                "SELECT ad.nickname "
+                "FROM account a "
+                "JOIN account_data ad ON a.id = ad.account_id "
                 "WHERE a.token_id = %s"
             )
             data = (tokenid,)

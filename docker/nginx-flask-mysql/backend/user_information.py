@@ -19,10 +19,9 @@ output
     status
         400004 : Success
         403011 : Token Expired
-        403006 : Email & account NOT match
 ============================== '''
-@forget_password.route('/getnickname', methods=['POST'])
-def CheckAccount():
+@user_information.route('/getnickname', methods=['POST'])
+def GetNickname():
 
     # DataBase connection
     global conn
@@ -30,7 +29,7 @@ def CheckAccount():
         conn = DBManager(password_file='/run/secrets/db-password')
 
     # Input
-    token = request.form.get('token')
+    token = request.form.get('Token')
 
     current_app.logger.info("token: %s", token)
 
@@ -49,6 +48,7 @@ def CheckAccount():
 
     # Success
     nickname = conn.GetUserNickname(token)
+    #nickname = "test"
 
     #return nickname
     return jsonify(status = "400004", msg = nickname)
