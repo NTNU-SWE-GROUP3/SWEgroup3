@@ -185,6 +185,22 @@ class DBManager:
         else:
             return -1
 
+    #if tokenid not even exist, -1 will be returned
+    def GetTokenExpiredTime(self, tokenid):
+        insertStmt = (
+            "SELECT a.token_validity FROM account a "
+            "WHERE a.token_id = %s LIMIT 1"
+        )
+        data = (accountId,)
+        self.cursor.execute(insertStmt, data)
+        rec = []
+        for c in self.cursor:
+            rec.append(c[0])
+        if(bool(rec)):
+            return rec[0]
+        else:
+            return -1
+
     def ReloadChangePassword(self, accountId, newpassword):
         insert_stmt = (
             "UPDATE account a "
@@ -206,3 +222,24 @@ class DBManager:
             self.cursor.execute(insertStmt, data)
             current_app.logger.info(self.cursor._executed)
             return self.cursor.fetchall()
+
+
+    #>>>>>>>>look up data via token<<<<<<<<<
+
+    def GetUserNickname(self, tokenid):
+            insertStmt = (
+                "SELECT ad.nickname"
+                "FROM account a"
+                "JOIN account_data ad ON a.id = ad.account_id"
+                "WHERE a.token_id = %s"
+            )
+            data = (tokenid,)
+            self.cursor.execute(insertStmt, data)
+            current_app.logger.info(self.cursor._executed)
+            rec = []
+            for c in self.cursor:
+                rec.append(c[0])
+            if(bool(rec)):
+                return rec[0]
+            else:
+                return "guest"
