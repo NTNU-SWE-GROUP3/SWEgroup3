@@ -3612,10 +3612,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
+  m_fontSize: 72
   m_fontSizeBase: 50
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -19063,13 +19063,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67c1612bdd5264f599aa5ffb8f364ff7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player_token: 
+  player_token: HLrzChsuhLQ8fvGhM22c
   player_coins: 0
   player_level: 0
   player_totalwin: 0
   player_totalmatch: 0
-  player_ranking: 0
+  player_winrate: 0
+  player_ranking: 
   player_nickname: 
+  player_email: 
   DEBUG_Page4Panels: {fileID: 1524685071}
   DEBUG_MessagePanels: {fileID: 611342211}
   AvatarButton: {fileID: 1979080917}

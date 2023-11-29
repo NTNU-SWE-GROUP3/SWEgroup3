@@ -244,3 +244,110 @@ class DBManager:
                 return rec[0]
             else:
                 return "guest"
+
+    def GetUserEmail(self, tokenid):
+            insertStmt = (
+                "SELECT a.email FROM account a "
+                "WHERE a.token_id = %s "
+                "LIMIT 1"
+            )
+            data = (tokenid,)
+            self.cursor.execute(insertStmt, data)
+            current_app.logger.info(self.cursor._executed)
+            rec = []
+            for c in self.cursor:
+                rec.append(c[0])
+            if(bool(rec)):
+                return rec[0]
+            else:
+                return -1
+
+    def GetUsertotalgame(self, tokenid):
+            insertStmt = (
+                "SELECT ad.total_match "
+                "FROM account a "
+                "JOIN account_data ad ON a.id = ad.account_id "
+                "WHERE a.token_id = %s"
+            )
+            data = (tokenid,)
+            self.cursor.execute(insertStmt, data)
+            current_app.logger.info(self.cursor._executed)
+            rec = []
+            for c in self.cursor:
+                rec.append(c[0])
+            if(bool(rec)):
+                return rec[0]
+            else:
+                return 0
+
+    def GetUsertotalwin(self, tokenid):
+            insertStmt = (
+                "SELECT ad.total_win "
+                "FROM account a "
+                "JOIN account_data ad ON a.id = ad.account_id "
+                "WHERE a.token_id = %s"
+            )
+            data = (tokenid,)
+            self.cursor.execute(insertStmt, data)
+            current_app.logger.info(self.cursor._executed)
+            rec = []
+            for c in self.cursor:
+                rec.append(c[0])
+            if(bool(rec)):
+                return rec[0]
+            else:
+                return 0
+
+    def GetUserrank(self, tokenid):
+            insertStmt = (
+                "SELECT ad.rank "
+                "FROM account a "
+                "JOIN account_data ad ON a.id = ad.account_id "
+                "WHERE a.token_id = %s"
+            )
+            data = (tokenid,)
+            self.cursor.execute(insertStmt, data)
+            current_app.logger.info(self.cursor._executed)
+            rec = []
+            for c in self.cursor:
+                rec.append(c[0])
+            if(bool(rec)):
+                return rec[0]
+            else:
+                return "Not Ranked"
+
+    def GetUsercoin(self, tokenid):
+            insertStmt = (
+                "SELECT ad.coin "
+                "FROM account a "
+                "JOIN account_data ad ON a.id = ad.account_id "
+                "WHERE a.token_id = %s"
+            )
+            data = (tokenid,)
+            self.cursor.execute(insertStmt, data)
+            current_app.logger.info(self.cursor._executed)
+            rec = []
+            for c in self.cursor:
+                rec.append(c[0])
+            if(bool(rec)):
+                return rec[0]
+            else:
+                return 0
+
+    def GetUserlevel(self, tokenid):
+            insertStmt = (
+                "SELECT ad.level "
+                "FROM account a "
+                "JOIN account_data ad ON a.id = ad.account_id "
+                "WHERE a.token_id = %s"
+            )
+            data = (tokenid,)
+            self.cursor.execute(insertStmt, data)
+            current_app.logger.info(self.cursor._executed)
+            rec = []
+            for c in self.cursor:
+                rec.append(c[0])
+            if(bool(rec)):
+                return rec[0]
+            else:
+                return 0

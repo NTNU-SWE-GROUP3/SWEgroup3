@@ -15,9 +15,10 @@ public class UserSetting : MonoBehaviour
     public int player_level;
     public int player_totalwin;
     public int player_totalmatch;
-    public int player_ranking;
+    public float player_winrate;
+    public string player_ranking;
     public string player_nickname;
-
+    public string player_email;
 
     //DEBUG
     public GameObject DEBUG_Page4Panels;
@@ -59,11 +60,8 @@ public class UserSetting : MonoBehaviour
 
     //URL
     private static string serverUrl = "http://127.0.0.1:80";
-    private string serverURL_login = serverUrl + "/account/login";
-    private string serverURL_signup = serverUrl + "/account/signup";
-    private string serverURL_checkaccount = serverUrl + "/forget_password/checkaccount";
-    private string serverURL_changepassword = serverUrl + "/forget_password/changepassword";
-
+    private string serverURL_playerdata = serverUrl + "/user_information/getplayerdata";
+  
 
     void Start()
     {
@@ -143,6 +141,8 @@ public class UserSetting : MonoBehaviour
         UserDataPanel.SetActive(true);
         SettingPanel.SetActive(true);
         StatisticPanel.SetActive(false);
+        UpdateUserGeneralData();
+        UpdateUserInformation();
     }
 
     private void CloseUserDataPanel()
@@ -211,13 +211,74 @@ public class UserSetting : MonoBehaviour
 
     private void UpdateUserGeneralData()  
     {
+        // 執行UpdateUserGeneralData操作
+        StartCoroutine(PlayerDataRequest(player_token));
+        Debug.Log("Try to Update User General Data");
+    }
 
 
+    private IEnumerator PlayerDataRequest(string player_token)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("Token", player_token); // 
+        
+        using (UnityWebRequest www = UnityWebRequest.Post(serverURL_playerdata, form))
+        {
+            yield return www.SendWebRequest();
 
+            if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
+            {
+                Debug.LogWarning(www.error);
+
+                // Warning Panel
+                WarningPanel.SetActive(true);
+                NoticeMessage.SetText("Please check your internet connection");
+                Debug.Log("Internet error");
+
+            }
+            else
+            {
+
+                string responseText = www.downloadHandler.text;
+                Debug.Log("Server Response: " + responseText);
+                // 解析伺服器回應的 JSON
+                UserInformationResponseData responseData = JsonUtility.FromJson<UserInformationResponseData>(responseText);
+                // 根據狀態碼執行不同的操作
+                switch (responseData.status)
+                {
+                    case "400004":
+                        Debug.Log("Get player data successfully");
+                        player_coins = responseData.coin;
+                        player_level = responseData.level;
+                        player_totalwin = responseData.totalwin ;
+                        player_totalmatch = responseData.totalgame;
+                        player_ranking = responseData.ranking;
+                        player_nickname = responseData.nickname;
+                        player_email = responseData.email;
+                        player_winrate = responseData.winrate;
+                        break;
+
+                    case "403011":
+                        //>>>>>>>>>>>>>>>>>>>>> return to login
+                        break;
+
+                }
+            }
+        }
     }
 
     private void UpdateUserInformation()
     {
+        //SettingPanel
+        UserName.SetText(player_nickname);
+        Email.SetText(player_email);
+
+        //StatisticPanel
+        TotalGameplay.SetText(player_totalmatch.ToString());
+        WinningRate.SetText(player_winrate.ToString());
+        TotalWin.SetText(player_totalwin.ToString());
+        Ranking.SetText(player_ranking);
+
 
     }
 
@@ -235,7 +296,7 @@ public class UserSetting : MonoBehaviour
     {
         WarningPanel.SetActive(true);
         NoticeMessage.SetText("Log File has been sent!\nContact us via sweonlinegame@gmail.com");
-        Debug.Log("Log File has been sent, Go debug yourself");
+        Debug.Log("Log File has not been sent, Go debug yourself");
     }
 
 
@@ -245,3 +306,20 @@ public class UserSetting : MonoBehaviour
 
 
 }
+
+
+public class UserInformationResponseData
+{
+    public string status;
+    public string msg;
+    public string nickname;
+    public string email;
+    public int totalgame;
+    public float winrate;
+    public int totalwin;
+    public string ranking;
+    public int coin;
+    public int level;
+
+}
+

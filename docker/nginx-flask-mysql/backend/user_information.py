@@ -12,7 +12,7 @@ conn = None
 
 
 ''' ==============================
-getnickname Request
+getplayerdata Request
 input
     token
 output
@@ -20,7 +20,7 @@ output
         400004 : Success
         403011 : Token Expired
 ============================== '''
-@user_information.route('/getnickname', methods=['POST'])
+@user_information.route('/getplayerdata', methods=['POST'])
 def GetNickname():
 
     # DataBase connection
@@ -48,7 +48,26 @@ def GetNickname():
 
     # Success
     nickname = conn.GetUserNickname(token)
-    #nickname = "test"
-
+    email = conn.GetUserEmail(token)
+    totalgame = conn.GetUsertotalgame(token)
+    totalwin = conn.GetUsertotalwin(token)
+    if(totalgame==0):
+        winrate = 0
+    else:
+        winrate = totalwin / totalgame
+    ranking = conn.GetUserrank(token)
+    coin = conn.GetUsercoin(token)
+    level = conn.GetUserlevel(token)
     #return nickname
-    return jsonify(status = "400004", msg = nickname)
+    return jsonify(status = "400004",
+                   msg = "Success",
+                   nickname = nickname,
+                   email = email,
+                   totalgame = totalgame,
+                   winrate = winrate,
+                   totalwin = totalwin,
+                   ranking = ranking,
+                   coin = coin,
+                   level = level
+                   )
+                   
