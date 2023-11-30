@@ -12,6 +12,7 @@ public class GameController : MonoBehaviour
     public CountDown Timer;
     public static int Turn;
     public Text TurnText;
+    public GameObject PlayerShow;
     public GameObject SkipButton;
     public GameObject ConfirmButton;
     public GameObject CancelButton;
@@ -33,12 +34,16 @@ public class GameController : MonoBehaviour
     public AudioClip DefeatVoice2;
     public AudioClip DefeatVoice3;
     public AudioClip DrawVoice1;
+    public AudioClip PlayerSkillVoice1;
+    public AudioClip PlayerSkillVoice2;
     public AudioManager audioManager;
     bool NoSkillCanUse;
     public Image MusicImg;
 
     public UseSkill useSkill;
     AudioSource audioSource;
+
+    bool ComSkillForbidden;
     
     void Start()
     {
@@ -89,7 +94,18 @@ public class GameController : MonoBehaviour
         
         WinImage.SetActive(false);
         SkillPanel.SetActive(true);
-            SkillImage.SetActive(true);
+        SkillImage.SetActive(true);
+
+        if(isCom == true)
+        {
+            if (UseSkill.ComSkillNextForbidden == true)
+            {
+                ComSkillForbidden = true;
+                UseSkill.ComSkillNextForbidden = false;
+            }
+
+        }
+        
         if(NoSkillCanUse == false)
         {
             if(SkillPanel.transform.GetChild(0).gameObject.layer == 14 && SkillPanel.transform.GetChild(1).gameObject.layer == 14 && SkillPanel.transform.GetChild(2).gameObject.layer == 14)
@@ -97,33 +113,90 @@ public class GameController : MonoBehaviour
         }
         if(NoSkillCanUse == false)
         {
-            SkillMassage.text = "請選擇要使用的技能";
-            SkillDescription.text = "";
-            SkipButton.SetActive(true);
-            yield return StartCoroutine(useSkill.Timer());
-            ClickDetector.skillId = -1;
+            if(UseSkill.PlayerSkillForbidden == false)
+            {
+                audioSource.PlayOneShot(PlayerSkillVoice1);
+                SkillMassage.text = "請選擇要使用的技能";
+                SkillDescription.text = "";
+                SkipButton.SetActive(true);
+
+                for(int i = 0; i<3;i++)
+                {
+                    if(SkillPanel.transform.GetChild(i).gameObject.layer == 15)
+                    SkillPanel.transform.GetChild(i).gameObject.layer = LayerMask.NameToLayer("Skill(Unused)");
+                }
+                
+                yield return StartCoroutine(useSkill.Timer());
+                ClickDetector.skillId = -1;
+            }
+            else
+            {
+                audioSource.PlayOneShot(PlayerSkillVoice2);
+                SkillMassage.text = "此回合無法使用技能";
+                SkillDescription.text = "";
+                SkipButton.SetActive(true);
+
+                for(int i = 0; i<3;i++)
+                {
+                    if(SkillPanel.transform.GetChild(i).gameObject.layer == 13)
+                    SkillPanel.transform.GetChild(i).gameObject.layer = LayerMask.NameToLayer("Skill(Forbidden)");
+                }
+                yield return StartCoroutine(useSkill.Timer());
+
+                ClickDetector.skillId = -1;
+                UseSkill.PlayerSkillForbidden = false;
+            }
         }
         else 
         {
-            //我想說以經沒有技能可以使用的情況下 可以不用按「跳過」就直接進入遊戲嗎
-
+            audioSource.PlayOneShot(PlayerSkillVoice2);
             SkillMassage.text = "已無技能可以使用";
             SkillDescription.text = "";
             SkipButton.SetActive(true);
             yield return StartCoroutine(useSkill.Timer());
         }
 
-        
-
-        MessagePanel.SetActive(false);
+        MessagePanel.SetActive(true);
         SkillPanel.SetActive(false);
+        ConfirmButton.SetActive(false);
+        CancelButton.SetActive(false);
+        SkipButton.SetActive(false);
+        SkillMassage.text = "等待對手使用技能";
+        SkillDescription.text = "";
+
+        if(isCom == true && ComputerPlayer.ComSkillIndex < 3 && ComSkillForbidden == false)
+        {
+            Debug.Log("Opponent Start Using Skill");
+            yield return(StartCoroutine(ComPlayer.ToUseSkill()));
+            Debug.Log("Opponent Finish using skill");
+        }
+        else if(ComputerPlayer.ComSkillIndex >= 3)
+        {
+            Debug.Log("Opponent have no skill left");
+        }
+        else if(ComSkillForbidden == true)
+        {
+            Debug.Log("Opponent can't not use skill this round");
+            ComSkillForbidden = false;
+        }
+
+        
+        MessagePanel.SetActive(false);
         SkillImage.SetActive(false);
         ConfirmButton.SetActive(false);
         CancelButton.SetActive(false);
         SkipButton.SetActive(false);
-
-        DropZone.haveCard = false;
-        DropZone.backToHand = true;
+        
+        if(PlayerShow.transform.childCount == 0)
+        {
+            DropZone.haveCard = false;
+            DropZone.backToHand = true; 
+            DragCard.canDrag = true;
+        }
+        else
+        {
+             DragCard.canDrag = false;
+        }
 
         TurnText.text = "回合:" + Turn.ToString();
         StartCoroutine(Timer.TurnCountdown());
@@ -131,7 +204,7 @@ public class GameController : MonoBehaviour
         {
             yield return StartCoroutine(ComPlayer.PlayCard());
         }
-            
+
     }
 
     public void FinishCheck(int PlayerEarnCard,int OpponentEarnCard,int PlayerHandCard,int OpponentHandCard)

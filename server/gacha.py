@@ -11,7 +11,7 @@ db_config = {
     "database": "game",
 }
 
-# Function to create a MySQL connection
+
 def create_mysql_connection():
     return mysql.connector.connect(**db_config,autocommit=True)
 
@@ -37,6 +37,7 @@ def Draw():
             check = CoinCheck(playerId, coinsRequired)
             error_message = "金幣不足"
             total_coins = -Cost(times,mode)
+            print(total_coins)
         elif mode =="cash":
             check = PaySuccess(playerId)
             error_message = "付款失敗"
@@ -50,13 +51,14 @@ def Draw():
                 cardId = 0
                 cardProb = 0
                 coinValues = [100, 200, 300, 400, 500]
+                coinWeight = [0.4,0.25,0.2,0.15,0.05]
                 coinValue = 0
 
                 if type == "coins":
-                    coinValue = random.choice(coinValues)
+                    coinValue = random.choices(coinValues,coinWeight)[0]
                     print(coinValue)
                     total_coins += coinValue
-                    UpdatePlayerCoins(playerId, -coinValue)
+                    # UpdatePlayerCoins(playerId, -coinValue)
                     resultCoins.append({"coin": coinValue})
                 else:
                     selectedCard = RandomlySelectCard(type)
@@ -73,7 +75,8 @@ def Draw():
                 )
 
             response = resultCards
-            # UpdatePlayerCoins(playerId, total_coins)
+            print(total_coins)
+            UpdatePlayerCoins(playerId, total_coins)
         else:
                 resultCards.append(
                     {
@@ -94,14 +97,14 @@ def Cost(times, mode):
         if times == 1:
             return 1000
         elif times == 10:
-            return 4000
+            return 9000
         else:
             return 0
     elif mode == "cash":
         if times == 1:
             return 30
         elif times == 10:
-            return 120
+            return 270
         else:
             return 0
     else:
@@ -140,7 +143,7 @@ def UpdatePlayerCoins(playerId, deductCoins):
         
         cursor = connection.cursor()
         cursor.execute(
-            "UPDATE account_data SET coin = coin - %s WHERE account_id = %s",
+            "UPDATE account_data SET coin = coin + %s WHERE account_id = %s",
             (deductCoins, playerId),
         )
         connection.commit()
@@ -196,9 +199,9 @@ def GetCardData(types):
 def RandomlySelectCard(cardType):
     try:
         allCards = GetCardData(cardType)
-        print(allCards)
+        # print(allCards)
         allCards = sorted(allCards, key=lambda x: x[1])
-        print(allCards)
+        # print(allCards)
 
         if allCards is None:
             print("No cards found")
