@@ -4,6 +4,7 @@ from flask_mail import Mail
 from account import account
 from forget_password import forget_password
 import logging
+from card_style import card_style
 
 server = Flask(__name__)
 
@@ -39,6 +40,7 @@ def get():
 
 server.register_blueprint(account)
 server.register_blueprint(forget_password)
+server.register_blueprint(card_style)
 
 if __name__ == '__main__':
     # server.run()
