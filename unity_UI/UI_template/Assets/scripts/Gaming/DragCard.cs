@@ -39,7 +39,17 @@ public class DragCard : MonoBehaviour,IDragHandler,IEndDragHandler,IBeginDragHan
         // Debug.Log(this.transform.parent.name);
         if(eventData.pointerDrag.GetComponent<CardDisplay>().cardBack == false && this.transform.parent.name == "PlayerArea"&& !DropZone.haveCard && canDrag)
         {
-            rectTransform.position = eventData.position;
+            if(CountDown.timeUp == false)
+            {
+                rectTransform.position = eventData.position;
+            }
+            else
+            {
+                rectTransform.position = originalRectPosition;
+                //canvasGroup.blocksRaycasts = true;
+                return;
+            }
+            
         }
         
     }
@@ -58,10 +68,10 @@ public class DragCard : MonoBehaviour,IDragHandler,IEndDragHandler,IBeginDragHan
             DropZone.backToHand = true;
 
             
-            canvasGroup.blocksRaycasts = true;
+            
         }
         
-
+        canvasGroup.blocksRaycasts = true;
     }
 
 }
