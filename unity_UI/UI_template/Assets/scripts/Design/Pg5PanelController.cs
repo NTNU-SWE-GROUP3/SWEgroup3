@@ -7,7 +7,6 @@ public class Pg5PanelController : MonoBehaviour
 
 
     public GameObject FriendlyPanel;
-    public GameObject FriendlyPanelCreate;
     public GameObject FriendlyPanelJoin;
     public GameObject MaskPanel;
     
@@ -19,7 +18,6 @@ public class Pg5PanelController : MonoBehaviour
 
     public void BackToMain(){
         FriendlyPanel.SetActive(false);
-        FriendlyPanelCreate.SetActive(false);
         FriendlyPanelJoin.SetActive(false);
         MaskPanel.SetActive(false);
     }
@@ -29,12 +27,7 @@ public class Pg5PanelController : MonoBehaviour
         MaskPanel.SetActive(true);
         FriendlyPanel.SetActive(true);
     }
-    
-    public void ShowFriendlyPanelCreate(){
-        BackToMain();
-        MaskPanel.SetActive(true);
-        FriendlyPanelCreate.SetActive(true);
-    }
+
 
     public void ShowFriendlyPanelJoin(){
         BackToMain();
