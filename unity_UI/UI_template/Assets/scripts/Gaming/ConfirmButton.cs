@@ -17,6 +17,12 @@ public class ConfirmButton : MonoBehaviour
     public GameObject Panel;
     public GameObject CancelButton;
     public UseSkill useSkill;
+
+    public GameObject SkillPanel;
+    GameObject SkillObject;
+    SkillDisplay Skill;
+
+
     public static bool CardSelected;
     void Start()
     {
@@ -68,7 +74,19 @@ public class ConfirmButton : MonoBehaviour
         else
         {
             Debug.Log("useSkill");
-            StartCoroutine(useSkill.Use(ClickDetector.skillId,true));
+            GameController.PlayerSkillId = ClickDetector.skillId;
+            for(int i = 0; i < SkillPanel.transform.childCount;i++)
+            {
+               SkillObject = SkillPanel.transform.GetChild(i).gameObject;
+               Skill = SkillObject.GetComponent<SkillDisplay>();
+               if(SkillObject.layer == 13 && Skill.id == ClickDetector.skillId)
+               {
+                    SkillObject.layer = LayerMask.NameToLayer("Skill(Used)");
+                    break;
+               }
+            }
+            UseSkill.Clock = 1;
+            // StartCoroutine(useSkill.Use(ClickDetector.skillId,true));
             ClickDetector.skillId = -1;
         }
         

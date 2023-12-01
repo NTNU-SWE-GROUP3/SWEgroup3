@@ -6,6 +6,7 @@ using UnityEngine.Serialization;
 
 public class GameController : MonoBehaviour
 {
+
     public DrawCard drawCard;
     public bool isCom;
     public ComputerPlayer ComPlayer;
@@ -41,12 +42,18 @@ public class GameController : MonoBehaviour
     public Image MusicImg;
 
     public UseSkill useSkill;
+    public static int PlayerSkillId;
+    public static int OpponentSkillId;
+    public static bool OpponentFUS;
     AudioSource audioSource;
 
     bool ComSkillForbidden;
     
     void Start()
     {
+        OpponentFUS = false;
+        PlayerSkillId = -1;
+        OpponentSkillId = -1;
         NoSkillCanUse = false;
         isCom = true;
         SkipButton.SetActive(false);
@@ -106,6 +113,22 @@ public class GameController : MonoBehaviour
 
         }
         
+        if(isCom == true && ComputerPlayer.ComSkillIndex < 3 && ComSkillForbidden == false)
+        {
+            Debug.Log("Opponent Start Choosing Skill");
+            StartCoroutine(ComPlayer.ToUseSkill());
+            
+        }
+        else if(ComputerPlayer.ComSkillIndex >= 3)
+        {
+            Debug.Log("Opponent have no skill left");
+        }
+        else if(ComSkillForbidden == true)
+        {
+            Debug.Log("Opponent can't not use skill this round");
+            ComSkillForbidden = false;
+        }
+
         if(NoSkillCanUse == false)
         {
             if(SkillPanel.transform.GetChild(0).gameObject.layer == 14 && SkillPanel.transform.GetChild(1).gameObject.layer == 14 && SkillPanel.transform.GetChild(2).gameObject.layer == 14)
@@ -125,7 +148,7 @@ public class GameController : MonoBehaviour
                     if(SkillPanel.transform.GetChild(i).gameObject.layer == 15)
                     SkillPanel.transform.GetChild(i).gameObject.layer = LayerMask.NameToLayer("Skill(Unused)");
                 }
-                
+                UseSkill.Clock = 8;
                 yield return StartCoroutine(useSkill.Timer());
                 ClickDetector.skillId = -1;
             }
@@ -141,6 +164,7 @@ public class GameController : MonoBehaviour
                     if(SkillPanel.transform.GetChild(i).gameObject.layer == 13)
                     SkillPanel.transform.GetChild(i).gameObject.layer = LayerMask.NameToLayer("Skill(Forbidden)");
                 }
+                UseSkill.Clock = 8;
                 yield return StartCoroutine(useSkill.Timer());
 
                 ClickDetector.skillId = -1;
@@ -153,6 +177,7 @@ public class GameController : MonoBehaviour
             SkillMassage.text = "已無技能可以使用";
             SkillDescription.text = "";
             SkipButton.SetActive(true);
+            UseSkill.Clock = 8;
             yield return StartCoroutine(useSkill.Timer());
         }
 
@@ -164,23 +189,23 @@ public class GameController : MonoBehaviour
         SkillMassage.text = "等待對手使用技能";
         SkillDescription.text = "";
 
-        if(isCom == true && ComputerPlayer.ComSkillIndex < 3 && ComSkillForbidden == false)
+        while(OpponentFUS == false)
         {
-            Debug.Log("Opponent Start Using Skill");
-            yield return(StartCoroutine(ComPlayer.ToUseSkill()));
-            Debug.Log("Opponent Finish using skill");
-        }
-        else if(ComputerPlayer.ComSkillIndex >= 3)
-        {
-            Debug.Log("Opponent have no skill left");
-        }
-        else if(ComSkillForbidden == true)
-        {
-            Debug.Log("Opponent can't not use skill this round");
-            ComSkillForbidden = false;
+            yield return new WaitForSeconds(1f);
         }
 
-        
+        Debug.Log("PLayer SUS" + PlayerSkillId);
+        yield return StartCoroutine(useSkill.Use(PlayerSkillId,true));
+        PlayerSkillId = -1;
+        Debug.Log("PLayer FUS");
+        yield return new WaitForSeconds(1f);
+        Debug.Log("Oppo SUS");
+        yield return StartCoroutine(useSkill.Use(OpponentSkillId,false));
+        OpponentSkillId = -1;
+        OpponentFUS = false;
+        Debug.Log("Oppo FUS");
+
+
         MessagePanel.SetActive(false);
         SkillImage.SetActive(false);
         ConfirmButton.SetActive(false);

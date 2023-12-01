@@ -46,9 +46,12 @@ public class ComputerPlayer : MonoBehaviour
     }
     public IEnumerator ToUseSkill()
     {
-        yield return new WaitForSeconds(2f);
-        yield return(StartCoroutine(useSkill.Use(ComSkillIdList[ComSkillIndex],false)));
+        yield return new WaitForSeconds(10f);
+        GameController.OpponentSkillId = ComSkillIdList[ComSkillIndex];
+        // yield return(StartCoroutine(useSkill.Use(ComSkillIdList[ComSkillIndex],false)));
         ComSkillIndex ++;
+        GameController.OpponentFUS = true;
+        Debug.Log("Opponent Finish choosing skill");
     
     }
 

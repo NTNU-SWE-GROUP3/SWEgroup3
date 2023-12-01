@@ -2684,6 +2684,7 @@ MonoBehaviour:
   Panel: {fileID: 603247139}
   CancelButton: {fileID: 1746798446}
   useSkill: {fileID: 1211442835}
+  SkillPanel: {fileID: 876056336}
 --- !u!82 &1320759887
 AudioSource:
   m_ObjectHideFlags: 0
