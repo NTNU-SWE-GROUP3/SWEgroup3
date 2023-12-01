@@ -8,7 +8,7 @@ public class GameController : MonoBehaviour
 {
 
     public DrawCard drawCard;
-    public bool isCom;
+    public static bool isCom;
     public ComputerPlayer ComPlayer;
     public CountDown Timer;
     public static int Turn;
@@ -122,17 +122,33 @@ public class GameController : MonoBehaviour
         else if(ComputerPlayer.ComSkillIndex >= 3)
         {
             Debug.Log("Opponent have no skill left");
+            if(isCom == true)
+            {
+                OpponentFUS = true;
+            }
         }
         else if(ComSkillForbidden == true)
         {
             Debug.Log("Opponent can't not use skill this round");
             ComSkillForbidden = false;
+            if(isCom == true)
+            {
+                OpponentFUS = true;
+            }
         }
 
         if(NoSkillCanUse == false)
         {
-            if(SkillPanel.transform.GetChild(0).gameObject.layer == 14 && SkillPanel.transform.GetChild(1).gameObject.layer == 14 && SkillPanel.transform.GetChild(2).gameObject.layer == 14)
-                NoSkillCanUse = true;
+            NoSkillCanUse = true;
+            for(int i = 0; i<SkillPanel.transform.childCount;i++)
+            {
+                if(SkillPanel.transform.GetChild(i).gameObject.layer != 14 )
+                {
+                    NoSkillCanUse = false;
+                    break;
+                }
+            }
+                
         }
         if(NoSkillCanUse == false)
         {
@@ -143,7 +159,7 @@ public class GameController : MonoBehaviour
                 SkillDescription.text = "";
                 SkipButton.SetActive(true);
 
-                for(int i = 0; i<3;i++)
+                for(int i = 0; i<SkillPanel.transform.childCount;i++)
                 {
                     if(SkillPanel.transform.GetChild(i).gameObject.layer == 15)
                     SkillPanel.transform.GetChild(i).gameObject.layer = LayerMask.NameToLayer("Skill(Unused)");
@@ -159,7 +175,7 @@ public class GameController : MonoBehaviour
                 SkillDescription.text = "";
                 SkipButton.SetActive(true);
 
-                for(int i = 0; i<3;i++)
+                for(int i = 0; i<SkillPanel.transform.childCount;i++)
                 {
                     if(SkillPanel.transform.GetChild(i).gameObject.layer == 13)
                     SkillPanel.transform.GetChild(i).gameObject.layer = LayerMask.NameToLayer("Skill(Forbidden)");
@@ -199,7 +215,7 @@ public class GameController : MonoBehaviour
         PlayerSkillId = -1;
         Debug.Log("PLayer FUS");
         yield return new WaitForSeconds(1f);
-        Debug.Log("Oppo SUS");
+        Debug.Log("Oppo SUS " + OpponentSkillId);
         yield return StartCoroutine(useSkill.Use(OpponentSkillId,false));
         OpponentSkillId = -1;
         OpponentFUS = false;

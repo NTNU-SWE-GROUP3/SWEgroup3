@@ -464,7 +464,7 @@ public class ShowCard : MonoBehaviour
     void OpponentSimpleRejection()
     {
         
-        if(GC.isCom == true)
+        if(GameController.isCom == true)
         {
             CardDelete = PlayerArea.transform.GetChild(0).gameObject.GetComponent<CardDisplay>();
             deletChange.Delete(PlayerArea,CardDelete.id);

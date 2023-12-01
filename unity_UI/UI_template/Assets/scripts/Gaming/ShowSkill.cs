@@ -7,11 +7,11 @@ public class ShowSkill : MonoBehaviour
 {
     public GameObject Skill;
     public static int skillIndex;
-    public static int[] PlayerSkillIdList = {7,5,3};
+    public static int[] PlayerSkillIdList = {2,3,4,5,7,8,9};
     void Start()
     {
         skillIndex = 0;
-        for(int i = 0;i<3;i++)
+        for(int i = 0;i<PlayerSkillIdList.Length;i++)
         {
             GameObject playerSkill  = Instantiate(Skill,gameObject.transform.position,gameObject.transform.rotation);
             playerSkill.transform.SetParent(gameObject.transform,false);

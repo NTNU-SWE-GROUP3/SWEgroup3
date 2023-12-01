@@ -11,11 +11,14 @@ public class ComputerPlayer : MonoBehaviour
     public Transform Card;
     public UseSkill useSkill;
     public int test = 0;
-    int[] ComSkillIdList = {8,3,9};
+    int[] ComSkillIdList = {8,6,9};
     public static int ComSkillIndex;
+    int randomTime;
+    int useSkillOrNot;
     
     void Start()
     {
+        Random.InitState((int)System.DateTime.Now.Ticks);
         ComSkillIndex = 0;
     }
     public IEnumerator PlayCard()
@@ -46,10 +49,17 @@ public class ComputerPlayer : MonoBehaviour
     }
     public IEnumerator ToUseSkill()
     {
-        yield return new WaitForSeconds(10f);
-        GameController.OpponentSkillId = ComSkillIdList[ComSkillIndex];
+        
+        randomTime = Random.Range(30, 80);
+        // useSkillOrNot = Random.Range(1,100);
+        useSkillOrNot = 2;
+        yield return new WaitForSeconds((float)(randomTime/10));
+        if(useSkillOrNot % 2 == 0)
+        {
+            GameController.OpponentSkillId = ComSkillIdList[ComSkillIndex];
+            ComSkillIndex ++;
+        }
         // yield return(StartCoroutine(useSkill.Use(ComSkillIdList[ComSkillIndex],false)));
-        ComSkillIndex ++;
         GameController.OpponentFUS = true;
         Debug.Log("Opponent Finish choosing skill");
     
