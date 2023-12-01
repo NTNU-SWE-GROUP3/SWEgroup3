@@ -1,0 +1,72 @@
+2023-11-23 01:43:25,923 - app - INFO - accountName: tosha
+2023-11-23 01:43:25,948 - app - INFO - accountPassword: 11111111111
+2023-11-23 01:43:26,307 - app - INFO - b"SELECT count(*) FROM account a WHERE a.name = 'tosha' LIMIT 1"
+2023-11-23 01:43:26,330 - app - INFO - b"SELECT a.id FROM account a WHERE a.password = SHA1(CONCAT('11111111111',(SELECT a.salt FROM account a WHERE a.name = 'tosha'))) LIMIT 1"
+2023-11-23 01:43:26,332 - app - INFO - accountId: 1
+2023-11-23 01:43:26,386 - app - INFO - b"UPDATE\taccount a SET a.token_id = 'k89CRRaNYF0VeoS72j1W', a.token_validity = '2023-11-26 01:43:26' WHERE a.id = 1"
+2023-11-23 01:43:32,874 - app - INFO - accountName: tosha
+2023-11-23 01:43:32,876 - app - INFO - accountPassword: 51545
+2023-11-23 01:43:32,878 - app - INFO - b"SELECT count(*) FROM account a WHERE a.name = 'tosha' LIMIT 1"
+2023-11-23 01:43:32,881 - app - INFO - b"SELECT a.id FROM account a WHERE a.password = SHA1(CONCAT('51545',(SELECT a.salt FROM account a WHERE a.name = 'tosha'))) LIMIT 1"
+2023-11-23 01:43:32,883 - app - INFO - accountId: -1
+2023-11-23 01:43:40,809 - app - INFO - accountName: toshagheh
+2023-11-23 01:43:40,811 - app - INFO - accountPassword: 51545
+2023-11-23 01:43:40,814 - app - INFO - b"SELECT count(*) FROM account a WHERE a.name = 'toshagheh' LIMIT 1"
+2023-11-23 01:43:54,650 - app - INFO - accountName: gtw
+2023-11-23 01:43:54,652 - app - INFO - accountPassword: twrhwy
+2023-11-23 01:43:54,653 - app - INFO - accountEmail: yterwy
+2023-11-23 01:43:54,656 - app - INFO - b"SELECT count(*) FROM account a WHERE a.name = 'gtw' LIMIT 1"
+2023-11-23 01:43:54,658 - app - INFO - b"SELECT count(*) FROM account a WHERE a.email = 'yterwy' LIMIT 1"
+2023-11-23 01:43:54,660 - app - INFO - Password too short: twrhwy
+2023-11-23 01:43:58,493 - app - INFO - accountName: gtw
+2023-11-23 01:43:58,494 - app - INFO - accountPassword: twrhwtwertywytw
+2023-11-23 01:43:58,496 - app - INFO - accountEmail: yterwy
+2023-11-23 01:43:58,498 - app - INFO - b"SELECT count(*) FROM account a WHERE a.name = 'gtw' LIMIT 1"
+2023-11-23 01:43:58,501 - app - INFO - b"SELECT count(*) FROM account a WHERE a.email = 'yterwy' LIMIT 1"
+2023-11-23 01:43:58,519 - app - INFO - b"INSERT INTO account(name, email, password, token_id, token_validity, salt) VALUES('gtw', 'yterwy', 'twrhwtwertywytw', NULL, NULL, SUBSTRING(SHA1(RAND()), 1, 32))"
+2023-11-23 01:43:58,541 - app - INFO - b"SELECT a.id FROM account a WHERE a.name = 'gtw' LIMIT 1"
+2023-11-23 01:43:58,547 - app - INFO - b'UPDATE account a SET a.password = SHA1(CONCAT(a.password, a.salt)) WHERE a.id = 2'
+2023-11-23 01:43:58,565 - app - INFO - b"UPDATE\taccount a SET a.token_id = 'TCSwx9VxHuTRq0pHENge', a.token_validity = '2023-11-26 01:43:58' WHERE a.id = 2"
+2023-11-23 03:27:23,603 - app - INFO - accountName: tosha
+2023-11-23 03:27:23,610 - app - INFO - accountPassword: 1111111111
+2023-11-23 03:27:23,611 - app - INFO - accountEmail: a0320506@gmai.com
+2023-11-23 03:27:23,796 - app - INFO - b"SELECT count(*) FROM account a WHERE a.name = 'tosha' LIMIT 1"
+2023-11-23 03:27:23,801 - app - INFO - Username has been used: tosha
+2023-11-23 03:27:37,342 - app - INFO - accountName: keyi
+2023-11-23 03:27:37,344 - app - INFO - accountPassword: 1111111111
+2023-11-23 03:27:37,345 - app - INFO - accountEmail: a0320506@gmai.com
+2023-11-23 03:27:37,347 - app - INFO - b"SELECT count(*) FROM account a WHERE a.name = 'keyi' LIMIT 1"
+2023-11-23 03:27:37,350 - app - INFO - b"SELECT count(*) FROM account a WHERE a.email = 'a0320506@gmai.com' LIMIT 1"
+2023-11-23 03:27:37,383 - app - INFO - b"INSERT INTO account(name, email, password, token_id, token_validity, salt) VALUES('keyi', 'a0320506@gmai.com', '1111111111', NULL, NULL, SUBSTRING(SHA1(RAND()), 1, 32))"
+2023-11-23 03:27:37,408 - app - INFO - b"SELECT a.id FROM account a WHERE a.name = 'keyi' LIMIT 1"
+2023-11-23 03:27:37,420 - app - INFO - b'UPDATE account a SET a.password = SHA1(CONCAT(a.password, a.salt)) WHERE a.id = 3'
+2023-11-23 03:27:37,439 - app - INFO - b"UPDATE\taccount a SET a.token_id = 'SULwuHyy9JRKJcL9z5eS', a.token_validity = '2023-11-26 03:27:37' WHERE a.id = 3"
+2023-11-23 03:28:22,389 - app - INFO - accountName: group
+2023-11-23 03:28:22,390 - app - INFO - accountPassword: 3333333333
+2023-11-23 03:28:22,391 - app - INFO - accountEmail: 40923129@gapps.ntnu.edu.tw
+2023-11-23 03:28:22,394 - app - INFO - b"SELECT count(*) FROM account a WHERE a.name = 'group' LIMIT 1"
+2023-11-23 03:28:22,395 - app - INFO - b"SELECT count(*) FROM account a WHERE a.email = '40923129@gapps.ntnu.edu.tw' LIMIT 1"
+2023-11-23 03:28:22,401 - app - INFO - b"INSERT INTO account(name, email, password, token_id, token_validity, salt) VALUES('group', '40923129@gapps.ntnu.edu.tw', '3333333333', NULL, NULL, SUBSTRING(SHA1(RAND()), 1, 32))"
+2023-11-23 03:28:22,415 - app - INFO - b"SELECT a.id FROM account a WHERE a.name = 'group' LIMIT 1"
+2023-11-23 03:28:22,419 - app - INFO - b'UPDATE account a SET a.password = SHA1(CONCAT(a.password, a.salt)) WHERE a.id = 4'
+2023-11-23 03:28:22,434 - app - INFO - b"UPDATE\taccount a SET a.token_id = '9vu5rcnBgybJ8tQ0o6Pi', a.token_validity = '2023-11-26 03:28:22' WHERE a.id = 4"
+2023-11-23 03:28:47,004 - app - INFO - accountName: gro
+2023-11-23 03:28:47,008 - app - INFO - accountPassword: 3333333333
+2023-11-23 03:28:47,019 - app - INFO - b"SELECT count(*) FROM account a WHERE a.name = 'gro' LIMIT 1"
+2023-11-23 03:29:03,047 - app - INFO - accountName: group
+2023-11-23 03:29:03,052 - app - INFO - accountPassword: 0riergoeghe
+2023-11-23 03:29:03,063 - app - INFO - b"SELECT count(*) FROM account a WHERE a.name = 'group' LIMIT 1"
+2023-11-23 03:29:03,092 - app - INFO - b"SELECT a.id FROM account a WHERE a.password = SHA1(CONCAT('0riergoeghe',(SELECT a.salt FROM account a WHERE a.name = 'group'))) LIMIT 1"
+2023-11-23 03:29:03,099 - app - INFO - accountId: -1
+2023-11-23 03:29:13,304 - app - INFO - accountName: group
+2023-11-23 03:29:13,311 - app - INFO - accountPassword: 3333333333
+2023-11-23 03:29:13,324 - app - INFO - b"SELECT count(*) FROM account a WHERE a.name = 'group' LIMIT 1"
+2023-11-23 03:29:13,335 - app - INFO - b"SELECT a.id FROM account a WHERE a.password = SHA1(CONCAT('3333333333',(SELECT a.salt FROM account a WHERE a.name = 'group'))) LIMIT 1"
+2023-11-23 03:29:13,342 - app - INFO - accountId: 4
+2023-11-23 03:29:13,355 - app - INFO - b"UPDATE\taccount a SET a.token_id = 'GUkhv5S0F0dHhroBmOBz', a.token_validity = '2023-11-26 03:29:13' WHERE a.id = 4"
+2023-11-23 03:29:52,260 - app - INFO - accountName: group
+2023-11-23 03:29:52,261 - app - INFO - accountEmail: 40923129l@gapps.ntnu.edu.tw
+2023-11-23 03:29:52,267 - app - INFO - b"SELECT count(*) FROM account a WHERE a.name = 'group' LIMIT 1"
+2023-11-23 03:29:52,271 - app - INFO - b"SELECT a.id FROM account a WHERE a.name = 'group' LIMIT 1"
+2023-11-23 03:29:52,273 - app - INFO - accountID: 4
+2023-11-23 03:29:52,277 - app - INFO - Email and account not match: 40923129l@gapps.ntnu.edu.tw

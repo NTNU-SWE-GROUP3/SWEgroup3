@@ -20,8 +20,8 @@ HackMD空間：https://hackmd.io/team/ntnuseteam3?nav=overview
 虛擬機：  
 * OS：ubuntu server 22.04  
 * 儲存空間：160G
-* 帳密洽外部
-Docker：https://github.com/ToshaETang/SWEgroup3/tree/dev/docker/nginx-flask-mysql  
+* 登入方法：DC #外部 釘選訊息  
+Docker：https://github.com/NTNU-SWE-GROUP3/SWEgroup3/tree/main/docker/nginx-flask-mysql    
 
 ----
 ### 命名方式  
@@ -31,12 +31,3 @@ Docker：https://github.com/ToshaETang/SWEgroup3/tree/dev/docker/nginx-flask-mys
 Manerger：大駝峰  
 
 ----
-### 分支所屬
-main：主要的(基本上不動)  
-dev：總開發支線  
-body：遊戲本體組  
-gaming：遊戲本體B組  
-UI：設計組  
-other-function：其他功能組  
-gachs：抽卡  
-document：文件在這裡改  
