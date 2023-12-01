@@ -55,7 +55,7 @@ INSERT INTO `skill` (`skill_name`, `skill_description`, `skill_probability`) VAL
 
 
 INSERT INTO account_data (account_id, nickname, level, experience, `rank`, total_match, total_win, ranked_winning_streak, ranked_XP, coin) VALUES
-(1, 'User1', 10, 1000, 'Gold', 50, 30, 5, 800, 5000),
+(1, 'User1', 10, 1000, 'Gold', 50, 30, 5, 800, 1000000),
 (2, 'User2', 8, 800, 'Silver', 45, 25, 3, 700, 4500);
 
 INSERT INTO account_achievement (account_id, achievement_id) VALUES

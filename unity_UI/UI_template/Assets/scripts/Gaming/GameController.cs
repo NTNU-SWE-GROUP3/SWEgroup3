@@ -12,13 +12,18 @@ public class GameController : MonoBehaviour
     public CountDown Timer;
     public static int Turn;
     public Text TurnText;
+    public GameObject PlayerShow;
+    public GameObject SkipButton;
     public GameObject ConfirmButton;
     public GameObject CancelButton;
-    public GameObject Panel;
+    public GameObject CardPanel;
     public GameObject MessagePanel;
-    public GameObject SkillName;
+    public GameObject SkillPanel;
+    public GameObject SkillImage;
     public GameObject WinImage;
     public GameObject DrawArea;
+    public Text SkillMassage;
+    public Text SkillDescription;
     public Text DrawAreaCount;
     public Text NextRoundText;
     public AudioClip EndSound;
@@ -28,15 +33,25 @@ public class GameController : MonoBehaviour
     public AudioClip DefeatVoice1;
     public AudioClip DefeatVoice2;
     public AudioClip DefeatVoice3;
+    public AudioClip DrawVoice1;
+    public AudioClip PlayerSkillVoice1;
+    public AudioClip PlayerSkillVoice2;
     public AudioManager audioManager;
+    bool NoSkillCanUse;
     public Image MusicImg;
 
+    public UseSkill useSkill;
     AudioSource audioSource;
+
+    bool ComSkillForbidden;
     
     void Start()
     {
+        NoSkillCanUse = false;
         isCom = true;
-        SkillName.SetActive(false);
+        SkipButton.SetActive(false);
+        SkillPanel.SetActive(false);
+        SkillImage.SetActive(false);
         ConfirmButton.SetActive(false);
         CancelButton.SetActive(false);
         drawCard = GameObject.Find("GameController").GetComponent<DrawCard>();
@@ -53,10 +68,10 @@ public class GameController : MonoBehaviour
         DrawAreaCount.text = "平手區累積牌數: " + DrawArea.transform.childCount.ToString() + "張";
     }
 
-    public void GameBegin()
+    public IEnumerator GameBegin()
     {
         Turn = 0;
-        drawCard.Draw();
+        yield return StartCoroutine(drawCard.Drawing());
         // Game Start
         StartCoroutine(TurnStart());
     }
@@ -65,28 +80,131 @@ public class GameController : MonoBehaviour
        
         Turn++;
         MessagePanel.SetActive(true);
-        ClickDetector.cardId = -1;
-        for(int i = 0 ; i < Panel.transform.childCount;i++)
-        {
-            Destroy(Panel.transform.GetChild(i).gameObject);
-        }
+        DestoryCardOnPanel();
+        SkillPanel.SetActive(false);
         ConfirmButton.SetActive(false);
         CancelButton.SetActive(false);
-        SkillName.SetActive(false);
+        SkillImage.SetActive(false);
         WinImage.SetActive(true);
         NextRoundText.gameObject.SetActive(true);
         NextRoundText.text = "Round" + Turn.ToString();
         yield return new WaitForSeconds(1);
+
+        DragCard.canDrag = true;
+        
+        WinImage.SetActive(false);
+        SkillPanel.SetActive(true);
+        SkillImage.SetActive(true);
+
+        if(isCom == true)
+        {
+            if (UseSkill.ComSkillNextForbidden == true)
+            {
+                ComSkillForbidden = true;
+                UseSkill.ComSkillNextForbidden = false;
+            }
+
+        }
+        
+        if(NoSkillCanUse == false)
+        {
+            if(SkillPanel.transform.GetChild(0).gameObject.layer == 14 && SkillPanel.transform.GetChild(1).gameObject.layer == 14 && SkillPanel.transform.GetChild(2).gameObject.layer == 14)
+                NoSkillCanUse = true;
+        }
+        if(NoSkillCanUse == false)
+        {
+            if(UseSkill.PlayerSkillForbidden == false)
+            {
+                audioSource.PlayOneShot(PlayerSkillVoice1);
+                SkillMassage.text = "請選擇要使用的技能";
+                SkillDescription.text = "";
+                SkipButton.SetActive(true);
+
+                for(int i = 0; i<3;i++)
+                {
+                    if(SkillPanel.transform.GetChild(i).gameObject.layer == 15)
+                    SkillPanel.transform.GetChild(i).gameObject.layer = LayerMask.NameToLayer("Skill(Unused)");
+                }
+                
+                yield return StartCoroutine(useSkill.Timer());
+                ClickDetector.skillId = -1;
+            }
+            else
+            {
+                audioSource.PlayOneShot(PlayerSkillVoice2);
+                SkillMassage.text = "此回合無法使用技能";
+                SkillDescription.text = "";
+                SkipButton.SetActive(true);
+
+                for(int i = 0; i<3;i++)
+                {
+                    if(SkillPanel.transform.GetChild(i).gameObject.layer == 13)
+                    SkillPanel.transform.GetChild(i).gameObject.layer = LayerMask.NameToLayer("Skill(Forbidden)");
+                }
+                yield return StartCoroutine(useSkill.Timer());
+
+                ClickDetector.skillId = -1;
+                UseSkill.PlayerSkillForbidden = false;
+            }
+        }
+        else 
+        {
+            audioSource.PlayOneShot(PlayerSkillVoice2);
+            SkillMassage.text = "已無技能可以使用";
+            SkillDescription.text = "";
+            SkipButton.SetActive(true);
+            yield return StartCoroutine(useSkill.Timer());
+        }
+
+        MessagePanel.SetActive(true);
+        SkillPanel.SetActive(false);
+        ConfirmButton.SetActive(false);
+        CancelButton.SetActive(false);
+        SkipButton.SetActive(false);
+        SkillMassage.text = "等待對手使用技能";
+        SkillDescription.text = "";
+
+        if(isCom == true && ComputerPlayer.ComSkillIndex < 3 && ComSkillForbidden == false)
+        {
+            Debug.Log("Opponent Start Using Skill");
+            yield return(StartCoroutine(ComPlayer.ToUseSkill()));
+            Debug.Log("Opponent Finish using skill");
+        }
+        else if(ComputerPlayer.ComSkillIndex >= 3)
+        {
+            Debug.Log("Opponent have no skill left");
+        }
+        else if(ComSkillForbidden == true)
+        {
+            Debug.Log("Opponent can't not use skill this round");
+            ComSkillForbidden = false;
+        }
+
+        
         MessagePanel.SetActive(false);
-        DropZone.haveCard = false;
-        DropZone.backToHand = true;
+        SkillImage.SetActive(false);
+        ConfirmButton.SetActive(false);
+        CancelButton.SetActive(false);
+        SkipButton.SetActive(false);
+        
+        if(PlayerShow.transform.childCount == 0)
+        {
+            DropZone.haveCard = false;
+            DropZone.backToHand = true; 
+            DragCard.canDrag = true;
+        }
+        else
+        {
+             DragCard.canDrag = false;
+        }
+
         TurnText.text = "回合:" + Turn.ToString();
         StartCoroutine(Timer.TurnCountdown());
         if(isCom == true)
         {
-            ComPlayer.PlayRandomCard();
+            yield return StartCoroutine(ComPlayer.PlayCard());
         }
-            
+
     }
 
     public void FinishCheck(int PlayerEarnCard,int OpponentEarnCard,int PlayerHandCard,int OpponentHandCard)
@@ -97,7 +215,7 @@ public class GameController : MonoBehaviour
         {
             audioManager.StopBGM();
             audioSource.PlayOneShot(EndSound);
-            SkillName.SetActive(false);
+            SkillImage.SetActive(false);
             WinImage.SetActive(true);
             NextRoundText.gameObject.SetActive(true);
             if(PlayerEarnCard >= 10 )
@@ -125,6 +243,7 @@ public class GameController : MonoBehaviour
                 else
                 {
                     NextRoundText.text = "Draw";
+                    StartCoroutine(DrawSE());
                 }
 
             }
@@ -162,5 +281,18 @@ public class GameController : MonoBehaviour
         if(MusicImg.sprite == Resources.Load<Sprite>("images/Music1")){
             audioSource.PlayOneShot(DefeatMusic);
         }
-    }   
+    }
+    IEnumerator DrawSE()
+    {
+        yield return new WaitForSeconds(2.5f);
+        audioSource.PlayOneShot(DrawVoice1);
+    }
+    public void DestoryCardOnPanel()
+    {
+        for(int i = 0 ; i < CardPanel.transform.childCount;i++)
+        {
+            ClickDetector.cardId = -1;
+            Destroy(CardPanel.transform.GetChild(i).gameObject);
+        }
+    }
 }

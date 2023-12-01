@@ -146,6 +146,7 @@ CREATE TABLE `account_skill` (
   `id` int NOT NULL AUTO_INCREMENT,
   `account_id` int DEFAULT NULL,
   `skill_id` int DEFAULT NULL,
+  `equip_status` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `account_id` (`account_id`),
   KEY `skill_id` (`skill_id`),

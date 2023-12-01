@@ -9,7 +9,7 @@ using PurchaseControl;
 
 public class Action : MonoBehaviour
 {
-    [SerializeField] string apiUrl = "http://127.0.0.1:5000/gacha/draw";       // call API endpoint
+    [SerializeField] string apiUrl = "http://140.122.185.169:5050/gacha/draw";       // call API endpoint
 
     // default playerId = 1, mode = coin, times = 1
     [SerializeField] string playerId = "1";
@@ -158,11 +158,11 @@ public class Action : MonoBehaviour
     {
         if (InputChecker())
         {
-            // if (!purchaseController.CardNumberCheck()){
-            //     purchaseController.DisplayMessage("Please enter a valid card number.");
-            //     Debug.Log("Invalid card number.");
-            //     return ;
-            // }
+            if (!purchaseController.CardNumberCheck()){
+                purchaseController.DisplayMessage("Please enter a valid card number.");
+                Debug.Log("Invalid card number.");
+                return ;
+            }
             buyClicked = true;
             cancelClicked = false;
             purchasePanel.SetActive(false);
@@ -238,28 +238,38 @@ public class Action : MonoBehaviour
         if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
         {
             errorController.ShowErrorMessage("Please check your network connection.");
-            Debug.Log("failed");
+            // Debug.Log("failed");
             Debug.LogError(www.error);
         }
         else
         {
             response = www.downloadHandler.text;
 
-            ShowResponse(response);
-            if (int.Parse(times) == 1)
+            List<object> jsonArray = Json.Deserialize(response) as List<object>;
+            Dictionary<string, object> check = jsonArray[0] as Dictionary<string, object>;
+
+            int checkId = int.Parse(check["id"].ToString());
+            if (checkId < 0)
             {
-                gachaResult1.SetActive(true);
-                StartCoroutine(ShowResponseAnimation1(response));
+                string message = check["note"].ToString();
+                errorController.ShowErrorMessage(message);
             }
-            else if (int.Parse(times) == 10)
+            else
             {
-                gachaResult10.SetActive(true);
-                StartCoroutine(ShowResponseAnimation10(response));
+                ShowResponse(response);
+                if (int.Parse(times) == 1)
+                {
+                    gachaResult1.SetActive(true);
+                    StartCoroutine(ShowResponseAnimation1(response));
+                }
+                else if (int.Parse(times) == 10)
+                {
+                    gachaResult10.SetActive(true);
+                    StartCoroutine(ShowResponseAnimation10(response));
+                }
             }
-            // Debug.Log("API Response: " + response);
         }
     }
-
     IEnumerator ShowResponseAnimation1(string response)
     {
         gachaAnimator1.SetTrigger("ShowAnimate");
@@ -274,7 +284,6 @@ public class Action : MonoBehaviour
 
         okButton10.SetActive(true);
     }
-
     void ShowResponse(string response)
     {
         resultPanel.SetActive(true);
@@ -283,6 +292,16 @@ public class Action : MonoBehaviour
 
         if (jsonArray != null)
         {
+            Dictionary<string, object> check = jsonArray[0] as Dictionary<string, object>;
+
+            // int checkId = int.Parse(check["id"].ToString());
+            // if (checkId < 0)
+            // {
+            //     string message = check["note"].ToString();
+            //     errorController.ShowErrorMessage(message);
+            // }
+            // else
+            // {
             animationController.DisplayCardResults(jsonArray);
             foreach (var item in jsonArray)
             {
@@ -298,6 +317,7 @@ public class Action : MonoBehaviour
                     Debug.Log("ID: " + id + ", Type: " + type + ", Note: " + note);
                 }
             }
+            // }
         }
         else
         {

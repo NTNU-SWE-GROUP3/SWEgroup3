@@ -70,7 +70,7 @@ public class CardZoom : MonoBehaviour
             rect = desText.GetComponent<RectTransform>();
             rect.position = new Vector2(rect.position.x,rect.position.y-15);
             rect.sizeDelta = new Vector2(265,130);
-            desText.fontSize = 30;
+            desText.fontSize = 28;
 
             rect = cardImage.GetComponent<RectTransform>();
             rect.sizeDelta = new Vector2(250,150);
