@@ -20,46 +20,53 @@ public class UserSetting : MonoBehaviour
     public string player_nickname;
     public string player_email;
 
-    //DEBUG
-    public GameObject DEBUG_Page4Panels;
-    public GameObject DEBUG_MessagePanels;
-
     //Avatar button
     public Button AvatarButton;
 
     //UserDataPanel
     private GameObject UserDataPanel;
-    private Button BackButton;
-    private Button GeneralSettingButton;
-    private Button StatisticsButton;
+    public Button BackButton;
+    public Button GeneralSettingButton;
+    public Button StatisticsButton;
 
     //SettingPanel
     private GameObject SettingPanel;
-    private TMP_Text UserName;
-    private TMP_Text Email;
-    private Button ChangeNicknameButton;
-    private Button ChangeEmailButton;
-    private Button Avator1Button;
-    private Button Avator2Button;
-    private Button Avator3Button;
-    private Button Avator4Button;
+    public Text UserName;
+    public Text Email;
+    public Button ChangeNicknameButton;
+    public Button ChangeEmailButton;
+    public Button Avator1Button;
+    public Button Avator2Button;
+    public Button Avator3Button;
+    public Button Avator4Button;
 
     //StatisticPanel
     private GameObject StatisticPanel;
-    private TMP_Text TotalGameplay;
-    private TMP_Text WinningRate;
-    private TMP_Text TotalWin;
-    private TMP_Text Ranking;
-    private Button ReportBugButton;
+    public Text TotalGameplay;
+    public Text WinningRate;
+    public Text TotalWin;
+    public Text Ranking;
+    public Button ReportBugButton;
 
-    //WarningPanel
-    private GameObject WarningPanel;
-    private TMP_Text NoticeMessage;
-    private Button WarningConfirmButton;
+
+    //ChangeInfoPanel
+    public GameObject ChangeInfoPanel;
+    public Text InformInputText;
+    public InputField NewInfoInput;
+    public Button ChangeConfirmButton;
+    public Text InfoPlaceholder;
+
+
+    //UserSettingWarningPanel
+    public GameObject UserSettingWarningPanel;
+    public Text UseSettingMessage;
+    public Text NoticeTitleText;
+    public Button UserWarningButton;
+
 
 
     //URL
-    private static string serverUrl = "http://127.0.0.1:80";
+    public static string serverUrl = "http://127.0.0.1:80";
     private string serverURL_playerdata = serverUrl + "/user_information/getplayerdata";
   
 
@@ -69,8 +76,8 @@ public class UserSetting : MonoBehaviour
         UserDataPanel = GameObject.Find("UserDataPanel");
         SettingPanel = GameObject.Find("SettingPanel");
         StatisticPanel = GameObject.Find("StatisticPanel");
-        WarningPanel = GameObject.Find("WarningPanel");
 
+        /*
         //UserDataPanel
         BackButton = UserDataPanel.transform.Find("BackButton").GetComponent<Button>(); ;
         GeneralSettingButton = UserDataPanel.transform.Find("GeneralSettingButton").GetComponent<Button>();
@@ -96,21 +103,21 @@ public class UserSetting : MonoBehaviour
         //WarningPanel
         NoticeMessage = WarningPanel.transform.Find("NoticeMessage").GetComponent<TMP_Text>();
         WarningConfirmButton = WarningPanel.transform.Find("ConfirmButton").GetComponent<Button>();
-
+        */
 
         //Panels Init
         InitPanel();
 
         //Update uesr data once login success
         UpdateUserGeneralData();
-        UpdateUserInformation();
+        //UpdateUserInformation();
 
 
         AvatarButton.onClick.AddListener(OpenUserDataPanel);
         BackButton.onClick.AddListener(CloseUserDataPanel);
         GeneralSettingButton.onClick.AddListener(TurnGeneralSetting);
         StatisticsButton.onClick.AddListener(TurnStatistics);
-        WarningConfirmButton.onClick.AddListener(CloseWarningPanel);
+        UserWarningButton.onClick.AddListener(CloseWarningPanel);
 
         Avator1Button.onClick.AddListener(ChangeAV1);
         Avator2Button.onClick.AddListener(ChangeAV2);
@@ -126,14 +133,11 @@ public class UserSetting : MonoBehaviour
     //Scene Operation
     private void InitPanel()
     {
-        //DEBUG
-        DEBUG_Page4Panels.SetActive(false);
-        DEBUG_MessagePanels.SetActive(false);
-
         UserDataPanel.SetActive(false);
         SettingPanel.SetActive(false);
         StatisticPanel.SetActive(false);
-        WarningPanel.SetActive(false);
+        ChangeInfoPanel.SetActive(false);
+        UserSettingWarningPanel.SetActive(false);
     }
 
     private void OpenUserDataPanel()
@@ -154,8 +158,16 @@ public class UserSetting : MonoBehaviour
 
     private void CloseWarningPanel()
     {
-        WarningPanel.SetActive(false);
-        NoticeMessage.SetText("");
+        UserSettingWarningPanel.SetActive(false);
+        UseSettingMessage.text = ("");
+        NoticeTitleText.text = ("");
+    }
+
+    private void CloseChangeInfoPanel()
+    {
+        ChangeInfoPanel.SetActive(false);
+        InformInputText.text = ("");
+        NewInfoInput.text = "";
     }
 
     private void TurnGeneralSetting()
@@ -176,16 +188,18 @@ public class UserSetting : MonoBehaviour
     private void ChangeAV1()
     {
         // >>>>>>>>>>>>>>>Change the Avator to Avator 1 !! <<<<<<<<<<<<<<<< #Design Group
-        WarningPanel.SetActive(true);
-        NoticeMessage.SetText("Avator Changed!");
+        UserSettingWarningPanel.SetActive(true);
+        NoticeTitleText.text = ("頭像已變更！");
+        UseSettingMessage.text = ("已成功更換xxx1造型!");
         Debug.Log("Avator Changed > 1");
     }
 
     private void ChangeAV2()
     {
         // >>>>>>>>>>>>>>>Change the Avator to Avator 2 !! <<<<<<<<<<<<<<<< #Design Group
-        WarningPanel.SetActive(true);
-        NoticeMessage.SetText("Avator Changed!");
+        UserSettingWarningPanel.SetActive(true);
+        NoticeTitleText.text = ("頭像已變更！");
+        UseSettingMessage.text = ("已成功更換xxx2造型!");
         Debug.Log("Avator Changed > 2");
 
     }
@@ -193,16 +207,18 @@ public class UserSetting : MonoBehaviour
     private void ChangeAV3()
     {
         // >>>>>>>>>>>>>>>Change the Avator to Avator 3 !! <<<<<<<<<<<<<<<< #Design Group
-        WarningPanel.SetActive(true);
-        NoticeMessage.SetText("Avator Changed!");
+        UserSettingWarningPanel.SetActive(true);
+        NoticeTitleText.text = ("頭像已變更！");
+        UseSettingMessage.text = ("已成功更換xxx3造型!");
         Debug.Log("Avator Changed > 3");
     }
 
     private void ChangeAV4()
     {
         // >>>>>>>>>>>>>>>Change the Avator to Avator 4 !! <<<<<<<<<<<<<<<< #Design Group
-        WarningPanel.SetActive(true);
-        NoticeMessage.SetText("Avator Changed!");
+        UserSettingWarningPanel.SetActive(true);
+        NoticeTitleText.text = ("頭像已變更！");
+        UseSettingMessage.text = ("已成功更換xxx4造型!");
         Debug.Log("Avator Changed > 4");
     }
 
@@ -231,8 +247,8 @@ public class UserSetting : MonoBehaviour
                 Debug.LogWarning(www.error);
 
                 // Warning Panel
-                WarningPanel.SetActive(true);
-                NoticeMessage.SetText("Please check your internet connection");
+                UserSettingWarningPanel.SetActive(true);
+                UseSettingMessage.text = "Please check your internet connection";
                 Debug.Log("Internet error");
 
             }
@@ -270,32 +286,49 @@ public class UserSetting : MonoBehaviour
     private void UpdateUserInformation()
     {
         //SettingPanel
-        UserName.SetText(player_nickname);
-        Email.SetText(player_email);
+        UserName.text = (player_nickname);
+        Email.text = (player_email);
 
         //StatisticPanel
-        TotalGameplay.SetText(player_totalmatch.ToString());
-        WinningRate.SetText(player_winrate.ToString());
-        TotalWin.SetText(player_totalwin.ToString());
-        Ranking.SetText(player_ranking);
+        TotalGameplay.text = (player_totalmatch.ToString());
+        WinningRate.text = (player_winrate.ToString());
+        TotalWin.text = (player_totalwin.ToString());
+        Ranking.text = (player_ranking);
 
 
     }
 
     private void UserChangeNickname()
     {
+        ChangeInfoPanel.SetActive(true);
+        InformInputText.text = ("請輸入新的暱稱");
+        InfoPlaceholder.text = ("Enter new Nickname");
+
+
+        //NewInfoInput; 
+
+        ChangeConfirmButton.onClick.AddListener(CloseChangeInfoPanel);
+        //to be continue...
 
     }
 
     private void UserChangeEmail()
     {
+        ChangeInfoPanel.SetActive(true);
+        InformInputText.text = ("請輸入新的Email");
+        InfoPlaceholder.text = ("Enter new Email");
+
+
+        ChangeConfirmButton.onClick.AddListener(CloseChangeInfoPanel);
+        //to be continue...
 
     }
 
     private void ReportBug()
     {
-        WarningPanel.SetActive(true);
-        NoticeMessage.SetText("Log File has been sent!\nContact us via sweonlinegame@gmail.com");
+        UserSettingWarningPanel.SetActive(true);
+        NoticeTitleText.text = ("錯誤訊息已回報！");
+        UseSettingMessage.text = ("Log File has been sent!\nContact us via sweonlinegame@gmail.com");
         Debug.Log("Log File has not been sent, Go debug yourself");
     }
 
