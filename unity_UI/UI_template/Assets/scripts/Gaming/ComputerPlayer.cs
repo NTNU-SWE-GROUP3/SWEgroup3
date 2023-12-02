@@ -40,8 +40,14 @@ public class ComputerPlayer : MonoBehaviour
         else 
         {
             int randomIndex = Random.Range(0,1);
-            Card = OpponentArea.transform.GetChild(UseSkill.dilemmaDictatorIndex[randomIndex]);
-            UseSkill.PlayerIsdilemmaDictator = false;
+            for(int i = 0;i<OpponentArea.transform.childCount;i++)
+            {
+                if (OpponentArea.transform.GetChild(i).gameObject.GetComponent<CardDisplay>().id == UseSkill.ComDilemmaDictatorId[randomIndex])
+                {
+                    Card = OpponentArea.transform.GetChild(i);
+                    UseSkill.PlayerIsdilemmaDictator = false;
+                }
+            }
         }
         Card.SetParent(OpponentShow.transform,false);
         Card.position = OpponentShow.transform.position;

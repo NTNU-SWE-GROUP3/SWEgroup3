@@ -22,7 +22,8 @@ public class UseSkill : MonoBehaviour
     ShowCard SC;
     ToMessagePanel card;
     DeleteChange deleteChange;
-    public static int[] dilemmaDictatorIndex = {0,0};
+    public static int[] ComDilemmaDictatorId = {0,0};
+    public static int[] PlayerDilemmaDictatorId = {0,0};
     private int cardId = 0;
     public AudioClip UseSkillVoice;
     AudioSource audioSource;
@@ -160,13 +161,18 @@ public class UseSkill : MonoBehaviour
                     {
                         randomIndex[1] = Random.Range(0,OpponentArea.transform.childCount);
                     } while (randomIndex[0] == randomIndex[1]);
-                    dilemmaDictatorIndex[0] = randomIndex[0];
-                    dilemmaDictatorIndex[1] = randomIndex[1];
+                    
                     for(int i = 0;i<OpponentArea.transform.childCount;i++)
                     {
                         card = OpponentArea.transform.GetChild(i).GetComponent<ToMessagePanel>();
-                        if (i == randomIndex[0] || i == randomIndex[1])
+                        if (i == randomIndex[0])
                         {
+                            ComDilemmaDictatorId[0] = OpponentArea.transform.GetChild(i).gameObject.GetComponent<CardDisplay>().id;
+                            card.CardShowOnMessagePanel(false);
+                        }
+                        else if (i == randomIndex[1])
+                        {
+                            ComDilemmaDictatorId[1] = OpponentArea.transform.GetChild(i).gameObject.GetComponent<CardDisplay>().id;
                             card.CardShowOnMessagePanel(false);
                         }
                     }
@@ -322,13 +328,17 @@ public class UseSkill : MonoBehaviour
                     {
                         randomIndex[1] = Random.Range(0,PlayerArea.transform.childCount);
                     } while (randomIndex[0] == randomIndex[1]);
-                    dilemmaDictatorIndex[0] = randomIndex[0];
-                    dilemmaDictatorIndex[1] = randomIndex[1];
+                    
                     for(int i = 0;i<PlayerArea.transform.childCount;i++)
                     {
                         card = PlayerArea.transform.GetChild(i).GetComponent<ToMessagePanel>();
-                        if (i == randomIndex[0] || i == randomIndex[1])
+                        if (i == randomIndex[0])
                         {
+                            PlayerDilemmaDictatorId[0] = PlayerArea.transform.GetChild(i).gameObject.GetComponent<CardDisplay>().id;
+                            card.CardShowOnMessagePanel(true);
+                        }
+                        else if (i == randomIndex[1])
+                        {   PlayerDilemmaDictatorId[1] = PlayerArea.transform.GetChild(i).gameObject.GetComponent<CardDisplay>().id;
                             card.CardShowOnMessagePanel(true);
                         }
                     }  
