@@ -10,6 +10,7 @@ public class ConfirmButton : MonoBehaviour
     GameObject PlayerCardObject;
     Transform Card;
     public Text skillName;
+    public GameObject SkipButton;
     public GameObject OpponentArea;
     public GameObject PlayerArea;
     public GameObject PlayerShow;
@@ -17,6 +18,12 @@ public class ConfirmButton : MonoBehaviour
     public GameObject Panel;
     public GameObject CancelButton;
     public UseSkill useSkill;
+
+    public GameObject SkillPanel;
+    GameObject SkillObject;
+    SkillDisplay Skill;
+
+
     public static bool CardSelected;
     void Start()
     {
@@ -30,21 +37,21 @@ public class ConfirmButton : MonoBehaviour
         if (skillName.text == "簡易剔除!")
         {
             deleteChange.Delete(OpponentArea,ClickDetector.cardId);
-            ShowCard.RejectTimer = 1;
+            ShowCard.RejectTimer = 0;
             MessagePanel.SetActive(false);
         }
         else if (skillName.text == "階級流動!")
         {
             deleteChange.Change(PlayerArea,ClickDetector.cardId, "階級流動");
-            UseSkill.Clock= 1;
-            MessagePanel.SetActive(false);
+            UseSkill.Clock= 0;
+            // MessagePanel.SetActive(false);
             GC.DestoryCardOnPanel();
         }
         else if(skillName.text == "暗影轉職!")
         {
             deleteChange.Change(PlayerArea,ClickDetector.cardId, "暗影轉職");
-            UseSkill.Clock = 1;
-            MessagePanel.SetActive(false);
+            UseSkill.Clock = 0;
+            // MessagePanel.SetActive(false);
             GC.DestoryCardOnPanel();
         }
         else if (skillName.text == "抉擇束縛!")
@@ -68,10 +75,23 @@ public class ConfirmButton : MonoBehaviour
         else
         {
             Debug.Log("useSkill");
-            StartCoroutine(useSkill.Use(ClickDetector.skillId,true));
+            GameController.PlayerSkillId = ClickDetector.skillId;
+            UseSkill.Clock = 0;
+            for(int i = 0; i < SkillPanel.transform.childCount;i++)
+            {
+               SkillObject = SkillPanel.transform.GetChild(i).gameObject;
+               Skill = SkillObject.GetComponent<SkillDisplay>();
+               if(SkillObject.layer == 13 && Skill.id == ClickDetector.skillId)
+               {
+                    SkillObject.layer = LayerMask.NameToLayer("Skill(Used)");
+                    break;
+               }
+            }
+            
+            // StartCoroutine(useSkill.Use(ClickDetector.skillId,true));
             ClickDetector.skillId = -1;
         }
         
-        
+        gameObject.GetComponent<Button>().interactable = false;
     }
 }
