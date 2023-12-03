@@ -2,16 +2,17 @@ import mysql.connector
 from flask import current_app
 
 class DBManager:
-    def __init__(self, database='swegroup3game', host="db", user="root", password_file=None):
-        pf = open(password_file, 'r')
+    def __init__(self, database='game', host="localhost", user="swegroup3", password_file=None):
+        # pf = open(password_file, 'r')
         self.connection = mysql.connector.connect(
             user=user,
-            password=pf.read(),
+            # password=pf.read(),
+            password='Swegroup3@12345',
             host=host, # name of the mysql service as set in the docker compose file
             database=database,
             auth_plugin='mysql_native_password'
         )
-        pf.close()
+        # pf.close()
         self.cursor = self.connection.cursor()
 
 
