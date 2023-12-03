@@ -64,7 +64,8 @@ def Draw():
                     selectedCard = RandomlySelectCard(type)
                     cardId = selectedCard[0]
                     if ExistingCard(playerId,cardId,type):
-                        cardProb = "-1";
+                        cardProb = "-1"
+                        total_coins += 500
                     else:
                         cardProb = selectedCard[1]
                         InsertCard(playerId, cardId, type)
