@@ -67,6 +67,41 @@ public class ImageManager : MonoBehaviour
         cardStyleImages.Add(new GachaItem(28, "Frozen(平民)", Resources.Load<Sprite>("images/Skin/Romet and Juliette/Knight")));
         cardStyleImages.Add(new GachaItem(29, "Frozen(平民)", Resources.Load<Sprite>("images/Skin/Romet and Juliette/Prince")));
         cardStyleImages.Add(new GachaItem(30, "Frozen(平民)", Resources.Load<Sprite>("images/Skin/Romet and Juliette/Queen")));
+        // Chess
+        cardStyleImages.Add(new GachaItem(31, "Frozen(平民)", Resources.Load<Sprite>("images/Skin/chess/Civil")));
+        cardStyleImages.Add(new GachaItem(32, "Frozen(平民)", Resources.Load<Sprite>("images/Skin/chess/Killer")));
+        cardStyleImages.Add(new GachaItem(33, "Frozen(平民)", Resources.Load<Sprite>("images/Skin/chess/King")));
+        cardStyleImages.Add(new GachaItem(34, "Frozen(平民)", Resources.Load<Sprite>("images/Skin/chess/Knight")));
+        cardStyleImages.Add(new GachaItem(35, "Frozen(平民)", Resources.Load<Sprite>("images/Skin/chess/Prince")));
+        cardStyleImages.Add(new GachaItem(36, "Frozen(平民)", Resources.Load<Sprite>("images/Skin/chess/Queen")));
+        // Chinese chess
+        cardStyleImages.Add(new GachaItem(37, "Frozen(平民)", Resources.Load<Sprite>("images/Skin/Chinese chess/Civil")));
+        cardStyleImages.Add(new GachaItem(38, "Frozen(平民)", Resources.Load<Sprite>("images/Skin/Chinese chess/Killer")));
+        cardStyleImages.Add(new GachaItem(39, "Frozen(平民)", Resources.Load<Sprite>("images/Skin/Chinese chess/King")));
+        cardStyleImages.Add(new GachaItem(40, "Frozen(平民)", Resources.Load<Sprite>("images/Skin/Chinese chess/Knight")));
+        cardStyleImages.Add(new GachaItem(41, "Frozen(平民)", Resources.Load<Sprite>("images/Skin/Chinese chess/Prince")));
+        cardStyleImages.Add(new GachaItem(42, "Frozen(平民)", Resources.Load<Sprite>("images/Skin/Chinese chess/Queen")));
+        // Japanese chess
+        cardStyleImages.Add(new GachaItem(43, "Frozen(平民)", Resources.Load<Sprite>("images/Skin/Janpanese chess/Civil")));
+        cardStyleImages.Add(new GachaItem(44, "Frozen(平民)", Resources.Load<Sprite>("images/Skin/Janpanese chess/Killer")));
+        cardStyleImages.Add(new GachaItem(45, "Frozen(平民)", Resources.Load<Sprite>("images/Skin/Janpanese chess/King")));
+        cardStyleImages.Add(new GachaItem(46, "Frozen(平民)", Resources.Load<Sprite>("images/Skin/Janpanese chess/Knight")));
+        cardStyleImages.Add(new GachaItem(47, "Frozen(平民)", Resources.Load<Sprite>("images/Skin/Janpanese chess/Prince")));
+        cardStyleImages.Add(new GachaItem(48, "Frozen(平民)", Resources.Load<Sprite>("images/Skin/Janpanese chess/Queen")));
+        // Snow white
+        cardStyleImages.Add(new GachaItem(49, "Frozen(平民)", Resources.Load<Sprite>("images/Skin/Snow White/Civil")));
+        cardStyleImages.Add(new GachaItem(50, "Frozen(平民)", Resources.Load<Sprite>("images/Skin/Snow White/Killer")));
+        cardStyleImages.Add(new GachaItem(51, "Frozen(平民)", Resources.Load<Sprite>("images/Skin/Snow White/King")));
+        cardStyleImages.Add(new GachaItem(52, "Frozen(平民)", Resources.Load<Sprite>("images/Skin/Snow White/Knight")));
+        cardStyleImages.Add(new GachaItem(53, "Frozen(平民)", Resources.Load<Sprite>("images/Skin/Snow White/Prince")));
+        cardStyleImages.Add(new GachaItem(54, "Frozen(平民)", Resources.Load<Sprite>("images/Skin/Snow White/Queen")));
+        // 
+        cardStyleImages.Add(new GachaItem(45, "Frozen(平民)", Resources.Load<Sprite>("images/Skin/Frozen/Civil")));
+        cardStyleImages.Add(new GachaItem(56, "Frozen(平民)", Resources.Load<Sprite>("images/Skin/Frozen/Killer")));
+        cardStyleImages.Add(new GachaItem(57, "Frozen(平民)", Resources.Load<Sprite>("images/Skin/Frozen/King")));
+        cardStyleImages.Add(new GachaItem(58, "Frozen(平民)", Resources.Load<Sprite>("images/Skin/Frozen/Knight")));
+        cardStyleImages.Add(new GachaItem(59, "Frozen(平民)", Resources.Load<Sprite>("images/Skin/Frozen/Prince")));
+        cardStyleImages.Add(new GachaItem(60, "Frozen(平民)", Resources.Load<Sprite>("images/Skin/Frozen/Queen")));
     }
 
     public Sprite GetSkillImage(int skill_id)
