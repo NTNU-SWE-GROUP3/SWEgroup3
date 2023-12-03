@@ -68,7 +68,9 @@ public class UserSetting : MonoBehaviour
     //URL
     public static string serverUrl = "http://127.0.0.1:80";
     private string serverURL_playerdata = serverUrl + "/user_information/getplayerdata";
-  
+    private string serverURL_changeNickname = serverUrl + "/user_information/changenickname";
+    private string serverURL_changeEmail = serverUrl + "/user_information/changeemail";
+
 
     void Start()
     {
@@ -248,6 +250,7 @@ public class UserSetting : MonoBehaviour
 
                 // Warning Panel
                 UserSettingWarningPanel.SetActive(true);
+                NoticeTitleText.text = ("網路連接錯誤");
                 UseSettingMessage.text = "Please check your internet connection";
                 Debug.Log("Internet error");
 
@@ -300,20 +303,87 @@ public class UserSetting : MonoBehaviour
 
     private void UserChangeNickname()
     {
+
+        string new_nickname = NewInfoInput.text;
         ChangeInfoPanel.SetActive(true);
         InformInputText.text = ("請輸入新的暱稱");
         InfoPlaceholder.text = ("Enter new Nickname");
 
-
-        //NewInfoInput; 
-
         ChangeConfirmButton.onClick.AddListener(CloseChangeInfoPanel);
         //to be continue...
+        StartCoroutine(ChangeNicknameRequest(player_token, new_nickname));
+        Debug.Log("Try to Change User Nickname...");
 
+    }
+
+    private IEnumerator ChangeNicknameRequest(string player_token, string new_nickname)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("Token", player_token); //
+        form.AddField("NewNickname", new_nickname); //
+
+        using (UnityWebRequest www = UnityWebRequest.Post(serverURL_changeNickname, form))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
+            {
+                Debug.LogWarning(www.error);
+
+                // Warning Panel
+                UserSettingWarningPanel.SetActive(true);
+                NoticeTitleText.text = ("網路連接錯誤");
+                UseSettingMessage.text = "Please check your internet connection";
+                Debug.Log("Internet error");
+
+            }
+            else
+            {
+
+                string responseText = www.downloadHandler.text;
+                Debug.Log("Server Response: " + responseText);
+                // 解析伺服器回應的 JSON
+                NicknameResponseData responseData = JsonUtility.FromJson<NicknameResponseData>(responseText);
+                // 根據狀態碼執行不同的操作
+                switch (responseData.status)
+                {
+                    case "400000":
+                        Debug.Log("Nickname change sucessfully");
+                        NoticeTitleText.text = ("成功");
+                        UseSettingMessage.text = "成功更改玩家暱稱：" + new_nickname;
+                        break;
+
+                    case "403001":
+                        Debug.Log("User Name Existed");
+                        NoticeTitleText.text = ("改名失敗");
+                        UseSettingMessage.text = "已存在的玩家暱稱：" + new_nickname;
+                        break;
+
+                    case "403002":
+                        Debug.Log("User Name Too Long");
+                        NoticeTitleText.text = ("改名失敗");
+                        UseSettingMessage.text = "玩家暱稱長度過長";
+                        break;
+
+                    case "403003":
+                        Debug.Log("User Name is illigal");
+                        NoticeTitleText.text = ("改名失敗");
+                        UseSettingMessage.text = "玩家暱稱不符合規定";
+                        break;
+
+                    case "403011":
+                        Debug.Log("Token Expired");
+                        //>>>>>>>>>>>>>>>>>>>>> return to login
+                        break;
+
+                }
+            }
+        }
     }
 
     private void UserChangeEmail()
     {
+        string new_email = NewInfoInput.text;
         ChangeInfoPanel.SetActive(true);
         InformInputText.text = ("請輸入新的Email");
         InfoPlaceholder.text = ("Enter new Email");
@@ -321,7 +391,62 @@ public class UserSetting : MonoBehaviour
 
         ChangeConfirmButton.onClick.AddListener(CloseChangeInfoPanel);
         //to be continue...
+        StartCoroutine(ChangeEmailRequest(player_token, new_email));
+        Debug.Log("Try to Change Email...");
 
+    }
+
+    private IEnumerator ChangeEmailRequest(string player_token, string new_email)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("Token", player_token); //
+        form.AddField("Email", new_email); //
+
+        using (UnityWebRequest www = UnityWebRequest.Post(serverURL_changeEmail, form))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
+            {
+                Debug.LogWarning(www.error);
+
+                // Warning Panel
+                UserSettingWarningPanel.SetActive(true);
+                NoticeTitleText.text = ("網路連接錯誤");
+                UseSettingMessage.text = "Please check your internet connection";
+                Debug.Log("Internet error");
+
+            }
+            else
+            {
+
+                string responseText = www.downloadHandler.text;
+                Debug.Log("Server Response: " + responseText);
+                // 解析伺服器回應的 JSON
+                ChangeEmailResponseData responseData = JsonUtility.FromJson<ChangeEmailResponseData>(responseText);
+                // 根據狀態碼執行不同的操作
+                switch (responseData.status)
+                {
+                    case "400000":
+                        Debug.Log("Email check sucessfully, Email will be Sent!");
+                        NoticeTitleText.text = ("驗證信已發送");
+                        UseSettingMessage.text = "請到新的電子信箱點擊確認";
+                        break;
+
+                    case "403005":
+                        Debug.Log("Email has been uesd!");
+                        NoticeTitleText.text = ("錯誤");
+                        UseSettingMessage.text = "此Email已被註冊";
+                        break;
+
+                    case "403011":
+                        Debug.Log("Token Expired");
+                        //>>>>>>>>>>>>>>>>>>>>> return to login
+                        break;
+
+                }
+            }
+        }
     }
 
     private void ReportBug()
@@ -356,3 +481,14 @@ public class UserInformationResponseData
 
 }
 
+public class NicknameResponseData
+{
+    public string status;
+    public string msg;
+}
+
+public class ChangeEmailResponseData
+{
+    public string status;
+    public string msg;
+}
