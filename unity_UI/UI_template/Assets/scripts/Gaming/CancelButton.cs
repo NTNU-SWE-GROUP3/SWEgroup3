@@ -17,6 +17,6 @@ public class CancelButton : MonoBehaviour
         gameObject.SetActive(false);
         ConfirmButton.SetActive(false);
         ClickDetector.cardId = -1;
-        
+        ClickDetector.skillId = -1;
     }
 }
