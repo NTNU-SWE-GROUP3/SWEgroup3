@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class AudioManager : MonoBehaviour
 {
     private Image img;
-    private int count = 1;
+    //private int count = 1;
 
     private AudioSource audioSource;
     private Slider _slider;
