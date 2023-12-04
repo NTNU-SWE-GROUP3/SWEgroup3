@@ -88,9 +88,16 @@ public class CountDown : MonoBehaviour
     {
         Transform Card;
         Debug.Log("no card selected");
-        Card = PlayerArea.transform.GetChild(UseSkill.dilemmaDictatorIndex[0]);
-        Card.SetParent(PlayerShow.transform, false);
-        Card.position = PlayerShow.transform.position;
-        Card.gameObject.layer = LayerMask.NameToLayer("CardBack");
+        for (int i = 0;i<PlayerArea.transform.childCount;i++)
+        {
+            Card = PlayerArea.transform.GetChild(i);
+            if (PlayerArea.transform.GetChild(i).gameObject.GetComponent<CardDisplay>().id == UseSkill.PlayerDilemmaDictatorId[0])
+            {
+                Card.SetParent(PlayerShow.transform, false);
+                Card.position = PlayerShow.transform.position;
+                Card.gameObject.layer = LayerMask.NameToLayer("CardBack");
+                break;
+            }
+        } 
     }
 }
