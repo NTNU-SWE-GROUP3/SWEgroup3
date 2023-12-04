@@ -10,19 +10,40 @@ public class AudioManager : MonoBehaviour
     private int count = 1;
 
     private AudioSource audioSource;
+    private Slider _slider;
 
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        img = GameObject.Find("MusicButton").GetComponent<Image>();
+        //img = GameObject.Find("MusicButton").GetComponent<Image>();
+        img = GameObject.Find("Handle").GetComponent<Image>();
+        _slider = GameObject.Find("Slider").GetComponent<Slider>();
     }
+    void Update()
+    {
+        audioSource.volume = _slider.value;
+    }
+
     public void StopBGM()
     {
-        //audioSource.Stop();
-        //慢慢的把音樂切掉才比較好聽 所以我一開始就使用的方式
         StartCoroutine(FadeOut());
     }
-    public void ToggleAudio()
+
+    public IEnumerator FadeOut()
+    {
+        while (audioSource.volume > 0)
+        {
+            audioSource.volume -= 0.005f;
+            yield return new WaitForSeconds(0.02f);
+        }
+    }
+
+    public override int GetHashCode()
+    {
+        return img.GetHashCode();
+    }
+
+    /*public void ToggleAudio()
     {
         Next();
         if (audioSource != null)
@@ -44,19 +65,5 @@ public class AudioManager : MonoBehaviour
     {
         return obj is AudioManager change &&
                EqualityComparer<Image>.Default.Equals(img, change.img);
-    }
-
-    public IEnumerator FadeOut()
-    {
-        while (audioSource.volume > 0)
-        {
-            audioSource.volume -= 0.005f;
-            yield return new WaitForSeconds(0.02f);
-        }
-    }
-
-    public override int GetHashCode()
-    {
-        return img.GetHashCode();
-    }
+    }*/
 }
