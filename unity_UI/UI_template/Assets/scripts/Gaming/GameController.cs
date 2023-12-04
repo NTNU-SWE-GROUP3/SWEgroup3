@@ -293,7 +293,6 @@ public class GameController : MonoBehaviour
     
     IEnumerator VictorySE()
     {
-        audioManager.StopBGM();
         MusicImg = GameObject.Find("MusicButton").GetComponent<Image>();
         yield return new WaitForSeconds(2.5f);
         audioSource.PlayOneShot(VictoryVoice);
@@ -303,7 +302,6 @@ public class GameController : MonoBehaviour
     }
     IEnumerator DefeatSE()
     {
-        audioManager.StopBGM();
         MusicImg = GameObject.Find("MusicButton").GetComponent<Image>();
         yield return new WaitForSeconds(2.5f);
         int RandNum = Random.Range(0, 2);
@@ -326,7 +324,6 @@ public class GameController : MonoBehaviour
     }
     IEnumerator DrawSE()
     {
-        audioManager.StopBGM();
         yield return new WaitForSeconds(2.5f);
         audioSource.PlayOneShot(DrawVoice1);
     }

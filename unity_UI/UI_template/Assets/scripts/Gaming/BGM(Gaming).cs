@@ -11,6 +11,7 @@ public class AudioManager : MonoBehaviour
 
     private AudioSource audioSource;
     private Slider _slider;
+    private bool stop = false;
 
     private void Start()
     {
@@ -21,7 +22,10 @@ public class AudioManager : MonoBehaviour
     }
     void Update()
     {
-        audioSource.volume = _slider.value;
+        if(stop == false)
+        {
+            audioSource.volume = _slider.value;
+        }
     }
 
     public void StopBGM()
@@ -31,9 +35,10 @@ public class AudioManager : MonoBehaviour
 
     public IEnumerator FadeOut()
     {
+        stop = true;
         while (audioSource.volume > 0)
         {
-            audioSource.volume -= 0.005f;
+            audioSource.volume -= 0.007f;
             yield return new WaitForSeconds(0.02f);
         }
     }
