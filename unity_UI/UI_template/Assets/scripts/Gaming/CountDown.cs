@@ -14,10 +14,16 @@ public class CountDown : MonoBehaviour
     public Text TimerText;
     public GameObject PlayerArea;
     public GameObject PlayerShow;
+    public GameObject OpponentShow;
     public GameObject ShowDisplay;
     public GameObject MessagePanel;
     public Transform Card;
     ShowCard showcard;
+
+    GameObject PlayerCardObject;
+    GameObject OpponentCardObject;
+    CardDisplay PlayerCard;
+    CardDisplay OpponentCard;
 
     public AudioClip StartSound;
     AudioSource audioSource;
@@ -37,11 +43,41 @@ public class CountDown : MonoBehaviour
             yield return new WaitForSeconds(1);
             countdownTime -- ;
         }
+
+        GameStart gs = gameObject.AddComponent<GameStart>();
+        gs.type = 0;
+
+        CoroutineWithData cd = new CoroutineWithData(this, Flask.SendRequest(gs.SaveToString(),"gameStart"));
+        yield return cd.coroutine;
+        Debug.Log("return : " + cd.result);
+
+        string retString = cd.result.ToString();
+        RoomInfo ret = new RoomInfo();
+        if (retString == "ConnectionError" || retString == "ProtocolError" || retString == "InProgress" || retString == "DataProcessingError")
+        {
+            Debug.Log("GameController/CountdownToStart:" + retString);
+            //here should back to login scene
+        }
+        else
+        {
+            ret = RoomInfo.CreateFromJSON(cd.result.ToString());
+        }
+
+        int cardSet = -1;
+        if(ret.opponentCardSet == "A")
+        {
+            cardSet = 0;
+        }
+        else
+        {
+            cardSet = 1;
+        }
+
         countdownDisplay.text = "START!";
         audioSource = GetComponent<AudioSource>();
         audioSource.PlayOneShot(StartSound);
         yield return new WaitForSeconds(1f);
-        StartCoroutine(GC.GameBegin());
+        StartCoroutine(GC.GameBegin(cardSet));
         countdownDisplay.gameObject.SetActive(false);
     }
 
@@ -68,7 +104,39 @@ public class CountDown : MonoBehaviour
         DropZone.backToHand = true;
         if(PlayerShow.transform.childCount == 0)
             NoPlayCard();
-        StartCoroutine(showcard.Show());
+
+        // pass card info to server 
+        PlayerCardObject = PlayerShow.transform.GetChild(0).gameObject;
+        OpponentCardObject = OpponentShow.transform.GetChild(0).gameObject;
+        PlayerCard = PlayerCardObject.GetComponent<CardDisplay>();
+        OpponentCard = OpponentCardObject.GetComponent<CardDisplay>();
+
+        CardSelection selected = gameObject.AddComponent<CardSelection>();
+        selected.type = 0;
+        selected.player = 0;
+        selected.playerCardID = PlayerCard.id;
+        selected.opponetCardID = OpponentCard.id;
+        selected.isRevolution = ShowCard.isRevolution;
+        
+        CoroutineWithData cd = new CoroutineWithData(this, Flask.SendRequest(selected.SaveToString(),"cardSelection"));
+        yield return cd.coroutine;
+        Debug.Log("return : " + cd.result);
+
+        string retString = cd.result.ToString();
+        MsgBack ret = new MsgBack();
+        if (retString == "ConnectionError" || retString == "ProtocolError" || retString == "InProgress" || retString == "DataProcessingError")
+        {
+            Debug.Log("CountDown:" + retString);
+            //here should back to login scene
+            ret.winLoss = 0;
+            ret.trojanActivate = false;
+        }
+        else
+        {
+            ret = MsgBack.CreateFromJSON(cd.result.ToString());
+        }
+
+        StartCoroutine(showcard.Show(ret.winLoss , ret.trojanActivate));
         TimerText.text = "Show!"; 
         yield return new WaitForSeconds(1f);
         DragCard.canDrag = true;

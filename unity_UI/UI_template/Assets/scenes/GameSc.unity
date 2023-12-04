@@ -2124,6 +2124,7 @@ MonoBehaviour:
   TimerText: {fileID: 1164825670}
   PlayerArea: {fileID: 4935448267223214921}
   PlayerShow: {fileID: 789898237}
+  OpponentShow: {fileID: 1907401954}
   ShowDisplay: {fileID: 1605720186}
   MessagePanel: {fileID: 931180408}
   Card: {fileID: 0}
@@ -2230,7 +2231,6 @@ MonoBehaviour:
   SkillImage: {fileID: 312526179}
   PlayerEarnText: {fileID: 1561420044}
   OpponentEarnText: {fileID: 993464735}
-  isRevolution: 0
   isPlayerPeasantImmunity: 0
   isComPeasantImmunity: 0
   PlayerX: 0

@@ -20,7 +20,7 @@ public class ShowCard : MonoBehaviour
     public GameObject SkillImage;
     public Text PlayerEarnText;
     public Text OpponentEarnText;
-    public bool isRevolution;
+    public static bool isRevolution;
     public bool isPlayerPeasantImmunity;
     public bool isComPeasantImmunity;
     public int PlayerX;
@@ -53,7 +53,7 @@ public class ShowCard : MonoBehaviour
         GC = GameObject.Find("GameController").GetComponent<GameController>();
         deletChange = GameObject.Find("GameController").GetComponent<DeleteChange>();
     }
-    public IEnumerator Show()
+    public IEnumerator Show(int winLoss,bool trojanActivate)
     {
         PlayerCardObject = PlayerShow.transform.GetChild(0).gameObject;
         OpponentCardObject = OpponentShow.transform.GetChild(0).gameObject;
