@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 795b09b13787f2a49a1845ee83444279
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - Card: {fileID: 225055715617019185, guid: ea56a1f28f125b64b94264841ed61629, type: 3}
+  - PlayerArea: {instanceID: 0}
+  - OpponentArea: {instanceID: 0}
+  - DrawSound1: {fileID: 8300000, guid: 4b4ed2ce0eee642f1b1592612c9ef1a5, type: 3}
+  - DrawSound2: {fileID: 8300000, guid: 915399e4e9b294b0393b13c702bd7d7a, type: 3}
+  - tmp: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
