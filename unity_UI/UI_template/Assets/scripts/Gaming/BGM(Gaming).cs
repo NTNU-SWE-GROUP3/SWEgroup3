@@ -10,21 +10,20 @@ public class AudioManager : MonoBehaviour
     //private int count = 1;
 
     private AudioSource audioSource;
-    private Slider _slider;
+    private Slider slider;
     private bool stop = false;
 
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        //img = GameObject.Find("MusicButton").GetComponent<Image>();
         img = GameObject.Find("Handle").GetComponent<Image>();
-        _slider = GameObject.Find("Slider").GetComponent<Slider>();
+        slider = GameObject.Find("Slider").GetComponent<Slider>();
     }
     void Update()
     {
         if(stop == false)
         {
-            audioSource.volume = _slider.value;
+            audioSource.volume = slider.value;
         }
     }
 

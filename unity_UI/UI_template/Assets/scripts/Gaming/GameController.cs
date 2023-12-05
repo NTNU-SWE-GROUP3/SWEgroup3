@@ -40,6 +40,7 @@ public class GameController : MonoBehaviour
     public AudioManager audioManager;
     bool NoSkillCanUse;
     public Image MusicImg;
+    public Slider slider;
 
     public UseSkill useSkill;
     public static int PlayerSkillId;
@@ -293,16 +294,15 @@ public class GameController : MonoBehaviour
     
     IEnumerator VictorySE()
     {
-        MusicImg = GameObject.Find("MusicButton").GetComponent<Image>();
+        slider = GameObject.Find("Slider").GetComponent<Slider>();
+        float vol = slider.value;
         yield return new WaitForSeconds(2.5f);
         audioSource.PlayOneShot(VictoryVoice);
-        if(MusicImg.sprite == Resources.Load<Sprite>("images/Music1")){
-            audioSource.PlayOneShot(VictoryMusic);
-        }
+        audioSource.PlayOneShot(VictoryMusic, vol);
     }
     IEnumerator DefeatSE()
     {
-        MusicImg = GameObject.Find("MusicButton").GetComponent<Image>();
+        slider = GameObject.Find("Slider").GetComponent<Slider>();
         yield return new WaitForSeconds(2.5f);
         int RandNum = Random.Range(0, 2);
         if(RandNum == 0)
