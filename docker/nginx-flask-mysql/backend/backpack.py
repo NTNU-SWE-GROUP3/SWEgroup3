@@ -14,14 +14,15 @@ class BPManager:
         pf.close()
         self.cursor = self.connection.cursor()
 
-    def FindAccountId(self, accountName):
+    #if tokenid not even exist, -1 will be returned
+    def GetTokenExpiredTime(self, tokenid):
         insertStmt = (
-            "SELECT a.id FROM account a "
-            "WHERE a.name = %s "
-            "LIMIT 1"
+            "SELECT a.token_validity FROM account a "
+            "WHERE a.token_id = %s LIMIT 1"
         )
-        data = (accountName,)
+        data = (tokenid,)
         self.cursor.execute(insertStmt, data)
+        current_app.logger.info(self.cursor._executed)
         rec = []
         for c in self.cursor:
             rec.append(c[0])
@@ -30,58 +31,83 @@ class BPManager:
         else:
             return -1
         
-    def HaveCardStyle(self, account_id, card_style_id):
-        # current_app.logger.info(accountID)
-        # account_id = self.FindAccountId(accountID)
-        # current_app.logger.info(account_id)
-        # if(account_id == -1):
-        #     return False #account ID not found
-        account_id = int(account_id)
-        card_style_id = int(card_style_id)
-        current_app.logger.info("bp acc id: ",  account_id)
-        current_app.logger.info("bp card style id: ", card_style_id)
+    def GetCardStyle(self, token_id, card_style_id):
+        current_app.logger.info("bp acc id: " +  token_id)
+        current_app.logger.info("bp card style id: "+ card_style_id)
         selectInventoryStmt = (
-            # "SELECT 1 FROM account_card_style "
-            # "WHERE a.account_id = %s AND a.cardStyle = %s "
-            # "LIMIT 1"
-            "SELECT acs.card_style_id FROM account_card_style acs "
-            "WHERE acs.account_id = %s AND acs.card_style_id = %s "
+            "SELECT acs.card_style_id "
+            "FROM account a "
+            "JOIN account_card_style acs ON a.id = acs.account_id "
+            "WHERE a.token_id = %s AND acs.card_style_id = %s "
             "LIMIT 1"
         )
-        current_app.logger.info(selectInventoryStmt)
-        inventoryData = (account_id, card_style_id)
+        # current_app.logger.info(selectInventoryStmt)
+        inventoryData = (token_id, card_style_id,)
         self.cursor.execute(selectInventoryStmt, inventoryData)
-        result = self.cursor.fetchone()
-        # return bool(list(self.cursor))
-        current_app.logger.info("result: %s",result)
-        return bool(result)
+        current_app.logger.info(self.cursor._executed)
+        rec = []
+        for c in self.cursor:
+            rec.append(c[0])
+        
+        # current_app.logger.info("rec: ", rec)
+        
+        if(bool(rec)):
+            return rec[0]
+        else:
+            return -1
        
     
-    def EquipCardStyle(self, accountID, cardStyleID):
-        # account_id = self.FindAccountId(accountID)
-        # if(account_id == -1):
-        #     return False #account ID not found
+    def EquipCardStyle(self, token_id, cardStyleID):
         update_stmt = (
-            "UPDATE account_card_style "
-            "SET equip_status = 1"
-            "WHERE account_id = %s AND card_style_id = %s "
+            "UPDATE account_card_style acs "
+            "JOIN account a ON a.id = acs.account_id "
+            "SET acs.equip_status = 1 "
+            "WHERE a.token_id = %s AND acs.card_style_id = %s"
         )
 
-        updateData = (accountID, cardStyleID)
+        updateData = (token_id, cardStyleID,)
         self.cursor.execute(update_stmt, updateData)
+        current_app.logger.info(self.cursor._executed)
         self.connection.commit()
 
         return True
     
-    def SellCardStyle(self, accountID, targetCardStyleID):
-        account_id = self.FindAccountId(accountID)
-        if(account_id is None):
-            return False #account ID not found
-        delete_stmt = (
-            "DELETE FROM account_card_style "
-            'WHERE account_id = %s AND card_style_id = %s'
-        )
-        data = (accountID, targetCardStyleID)
-        self.cursor.execute(delete_stmt, data)
-        self.connection.commit()
+    def DisplayCardStyle(self, token_id, cardStyleID):
+        current_app.logger.info("input card style id: ", cardStyleID)
+         # Create a comma-separated string of placeholders for the IN clause
+        placeholders = ', '.join(['%s'] * len(cardStyleID))
+
+        select_stmt = (
+            "SELECT acs.card_style_id "
+            "FROM account a "
+            "JOIN account_card_style acs ON a.id = acs.account_id "
+            "WHERE a.token_id = %s AND acs.card_style_id IN ({})"
+        ).format(placeholders)
+
+        # Combine the token_id and cardStyleIDs into a single tuple
+        params = (token_id,) + tuple(cardStyleID)
+
+        self.cursor.execute(select_stmt, params)
+
+        # Fetch all the results
+        results = self.cursor.fetchall()
+
+        # Extract and return the card_style_id values
+        card_style_ids = [result[0] for result in results]
+        current_app.logger.info("result: ", card_style_ids)
+
+        return card_style_ids
+
+    
+    # def SellCardStyle(self, accountID, targetCardStyleID):
+    #     account_id = self.FindAccountId(accountID)
+    #     if(account_id is None):
+    #         return False #account ID not found
+    #     delete_stmt = (
+    #         "DELETE FROM account_card_style "
+    #         'WHERE account_id = %s AND card_style_id = %s'
+    #     )
+    #     data = (accountID, targetCardStyleID)
+    #     self.cursor.execute(delete_stmt, data)
+    #     self.connection.commit()
 
