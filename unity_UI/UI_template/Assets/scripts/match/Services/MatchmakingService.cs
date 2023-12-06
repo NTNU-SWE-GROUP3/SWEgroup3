@@ -6,8 +6,30 @@ using Unity.Netcode.Transports.UTP;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
 using Unity.Services.Relay;
+using Unity.Services.Core;
+using Unity.Services.Authentication;
 using UnityEngine;
 using Object = UnityEngine.Object;
+
+public static class Authentication
+{
+    public static string PlayerId { get; private set; }
+
+    public static async Task Login()
+    {
+        if (UnityServices.State == ServicesInitializationState.Uninitialized)
+        {
+            var options = new InitializationOptions();
+            await UnityServices.InitializeAsync(options);
+        }
+
+        if (!AuthenticationService.Instance.IsSignedIn)
+        {
+            await AuthenticationService.Instance.SignInAnonymouslyAsync();
+            PlayerId = AuthenticationService.Instance.PlayerId;
+        }
+    }
+}
 
 public static class MatchmakingService
 {
@@ -46,7 +68,7 @@ public static class MatchmakingService
             Filters = new List<QueryFilter> {
                 new(QueryFilter.FieldOptions.AvailableSlots, "0", QueryFilter.OpOptions.GT),
                 new(QueryFilter.FieldOptions.IsLocked, "0", QueryFilter.OpOptions.EQ),
-                new(QueryFilter.FieldOptions.N1, data.Type.ToString(), QueryFIlter.OpOptions.EQ)
+                new(QueryFilter.FieldOptions.N1, data.Type.ToString(), QueryFilter.OpOptions.EQ)
             }
         };
 
@@ -70,7 +92,7 @@ public static class MatchmakingService
                 }
             }
         };
-
+        //The name of the lobby will be same as the host player.
         _currentLobby = await Lobbies.Instance.CreateLobbyAsync("New", data.MaxPlayers, options);
 
         Transport.SetHostRelayData(a.RelayServer.IpV4, (ushort)a.RelayServer.Port, a.AllocationIdBytes, a.Key, a.ConnectionData);
