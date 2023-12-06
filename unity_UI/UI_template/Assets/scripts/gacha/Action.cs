@@ -7,6 +7,7 @@ using MiniJSON;
 using ResultAnimation;
 using PurchaseControl;
 
+
 public class Action : MonoBehaviour
 {
     [SerializeField] string apiUrl = "http://140.122.185.169:5050/gacha/draw";       // call API endpoint

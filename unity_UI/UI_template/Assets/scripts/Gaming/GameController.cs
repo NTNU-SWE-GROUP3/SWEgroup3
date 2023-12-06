@@ -52,6 +52,7 @@ public class GameController : MonoBehaviour
     AudioSource audioSource;
 
     bool ComSkillForbidden;
+    // int id;
 
     void Start()
     {
@@ -73,7 +74,14 @@ public class GameController : MonoBehaviour
         {
             ComPlayer = GameObject.Find("ComputerPlayer").GetComponent<ComputerPlayer>();
         }
-        StartCoroutine(SendRequest("token123"));
+        // id = PlayerPrefs.GetInt("id");
+        List<int> skills = LoadSkills();
+        Debug.Log(string.Join(", ", skills));
+        List<int> styles = LoadStyles();
+        Debug.Log(string.Join(", ", styles));
+
+
+
     }
     void Update()
     {
@@ -344,49 +352,52 @@ public class GameController : MonoBehaviour
         }
     }
 
-
-    IEnumerator SendRequest(string tokenId)
+    List<int> LoadSkills()
     {
-        Debug.Log("SendRequest");
-        WWWForm form = new WWWForm();
+        string skillsString = PlayerPrefs.GetString("skills", "");
 
-        form.AddField("token_id", tokenId);
-
-        UnityWebRequest www = UnityWebRequest.Post(apiUrl, form);
-        yield return www.SendWebRequest();
-
-        if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
+        if (!string.IsNullOrEmpty(skillsString))
         {
-            Debug.LogError(www.error);
+            string[] skillStrings = skillsString.Split(',');
+
+            List<int> skills = new List<int>();
+            foreach (string skillStr in skillStrings)
+            {
+                int id = System.Convert.ToInt32(skillStr);
+                skills.Add(id);
+            }
+
+            Debug.Log("Loaded Skills: " + string.Join(", ", skills));
+            return skills;
         }
         else
         {
-            response = www.downloadHandler.text;
-            Debug.Log(response);
-            Dictionary<string, object> jsonDict = Json.Deserialize(response) as Dictionary<string, object>;
-            if (jsonDict != null)
-            {
-                List<object> cardStyles = jsonDict["card_styles"] as List<object>;
-                Debug.Log("Card Styles Count: " + cardStyles.Count);
+            Debug.Log("No skills found in PlayerPrefs.");
+            return new List<int>();
+        }
+    }
+    List<int> LoadStyles()
+    {
+        string stylesString = PlayerPrefs.GetString("card_styles", "");
 
-                List<object> skills = jsonDict["skills"] as List<object>;
-                Debug.Log("Skills Count: " + skills.Count);
+        if (!string.IsNullOrEmpty(stylesString))
+        {
+            string[] styleStrings = stylesString.Split(',');
 
-                foreach (object skillId in skills)
-                {
-                    int id = System.Convert.ToInt32(skillId);
-                    Debug.Log("Skill ID: " + id);
-                }
-                foreach (object styleId in cardStyles)
-                {
-                    int id = System.Convert.ToInt32(styleId);
-                    Debug.Log("Style ID: " + id);
-                }
-            }
-            else
+            List<int> styles = new List<int>();
+            foreach (string styleStr in styleStrings)
             {
-                Debug.LogError("Failed to parse JSON data.");
+                int id = System.Convert.ToInt32(styleStr);
+                styles.Add(id);
             }
+
+            Debug.Log("Loaded Styles: " + string.Join(", ", styles));
+            return styles;
+        }
+        else
+        {
+            Debug.Log("No styles found in PlayerPrefs.");
+            return new List<int>();
         }
     }
 }
