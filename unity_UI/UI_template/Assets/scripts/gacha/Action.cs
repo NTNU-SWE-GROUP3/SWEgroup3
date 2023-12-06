@@ -335,22 +335,6 @@ public class Action : MonoBehaviour
                     Debug.Log("ID: " + id + ", Type: " + type + ", Note: " + note);
                 }
             }
-
-            // if (duplicate)
-            // {
-            //     if (jsonArray.Count == 1) 
-            //         OkButton = okButton1.GetComponent<Button>();
-            //     else if (jsonArray.Count == 10)
-            //         OkButton = okButton10.GetComponent<Button>();
-                 
-            //     OkButton.onClick.AddListener(() => OnOKButtonClick());
-            //     while (!okButtonClicked)
-            //     {
-            //         yield return null;
-            //     }
-            //     duplicatePanel.SetActive(true);
-            // }
-            // duplicate = false;
         }
         else
         {

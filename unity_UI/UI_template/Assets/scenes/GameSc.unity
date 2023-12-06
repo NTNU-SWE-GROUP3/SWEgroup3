@@ -2140,6 +2140,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dcd2e795d0d50248b301dded5fb713a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  apiUrl: http://140.122.185.169:5050/gaming/get_skills_card_styles
+  response: 
   drawCard: {fileID: 1211442830}
   ComPlayer: {fileID: 965809086}
   Timer: {fileID: 0}
