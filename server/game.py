@@ -8,7 +8,7 @@ gaming = Blueprint("gaming", __name__, url_prefix="/gaming")
 def index():
     return 200
 
-@gaming.route("/get_skills", methods=["POST"])
+@gaming.route("/get_skills_card_styles", methods=["POST"])
 def GetSkills():
     try:
         token_id = request.form.get("token_id")
@@ -16,13 +16,14 @@ def GetSkills():
 
         if account_id is not None:
             skills = GetEquippedSkills(account_id)
-            return jsonify({"skills": skills})
+            card_styles = GetEquippedCardStyles(account_id)
+            return jsonify({"skills": skills,"card_styles": card_styles})
         else:
-            return jsonify({"skills": -1}), 400
+            return jsonify({"skills": -1,"card_styles": -1}), 400
 
 
     except Exception as e:
-        return jsonify({"skills": -1}), 400
+        return jsonify({"skills": -1,"card_styles": -1}), 400
 
 
 @gaming.route("/get_card_styles", methods=["POST"])

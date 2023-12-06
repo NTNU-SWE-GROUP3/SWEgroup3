@@ -1,7 +1,8 @@
 from flask import Flask, request, jsonify
-import mysql.connector
 from gacha import gacha
 from game import gaming
+import mysql.connector
+import func
 
 import random
 
@@ -31,29 +32,16 @@ formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(messag
 fh.setFormatter(formatter)
 app.logger.addHandler(fh)
 
-
-# MySQL configuration
-db_config = {
-    "host": "localhost",
-    "user": "swegroup3",
-    "password": "Swegroup3@12345",
-    "database": "game",
-}
-
 app.register_blueprint(gacha)
 app.register_blueprint(gaming)
 app.register_blueprint(account)
 app.register_blueprint(forget_password)
 app.register_blueprint(user_information)
 
-# Function to create a MySQL connection
-def create_mysql_connection():
-    return mysql.connector.connect(**db_config,autocommit=True)
-
 @app.route("/")
 def index():
     try:
-        connection = create_mysql_connection()
+        connection = func.create_mysql_connection()
         cursor = connection.cursor(dictionary=True)
         print("connection sucess")
         cursor.execute("SELECT * FROM account")
