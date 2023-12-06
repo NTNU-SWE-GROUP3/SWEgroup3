@@ -304,7 +304,7 @@ public class ShowCard : MonoBehaviour
                 // 全部重製
                 if (PlayerCard.id == 8 && OpponentEarn.transform.childCount != 0)
                 {
-                    if (isComPeasantImmunity == true)
+                    if (isPlayerPeasantImmunity == true)
                          yield return StartCoroutine(PeasantImmunity());
                     else
                     {
@@ -316,7 +316,7 @@ public class ShowCard : MonoBehaviour
                 }
                 if (OpponentCard.id == 8 && PlayerEarn.transform.childCount != 0)
                 {
-                    if (isPlayerPeasantImmunity == true)
+                    if (isComPeasantImmunity == true)
                          yield return StartCoroutine(PeasantImmunity());
                     else
                     {
