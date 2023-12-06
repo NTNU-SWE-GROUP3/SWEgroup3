@@ -41,6 +41,40 @@ public class MsgBack
     }
 }
 
+public class SkillSelection: MonoBehaviour
+{
+    public int type;
+    public int player;
+    public int playerSkillID;
+
+    public string SaveToString()
+    {
+        return JsonUtility.ToJson(this);
+    }
+}
+
+[Serializable]
+public class SkillMsgBack
+{
+    public int OpponentSkillId;
+
+    public static SkillMsgBack CreateFromJSON(string jsonString)
+    {
+        
+        if (jsonString != "ConnectionError" && jsonString != "ProtocolError" && jsonString != "InProgress" && jsonString != "DataProcessingError")
+        {
+            Debug.Log("SkillmsgBack:" + jsonString);
+            return JsonUtility.FromJson<SkillMsgBack>(jsonString);
+        }
+        else
+        {
+            Debug.Log("SkillmsgBackErr:" + jsonString);
+            return null;
+        }
+        
+    }
+}
+
 public class GameStart: MonoBehaviour
 {
     public int type;

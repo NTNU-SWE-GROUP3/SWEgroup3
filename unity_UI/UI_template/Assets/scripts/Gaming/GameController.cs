@@ -197,6 +197,9 @@ public class GameController : MonoBehaviour
             yield return StartCoroutine(useSkill.Timer());
         }
 
+        
+
+
         MessagePanel.SetActive(true);
         SkillPanel.SetActive(false);
         ConfirmButton.SetActive(false);
@@ -209,6 +212,30 @@ public class GameController : MonoBehaviour
         {
             yield return new WaitForSeconds(1f);
         }
+
+        //---pass player skill id to server and receive opponent skill id------
+        SkillSelection selected = gameObject.AddComponent<SkillSelection>();
+        selected.type = 0;
+        selected.player = 0;
+        selected.playerSkillID = PlayerSkillId;
+        
+        CoroutineWithData cd = new CoroutineWithData(this, Flask.SendRequest(selected.SaveToString(),"skill"));
+        yield return cd.coroutine;
+        Debug.Log("return : " + cd.result);
+
+        string retString = cd.result.ToString();
+        SkillMsgBack ret = new SkillMsgBack();
+        if (retString == "ConnectionError" || retString == "ProtocolError" || retString == "InProgress" || retString == "DataProcessingError")
+        {
+            Debug.Log("CountDown:" + retString);
+            //here should back to login scene
+            ret.OpponentSkillId = -1;
+        }
+        else
+        {
+            ret = SkillMsgBack.CreateFromJSON(cd.result.ToString());
+        }
+        //---------------------------------------------------------------------
 
         Debug.Log("PLayer SUS" + PlayerSkillId);
         yield return StartCoroutine(useSkill.Use(PlayerSkillId,true));
