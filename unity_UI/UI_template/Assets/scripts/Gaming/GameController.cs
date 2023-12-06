@@ -12,9 +12,11 @@ public class GameController : MonoBehaviour
     public string apiUrl = "http://140.122.185.169:5050/gaming/get_skills_card_styles";
     public string response;
     public DrawCard drawCard;
+    public CardDatabase cardDatabase;
     public static bool isCom;
     public ComputerPlayer ComPlayer;
     public CountDown Timer;
+    public ShowSkill showSkill;
     public static int Turn;
     public Text TurnText;
     public GameObject PlayerShow;
@@ -66,6 +68,7 @@ public class GameController : MonoBehaviour
         SkillImage.SetActive(false);
         ConfirmButton.SetActive(false);
         CancelButton.SetActive(false);
+        cardDatabase  = GameObject.Find("CardDatabase").GetComponent<CardDatabase>();
         drawCard = GameObject.Find("GameController").GetComponent<DrawCard>();
         Timer = GameObject.Find("GameController").GetComponent<CountDown>();
         audioManager = GameObject.Find("AudioBox").GetComponent<AudioManager>();
@@ -75,10 +78,12 @@ public class GameController : MonoBehaviour
             ComPlayer = GameObject.Find("ComputerPlayer").GetComponent<ComputerPlayer>();
         }
         // id = PlayerPrefs.GetInt("id");
-        List<int> skills = LoadSkills();
-        Debug.Log(string.Join(", ", skills));
-        List<int> styles = LoadStyles();
-        Debug.Log(string.Join(", ", styles));
+        ShowSkill.PlayerSkillIdList = LoadSkills();
+        StartCoroutine(showSkill.ShowSkills());
+        Debug.Log(string.Join(", ", ShowSkill.PlayerSkillIdList));
+        CardDatabase.cardStyleIdList = LoadStyles();
+        cardDatabase.Create();
+        Debug.Log(string.Join(", ", CardDatabase.cardStyleIdList));
 
 
 

@@ -5,17 +5,81 @@ using UnityEngine;
 public class CardDatabase : MonoBehaviour
 {
     public static List<Card> cardList = new List<Card>();
+    public static List<int> cardStyleIdList = new List<int>();
     string ImageAddress = "images/Skin/";
+    string SkinStyle = "";
     string KingSkin = "Poker";
     string QueenSkin = "Poker";
     string PrinceSkin = "Poker";
     string KnightSkin = "Poker";
     string KillerSkin = "Poker";
     string CivilSkin = "Poker";
-    void Awake()
+    public void Create()
     {
-        // PrinceSkin = "Frozen";
-        // KnightSkin = "Frozen";
+        for(int i = 0;i<cardStyleIdList.Count;i++)
+        {
+            // if(cardStyleIdList[i] < 1 || cardStyleIdList[i] >60 )
+            //     Debug.Log("CardStyle Error");
+            switch((cardStyleIdList[i]-1)/6)
+            {
+                case 0 :
+                    SkinStyle = "Frozen"; 
+                    break;
+                case 1 :
+                    SkinStyle = "Aladin"; 
+                    break;
+                case 2 :
+                    SkinStyle = "Alice in wonderland"; 
+                    break;
+                case 3 :
+                    SkinStyle = "Cinderella"; 
+                    break;
+                case 4 :
+                    SkinStyle = "Romet and Julliette"; 
+                    break;
+                case 5 :
+                    SkinStyle = "Chess"; 
+                    break;
+                case 6 :
+                    SkinStyle = "Chinese chess"; 
+                    break;
+                case 7 :
+                    SkinStyle = "Japanese chess"; 
+                    break;
+                case 8 :
+                    SkinStyle = "Snow white"; 
+                    break;
+                case 9 :
+                    SkinStyle = "Frozen"; 
+                    break;
+            }
+
+            switch(cardStyleIdList[i]%6)
+            {
+                case 0 :
+                    QueenSkin = SkinStyle;
+                    break;
+                case 1 :
+                    CivilSkin = SkinStyle;
+                    break;
+                case 2 :
+                    KillerSkin = SkinStyle;
+                    break;
+                case 3 :
+                    KingSkin = SkinStyle; 
+                    break;
+                case 4 :
+                    KnightSkin = SkinStyle; 
+                    break;
+                case 5 :
+                    PrinceSkin = SkinStyle;
+                    break;
+            }
+        }
+
+
+
+
         cardList.Add(new Card(0,"國王","無技能","若對手為暗殺者或皇后落敗，反之則獲勝。",'A',Resources.Load<Sprite>(ImageAddress+ KingSkin + "/King")));//路徑可改
         cardList.Add(new Card(1,"皇后","無技能","若對手為暗殺者或王子落敗，反之則獲勝。",'A',Resources.Load<Sprite>(ImageAddress+ QueenSkin + "/Queen")));
         cardList.Add(new Card(2,"王子","無技能","若對手為暗殺者或國王落敗，反之則獲勝。",'A',Resources.Load<Sprite>(ImageAddress+ PrinceSkin + "/Prince")));

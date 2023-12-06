@@ -57,8 +57,7 @@ public class ComputerPlayer : MonoBehaviour
     {
         
         randomTime = Random.Range(30, 80);
-        // useSkillOrNot = Random.Range(1,100);
-        useSkillOrNot = 2;
+        useSkillOrNot = Random.Range(1,100);
         yield return new WaitForSeconds((float)(randomTime/10));
         if(useSkillOrNot % 2 == 0)
         {
