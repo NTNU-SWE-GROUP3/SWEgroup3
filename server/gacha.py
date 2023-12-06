@@ -5,18 +5,6 @@ import func
 
 gacha = Blueprint('gacha',__name__, url_prefix='/gacha')
 
-# db_config = {
-#     "host": "localhost",
-#     "user": "swegroup3",
-#     "password": "Swegroup3@12345",
-#     "database": "game",
-#     "auth_plugin": "mysql_native_password"
-# }
-
-
-# def create_mysql_connection():
-#     return mysql.connector.connect(**db_config,autocommit=True)
-
 @gacha.route("/draw", methods=["POST"])
 def Draw():
     try:
