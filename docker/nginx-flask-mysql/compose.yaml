@@ -38,8 +38,8 @@ services:
     restart: always
     secrets:
       - db-password
-    # ports:
-    #   - 8001:8000
+    ports:
+      - 8001:8000
     volumes:
       - ./backend:/code
     networks:
@@ -53,7 +53,7 @@ services:
     build: proxy
     restart: always
     ports:
-      - 81:80
+      - 80:80
     depends_on:
       - backend
     networks:

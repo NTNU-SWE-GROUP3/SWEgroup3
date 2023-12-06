@@ -238,7 +238,8 @@ public class UserSetting : MonoBehaviour
     private IEnumerator PlayerDataRequest(string player_token)
     {
         WWWForm form = new WWWForm();
-        form.AddField("Token", player_token); // 
+        form.AddField("Token", player_token); 
+        //Debug.log("player token = "+ player_token);
         
         using (UnityWebRequest www = UnityWebRequest.Post(serverURL_playerdata, form))
         {
