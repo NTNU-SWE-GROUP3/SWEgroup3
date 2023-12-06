@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Serialization;
+using UnityEngine.Networking;
+using MiniJSON;
+
 
 public class GameController : MonoBehaviour
 {
-
+    public string apiUrl = "http://140.122.185.169:5050/gaming/get_skills_card_styles";
+    public string response;
     public DrawCard drawCard;
     public static bool isCom;
     public ComputerPlayer ComPlayer;
@@ -48,7 +52,8 @@ public class GameController : MonoBehaviour
     AudioSource audioSource;
 
     bool ComSkillForbidden;
-    
+    // int id;
+
     void Start()
     {
         OpponentFUS = false;
@@ -65,10 +70,18 @@ public class GameController : MonoBehaviour
         Timer = GameObject.Find("GameController").GetComponent<CountDown>();
         audioManager = GameObject.Find("AudioBox").GetComponent<AudioManager>();
         audioSource = GetComponent<AudioSource>();
-        if(isCom == true)
+        if (isCom == true)
         {
             ComPlayer = GameObject.Find("ComputerPlayer").GetComponent<ComputerPlayer>();
         }
+        // id = PlayerPrefs.GetInt("id");
+        List<int> skills = LoadSkills();
+        Debug.Log(string.Join(", ", skills));
+        List<int> styles = LoadStyles();
+        Debug.Log(string.Join(", ", styles));
+
+
+
     }
     void Update()
     {
@@ -84,7 +97,7 @@ public class GameController : MonoBehaviour
     }
     public IEnumerator TurnStart()
     {
-       
+
         Turn++;
         MessagePanel.SetActive(true);
         DestoryCardOnPanel();
@@ -98,12 +111,12 @@ public class GameController : MonoBehaviour
         yield return new WaitForSeconds(1);
 
         DragCard.canDrag = true;
-        
+
         WinImage.SetActive(false);
         SkillPanel.SetActive(true);
         SkillImage.SetActive(true);
 
-        if(isCom == true)
+        if (isCom == true)
         {
             if (UseSkill.ComSkillNextForbidden == true)
             {
@@ -112,57 +125,57 @@ public class GameController : MonoBehaviour
             }
 
         }
-        
-        if(isCom == true && ComputerPlayer.ComSkillIndex < 3 && ComSkillForbidden == false)
+
+        if (isCom == true && ComputerPlayer.ComSkillIndex < 3 && ComSkillForbidden == false)
         {
             Debug.Log("Opponent Start Choosing Skill");
             StartCoroutine(ComPlayer.ToUseSkill());
-            
+
         }
-        else if(ComputerPlayer.ComSkillIndex >= 3)
+        else if (ComputerPlayer.ComSkillIndex >= 3)
         {
             Debug.Log("Opponent have no skill left");
-            if(isCom == true)
+            if (isCom == true)
             {
                 OpponentFUS = true;
             }
         }
-        else if(ComSkillForbidden == true)
+        else if (ComSkillForbidden == true)
         {
             Debug.Log("Opponent can't not use skill this round");
             ComSkillForbidden = false;
-            if(isCom == true)
+            if (isCom == true)
             {
                 OpponentFUS = true;
             }
         }
 
-        if(NoSkillCanUse == false)
+        if (NoSkillCanUse == false)
         {
             NoSkillCanUse = true;
-            for(int i = 0; i<SkillPanel.transform.childCount;i++)
+            for (int i = 0; i < SkillPanel.transform.childCount; i++)
             {
-                if(SkillPanel.transform.GetChild(i).gameObject.layer != 14 )
+                if (SkillPanel.transform.GetChild(i).gameObject.layer != 14)
                 {
                     NoSkillCanUse = false;
                     break;
                 }
             }
-                
+
         }
-        if(NoSkillCanUse == false)
+        if (NoSkillCanUse == false)
         {
-            if(UseSkill.PlayerSkillForbidden == false)
+            if (UseSkill.PlayerSkillForbidden == false)
             {
                 audioSource.PlayOneShot(PlayerSkillVoice1);
                 SkillMassage.text = "請選擇要使用的技能";
                 SkillDescription.text = "";
                 SkipButton.SetActive(true);
 
-                for(int i = 0; i<SkillPanel.transform.childCount;i++)
+                for (int i = 0; i < SkillPanel.transform.childCount; i++)
                 {
-                    if(SkillPanel.transform.GetChild(i).gameObject.layer == 15)
-                    SkillPanel.transform.GetChild(i).gameObject.layer = LayerMask.NameToLayer("Skill(Unused)");
+                    if (SkillPanel.transform.GetChild(i).gameObject.layer == 15)
+                        SkillPanel.transform.GetChild(i).gameObject.layer = LayerMask.NameToLayer("Skill(Unused)");
                 }
                 UseSkill.Clock = 8;
                 yield return StartCoroutine(useSkill.Timer());
@@ -175,10 +188,10 @@ public class GameController : MonoBehaviour
                 SkillDescription.text = "";
                 SkipButton.SetActive(true);
 
-                for(int i = 0; i<SkillPanel.transform.childCount;i++)
+                for (int i = 0; i < SkillPanel.transform.childCount; i++)
                 {
-                    if(SkillPanel.transform.GetChild(i).gameObject.layer == 13)
-                    SkillPanel.transform.GetChild(i).gameObject.layer = LayerMask.NameToLayer("Skill(Forbidden)");
+                    if (SkillPanel.transform.GetChild(i).gameObject.layer == 13)
+                        SkillPanel.transform.GetChild(i).gameObject.layer = LayerMask.NameToLayer("Skill(Forbidden)");
                 }
                 UseSkill.Clock = 8;
                 yield return StartCoroutine(useSkill.Timer());
@@ -187,7 +200,7 @@ public class GameController : MonoBehaviour
                 UseSkill.PlayerSkillForbidden = false;
             }
         }
-        else 
+        else
         {
             audioSource.PlayOneShot(PlayerSkillVoice2);
             SkillMassage.text = "已無技能可以使用";
@@ -205,18 +218,18 @@ public class GameController : MonoBehaviour
         SkillMassage.text = "等待對手使用技能";
         SkillDescription.text = "";
 
-        while(OpponentFUS == false)
+        while (OpponentFUS == false)
         {
             yield return new WaitForSeconds(1f);
         }
 
         Debug.Log("PLayer SUS" + PlayerSkillId);
-        yield return StartCoroutine(useSkill.Use(PlayerSkillId,true));
+        yield return StartCoroutine(useSkill.Use(PlayerSkillId, true));
         PlayerSkillId = -1;
         Debug.Log("PLayer FUS");
         yield return new WaitForSeconds(1f);
         Debug.Log("Oppo SUS " + OpponentSkillId);
-        yield return StartCoroutine(useSkill.Use(OpponentSkillId,false));
+        yield return StartCoroutine(useSkill.Use(OpponentSkillId, false));
         OpponentSkillId = -1;
         OpponentFUS = false;
         Debug.Log("Oppo FUS");
@@ -227,30 +240,30 @@ public class GameController : MonoBehaviour
         ConfirmButton.SetActive(false);
         CancelButton.SetActive(false);
         SkipButton.SetActive(false);
-        
-        if(PlayerShow.transform.childCount == 0)
+
+        if (PlayerShow.transform.childCount == 0)
         {
             DropZone.haveCard = false;
-            DropZone.backToHand = true; 
+            DropZone.backToHand = true;
             DragCard.canDrag = true;
         }
         else
         {
-             DragCard.canDrag = false;
+            DragCard.canDrag = false;
         }
 
         TurnText.text = "回合:" + Turn.ToString();
         StartCoroutine(Timer.TurnCountdown());
-        if(isCom == true)
+        if (isCom == true)
         {
             yield return StartCoroutine(ComPlayer.PlayCard());
         }
 
     }
 
-    public void FinishCheck(int PlayerEarnCard,int OpponentEarnCard,int PlayerHandCard,int OpponentHandCard)
+    public void FinishCheck(int PlayerEarnCard, int OpponentEarnCard, int PlayerHandCard, int OpponentHandCard)
     {
-        if( OpponentEarnCard< 10 && PlayerEarnCard < 10 && PlayerHandCard > 0 && OpponentHandCard > 0)
+        if (OpponentEarnCard < 10 && PlayerEarnCard < 10 && PlayerHandCard > 0 && OpponentHandCard > 0)
             StartCoroutine(TurnStart());
         else
         {
@@ -259,7 +272,7 @@ public class GameController : MonoBehaviour
             SkillImage.SetActive(false);
             WinImage.SetActive(true);
             NextRoundText.gameObject.SetActive(true);
-            if(PlayerEarnCard >= 10 )
+            if (PlayerEarnCard >= 10)
             {
                 NextRoundText.text = "VICTORY";
                 StartCoroutine(VictorySE());
@@ -271,12 +284,12 @@ public class GameController : MonoBehaviour
             }
             else
             {
-                if(PlayerEarnCard > OpponentEarnCard)
+                if (PlayerEarnCard > OpponentEarnCard)
                 {
                     NextRoundText.text = "VICTORY";
                     StartCoroutine(VictorySE());
                 }
-                else if(OpponentEarnCard > PlayerEarnCard)
+                else if (OpponentEarnCard > PlayerEarnCard)
                 {
                     NextRoundText.text = "DEFEAT";
                     StartCoroutine(DefeatSE());
@@ -291,13 +304,14 @@ public class GameController : MonoBehaviour
         }
     }
 
-    
+
     IEnumerator VictorySE()
     {
         MusicImg = GameObject.Find("MusicButton").GetComponent<Image>();
         yield return new WaitForSeconds(2.5f);
         audioSource.PlayOneShot(VictoryVoice);
-        if(MusicImg.sprite == Resources.Load<Sprite>("images/Music1")){
+        if (MusicImg.sprite == Resources.Load<Sprite>("images/Music1"))
+        {
             audioSource.PlayOneShot(VictoryMusic);
         }
     }
@@ -306,11 +320,11 @@ public class GameController : MonoBehaviour
         MusicImg = GameObject.Find("MusicButton").GetComponent<Image>();
         yield return new WaitForSeconds(2.5f);
         int RandNum = Random.Range(0, 2);
-        if(RandNum == 0)
+        if (RandNum == 0)
         {
             audioSource.PlayOneShot(DefeatVoice1);
         }
-        else if(RandNum == 1)
+        else if (RandNum == 1)
         {
             audioSource.PlayOneShot(DefeatVoice2);
         }
@@ -319,7 +333,8 @@ public class GameController : MonoBehaviour
             audioSource.PlayOneShot(DefeatVoice3);
         }
 
-        if(MusicImg.sprite == Resources.Load<Sprite>("images/Music1")){
+        if (MusicImg.sprite == Resources.Load<Sprite>("images/Music1"))
+        {
             audioSource.PlayOneShot(DefeatMusic);
         }
     }
@@ -330,10 +345,59 @@ public class GameController : MonoBehaviour
     }
     public void DestoryCardOnPanel()
     {
-        for(int i = 0 ; i < CardPanel.transform.childCount;i++)
+        for (int i = 0; i < CardPanel.transform.childCount; i++)
         {
             ClickDetector.cardId = -1;
             Destroy(CardPanel.transform.GetChild(i).gameObject);
+        }
+    }
+
+    List<int> LoadSkills()
+    {
+        string skillsString = PlayerPrefs.GetString("skills", "");
+
+        if (!string.IsNullOrEmpty(skillsString))
+        {
+            string[] skillStrings = skillsString.Split(',');
+
+            List<int> skills = new List<int>();
+            foreach (string skillStr in skillStrings)
+            {
+                int id = System.Convert.ToInt32(skillStr);
+                skills.Add(id);
+            }
+
+            Debug.Log("Loaded Skills: " + string.Join(", ", skills));
+            return skills;
+        }
+        else
+        {
+            Debug.Log("No skills found in PlayerPrefs.");
+            return new List<int>();
+        }
+    }
+    List<int> LoadStyles()
+    {
+        string stylesString = PlayerPrefs.GetString("card_styles", "");
+
+        if (!string.IsNullOrEmpty(stylesString))
+        {
+            string[] styleStrings = stylesString.Split(',');
+
+            List<int> styles = new List<int>();
+            foreach (string styleStr in styleStrings)
+            {
+                int id = System.Convert.ToInt32(styleStr);
+                styles.Add(id);
+            }
+
+            Debug.Log("Loaded Styles: " + string.Join(", ", styles));
+            return styles;
+        }
+        else
+        {
+            Debug.Log("No styles found in PlayerPrefs.");
+            return new List<int>();
         }
     }
 }

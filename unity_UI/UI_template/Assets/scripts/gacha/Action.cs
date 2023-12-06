@@ -7,6 +7,7 @@ using MiniJSON;
 using ResultAnimation;
 using PurchaseControl;
 
+
 public class Action : MonoBehaviour
 {
     [SerializeField] string apiUrl = "http://140.122.185.169:5050/gacha/draw";       // call API endpoint
@@ -335,22 +336,6 @@ public class Action : MonoBehaviour
                     Debug.Log("ID: " + id + ", Type: " + type + ", Note: " + note);
                 }
             }
-
-            // if (duplicate)
-            // {
-            //     if (jsonArray.Count == 1) 
-            //         OkButton = okButton1.GetComponent<Button>();
-            //     else if (jsonArray.Count == 10)
-            //         OkButton = okButton10.GetComponent<Button>();
-                 
-            //     OkButton.onClick.AddListener(() => OnOKButtonClick());
-            //     while (!okButtonClicked)
-            //     {
-            //         yield return null;
-            //     }
-            //     duplicatePanel.SetActive(true);
-            // }
-            // duplicate = false;
         }
         else
         {
