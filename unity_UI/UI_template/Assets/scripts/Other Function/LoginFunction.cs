@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using TMPro;
 
-public class ButtonLogMessage : MonoBehaviour
+public class LoginButtonLogMessage : MonoBehaviour
 {
     public Button login_btn;
     public string serverURL = "http://127.0.0.1:5000/login";

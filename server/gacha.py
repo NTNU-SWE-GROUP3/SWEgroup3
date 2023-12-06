@@ -35,12 +35,12 @@ def Draw():
 
         if (mode == "coin"):
             check = CoinCheck(playerId, coinsRequired)
-            error_message = "金幣不足"
+            error_message = "You don't have enough coins."
             total_coins = -Cost(times,mode)
             print(total_coins)
         elif mode =="cash":
             check = PaySuccess(playerId)
-            error_message = "付款失敗"
+            error_message = "Transaction failed."
 
         if check:
             resultCoins = []
@@ -63,8 +63,12 @@ def Draw():
                 else:
                     selectedCard = RandomlySelectCard(type)
                     cardId = selectedCard[0]
-                    cardProb = selectedCard[1]
-                    InsertCard(playerId, cardId, type)
+                    if ExistingCard(playerId,cardId,type):
+                        cardProb = "-1"
+                        total_coins += 500
+                    else:
+                        cardProb = selectedCard[1]
+                        InsertCard(playerId, cardId, type)
 
                 resultCards.append(
                     {
@@ -220,35 +224,35 @@ def RandomlySelectCard(cardType):
         raise ValueError("Error in RandomlySelectCard")
 
 
-# def ExistingCard(playerId, cardId, cardType):
-#     try:
-#         connection = create_mysql_connection()
-#         cursor = connection.cursor()
+def ExistingCard(playerId, cardId, cardType):
+    try:
+        connection = create_mysql_connection()
+        cursor = connection.cursor()
+        print("Checking for existing")
 
-#         if cardType == "skill":
-#             cursor.execute(
-#                 "SELECT id FROM account_skill WHERE account_id = %s and skill_id = %s",
-#                 (playerId, cardId),
-#             )
-#         elif cardType == "card_style":
-#             cursor.execute(
-#                 "SELECT id FROM account_card_style WHERE account_id = %s and card_style_id = %s",
-#                 (playerId, cardId),
-#             )
-#         else:
-#             return  # jsonify({"message": "wrong request"})
+        if cardType == "skill":
+            cursor.execute(
+                "SELECT id FROM account_skill WHERE account_id = %s and skill_id = %s",
+                (playerId, cardId),
+            )
+        elif cardType == "card_style":
+            cursor.execute(
+                "SELECT id FROM account_card_style WHERE account_id = %s and card_style_id = %s",
+                (playerId, cardId),
+            )
+        else:
+            return False
+        existingCard = cursor.fetchone()
+        connection.close()
 
-#         existingCard = cursor.fetchone()
-#         connection.close()
+        if existingCard:
+            print("player ", playerId, "already has this card!")
+            return True
 
-#         if existingCard:
-#             print("player ", playerId, "already has this card!")
-#             return True
-
-#         return False
-#     except Exception as e:
-#         print("Error in ExistingCard:", e)
-#         return False
+        return False
+    except Exception as e:
+        print("Error in ExistingCard:", e)
+        return False
 
 
 def InsertCard(playerId, cardId, cardType):
