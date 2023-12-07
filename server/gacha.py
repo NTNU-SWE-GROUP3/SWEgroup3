@@ -1,19 +1,9 @@
 import random
 import mysql.connector
 from flask import Flask, request, jsonify, Blueprint
+import func
 
 gacha = Blueprint('gacha',__name__, url_prefix='/gacha')
-
-db_config = {
-    "host": "localhost",
-    "user": "swegroup3",
-    "password": "Swegroup3@12345",
-    "database": "game",
-}
-
-
-def create_mysql_connection():
-    return mysql.connector.connect(**db_config,autocommit=True)
 
 @gacha.route("/draw", methods=["POST"])
 def Draw():
@@ -64,7 +54,8 @@ def Draw():
                     selectedCard = RandomlySelectCard(type)
                     cardId = selectedCard[0]
                     if ExistingCard(playerId,cardId,type):
-                        cardProb = "-1";
+                        cardProb = "-1"
+                        total_coins += 500
                     else:
                         cardProb = selectedCard[1]
                         InsertCard(playerId, cardId, type)
@@ -116,7 +107,7 @@ def Cost(times, mode):
 
 def CoinCheck(playerId, coinsRequired):
     try:
-        connection = create_mysql_connection()
+        connection = func.create_mysql_connection()
 
         if not connection:
             print("Failed to connect to the database.")
@@ -142,7 +133,7 @@ def CoinCheck(playerId, coinsRequired):
 
 def UpdatePlayerCoins(playerId, deductCoins):
     try:
-        connection = create_mysql_connection()
+        connection = func.create_mysql_connection()
         
         cursor = connection.cursor()
         cursor.execute(
@@ -174,7 +165,7 @@ def DetermineType(mode):
 
 def GetCardData(types):
     try:
-        connection = create_mysql_connection()
+        connection = func.create_mysql_connection()
         if not connection:
             print("Failed to connect to the database.")
             return None
@@ -225,7 +216,7 @@ def RandomlySelectCard(cardType):
 
 def ExistingCard(playerId, cardId, cardType):
     try:
-        connection = create_mysql_connection()
+        connection = func.create_mysql_connection()
         cursor = connection.cursor()
         print("Checking for existing")
 
@@ -256,7 +247,7 @@ def ExistingCard(playerId, cardId, cardType):
 
 def InsertCard(playerId, cardId, cardType):
     try:
-        connection = create_mysql_connection()
+        connection = func.create_mysql_connection()
 
         if not connection:
             print("Failed to connect to the database.")

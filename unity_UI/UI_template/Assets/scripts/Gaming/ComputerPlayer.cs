@@ -11,11 +11,14 @@ public class ComputerPlayer : MonoBehaviour
     public Transform Card;
     public UseSkill useSkill;
     public int test = 0;
-    int[] ComSkillIdList = {8,3,9};
+    int[] ComSkillIdList = {8,6,9};
     public static int ComSkillIndex;
+    int randomTime;
+    int useSkillOrNot;
     
     void Start()
     {
+        Random.InitState((int)System.DateTime.Now.Ticks);
         ComSkillIndex = 0;
     }
     public IEnumerator PlayCard()
@@ -37,8 +40,14 @@ public class ComputerPlayer : MonoBehaviour
         else 
         {
             int randomIndex = Random.Range(0,1);
-            Card = OpponentArea.transform.GetChild(UseSkill.dilemmaDictatorIndex[randomIndex]);
-            UseSkill.PlayerIsdilemmaDictator = false;
+            for(int i = 0;i<OpponentArea.transform.childCount;i++)
+            {
+                if (OpponentArea.transform.GetChild(i).gameObject.GetComponent<CardDisplay>().id == UseSkill.ComDilemmaDictatorId[randomIndex])
+                {
+                    Card = OpponentArea.transform.GetChild(i);
+                    UseSkill.PlayerIsdilemmaDictator = false;
+                }
+            }
         }
         Card.SetParent(OpponentShow.transform,false);
         Card.position = OpponentShow.transform.position;
@@ -46,9 +55,18 @@ public class ComputerPlayer : MonoBehaviour
     }
     public IEnumerator ToUseSkill()
     {
-        yield return new WaitForSeconds(2f);
-        yield return(StartCoroutine(useSkill.Use(ComSkillIdList[ComSkillIndex],false)));
-        ComSkillIndex ++;
+        
+        randomTime = Random.Range(30, 80);
+        useSkillOrNot = Random.Range(1,100);
+        yield return new WaitForSeconds((float)(randomTime/10));
+        if(useSkillOrNot % 2 == 0)
+        {
+            GameController.OpponentSkillId = ComSkillIdList[ComSkillIndex];
+            ComSkillIndex ++;
+        }
+        // yield return(StartCoroutine(useSkill.Use(ComSkillIdList[ComSkillIndex],false)));
+        GameController.OpponentFUS = true;
+        Debug.Log("Opponent Finish choosing skill");
     
     }
 

@@ -2140,10 +2140,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dcd2e795d0d50248b301dded5fb713a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  apiUrl: http://140.122.185.169:5050/gaming/get_skills_card_styles
+  response: 
   drawCard: {fileID: 1211442830}
-  isCom: 0
   ComPlayer: {fileID: 965809086}
   Timer: {fileID: 0}
+  showSkill: {fileID: 876056338}
   TurnText: {fileID: 327947321}
   PlayerShow: {fileID: 789898237}
   SkipButton: {fileID: 1564176768}
@@ -2677,6 +2679,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillName: {fileID: 1455593241}
+  SkipButton: {fileID: 0}
   OpponentArea: {fileID: 1001469411}
   PlayerArea: {fileID: 4935448267223214921}
   PlayerShow: {fileID: 789898237}
@@ -2684,6 +2687,7 @@ MonoBehaviour:
   Panel: {fileID: 603247139}
   CancelButton: {fileID: 1746798446}
   useSkill: {fileID: 1211442835}
+  SkillPanel: {fileID: 876056336}
 --- !u!82 &1320759887
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3625,6 +3629,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ConfirmButton: {fileID: 1320759881}
+  SkipButton: {fileID: 1564176768}
 --- !u!82 &1746798452
 AudioSource:
   m_ObjectHideFlags: 0
