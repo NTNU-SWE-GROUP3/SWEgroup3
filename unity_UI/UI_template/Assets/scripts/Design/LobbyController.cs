@@ -20,12 +20,14 @@ public class LobbyController : MonoBehaviour
         Lobby.SetActive(true);
         UIsys.SetActive(false);
     }
-    public void CreateLobbyFriend(){
+    public async void CreateLobbyFriend(){
 
         LobbyOrchestrator.FriendCreate();
 
-        Lobby.SetActive(true);
-        UIsys.SetActive(false);
+        // await MatchmakingService.LeaveLobby();
+
+        // Lobby.SetActive(true);
+        // UIsys.SetActive(false);
     }
     public void JoinLobbyFriend(){
         Lobby.SetActive(true);

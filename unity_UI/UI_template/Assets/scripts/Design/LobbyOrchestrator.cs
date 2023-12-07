@@ -16,7 +16,6 @@ public class LobbyOrchestrator : NetworkBehaviour {
     public static async void FriendCreate()
     {
         await Authentication.Login();
-        Debug.Log("Login Success!");
         //using (new Load("creating room...")) {
             try {
                 
@@ -31,7 +30,7 @@ public class LobbyOrchestrator : NetworkBehaviour {
                 await MatchmakingService.CreateLobbyWithAllocation(data);
 
                 // Starting the host immediately will keep the relay server alive
-                NetworkManager.Singleton.StartHost();
+                // NetworkManager.Singleton.StartHost();
             }
             catch (Exception e) {
                 Debug.LogError(e);

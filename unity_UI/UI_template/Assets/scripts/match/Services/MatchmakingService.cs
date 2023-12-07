@@ -78,12 +78,9 @@ public static class MatchmakingService
 
     public static async Task CreateLobbyWithAllocation(LobbyData data)
     {
-        Debug.Log("Test1");
         // Create a relay allocation and generate a join code to share with the lobby
         var a = await RelayService.Instance.CreateAllocationAsync(data.MaxPlayers);
-        Debug.Log("Test2");
         var joinCode = await RelayService.Instance.GetJoinCodeAsync(a.AllocationId);
-        Debug.Log("Test3");
         // Create a lobby, adding the relay join code to the lobby data
         var options = new CreateLobbyOptions
         {
@@ -96,24 +93,11 @@ public static class MatchmakingService
             }
         };
 
-        Debug.Log("Test4");
-
         //The name of the lobby will be same as the host player.
         _currentLobby = await Lobbies.Instance.CreateLobbyAsync("New", data.MaxPlayers, options);
 
-        Debug.Log("Test5");
+        //Transport.SetHostRelayData(a.RelayServer.IpV4, (ushort)a.RelayServer.Port, a.AllocationIdBytes, a.Key, a.ConnectionData);
 
-        if( a.RelayServer.IpV4 == null ) Debug.Log("a.RelayServer.IpV4 is null");
-        if( a.RelayServer.Port == null ) Debug.Log("a.RelayServer.Port is null");
-        if( a.AllocationIdBytes == null ) Debug.Log("a.AllocationIdBytes is null");
-        if( a.Key == null ) Debug.Log("a.Key is null");
-        if( a.ConnectionData == null ) Debug.Log("a.ConnectionData is null");
-
-        Debug.Log("Test6");
-
-        Transport.SetHostRelayData(a.RelayServer.IpV4, (ushort)a.RelayServer.Port, a.AllocationIdBytes, a.Key, a.ConnectionData);
-
-        Debug.Log("Test7");
         Heartbeat();
         PeriodicallyRefreshLobby();
     }
