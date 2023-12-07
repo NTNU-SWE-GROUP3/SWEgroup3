@@ -7,42 +7,23 @@ using UnityEngine.UI;
 public class MainAudioManager : MonoBehaviour
 {
     private Image img;
-    private int count = 1;
+    //private int count = 1;
 
     private AudioSource audioSource;
+    private Slider slider;
+    private bool stop = false;
 
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        img = GameObject.Find("MusicButton").GetComponent<Image>();
+        img = GameObject.Find("Handle").GetComponent<Image>();
+        slider = GameObject.Find("Slider").GetComponent<Slider>();
     }
-    
-    public void ToggleAudio()
+    void Update()
     {
-        Next();
-        if (audioSource != null)
+        if(stop == false)
         {
-            audioSource.mute = !audioSource.mute;
+            audioSource.volume = slider.value;
         }
-    }
-
-    public void Next()
-    {
-        count++;
-        if (count > 2)
-            count = 1;
-
-        img.sprite = Resources.Load<Sprite>("images/Music" + count.ToString());
-    }
-
-    public override global::System.Boolean Equals(global::System.Object obj)
-    {
-        return obj is MainAudioManager change &&
-               EqualityComparer<Image>.Default.Equals(img, change.img);
-    }
-
-    public override int GetHashCode()
-    {
-        return img.GetHashCode();
     }
 }
