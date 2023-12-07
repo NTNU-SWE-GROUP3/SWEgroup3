@@ -2145,6 +2145,7 @@ MonoBehaviour:
   drawCard: {fileID: 1211442830}
   ComPlayer: {fileID: 965809086}
   Timer: {fileID: 0}
+  showSkill: {fileID: 876056338}
   TurnText: {fileID: 327947321}
   PlayerShow: {fileID: 789898237}
   SkipButton: {fileID: 1564176768}
