@@ -9,6 +9,7 @@ public class CountDown : MonoBehaviour
     public GameController GC;
     public int countdownTime;
     public static int TurnTime = 5;
+    public static bool timeUp = false;
     public Text countdownDisplay;
     public Text TimerText;
     public GameObject PlayerArea;
@@ -48,20 +49,31 @@ public class CountDown : MonoBehaviour
     {
         MessagePanel.SetActive(false);
         TurnTime = 5;
+        timeUp = false;
         TimerText.gameObject.SetActive(true);
+        if (ConfirmButton.CardSelected == false && UseSkill.PlayerIsdilemmaDictator == true)
+        {
+            dilemmaDictator();
+            UseSkill.PlayerIsdilemmaDictator = false;
+        }
+            
         while(TurnTime >= 0)
         {
             TimerText.text = TurnTime.ToString();
             yield return new WaitForSeconds(1);
             TurnTime -- ;
         }
+        timeUp = true;
+        DragCard.canDrag = false;
+        DropZone.backToHand = true;
         if(PlayerShow.transform.childCount == 0)
             NoPlayCard();
-        TimerText.text = "Show!";
-        yield return new WaitForSeconds(0.5f);
-        StartCoroutine(showcard.Show()); 
-        TimerText.gameObject.SetActive(false);
+        StartCoroutine(showcard.Show());
+        TimerText.text = "Show!"; 
         yield return new WaitForSeconds(1f);
+        DragCard.canDrag = true;
+        DropZone.haveCard = false;
+        TimerText.gameObject.SetActive(false);
         MessagePanel.SetActive(true);
     }
 
@@ -71,5 +83,21 @@ public class CountDown : MonoBehaviour
         Card.SetParent(PlayerShow.transform,false);
         Card.position = ShowDisplay.transform.position;
         Card.gameObject.layer = LayerMask.NameToLayer("CardBack");
+    }
+    void dilemmaDictator()
+    {
+        Transform Card;
+        Debug.Log("no card selected");
+        for (int i = 0;i<PlayerArea.transform.childCount;i++)
+        {
+            Card = PlayerArea.transform.GetChild(i);
+            if (PlayerArea.transform.GetChild(i).gameObject.GetComponent<CardDisplay>().id == UseSkill.PlayerDilemmaDictatorId[0])
+            {
+                Card.SetParent(PlayerShow.transform, false);
+                Card.position = PlayerShow.transform.position;
+                Card.gameObject.layer = LayerMask.NameToLayer("CardBack");
+                break;
+            }
+        } 
     }
 }

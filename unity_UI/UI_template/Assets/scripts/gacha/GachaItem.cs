@@ -13,6 +13,5 @@ public class GachaItem
         id = _id;
         itemName = _itemName;
         itemSprite = _itemSprite;
-    
     }
 }

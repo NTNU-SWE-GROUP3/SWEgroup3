@@ -1654,6 +1654,7 @@ MonoBehaviour:
   OpponentArea: {fileID: 1001469411}
   OpponentShow: {fileID: 1907401954}
   Card: {fileID: 0}
+  useSkill: {fileID: 1211442835}
   test: 0
 --- !u!4 &965809087
 Transform:
@@ -2139,11 +2140,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dcd2e795d0d50248b301dded5fb713a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  apiUrl: http://140.122.185.169:5050/gaming/get_skills_card_styles
+  response: 
   drawCard: {fileID: 1211442830}
-  isCom: 0
   ComPlayer: {fileID: 965809086}
   Timer: {fileID: 0}
+  showSkill: {fileID: 876056338}
   TurnText: {fileID: 327947321}
+  PlayerShow: {fileID: 789898237}
   SkipButton: {fileID: 1564176768}
   ConfirmButton: {fileID: 1320759881}
   CancelButton: {fileID: 1746798446}
@@ -2165,6 +2169,8 @@ MonoBehaviour:
   DefeatVoice2: {fileID: 8300000, guid: 4df30ff70193c44ce875f94483e2ed05, type: 3}
   DefeatVoice3: {fileID: 8300000, guid: 20dea5616fbd840a7ad7e52dd418ce87, type: 3}
   DrawVoice1: {fileID: 8300000, guid: 1ad7b48627b1941339407753a51923b7, type: 3}
+  PlayerSkillVoice1: {fileID: 8300000, guid: b886837dc5dbf42ab8a608d93ebe0d40, type: 3}
+  PlayerSkillVoice2: {fileID: 8300000, guid: 33b031d57a485469693565f7fd7214aa, type: 3}
   audioManager: {fileID: 0}
   MusicImg: {fileID: 0}
   useSkill: {fileID: 1211442835}
@@ -2228,7 +2234,8 @@ MonoBehaviour:
   PlayerEarnText: {fileID: 1561420044}
   OpponentEarnText: {fileID: 993464735}
   isRevolution: 0
-  isPeasantImmunity: 0
+  isPlayerPeasantImmunity: 0
+  isComPeasantImmunity: 0
   PlayerX: 0
   OpponentX: 0
   RejectTimerText: {fileID: 377826939}
@@ -2236,7 +2243,7 @@ MonoBehaviour:
   LoseSound: {fileID: 8300000, guid: db84a8c175c6e43f4a0aa4e4502d6c4e, type: 3}
   DrawSound: {fileID: 8300000, guid: 54758be23312f474c89cfde4a6fe2753, type: 3}
   CardSound: {fileID: 8300000, guid: c7e9331306df6417aac3b8dcd857d71d, type: 3}
-  SkillSound: {fileID: 8300000, guid: 199e5977d4edb4d5a97821984930f453, type: 3}
+  SkillSound: {fileID: 8300000, guid: 2604d060c560d4011933553cffa90391, type: 3}
   MoveSound: {fileID: 8300000, guid: a7cafb3f4d47049c8aac84f484e0d3ec, type: 3}
 --- !u!114 &1211442832
 MonoBehaviour:
@@ -2361,11 +2368,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerArea: {fileID: 4935448267223214921}
   OpponentArea: {fileID: 1001469411}
+  PlayerShow: {fileID: 789898237}
   SkillPanel: {fileID: 876056336}
   SkipButton: {fileID: 1564176768}
-  ConfirmButton: {fileID: 1320759881}
+  ToConfirmButton: {fileID: 1320759881}
   CancelButton: {fileID: 1746798446}
   TimerText: {fileID: 377826939}
+  UseSkillVoice: {fileID: 8300000, guid: 199e5977d4edb4d5a97821984930f453, type: 3}
 --- !u!1 &1214895670
 GameObject:
   m_ObjectHideFlags: 0
@@ -2670,12 +2679,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillName: {fileID: 1455593241}
+  SkipButton: {fileID: 0}
   OpponentArea: {fileID: 1001469411}
   PlayerArea: {fileID: 4935448267223214921}
+  PlayerShow: {fileID: 789898237}
   MessagePanel: {fileID: 931180408}
   Panel: {fileID: 603247139}
   CancelButton: {fileID: 1746798446}
   useSkill: {fileID: 1211442835}
+  SkillPanel: {fileID: 876056336}
 --- !u!82 &1320759887
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3617,6 +3629,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ConfirmButton: {fileID: 1320759881}
+  SkipButton: {fileID: 1564176768}
 --- !u!82 &1746798452
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4323,8 +4336,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 8670687176267134658, guid: 88b114c6362519748889e919a862bbff, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -4434,8 +4446,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerArea
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 5083800136852409340, guid: ba109f6aad84dd94285eecdf66bd296c, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -4448,30 +4459,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 368509981}
     m_Modifications:
-    - target: {fileID: 712016594536387416, guid: 71613f38c60424a40816f3ff0f26ca3c, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 712016594536387416, guid: 71613f38c60424a40816f3ff0f26ca3c, type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 712016594536387416, guid: 71613f38c60424a40816f3ff0f26ca3c, type: 3}
-      propertyPath: m_Color.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 712016594536387416, guid: 71613f38c60424a40816f3ff0f26ca3c, type: 3}
-      propertyPath: m_Color.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 712016594536387416, guid: 71613f38c60424a40816f3ff0f26ca3c, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 712016594536387416, guid: 71613f38c60424a40816f3ff0f26ca3c, type: 3}
-      propertyPath: m_Maskable
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 774172642033849534, guid: 71613f38c60424a40816f3ff0f26ca3c, type: 3}
       propertyPath: m_Name
       value: PlayerShow
@@ -4556,10 +4543,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3923778682509121961, guid: 71613f38c60424a40816f3ff0f26ca3c, type: 3}
-      propertyPath: Dragsound
-      value: 
-      objectReference: {fileID: 8300000, guid: a7cafb3f4d47049c8aac84f484e0d3ec, type: 3}
     - target: {fileID: 3923778682509121961, guid: 71613f38c60424a40816f3ff0f26ca3c, type: 3}
       propertyPath: showDisplay
       value: 
@@ -4660,10 +4643,6 @@ PrefabInstance:
     - target: {fileID: 3243715292028838269, guid: 10761a2b84106844c9739628b37da254, type: 3}
       propertyPath: m_Name
       value: OpponentEarn
-      objectReference: {fileID: 0}
-    - target: {fileID: 4381215996554636741, guid: 10761a2b84106844c9739628b37da254, type: 3}
-      propertyPath: m_Enabled
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4807,14 +4786,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 368509981}
     m_Modifications:
-    - target: {fileID: 219774118515909101, guid: 6ef8ebd16501de447a3e8126e2378964, type: 3}
-      propertyPath: m_Type
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 219774118515909101, guid: 6ef8ebd16501de447a3e8126e2378964, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: b4df38b9bf9de334bb1c117c6f1baf7e, type: 3}
     - target: {fileID: 1409124940322730627, guid: 6ef8ebd16501de447a3e8126e2378964, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4899,8 +4870,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: OpponentShow
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 219774118515909101, guid: 6ef8ebd16501de447a3e8126e2378964, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -5094,10 +5064,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7507251697276993839, guid: 3614c5492f2454e48b7a3e340835d953, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5111,18 +5077,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 368509981}
     m_Modifications:
-    - target: {fileID: 2612057164299363771, guid: 62d2ecb5bcbc8d14982303110362e974, type: 3}
-      propertyPath: m_Type
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2612057164299363771, guid: 62d2ecb5bcbc8d14982303110362e974, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: d19dacd9da799984d883ffb2c58f38b9, type: 3}
-    - target: {fileID: 6608479136636435036, guid: 62d2ecb5bcbc8d14982303110362e974, type: 3}
-      propertyPath: m_Spacing.x
-      value: -100
-      objectReference: {fileID: 0}
     - target: {fileID: 6769267504849743444, guid: 62d2ecb5bcbc8d14982303110362e974, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

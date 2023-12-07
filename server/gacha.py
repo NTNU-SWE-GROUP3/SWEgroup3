@@ -1,19 +1,9 @@
 import random
 import mysql.connector
 from flask import Flask, request, jsonify, Blueprint
+import func
 
 gacha = Blueprint('gacha',__name__, url_prefix='/gacha')
-
-db_config = {
-    "host": "localhost",
-    "user": "swegroup3",
-    "password": "Swegroup3@12345",
-    "database": "game",
-}
-
-# Function to create a MySQL connection
-def create_mysql_connection():
-    return mysql.connector.connect(**db_config,autocommit=True)
 
 @gacha.route("/draw", methods=["POST"])
 def Draw():
@@ -35,11 +25,12 @@ def Draw():
 
         if (mode == "coin"):
             check = CoinCheck(playerId, coinsRequired)
-            error_message = "金幣不足"
+            error_message = "You don't have enough coins."
             total_coins = -Cost(times,mode)
+            print(total_coins)
         elif mode =="cash":
             check = PaySuccess(playerId)
-            error_message = "付款失敗"
+            error_message = "Transaction failed."
 
         if check:
             resultCoins = []
@@ -50,19 +41,24 @@ def Draw():
                 cardId = 0
                 cardProb = 0
                 coinValues = [100, 200, 300, 400, 500]
+                coinWeight = [0.4,0.25,0.2,0.15,0.05]
                 coinValue = 0
 
                 if type == "coins":
-                    coinValue = random.choice(coinValues)
+                    coinValue = random.choices(coinValues,coinWeight)[0]
                     print(coinValue)
                     total_coins += coinValue
-                    UpdatePlayerCoins(playerId, -coinValue)
+                    # UpdatePlayerCoins(playerId, -coinValue)
                     resultCoins.append({"coin": coinValue})
                 else:
                     selectedCard = RandomlySelectCard(type)
                     cardId = selectedCard[0]
-                    cardProb = selectedCard[1]
-                    InsertCard(playerId, cardId, type)
+                    if ExistingCard(playerId,cardId,type):
+                        cardProb = "-1"
+                        total_coins += 500
+                    else:
+                        cardProb = selectedCard[1]
+                        InsertCard(playerId, cardId, type)
 
                 resultCards.append(
                     {
@@ -73,7 +69,8 @@ def Draw():
                 )
 
             response = resultCards
-            # UpdatePlayerCoins(playerId, total_coins)
+            print(total_coins)
+            UpdatePlayerCoins(playerId, total_coins)
         else:
                 resultCards.append(
                     {
@@ -94,14 +91,14 @@ def Cost(times, mode):
         if times == 1:
             return 1000
         elif times == 10:
-            return 4000
+            return 9000
         else:
             return 0
     elif mode == "cash":
         if times == 1:
             return 30
         elif times == 10:
-            return 120
+            return 270
         else:
             return 0
     else:
@@ -110,7 +107,7 @@ def Cost(times, mode):
 
 def CoinCheck(playerId, coinsRequired):
     try:
-        connection = create_mysql_connection()
+        connection = func.create_mysql_connection()
 
         if not connection:
             print("Failed to connect to the database.")
@@ -136,11 +133,11 @@ def CoinCheck(playerId, coinsRequired):
 
 def UpdatePlayerCoins(playerId, deductCoins):
     try:
-        connection = create_mysql_connection()
+        connection = func.create_mysql_connection()
         
         cursor = connection.cursor()
         cursor.execute(
-            "UPDATE account_data SET coin = coin - %s WHERE account_id = %s",
+            "UPDATE account_data SET coin = coin + %s WHERE account_id = %s",
             (deductCoins, playerId),
         )
         connection.commit()
@@ -168,7 +165,7 @@ def DetermineType(mode):
 
 def GetCardData(types):
     try:
-        connection = create_mysql_connection()
+        connection = func.create_mysql_connection()
         if not connection:
             print("Failed to connect to the database.")
             return None
@@ -196,9 +193,9 @@ def GetCardData(types):
 def RandomlySelectCard(cardType):
     try:
         allCards = GetCardData(cardType)
-        print(allCards)
+        # print(allCards)
         allCards = sorted(allCards, key=lambda x: x[1])
-        print(allCards)
+        # print(allCards)
 
         if allCards is None:
             print("No cards found")
@@ -217,40 +214,40 @@ def RandomlySelectCard(cardType):
         raise ValueError("Error in RandomlySelectCard")
 
 
-# def ExistingCard(playerId, cardId, cardType):
-#     try:
-#         connection = create_mysql_connection()
-#         cursor = connection.cursor()
+def ExistingCard(playerId, cardId, cardType):
+    try:
+        connection = func.create_mysql_connection()
+        cursor = connection.cursor()
+        print("Checking for existing")
 
-#         if cardType == "skill":
-#             cursor.execute(
-#                 "SELECT id FROM account_skill WHERE account_id = %s and skill_id = %s",
-#                 (playerId, cardId),
-#             )
-#         elif cardType == "card_style":
-#             cursor.execute(
-#                 "SELECT id FROM account_card_style WHERE account_id = %s and card_style_id = %s",
-#                 (playerId, cardId),
-#             )
-#         else:
-#             return  # jsonify({"message": "wrong request"})
+        if cardType == "skill":
+            cursor.execute(
+                "SELECT id FROM account_skill WHERE account_id = %s and skill_id = %s",
+                (playerId, cardId),
+            )
+        elif cardType == "card_style":
+            cursor.execute(
+                "SELECT id FROM account_card_style WHERE account_id = %s and card_style_id = %s",
+                (playerId, cardId),
+            )
+        else:
+            return False
+        existingCard = cursor.fetchone()
+        connection.close()
 
-#         existingCard = cursor.fetchone()
-#         connection.close()
+        if existingCard:
+            print("player ", playerId, "already has this card!")
+            return True
 
-#         if existingCard:
-#             print("player ", playerId, "already has this card!")
-#             return True
-
-#         return False
-#     except Exception as e:
-#         print("Error in ExistingCard:", e)
-#         return False
+        return False
+    except Exception as e:
+        print("Error in ExistingCard:", e)
+        return False
 
 
 def InsertCard(playerId, cardId, cardType):
     try:
-        connection = create_mysql_connection()
+        connection = func.create_mysql_connection()
 
         if not connection:
             print("Failed to connect to the database.")

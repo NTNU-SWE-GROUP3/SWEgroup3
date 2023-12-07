@@ -1,3 +1,8 @@
+-- USE game;
+-- Execute below command on your shell to setup tables, after uncomment above 'USE game;'
+-- mysql -u swegroup3 -p < (work directory's URL here)/database/tables.sql
+
+
 -- MySQL dump 10.13  Distrib 8.1.0, for macos13.3 (arm64)
 --
 -- Host: localhost    Database: game
@@ -28,9 +33,9 @@ CREATE TABLE `account` (
   `email` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
   `token_id` varchar(255) DEFAULT NULL,
-  `token_validity` timestamp DEFAULT NULL,
+  `token_validity` datetime DEFAULT NULL,
   `verify_code` varchar(255) DEFAULT NULL,
-  `expiration_time` timestamp DEFAULT NULL,
+  `expiration_time` datetime DEFAULT NULL,
   `salt` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `token_id` (`token_id`)
@@ -85,7 +90,7 @@ CREATE TABLE `account_card_style` (
   `id` int NOT NULL AUTO_INCREMENT,
   `account_id` int DEFAULT NULL,
   `card_style_id` int DEFAULT NULL,
-  `equip_status` int DEFAULT NULL,
+  `equip_status` int DEFAULT 0,
   PRIMARY KEY (`id`),
   KEY `account_id` (`account_id`),
   KEY `card_style_id` (`card_style_id`),
@@ -146,7 +151,7 @@ CREATE TABLE `account_skill` (
   `id` int NOT NULL AUTO_INCREMENT,
   `account_id` int DEFAULT NULL,
   `skill_id` int DEFAULT NULL,
-  `equip_status` int DEFAULT NULL,
+  `equip_status` int DEFAULT 0,
   PRIMARY KEY (`id`),
   KEY `account_id` (`account_id`),
   KEY `skill_id` (`skill_id`),
