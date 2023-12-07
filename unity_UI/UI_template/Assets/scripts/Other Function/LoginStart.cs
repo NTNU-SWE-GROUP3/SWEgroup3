@@ -9,7 +9,7 @@ using TMPro;
 
 public class strat : MonoBehaviour
 {
-
+    private GameObject SceneController;
     private GameObject LoginPanel;
     private GameObject SignUpPanel;
     private GameObject PasswordPanel1;
@@ -63,6 +63,7 @@ public class strat : MonoBehaviour
 
     void Start()
     {
+        SceneController = GameObject.Find("SceneController");
         LoginPanel = GameObject.Find("LoginPanel");
         SignUpPanel = GameObject.Find("SignUpPanel");
         PasswordPanel1 = GameObject.Find("PasswordPanel1");
@@ -210,6 +211,9 @@ public class strat : MonoBehaviour
                         WarningPanel.SetActive(true);
                         
                         // 執行登入成功的操作
+                        // SceneController.SceneZero();
+                        SceneController SceneControl = SceneController.GetComponent<SceneController>();
+                        SceneControl.SceneZero();
 
                         /////////////////////////////////////////////////////////////////////////////
                         //                  *                                                       /

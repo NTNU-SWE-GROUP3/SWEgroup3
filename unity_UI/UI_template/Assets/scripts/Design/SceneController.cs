@@ -7,6 +7,10 @@ public class SceneController : MonoBehaviour
 {
     public Animator Transition; 
     public float transitionTime = 1f;
+
+    void Start(){
+        // StartCoroutine(LoadSceneZero());
+    }
     
     void Update()
     {
@@ -57,6 +61,18 @@ public class SceneController : MonoBehaviour
         yield return new WaitForSeconds(transitionTime);
 
         SceneManager.LoadScene(2);
-
     }
+
+    public void SceneZero(){
+        StartCoroutine(LoadSceneZero());
+    }
+
+    public void SceneOne(){
+        StartCoroutine(LoadSceneOne());
+    }
+
+    public void SceneTwo(){
+        StartCoroutine(LoadSceneTwo());
+    }
+
 }
