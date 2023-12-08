@@ -20839,7 +20839,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67c1612bdd5264f599aa5ffb8f364ff7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player_token: QgvfVzRao1FlyOEML8TP
   player_coins: 0
   player_level: 0
   player_totalwin: 0
@@ -24105,7 +24104,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -389.7734, y: 565.86}
+  m_AnchoredPosition: {x: 389.78, y: 565.87}
   m_SizeDelta: {x: 174.5831, y: 167.48}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1729866240
