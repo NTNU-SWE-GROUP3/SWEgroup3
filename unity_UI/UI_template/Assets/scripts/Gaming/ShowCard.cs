@@ -282,7 +282,7 @@ public class ShowCard : MonoBehaviour
                         PlaySE(SkillSound);
                         skillMessage.text = "爆發式成長!";
                         skillDescription.text = "玩家獲得 "+ GameController.Turn.ToString() + " 張牌";
-                        PlayerX = GameController.Turn;
+                        PlayerX =PlayerX + GameController.Turn;
                         RefreshEarnText(1);
                         yield return new WaitForSeconds(3f);
                     }
@@ -296,7 +296,7 @@ public class ShowCard : MonoBehaviour
                         PlaySE(SkillSound);
                         skillMessage.text = "爆發式成長!";
                         skillDescription.text = "對手獲得 "+ GameController.Turn.ToString() + " 張牌";
-                        OpponentX = GameController.Turn;
+                        OpponentX = OpponentX + GameController.Turn;
                         RefreshEarnText(2);
                     }
                     yield return new WaitForSeconds(3f);
@@ -304,7 +304,7 @@ public class ShowCard : MonoBehaviour
                 // 全部重製
                 if (PlayerCard.id == 8 && OpponentEarn.transform.childCount != 0)
                 {
-                    if (isComPeasantImmunity == true)
+                    if (isPlayerPeasantImmunity == true)
                          yield return StartCoroutine(PeasantImmunity());
                     else
                     {
@@ -316,7 +316,7 @@ public class ShowCard : MonoBehaviour
                 }
                 if (OpponentCard.id == 8 && PlayerEarn.transform.childCount != 0)
                 {
-                    if (isPlayerPeasantImmunity == true)
+                    if (isComPeasantImmunity == true)
                          yield return StartCoroutine(PeasantImmunity());
                     else
                     {
