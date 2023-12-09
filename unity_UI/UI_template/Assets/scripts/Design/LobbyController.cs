@@ -20,7 +20,7 @@ public class LobbyController : MonoBehaviour
         Lobby.SetActive(true);
         UIsys.SetActive(false);
     }
-    public async void CreateLobbyFriend(){
+    public void CreateLobbyFriend(){
 
         LobbyOrchestrator.FriendCreate();
 
