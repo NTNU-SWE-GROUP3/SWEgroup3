@@ -3,7 +3,7 @@ from flask import Blueprint
 from flask import jsonify
 from flask import request
 from db import DBManager
-#from mail import send_check_newemail
+from mail import send_check_newemail
 import secrets, string, datetime
 
 user_information = Blueprint('user_information', __name__, url_prefix='/user_information')
@@ -172,7 +172,7 @@ def ChangeEmail():
         return jsonify(status = "403005", msg = "Email has been uesd")
 
     #Sent the mail
-    #random_code = send_check_newemail(userid, NewEmail)
+    random_code = send_check_newemail(userid, NewEmail)
     current_app.logger.info("Random code generated: %s", random_code)
 
     # Generate verifycode validity datetime
@@ -203,7 +203,6 @@ def verify_email():
     global conn
     if not conn:
         conn = DBManager(password_file='/run/secrets/db-password')
-
 
     random_code = request.form.get('code')
     current_app.logger.info("random_code: %s", random_code)
