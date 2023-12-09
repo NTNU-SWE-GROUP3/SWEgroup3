@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 
 public class LobbyController : MonoBehaviour
 {
@@ -11,7 +12,24 @@ public class LobbyController : MonoBehaviour
     {
         LeaveLobby();
     }
-    public void EnterLobby(){
+    public void EnterLobbyNormal(){
+        Lobby.SetActive(true);
+        UIsys.SetActive(false);
+    }
+    public void EnterLobbyRank(){
+        Lobby.SetActive(true);
+        UIsys.SetActive(false);
+    }
+    public async void CreateLobbyFriend(){
+
+        LobbyOrchestrator.FriendCreate();
+
+        // await MatchmakingService.LeaveLobby();
+
+        // Lobby.SetActive(true);
+        // UIsys.SetActive(false);
+    }
+    public void JoinLobbyFriend(){
         Lobby.SetActive(true);
         UIsys.SetActive(false);
     }

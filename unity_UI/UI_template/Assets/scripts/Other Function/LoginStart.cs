@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
+
 using TMPro;
 
 
@@ -54,7 +55,7 @@ public class strat : MonoBehaviour
 
 
     //URL
-    private static string serverUrl = "http://127.0.0.1:5050";
+    private static string serverUrl = "http://127.0.0.1:80";
     private string serverURL_login = serverUrl + "/account/login";
     private string serverURL_signup = serverUrl + "/account/signup";
     private string serverURL_checkaccount = serverUrl + "/forget_password/checkaccount";
@@ -63,6 +64,8 @@ public class strat : MonoBehaviour
 
     void Start()
     {
+        
+
         LoginPanel = GameObject.Find("LoginPanel");
         SignUpPanel = GameObject.Find("SignUpPanel");
         PasswordPanel1 = GameObject.Find("PasswordPanel1");
@@ -206,31 +209,45 @@ public class strat : MonoBehaviour
                 {
                     case "400000":
                         Debug.Log("Login success!");
-                        Warning_Message.SetText("Login success!");
-                        WarningPanel.SetActive(true);
-                        
-                        // 執行登入成功的操作
+                        //Warning_Message.SetText("Login success!");
+                        //WarningPanel.SetActive(true);
+                        // 找到具有DontDestroy脚本的游戏对象
+                        DontDestroy dontDestroyScript = FindObjectOfType<DontDestroy>();
 
-                        /////////////////////////////////////////////////////////////////////////////
-                        //                  *                                                       /
-                        //                   ***                                                    /
-                        //                    *****                                                 /
-                        //                     *******                                              /
-                        //                      *********                                           /
-                        //                       ***********                                        /
-                        //                        *************                                     /
-                        //                         ***************                                  /
-                        //                          *****************    登入成功，請在這裡切換場景       
-                        //                         ***************                                  /
-                        //                        *************                                     /
-                        //                       ***********                                        /
-                        //                      *********                                           /
-                        //                     *******                                              /
-                        //                    *****                                                 /
-                        //                   ***                                                    /
-                        //                  *                                                       /
-                        /////////////////////////////////////////////////////////////////////////////
+                        // 检查是否找到了对象
+                        if (dontDestroyScript != null)
+                        {
+                            // 访问token变量
+                            string tokenValue = responseData.tokenId;
+                            Debug.Log("Token value: " + tokenValue);
+                            dontDestroyScript.token = responseData.tokenId;
+                            // 執行登入成功的操作
+                            StartCoroutine(LoadSceneAsync("MainSc"));
+                            /////////////////////////////////////////////////////////////////////////////
+                            //                  *                                                       /
+                            //                   ***                                                    /
+                            //                    *****                                                 /
+                            //                     *******                                              /
+                            //                      *********                                           /
+                            //                       ***********                                        /
+                            //                        *************                                     /
+                            //                         ***************                                  /
+                            //                          *****************    登入成功，請在這裡切換場景       
+                            //                         ***************                                  /
+                            //                        *************                                     /
+                            //                       ***********                                        /
+                            //                      *********                                           /
+                            //                     *******                                              /
+                            //                    *****                                                 /
+                            //                   ***                                                    /
+                            //                  *                                                       /
+                            /////////////////////////////////////////////////////////////////////////////
 
+                        }
+                        else
+                        {
+                            Debug.LogError("DontDestroy script not found!");
+                        }
                         break;
                     case "403001":
                         Debug.Log("No such account");
@@ -247,6 +264,25 @@ public class strat : MonoBehaviour
                 }
             }
         }
+    }
+
+    private IEnumerator LoadSceneAsync(string targetSceneName)
+    {
+        // 异步加载目标场景
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(targetSceneName);
+
+        // 等待场景加载完成
+        while (!asyncLoad.isDone)
+        {
+            // 这里可以加入加载过程中的其他逻辑，比如更新UI显示加载进度等
+            float progress = Mathf.Clamp01(asyncLoad.progress / 0.9f);
+            Debug.Log("Loading progress: " + (progress * 100) + "%");
+
+            yield return null;
+        }
+
+        // 场景加载完成后的逻辑
+        Debug.Log("Scene loaded!");
     }
 
     private void GoForgetPassword()
@@ -557,5 +593,5 @@ public class strat : MonoBehaviour
 public class ResponseData
 {
     public string status;
-    public string token;
+    public string tokenId;
 }

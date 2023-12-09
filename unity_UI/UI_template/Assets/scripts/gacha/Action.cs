@@ -208,7 +208,7 @@ public class Action : MonoBehaviour
     {
         okButtonClicked = true;
         duplicate = false;
-        mask.SetActive(false);
+        // mask.SetActive(false);
     }
 
 
@@ -306,6 +306,10 @@ public class Action : MonoBehaviour
         {
             Dictionary<string, object> check = jsonArray[0] as Dictionary<string, object>;
             Text[] duplicateTexts = duplicatePanelTexts.GetComponentsInChildren<Text>();
+            foreach (Text textElement in duplicateTexts)
+            {
+                textElement.text = string.Empty;
+            }
             // Debug.LogWarning(duplicateTexts[0].text);
             int index = 0;
 
@@ -348,7 +352,18 @@ public class Action : MonoBehaviour
         if (duplicate)
         {
             duplicatePanel.SetActive(true);
-            mask.SetActive(true);
+            if (mask.activeSelf)
+            {
+                Debug.Log("Mask is already active.");
+            }
+            else
+            {
+                mask.SetActive(true);
+            }
+        }
+        else
+        {
+            mask.SetActive(false);
         }
     }
 

@@ -2,15 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DontDestroy : MonoBehaviour
+public class TurnToMainScene : MonoBehaviour
 {
-    public string token = "";
-
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
-
-        DontDestroyOnLoad(this.gameObject);
         
     }
 
