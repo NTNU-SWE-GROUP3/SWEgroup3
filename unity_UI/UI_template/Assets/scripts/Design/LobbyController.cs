@@ -17,17 +17,11 @@ public class LobbyController : MonoBehaviour
         UIsys.SetActive(false);
     }
     public void EnterLobbyRank(){
-        Lobby.SetActive(true);
-        UIsys.SetActive(false);
+        
     }
     public void CreateLobbyFriend(){
 
         LobbyOrchestrator.FriendCreate();
-
-        // await MatchmakingService.LeaveLobby();
-
-        // Lobby.SetActive(true);
-        // UIsys.SetActive(false);
     }
     public void JoinLobbyFriend(){
         Lobby.SetActive(true);
