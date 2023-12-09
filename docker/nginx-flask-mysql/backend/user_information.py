@@ -229,3 +229,8 @@ def verify_email():
 
     # Example: Return a response to the user
     return "Email verification successful!"
+
+
+
+
+    
