@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class DontDestroy : MonoBehaviour
 {
+    public string token = "";
+
     // Start is called before the first frame update
     void Awake()
     {

@@ -10,7 +10,7 @@ public class UserSetting : MonoBehaviour
 {
 
     //Variables
-    public string player_token;
+    private string player_token;
     public int player_coins;
     public int player_level;
     public int player_totalwin;
@@ -74,6 +74,18 @@ public class UserSetting : MonoBehaviour
 
     void Start()
     {
+        DontDestroy userdata = FindObjectOfType<DontDestroy>();
+
+        if (userdata != null)
+        {
+            // 访问token变量
+            player_token = userdata.token;
+            Debug.Log("Token value: " + player_token);
+        }
+        else
+        {
+            Debug.LogError("DontDestroy script not found!");
+        }
 
         UserDataPanel = GameObject.Find("UserDataPanel");
         SettingPanel = GameObject.Find("SettingPanel");
