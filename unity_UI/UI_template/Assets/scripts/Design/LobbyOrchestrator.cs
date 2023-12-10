@@ -38,4 +38,19 @@ public class LobbyOrchestrator : NetworkBehaviour {
             }
         //}
     }
+
+    public static async void FriendJoin( string code )
+    {
+        await Authentication.Login();
+        //using (new Load("Joining Lobby...")) {
+            try {
+                await MatchmakingService.JoinLobbyWithAllocationCode( code );
+                //NetworkManager.Singleton.StartClient();
+            }
+            catch (Exception e) {
+                Debug.LogError(e);
+                //CanvasUtilities.Instance.ShowError("Failed joining lobby");
+            }
+        //}
+    }
 }
