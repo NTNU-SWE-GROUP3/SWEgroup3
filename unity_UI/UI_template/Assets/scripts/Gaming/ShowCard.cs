@@ -521,6 +521,7 @@ public class ShowCard : MonoBehaviour
         skillDescription.text = "贏得對手一半贏牌";
         double halfOfCards = Mathf.Ceil(WhoLoss.transform.childCount / 2);
         Debug.Log(halfOfCards);
+        yield return new WaitForSeconds(1.5f);
         for(;WhoLoss.transform.childCount > halfOfCards;)
         {
             Card = WhoLoss.transform.GetChild(WhoLoss.transform.childCount - 1);
