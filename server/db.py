@@ -1,5 +1,5 @@
 import mysql.connector
-from flask import current_app
+from flask import current_app, jsonify
 
 class DBManager:
     def __init__(self, database='game', host="localhost", user="swegroup3", password_file=None):
@@ -352,3 +352,28 @@ class DBManager:
                 return rec[0]
             else:
                 return 0
+            
+    ##>>Dont Destroy<<
+    def GetCardInfo(self):
+            query = (
+                "SELECT * FROM card_style"
+            )
+            self.cursor.execute(query)
+            current_app.logger.info(self.cursor._executed)
+            rows = self.cursor.fetchall()
+            card_info = []
+            for row in rows:
+                card_info.append(row)
+            return (card_info)
+        
+    def GetSkillInfo(self):
+            query = (
+                "SELECT * FROM skill"
+            )
+            self.cursor.execute(query)
+            current_app.logger.info(self.cursor._executed)
+            rows = self.cursor.fetchall()
+            card_info = []
+            for row in rows:
+                card_info.append(row)
+            return (card_info)
