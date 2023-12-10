@@ -9,14 +9,14 @@ using TMPro;
 public class SkillSlotScript : MonoBehaviour
 {
     public Image skillImage;
+    //private int skillStyle;
 
     // Function to set the skill style based on the skill ID or other parameters
     public void SetSkillStyle(int skillStyleID)
     {
-        // You might want to replace this with your actual logic to determine the sprite
+        //skillStyle = skillStyleID;
         Sprite skillSprite = GetSkillSprite(skillStyleID);
 
-        // Set the sprite to the Image component
         if (skillSprite != null)
         {
             skillImage.sprite = skillSprite;
@@ -26,13 +26,19 @@ public class SkillSlotScript : MonoBehaviour
             Debug.LogError("Skill sprite not found for ID: " + skillStyleID);
         }
     }
+    
+    // private void OnClick()
+    // {
+    //     // Call a method in SkillCardDisplay or elsewhere to handle the click event
+    //     SkillCardDisplay.Instance.OnSkillSlotClicked(skillStyle);
+    // }
 
     // Function to get the skill sprite based on the skill ID
     private Sprite GetSkillSprite(int skillStyleID)
     {
         // Load the sprites from the specified folder
         Object[] skillSprites = Resources.LoadAll("images/MainSc/Skill", typeof(Sprite));
-
+        
         // Check if the skillStyleID is within the array bounds
         if (skillStyleID >= 0 && skillStyleID < skillSprites.Length)
         {

@@ -104,5 +104,50 @@ def DisplaySkillStyle():
     return jsonify(status = "400055",
                    msg = "Success",
                    token = token,
-                   skillStyle = skillStyle)
+                   skillStyles = skillStyle)
+
+
+@skill_style.route("/display_skill_desc", methods=['POST'])
+def DisplaySkillDesc():
+    
+    #database connection
+    global conn
+    if not conn:
+        conn = BPManager(password_file='/run/secrets/db-password')
+
+    #input
+    #skill_id = request.form.get('SkillId')
+    token = request.form.get('Token')
+    current_app.logger.info("tokenID: %s", token)
+    #current_app.logger.info("target skill id: %s", skill_id)
+    current_app.logger.info(request.form.items())
+    
+    #check token validity
+    expiredtime = conn.GetTokenExpiredTime(token)
+    current_app.logger.info("Expired time: %s", expiredtime)
+    now = datetime.datetime.now()
+    current_app.logger.info("Now: %s || Expired time: %s)", now, expiredtime)
+    if (expiredtime == -1):
+        return jsonify(status = "403011", msg = "No such token")
+    elif(now > expiredtime):
+        return jsonify(status = "403011", msg = "Token expired")
+
+    #targetSkill = request.form.get('SkillId')
+    #current_app.logger.info("target skill: %d", targetSkill)
+
+    #success
+    skillName = conn.getSkillName(token)
+    skillDesc = conn.getSkillDesc(token)
+    skillProb = conn.getSkillProb(token)
+    current_app.logger.info("Retrieved skillname: %s", skillName)
+    current_app.logger.info("Retrieved skilldesc: %s", skillDesc)
+    current_app.logger.info("Retrieved skillprob: %s", skillProb)
+
+    #return skill list
+    return jsonify(status = "400055",
+                   msg = "Success",
+                   token = token,
+                   skillName = skillName,
+                   skillDesc = skillDesc,
+                   skillProb = skillProb)
 

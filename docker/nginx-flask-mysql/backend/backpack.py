@@ -133,6 +133,69 @@ class BPManager:
         else:
             return -1
         
+    def getSkillName(self, token_id):
+        #current_app.logger.info("input skill id: ", skill_id)
+         # Create a comma-separated string of placeholders for the IN clause
+        #placeholders = ', '.join(['%s'] * len(skill_id))
+        
+        select_stmt_name = (
+            "SELECT skill_name "
+            "FROM skill"
+        )
+
+        # Combine the token_id and skill_id into a single tuple
+        #params = (token_id,) + tuple(skill_id)
+        # Fetch all the results
+        self.cursor.execute(select_stmt_name, ())
+        results_name = self.cursor.fetchall()     
+
+        # Extract and return the skill values
+        skill_name = [result[0] for result in results_name]
+        current_app.logger.info("result skill_desc_ids: ", skill_name)
+        return skill_name
+    
+    def getSkillDesc(self, token_id):
+        #current_app.logger.info("input skill id: ", skill_id)
+         # Create a comma-separated string of placeholders for the IN clause
+        #placeholders = ', '.join(['%s'] * len(skill_id))
+        select_stmt_desc = (
+            "SELECT skill_description "
+            "FROM skill"
+        )
+
+        # Combine the token_id and skill_id into a single tuple
+        #params = (token_id,) + tuple(skill_id)
+        # Fetch all the results
+        self.cursor.execute(select_stmt_desc, ())
+        results_desc = self.cursor.fetchall()     
+
+        # Extract and return the skill values
+        skill_desc = [result[0] for result in results_desc]
+        current_app.logger.info("result skill_desc_ids: ", skill_desc)
+
+        return skill_desc
+    
+    def getSkillProb(self, token_id):
+        #current_app.logger.info("input skill id: ", skill_id)
+         # Create a comma-separated string of placeholders for the IN clause
+        #placeholders = ', '.join(['%s'] * len(skill_id))
+        
+        select_stmt_probability = (
+            "SELECT skill_probability "
+            "FROM skill"
+        )
+
+        # Combine the token_id and skill_id into a single tuple
+        #params = (token_id,) + tuple(skill_id)
+        # Fetch all the results
+        self.cursor.execute(select_stmt_probability, ())
+        results_probability = self.cursor.fetchall()        
+
+        # Extract and return the skill values
+        skill_probability = [result[0] for result in results_probability]
+        current_app.logger.info("result skill_desc_ids: ", skill_probability)
+
+        return skill_probability
         
     def EquipSkillStyle(self, token_id, skillId):
         # account_id = self.FindAccountId(accountID)
