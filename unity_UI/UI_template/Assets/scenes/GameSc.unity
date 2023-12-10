@@ -1580,7 +1580,7 @@ MonoBehaviour:
   m_ChildAlignment: 4
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 260, y: 220}
+  m_CellSize: {x: 250, y: 450}
   m_Spacing: {x: 85, y: 5}
   m_Constraint: 0
   m_ConstraintCount: 2
@@ -2366,7 +2366,6 @@ MonoBehaviour:
   MessagePanel: {fileID: 931180408}
   Card: {fileID: 0}
   StartSound: {fileID: 8300000, guid: e95b3a5b581e34a7d97543ec1a9034cf, type: 3}
-  ThreeSec: {fileID: 8300000, guid: d213613ed8de542dbbbafc2148af31c2, type: 3}
 --- !u!114 &1211442828
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2382,6 +2381,7 @@ MonoBehaviour:
   apiUrl: http://140.122.185.169:5050/gaming/get_skills_card_styles
   response: 
   drawCard: {fileID: 1211442830}
+  cardDatabase: {fileID: 0}
   ComPlayer: {fileID: 965809086}
   Timer: {fileID: 0}
   showSkill: {fileID: 876056338}
@@ -2412,7 +2412,6 @@ MonoBehaviour:
   PlayerSkillVoice2: {fileID: 8300000, guid: 33b031d57a485469693565f7fd7214aa, type: 3}
   audioManager: {fileID: 0}
   MusicImg: {fileID: 0}
-  slider: {fileID: 0}
   useSkill: {fileID: 1211442835}
 --- !u!4 &1211442829
 Transform:
@@ -2615,7 +2614,6 @@ MonoBehaviour:
   CancelButton: {fileID: 1746798446}
   TimerText: {fileID: 377826939}
   UseSkillVoice: {fileID: 8300000, guid: 199e5977d4edb4d5a97821984930f453, type: 3}
-  ThreeSec: {fileID: 8300000, guid: 9107b3278ffb6455980fdfc83d8fcd23, type: 3}
 --- !u!1 &1214895670
 GameObject:
   m_ObjectHideFlags: 0
