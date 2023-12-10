@@ -6,18 +6,16 @@ using UnityEngine.UI;
 
 public class MainAudioManager : MonoBehaviour
 {
-    private Image img;
+    public Image img;
     //private int count = 1;
 
     private AudioSource audioSource;
-    private Slider slider;
+    public Slider slider;
     private bool stop = false;
 
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        img = GameObject.Find("Handle").GetComponent<Image>();
-        slider = GameObject.Find("Slider").GetComponent<Slider>();
     }
     void Update()
     {
