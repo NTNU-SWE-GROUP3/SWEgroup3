@@ -1,3 +1,8 @@
+USE game;
+-- Execute below command on your shell to setup tables, after uncomment above 'USE game;'
+-- mysql -u swegroup3 -p < (work directory's URL here)/database/tables.sql
+
+
 -- MySQL dump 10.13  Distrib 8.1.0, for macos13.3 (arm64)
 --
 -- Host: localhost    Database: game
