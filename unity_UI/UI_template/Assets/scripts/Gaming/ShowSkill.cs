@@ -7,17 +7,18 @@ public class ShowSkill : MonoBehaviour
 {
     public GameObject Skill;
     public static int skillIndex;
-    public static int[] PlayerSkillIdList = {7,5,3};
-    void Start()
+    public static List<int> PlayerSkillIdList = new List<int>();
+    public IEnumerator ShowSkills()
     {
         skillIndex = 0;
-        for(int i = 0;i<3;i++)
+        for(int i = 0;i<PlayerSkillIdList.Count;i++)
         {
             GameObject playerSkill  = Instantiate(Skill,gameObject.transform.position,gameObject.transform.rotation);
             playerSkill.transform.SetParent(gameObject.transform,false);
             playerSkill.layer = LayerMask.NameToLayer("Skill(Unused)");
 
         }
+        yield return null;
     }
    
 }

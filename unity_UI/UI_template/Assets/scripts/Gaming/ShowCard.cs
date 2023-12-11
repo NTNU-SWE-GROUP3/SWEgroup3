@@ -75,12 +75,12 @@ public class ShowCard : MonoBehaviour
         {
             if (isComPeasantImmunity == true && PlayerCard.id == 9)
             {
-                yield return StartCoroutine(PeasantImmunity(1));
+                yield return StartCoroutine(PeasantImmunity());
 
             }
             else if (isPlayerPeasantImmunity == true && OpponentCard.id == 9)
             {
-                yield return StartCoroutine(PeasantImmunity(2));
+                yield return StartCoroutine(PeasantImmunity());
             }
             if (PlayerCard.cardName == "國王" && (OpponentCard.cardName == "王子" || OpponentCard.cardName == "騎士" || OpponentCard.cardName == "平民"))
             {
@@ -96,7 +96,7 @@ public class ShowCard : MonoBehaviour
                     if (isPlayerPeasantImmunity == false)
                         yield return StartCoroutine(Trojan(OpponentEarn,PlayerEarn));
                     else
-                         yield return StartCoroutine(PeasantImmunity(2));
+                         yield return StartCoroutine(PeasantImmunity());
                 }
             }
             else if (OpponentCard.cardName == "國王" && (PlayerCard.cardName == "王子" || PlayerCard.cardName == "騎士" || PlayerCard.cardName == "平民"))
@@ -114,7 +114,7 @@ public class ShowCard : MonoBehaviour
                     if (isComPeasantImmunity == false)
                         yield return StartCoroutine(Trojan(PlayerEarn,OpponentEarn));
                     else 
-                         yield return StartCoroutine(PeasantImmunity(1));
+                         yield return StartCoroutine(PeasantImmunity());
                 }
             }
             else if (PlayerCard.cardName == "皇后" && (OpponentCard.cardName == "國王" || OpponentCard.cardName == "騎士" || OpponentCard.cardName == "平民"))
@@ -131,7 +131,7 @@ public class ShowCard : MonoBehaviour
                     if (isPlayerPeasantImmunity == false)
                         yield return StartCoroutine(Trojan(OpponentEarn,PlayerEarn));
                     else 
-                         yield return StartCoroutine(PeasantImmunity(2));
+                         yield return StartCoroutine(PeasantImmunity());
                 }
             }
             else if (OpponentCard.cardName == "皇后" && (PlayerCard.cardName == "國王" || PlayerCard.cardName == "騎士" || PlayerCard.cardName == "平民"))
@@ -148,7 +148,7 @@ public class ShowCard : MonoBehaviour
                     if (isComPeasantImmunity == false)
                         yield return StartCoroutine(Trojan(PlayerEarn,OpponentEarn));
                     else 
-                         yield return StartCoroutine(PeasantImmunity(1));
+                         yield return StartCoroutine(PeasantImmunity());
                 }
             }
             else if (PlayerCard.cardName == "王子" && (OpponentCard.cardName == "皇后" || OpponentCard.cardName == "騎士" || OpponentCard.cardName == "平民"))
@@ -165,7 +165,7 @@ public class ShowCard : MonoBehaviour
                     if (isPlayerPeasantImmunity == false)
                         yield return StartCoroutine(Trojan(OpponentEarn,PlayerEarn));
                     else 
-                         yield return StartCoroutine(PeasantImmunity(2));
+                         yield return StartCoroutine(PeasantImmunity());
                 }
             }
             else if (OpponentCard.cardName == "王子" && (PlayerCard.cardName == "皇后" || PlayerCard.cardName == "騎士" || PlayerCard.cardName == "平民"))
@@ -182,7 +182,7 @@ public class ShowCard : MonoBehaviour
                     if (isComPeasantImmunity == false)
                         yield return StartCoroutine(Trojan(PlayerEarn,OpponentEarn));
                     else 
-                         yield return StartCoroutine(PeasantImmunity(1));
+                         yield return StartCoroutine(PeasantImmunity());
                 }
             }
             else if (PlayerCard.cardName == "騎士" && (OpponentCard.cardName == "殺手" || OpponentCard.cardName == "平民"))
@@ -200,7 +200,7 @@ public class ShowCard : MonoBehaviour
                     if (isPlayerPeasantImmunity == false)
                         yield return StartCoroutine(Trojan(OpponentEarn,PlayerEarn));
                     else 
-                         yield return StartCoroutine(PeasantImmunity(2));
+                         yield return StartCoroutine(PeasantImmunity());
                 }
             }
             else if (OpponentCard.cardName == "騎士" && (PlayerCard.cardName == "殺手" || PlayerCard.cardName == "平民"))
@@ -217,7 +217,7 @@ public class ShowCard : MonoBehaviour
                     if (isComPeasantImmunity == false)
                         yield return StartCoroutine(Trojan(PlayerEarn,OpponentEarn));
                     else 
-                         yield return StartCoroutine(PeasantImmunity(1));
+                         yield return StartCoroutine(PeasantImmunity());
                 }
             }
             else if (PlayerCard.cardName == "殺手" && (OpponentCard.cardName == "國王" || OpponentCard.cardName == "王子" || OpponentCard.cardName == "皇后"))
@@ -243,6 +243,10 @@ public class ShowCard : MonoBehaviour
                 {
                     yield return StartCoroutine(ToPlayerEarn());// 玩家贏
                 }
+                if (isComPeasantImmunity == true)
+                    isComPeasantImmunity = false;
+                if (isPlayerPeasantImmunity == true)
+                    isPlayerPeasantImmunity = false;
             }
             else
             {
@@ -256,9 +260,9 @@ public class ShowCard : MonoBehaviour
                 if (PlayerCard.id == 16 || OpponentCard.id == 16)
                 {
                     if (isPlayerPeasantImmunity == true && OpponentCard.id == 16)
-                         yield return StartCoroutine(PeasantImmunity(2));
+                         yield return StartCoroutine(PeasantImmunity());
                     else if (isComPeasantImmunity == true && PlayerCard.id == 16)
-                         yield return StartCoroutine(PeasantImmunity(1));
+                         yield return StartCoroutine(PeasantImmunity());
                     else
                     {
                         PlaySE(SkillSound);
@@ -272,13 +276,13 @@ public class ShowCard : MonoBehaviour
                 if (PlayerCard.id == 15)
                 {
                     if (isComPeasantImmunity == true)
-                         yield return StartCoroutine(PeasantImmunity(1));
+                         yield return StartCoroutine(PeasantImmunity());
                     else
                     {
                         PlaySE(SkillSound);
                         skillMessage.text = "爆發式成長!";
                         skillDescription.text = "玩家獲得 "+ GameController.Turn.ToString() + " 張牌";
-                        PlayerX = GameController.Turn;
+                        PlayerX =PlayerX + GameController.Turn;
                         RefreshEarnText(1);
                         yield return new WaitForSeconds(3f);
                     }
@@ -286,13 +290,13 @@ public class ShowCard : MonoBehaviour
                 if (OpponentCard.id == 15)
                 {
                     if (isPlayerPeasantImmunity == true)
-                         yield return StartCoroutine(PeasantImmunity(2));
+                         yield return StartCoroutine(PeasantImmunity());
                     else
                     {
                         PlaySE(SkillSound);
                         skillMessage.text = "爆發式成長!";
                         skillDescription.text = "對手獲得 "+ GameController.Turn.ToString() + " 張牌";
-                        OpponentX = GameController.Turn;
+                        OpponentX = OpponentX + GameController.Turn;
                         RefreshEarnText(2);
                     }
                     yield return new WaitForSeconds(3f);
@@ -300,8 +304,8 @@ public class ShowCard : MonoBehaviour
                 // 全部重製
                 if (PlayerCard.id == 8 && OpponentEarn.transform.childCount != 0)
                 {
-                    if (isComPeasantImmunity == true)
-                         yield return StartCoroutine(PeasantImmunity(1));
+                    if (isPlayerPeasantImmunity == true)
+                         yield return StartCoroutine(PeasantImmunity());
                     else
                     {
                         PlaySE(SkillSound);
@@ -312,8 +316,8 @@ public class ShowCard : MonoBehaviour
                 }
                 if (OpponentCard.id == 8 && PlayerEarn.transform.childCount != 0)
                 {
-                    if (isPlayerPeasantImmunity == true)
-                         yield return StartCoroutine(PeasantImmunity(2));
+                    if (isComPeasantImmunity == true)
+                         yield return StartCoroutine(PeasantImmunity());
                     else
                     {
                         PlaySE(SkillSound);
@@ -326,7 +330,7 @@ public class ShowCard : MonoBehaviour
                 if (PlayerCard.id == 7)
                 {
                     if (isComPeasantImmunity == true)
-                         yield return StartCoroutine(PeasantImmunity(1));
+                         yield return StartCoroutine(PeasantImmunity());
                     else
                     {
                         PlaySE(SkillSound);
@@ -346,7 +350,7 @@ public class ShowCard : MonoBehaviour
                 if(OpponentCard.id == 7)
                 {
                     if (isPlayerPeasantImmunity == true)
-                         yield return StartCoroutine(PeasantImmunity(2));
+                         yield return StartCoroutine(PeasantImmunity());
                     else
                     {
                         PlaySE(SkillSound);
@@ -358,6 +362,10 @@ public class ShowCard : MonoBehaviour
                 }
             }
         }
+        if (isComPeasantImmunity == true)
+            isComPeasantImmunity = false;
+        if (isPlayerPeasantImmunity == true)
+            isPlayerPeasantImmunity = false;
         //-------------------------\\
         RefreshEarnText(2);
         RefreshEarnText(1);
@@ -464,7 +472,7 @@ public class ShowCard : MonoBehaviour
     void OpponentSimpleRejection()
     {
         
-        if(GC.isCom == true)
+        if(GameController.isCom == true)
         {
             CardDelete = PlayerArea.transform.GetChild(0).gameObject.GetComponent<CardDisplay>();
             deletChange.Delete(PlayerArea,CardDelete.id);
@@ -473,7 +481,7 @@ public class ShowCard : MonoBehaviour
 
         
     }
-    IEnumerator PeasantImmunity(int WhoUse)
+    IEnumerator PeasantImmunity()
     {
         Debug.Log("力量剝奪 不觸發技能");
         WinImage.SetActive(false);
@@ -482,11 +490,6 @@ public class ShowCard : MonoBehaviour
         skillDescription.gameObject.SetActive(true);
         skillMessage.text = "力量剝奪!";
         skillDescription.text = "此回合對方平民卡技能無效";
-        if (WhoUse == 1)
-            isComPeasantImmunity = false;
-        else
-            isPlayerPeasantImmunity = false;
-
         yield return new WaitForSeconds(2f);
         SkillImage.SetActive(false);
     }
@@ -518,6 +521,7 @@ public class ShowCard : MonoBehaviour
         skillDescription.text = "贏得對手一半贏牌";
         double halfOfCards = Mathf.Ceil(WhoLoss.transform.childCount / 2);
         Debug.Log(halfOfCards);
+        yield return new WaitForSeconds(1.5f);
         for(;WhoLoss.transform.childCount > halfOfCards;)
         {
             Card = WhoLoss.transform.GetChild(WhoLoss.transform.childCount - 1);

@@ -8,37 +8,22 @@ gaming = Blueprint("gaming", __name__, url_prefix="/gaming")
 def index():
     return 200
 
-@gaming.route("/get_skills", methods=["POST"])
-def GetSkills():
+@gaming.route("/get_skills_card_styles", methods=["POST"])
+def GetEquipedStatus():
     try:
         token_id = request.form.get("token_id")
         account_id = func.GetAccountId(token_id)
 
         if account_id is not None:
             skills = GetEquippedSkills(account_id)
-            return jsonify({"skills": skills})
-        else:
-            return jsonify({"skills": -1}), 400
-
-
-    except Exception as e:
-        return jsonify({"skills": -1}), 400
-
-
-@gaming.route("/get_card_styles", methods=["POST"])
-def GetCardStyles():
-    try:
-        token_id = request.form.get("token_id")
-        account_id = func.GetAccountId(token_id)
-
-        if account_id is not None:
             card_styles = GetEquippedCardStyles(account_id)
-            return jsonify({"card_styles": card_styles})
+            return jsonify({"skills": skills,"card_styles": card_styles})
         else:
-            return jsonify({"card_styles": -1}), 400
+            return jsonify({"skills": -1,"card_styles": -1}), 400
+
 
     except Exception as e:
-        return jsonify({"card_styles": -1}), 400
+        return jsonify({"skills": -1,"card_styles": -1}), 400
 
 def GetEquippedSkills(account_id):
     try:
@@ -73,3 +58,22 @@ def GetEquippedCardStyles(account_id):
     except Exception as e:
         print("Error in getEquippedCardStyle:", e)
         return []
+    
+@gaming.route("/get_player_info",methods=["POST"])
+def getPlayerInfo():
+    try:
+        token_id = request.form.get("token_id")
+        account_id = func.GetAccountId(token_id)
+
+        connection = func.create_mysql_connection()
+        cursor = connection.cursor(dictionary=True)
+        cursor.execute("SELECT * FROM account_data WHERE account_id = %s", (account_id,))
+        results = cursor.fetchone()
+
+        print(results)
+        return results
+
+    except Exception as e:
+        return 10000
+    finally:
+        connection.close()

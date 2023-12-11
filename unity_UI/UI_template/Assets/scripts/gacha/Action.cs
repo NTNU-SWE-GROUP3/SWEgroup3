@@ -7,6 +7,7 @@ using MiniJSON;
 using ResultAnimation;
 using PurchaseControl;
 
+
 public class Action : MonoBehaviour
 {
     [SerializeField] string apiUrl = "http://140.122.185.169:5050/gacha/draw";       // call API endpoint
@@ -18,6 +19,8 @@ public class Action : MonoBehaviour
     [SerializeField] GameObject messagePanel;
     [SerializeField] GameObject resultPanel;
     [SerializeField] GameObject purchasePanel;
+    [SerializeField] GameObject duplicatePanel;
+    [SerializeField] GameObject duplicatePanelTexts;
     [SerializeField] GameObject mask;
     [SerializeField] GameObject okButton1;
     [SerializeField] GameObject okButton10;
@@ -27,16 +30,19 @@ public class Action : MonoBehaviour
     [SerializeField] Button noButton;
     [SerializeField] Button buyButton;
     [SerializeField] Button cancelButton;
+    [SerializeField] Button OkButton;
     public Animator gachaAnimator1;
     public Animator gachaAnimator10;
     public AnimationController animationController;
     public PurchaseController purchaseController;
     public ErrorMessage errorController;
+    public ImageManager imageManager;
     public bool yesClicked = false;
     public bool noClicked = false;
     public bool buyClicked = false;
     public bool cancelClicked = false;
-    public bool skipAnimation = false;
+    public bool okButtonClicked = false;
+    public bool duplicate = false;
 
     public string response;
 
@@ -60,6 +66,7 @@ public class Action : MonoBehaviour
         resultPanel.SetActive(false);
         mask.SetActive(false);
         purchasePanel.SetActive(false);
+        duplicatePanel.SetActive(false);
         gachaResult1.SetActive(false);
         gachaResult10.SetActive(false);
         okButton1.SetActive(false);
@@ -68,7 +75,7 @@ public class Action : MonoBehaviour
         noClicked = false;
         buyClicked = false;
         cancelClicked = false;
-        skipAnimation = false;
+        okButtonClicked = false;
     }
 
     public IEnumerator ExecuteDraw(string times, string mode)
@@ -153,15 +160,15 @@ public class Action : MonoBehaviour
             return false;
         }
     }
-
     void OnBuyButtonClick()
     {
         if (InputChecker())
         {
-            if (!purchaseController.CardNumberCheck()){
+            if (!purchaseController.CardNumberCheck())
+            {
                 purchaseController.DisplayMessage("Please enter a valid card number.");
                 Debug.Log("Invalid card number.");
-                return ;
+                return;
             }
             buyClicked = true;
             cancelClicked = false;
@@ -176,14 +183,12 @@ public class Action : MonoBehaviour
 
 
     }
-
     void OnCancelButtonClick()
     {
         cancelClicked = true;
         buyClicked = false;
         purchasePanel.SetActive(false);
     }
-
     void OnYesButtonClick()
     {
         yesClicked = true;
@@ -199,6 +204,13 @@ public class Action : MonoBehaviour
         messagePanel.SetActive(false);
         mask.SetActive(false);
     }
+    public void OnOKButtonClick()
+    {
+        okButtonClicked = true;
+        duplicate = false;
+        // mask.SetActive(false);
+    }
+
 
     public void DrawButton(bool isSingleDraw)
     {
@@ -293,15 +305,14 @@ public class Action : MonoBehaviour
         if (jsonArray != null)
         {
             Dictionary<string, object> check = jsonArray[0] as Dictionary<string, object>;
+            Text[] duplicateTexts = duplicatePanelTexts.GetComponentsInChildren<Text>();
+            foreach (Text textElement in duplicateTexts)
+            {
+                textElement.text = string.Empty;
+            }
+            // Debug.LogWarning(duplicateTexts[0].text);
+            int index = 0;
 
-            // int checkId = int.Parse(check["id"].ToString());
-            // if (checkId < 0)
-            // {
-            //     string message = check["note"].ToString();
-            //     errorController.ShowErrorMessage(message);
-            // }
-            // else
-            // {
             animationController.DisplayCardResults(jsonArray);
             foreach (var item in jsonArray)
             {
@@ -313,17 +324,47 @@ public class Action : MonoBehaviour
                     string id = dict["id"].ToString();
                     string type = dict["type"].ToString();
                     string note = dict["note"].ToString();
-
+                    if (note == "-1")
+                    {
+                        duplicate = true;
+                        if (type == "skill")
+                        {
+                            duplicateTexts[index].text = imageManager.GetSkillName(int.Parse(id));
+                        }
+                        else if (type == "card_style")
+                        {
+                            duplicateTexts[index].text = imageManager.GetCardStyleName(int.Parse(id));
+                        }
+                        index++;
+                    }
                     Debug.Log("ID: " + id + ", Type: " + type + ", Note: " + note);
                 }
             }
-            // }
         }
         else
         {
             Debug.LogError("Failed to parse JSON array.");
         }
         // Debug.Log(response);
+    }
+    public void ShowDuplicates()
+    {
+        if (duplicate)
+        {
+            duplicatePanel.SetActive(true);
+            if (mask.activeSelf)
+            {
+                Debug.Log("Mask is already active.");
+            }
+            else
+            {
+                mask.SetActive(true);
+            }
+        }
+        else
+        {
+            mask.SetActive(false);
+        }
     }
 
 
