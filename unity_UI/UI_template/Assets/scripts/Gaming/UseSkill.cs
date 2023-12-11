@@ -26,6 +26,7 @@ public class UseSkill : MonoBehaviour
     public static int[] PlayerDilemmaDictatorId = {0,0};
     private int cardId = 0;
     public AudioClip UseSkillVoice;
+    public AudioClip ThreeSec;
     AudioSource audioSource;
     void Start()
     {
@@ -47,6 +48,10 @@ public class UseSkill : MonoBehaviour
         {
             TimerText.text = Clock.ToString();
             yield return new WaitForSeconds(1);
+            if (Clock == (3 + 1))
+            {
+                audioSource.PlayOneShot(ThreeSec);
+            }
             Clock -- ;
         }
         SkillPanel.gameObject.SetActive(false);

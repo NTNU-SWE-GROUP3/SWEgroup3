@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 
+using TMPro;
+
 public class LobbyController : MonoBehaviour
 {
 
     public GameObject UIsys;
     public GameObject Lobby;
+    [SerializeField] private TMP_Text _joinCodeText;
+    
     void Start()
     {
         LeaveLobby();
@@ -17,21 +21,15 @@ public class LobbyController : MonoBehaviour
         UIsys.SetActive(false);
     }
     public void EnterLobbyRank(){
-        Lobby.SetActive(true);
-        UIsys.SetActive(false);
+        
     }
-    public async void CreateLobbyFriend(){
+    public void CreateLobbyFriend(){
 
         LobbyOrchestrator.FriendCreate();
-
-        // await MatchmakingService.LeaveLobby();
-
-        // Lobby.SetActive(true);
-        // UIsys.SetActive(false);
     }
     public void JoinLobbyFriend(){
-        Lobby.SetActive(true);
-        UIsys.SetActive(false);
+        Debug.Log( $"Lobby Code input: {_joinCodeText.text.Replace("\u200B", "")}" );
+        LobbyOrchestrator.FriendJoin( _joinCodeText.text.Replace("\u200B", "") );
     }
 
     public void LeaveLobby(){

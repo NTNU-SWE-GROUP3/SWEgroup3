@@ -95,6 +95,7 @@ public static class MatchmakingService
 
         //The name of the lobby will be same as the host player.
         _currentLobby = await Lobbies.Instance.CreateLobbyAsync("New", data.MaxPlayers, options);
+        Debug.Log($"Lobby created: {_currentLobby.Id}");
 
         //Transport.SetHostRelayData(a.RelayServer.IpV4, (ushort)a.RelayServer.Port, a.AllocationIdBytes, a.Key, a.ConnectionData);
 

@@ -40,12 +40,12 @@ public class ImageManager : MonoBehaviour
         cardStyleImages.Add(new GachaItem(5, "Frozen(王子)", Resources.Load<Sprite>("images/Skin/Frozen/Prince")));
         cardStyleImages.Add(new GachaItem(6, "Frozen(皇后)", Resources.Load<Sprite>("images/Skin/Frozen/Queen")));
         // Aladin
-        cardStyleImages.Add(new GachaItem(7, "Aladin(平民)", Resources.Load<Sprite>("images/Skin/Aladin/Civil")));
-        cardStyleImages.Add(new GachaItem(8, "Aladin(殺手)", Resources.Load<Sprite>("images/Skin/Aladin/Killer")));
-        cardStyleImages.Add(new GachaItem(9, "Aladin(國王)", Resources.Load<Sprite>("images/Skin/Aladin/King")));
-        cardStyleImages.Add(new GachaItem(10, "Aladin(騎士)", Resources.Load<Sprite>("images/Skin/Aladin/Knight")));
-        cardStyleImages.Add(new GachaItem(11, "Aladin(王子)", Resources.Load<Sprite>("images/Skin/Aladin/Prince")));
-        cardStyleImages.Add(new GachaItem(12, "Aladin(皇后)", Resources.Load<Sprite>("images/Skin/Aladin/Queen")));
+        cardStyleImages.Add(new GachaItem(7, "Aladdin(平民)", Resources.Load<Sprite>("images/Skin/Aladin/Civil")));
+        cardStyleImages.Add(new GachaItem(8, "Aladdin(殺手)", Resources.Load<Sprite>("images/Skin/Aladin/Killer")));
+        cardStyleImages.Add(new GachaItem(9, "Aladdin(國王)", Resources.Load<Sprite>("images/Skin/Aladin/King")));
+        cardStyleImages.Add(new GachaItem(10, "Aladdin(騎士)", Resources.Load<Sprite>("images/Skin/Aladin/Knight")));
+        cardStyleImages.Add(new GachaItem(11, "Aladdin(王子)", Resources.Load<Sprite>("images/Skin/Aladin/Prince")));
+        cardStyleImages.Add(new GachaItem(12, "Aladdin(皇后)", Resources.Load<Sprite>("images/Skin/Aladin/Queen")));
         // Alice in wonderland
         cardStyleImages.Add(new GachaItem(13, "Wonderland(平民)", Resources.Load<Sprite>("images/Skin/Alice in wonderland/Civil")));
         cardStyleImages.Add(new GachaItem(14, "Wonderland(殺手)", Resources.Load<Sprite>("images/Skin/Alice in wonderland/Killer")));
@@ -61,12 +61,12 @@ public class ImageManager : MonoBehaviour
         cardStyleImages.Add(new GachaItem(23, "Cinderella(王子)", Resources.Load<Sprite>("images/Skin/Cinderella/Prince")));
         cardStyleImages.Add(new GachaItem(24, "Cinderella(皇后)", Resources.Load<Sprite>("images/Skin/Cinderella/Queen")));
         // Romet and Julliette
-        cardStyleImages.Add(new GachaItem(25, "Romet(平民)", Resources.Load<Sprite>("images/Skin/Romet and Juliette/Civil")));
-        cardStyleImages.Add(new GachaItem(26, "Romet(殺手)", Resources.Load<Sprite>("images/Skin/Romet and Juliette/Killer")));
-        cardStyleImages.Add(new GachaItem(27, "Romet(國王)", Resources.Load<Sprite>("images/Skin/Romet and Juliette/King")));
-        cardStyleImages.Add(new GachaItem(28, "Romet(騎士)", Resources.Load<Sprite>("images/Skin/Romet and Juliette/Knight")));
-        cardStyleImages.Add(new GachaItem(29, "Romet(王子)", Resources.Load<Sprite>("images/Skin/Romet and Juliette/Prince")));
-        cardStyleImages.Add(new GachaItem(30, "Romet(皇后)", Resources.Load<Sprite>("images/Skin/Romet and Juliette/Queen")));
+        cardStyleImages.Add(new GachaItem(25, "Romeo(平民)", Resources.Load<Sprite>("images/Skin/Romet and Juliette/Civil")));
+        cardStyleImages.Add(new GachaItem(26, "Romeo(殺手)", Resources.Load<Sprite>("images/Skin/Romet and Juliette/Killer")));
+        cardStyleImages.Add(new GachaItem(27, "Romeo(國王)", Resources.Load<Sprite>("images/Skin/Romet and Juliette/King")));
+        cardStyleImages.Add(new GachaItem(28, "Romeo(騎士)", Resources.Load<Sprite>("images/Skin/Romet and Juliette/Knight")));
+        cardStyleImages.Add(new GachaItem(29, "Romeo(王子)", Resources.Load<Sprite>("images/Skin/Romet and Juliette/Prince")));
+        cardStyleImages.Add(new GachaItem(30, "Romeo(皇后)", Resources.Load<Sprite>("images/Skin/Romet and Juliette/Queen")));
         // Chess
         cardStyleImages.Add(new GachaItem(31, "Chess(平民)", Resources.Load<Sprite>("images/Skin/chess/Civil")));
         cardStyleImages.Add(new GachaItem(32, "Chess(殺手)", Resources.Load<Sprite>("images/Skin/chess/Killer")));
@@ -82,12 +82,12 @@ public class ImageManager : MonoBehaviour
         cardStyleImages.Add(new GachaItem(41, "ChineseChess(王子)", Resources.Load<Sprite>("images/Skin/Chinese chess/Prince")));
         cardStyleImages.Add(new GachaItem(42, "ChineseChess(皇后)", Resources.Load<Sprite>("images/Skin/Chinese chess/Queen")));
         // Japanese chess
-        cardStyleImages.Add(new GachaItem(43, "JanpaneseChess(平民)", Resources.Load<Sprite>("images/Skin/Japanese chess/Civil")));
-        cardStyleImages.Add(new GachaItem(44, "JanpaneseChess(殺手)", Resources.Load<Sprite>("images/Skin/Japanese chess/Killer")));
-        cardStyleImages.Add(new GachaItem(45, "JanpaneseChess(國王)", Resources.Load<Sprite>("images/Skin/Japanese chess/King")));
-        cardStyleImages.Add(new GachaItem(46, "JanpaneseChess(騎士)", Resources.Load<Sprite>("images/Skin/Japanese chess/Knight")));
-        cardStyleImages.Add(new GachaItem(47, "JanpaneseChess(王子)", Resources.Load<Sprite>("images/Skin/Japanese chess/Prince")));
-        cardStyleImages.Add(new GachaItem(48, "JanpaneseChess(皇后)", Resources.Load<Sprite>("images/Skin/Japanese chess/Queen")));
+        cardStyleImages.Add(new GachaItem(43, "JapaneseChess(平民)", Resources.Load<Sprite>("images/Skin/Japanese chess/Civil")));
+        cardStyleImages.Add(new GachaItem(44, "JapaneseChess(殺手)", Resources.Load<Sprite>("images/Skin/Japanese chess/Killer")));
+        cardStyleImages.Add(new GachaItem(45, "JapaneseChess(國王)", Resources.Load<Sprite>("images/Skin/Japanese chess/King")));
+        cardStyleImages.Add(new GachaItem(46, "JapaneseChess(騎士)", Resources.Load<Sprite>("images/Skin/Japanese chess/Knight")));
+        cardStyleImages.Add(new GachaItem(47, "JapaneseChess(王子)", Resources.Load<Sprite>("images/Skin/Japanese chess/Prince")));
+        cardStyleImages.Add(new GachaItem(48, "JapaneseChess(皇后)", Resources.Load<Sprite>("images/Skin/Japanese chess/Queen")));
         // Snow whit
         cardStyleImages.Add(new GachaItem(49, "SnowWhite(平民)", Resources.Load<Sprite>("images/Skin/Snow White/Civil")));
         cardStyleImages.Add(new GachaItem(50, "SnowWhite(殺手)", Resources.Load<Sprite>("images/Skin/Snow White/Killer")));
