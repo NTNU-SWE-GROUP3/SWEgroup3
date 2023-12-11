@@ -10,6 +10,7 @@ from flask_mail import Mail
 from account import account
 from forget_password import forget_password
 from user_information import user_information
+from user_data import user_data
 import logging
 
 
@@ -37,6 +38,7 @@ app.register_blueprint(gaming)
 app.register_blueprint(account)
 app.register_blueprint(forget_password)
 app.register_blueprint(user_information)
+app.register_blueprint(user_data)
 
 @app.route("/")
 def index():
