@@ -28882,7 +28882,7 @@ PrefabInstance:
       objectReference: {fileID: 1531474926}
     - target: {fileID: 6373189785584892490, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
       propertyPath: apiUrl
-      value: http://127.0.0.1:5050/gacha/draw
+      value: http://140.122.185.169:5050/gacha/draw
       objectReference: {fileID: 0}
     - target: {fileID: 6373189785584892490, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
       propertyPath: OkButton
