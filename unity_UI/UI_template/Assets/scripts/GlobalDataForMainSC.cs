@@ -26,8 +26,10 @@ public class GlobalDataForMainSC : MonoBehaviour
             player_token = userdata.token;
             Debug.Log("Token value: " + player_token);
 
-            StartCoroutine(userdata.CardInfoRequest());
-            StartCoroutine(userdata.SkillInfoRequest());
+            //StartCoroutine(userdata.CardInfoRequest());
+            //StartCoroutine(userdata.SkillInfoRequest());
+            StartCoroutine(userdata.UserCardDataRequest(player_token));
+            StartCoroutine(userdata.UserSkillDataRequest(player_token));
 
 
 

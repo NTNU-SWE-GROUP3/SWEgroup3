@@ -9,12 +9,18 @@ public class DontDestroy : MonoBehaviour
     public static string serverURL = "http://127.0.0.1:5050";
     public string serverURL_CardInfo = serverURL + "/user_data/getcardinfo";
     public string serverURL_SkillInfo = serverURL + "/user_data/getskillinfo";
+    public string serverURL_UserSkillData = serverURL + "/user_data/getuserskilldata";
+    public string serverURL_UserCardData = serverURL + "/user_data/getuserstyledata";
+
+
     public string token = "";
 
     // Start is called before the first frame update
     void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
+        StartCoroutine(CardInfoRequest());
+        StartCoroutine(SkillInfoRequest());
     }
 
     // 定義資料結構
@@ -36,10 +42,25 @@ public class DontDestroy : MonoBehaviour
         public string SkillProbability;
     }
 
+    [System.Serializable]
+    public class UserCardData
+    {
+        public string CardID;
+        public string EquipStatus;
+    }
+
+    [System.Serializable]
+    public class UserSkillData
+    {
+        public string SkillID;
+        public string EquipStatus;
+    }
+
 
     public List<CharacterData> characterDataList = new List<CharacterData>();
     public List<SkillData> SkillDataList = new List<SkillData>();
-
+    public List<UserCardData> UserCardDataList = new List<UserCardData>();
+    public List<UserSkillData> UserSkillDataList = new List<UserSkillData>();
 
 
 
@@ -59,7 +80,7 @@ public class DontDestroy : MonoBehaviour
             else
             {
                 string dataString = www.downloadHandler.text;
-                Debug.Log(dataString);
+                //Debug.Log(dataString);
 
                 string[] dataParts = dataString.Split(';');
 
@@ -124,7 +145,7 @@ public class DontDestroy : MonoBehaviour
             else
             {
                 string dataString = www.downloadHandler.text;
-                Debug.Log(dataString);
+                //Debug.Log(dataString);
 
                 string[] dataParts = dataString.Split(';');
 
@@ -141,7 +162,7 @@ public class DontDestroy : MonoBehaviour
 
                         // 使用取得的數據初始化變數
                         InitializeSkillVariables(id, cardname, description, probability);
-                        //Debug.Log("id:" + id + "\ntype:" + cardname + "\ndescription:" + description + "\nvalue:" + probability);
+                        Debug.Log("id:" + id + "\ntype:" + cardname + "\ndescription:" + description + "\nvalue:" + probability);
                     }
                 }
                 else
@@ -166,5 +187,134 @@ public class DontDestroy : MonoBehaviour
         // 將skill資料添加到列表中
         SkillDataList.Add(skill);
     }
+
+
+    public IEnumerator UserCardDataRequest(string player_token)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("Token", player_token); // 
+
+        using (UnityWebRequest www = UnityWebRequest.Post(serverURL_UserCardData, form))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
+            {
+                Debug.LogWarning(www.error);
+                Debug.Log("Internet error @ UserCardDataRequest");
+            }
+            else
+            {
+                string dataString = www.downloadHandler.text;
+                Debug.Log(dataString);
+
+                string[] dataParts = dataString.Split(';');
+
+                // 確保有足夠的元素來初始化變數
+                if (dataParts.Length % 2 == 0)
+                {
+                    // 迭代處理每四個元素
+                    for (int i = 0; i < dataParts.Length; i += 2)
+                    {
+                        string CardID = (dataParts[i]);
+                        string EquipStatus = dataParts[i + 1];
+
+
+                        // 使用取得的數據初始化變數
+                        InitializeUserCardDataVariables(CardID, EquipStatus);
+                        Debug.Log("CardID:" + CardID + "\nEquipStatus:" + EquipStatus);
+                    }
+                }
+                else
+                {
+                    Debug.Log("Invalid data format from the server:" + dataParts.Length);
+                }
+            }
+        }
+    }
+
+
+
+    // 初始化變數
+    private void InitializeUserCardDataVariables(string CardID, string EquipStatus)
+    {
+        UserCardData usercarddata = new UserCardData
+        {
+            CardID = CardID,
+            EquipStatus = EquipStatus,
+        };
+
+        // 將角色資料添加到列表中
+        UserCardDataList.Add(usercarddata);
+    }
+
+
+
+    public IEnumerator UserSkillDataRequest(string player_token)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("Token", player_token); // 
+
+        using (UnityWebRequest www = UnityWebRequest.Post(serverURL_UserSkillData, form))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
+            {
+                Debug.LogWarning(www.error);
+                Debug.Log("Internet error @ UserSkillDataRequest");
+            }
+            else
+            {
+                string dataString = www.downloadHandler.text;
+                Debug.Log(dataString);
+
+                string[] dataParts = dataString.Split(';');
+
+                // 確保有足夠的元素來初始化變數
+                if (dataParts.Length % 2 == 0)
+                {
+                    // 迭代處理每四個元素
+                    for (int i = 0; i < dataParts.Length; i += 2)
+                    {
+                        string SkillID = (dataParts[i]);
+                        string EquipStatus = dataParts[i + 1];
+
+
+                        // 使用取得的數據初始化變數
+                        InitializeUserSkillDataVariables(SkillID, EquipStatus);
+                        Debug.Log("SkillID:" + SkillID + "\nEquipStatus:" + EquipStatus);
+                    }
+                }
+                else
+                {
+                    Debug.Log("Invalid data format from the server:" + dataParts.Length);
+                }
+            }
+        }
+    }
+
+
+
+    // 初始化變數
+    private void InitializeUserSkillDataVariables(string SkillID, string EquipStatus)
+    {
+        UserSkillData userskilldata = new UserSkillData
+        {
+            SkillID = SkillID,
+            EquipStatus = EquipStatus,
+        };
+
+        // 將角色資料添加到列表中
+        UserSkillDataList.Add(userskilldata);
+    }
+
+
+
+
+
+
+
+
 
 }

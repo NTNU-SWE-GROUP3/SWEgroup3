@@ -377,3 +377,42 @@ class DBManager:
             for row in rows:
                 card_info.append(row)
             return (card_info)
+        
+        
+    def GetSkillData(self, tokenid):
+            query = (
+                "SELECT account_skill.skill_id, account_skill.equip_status "
+                "FROM account_skill "
+                "JOIN account ON account_skill.account_id = account.id "
+                "WHERE account.token_id = %s"
+            )
+            data = (tokenid,)
+            self.cursor.execute(query, data)
+            current_app.logger.info(self.cursor._executed)
+            rows = self.cursor.fetchall()
+            skill_data = []
+            for row in rows:
+                skill_data.append(row)
+            return (skill_data)
+        
+        
+
+    def GetStyleData(self, tokenid):
+            query = (
+                "SELECT account_card_style.card_style_id, account_card_style.equip_status "
+                "FROM account_card_style "
+                "JOIN account ON account_card_style.account_id = account.id "
+                "WHERE account.token_id = %s"
+            )
+            data = (tokenid,)
+            self.cursor.execute(query, data)
+            current_app.logger.info(self.cursor._executed)
+            rows = self.cursor.fetchall()
+            style_data = []
+            for row in rows:
+                style_data.append(row)
+            return (style_data)
+        
+        
+        
+        
