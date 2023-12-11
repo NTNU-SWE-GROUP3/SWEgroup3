@@ -11,6 +11,7 @@ from account import account
 from forget_password import forget_password
 from user_information import user_information
 from user_data import user_data
+from card_style import card_style
 import logging
 
 
@@ -39,6 +40,7 @@ app.register_blueprint(account)
 app.register_blueprint(forget_password)
 app.register_blueprint(user_information)
 app.register_blueprint(user_data)
+app.register_blueprint(card_style)
 
 @app.route("/")
 def index():
