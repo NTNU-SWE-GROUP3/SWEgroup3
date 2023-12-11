@@ -73,7 +73,7 @@ namespace PurchaseControl
                 foreach (var option in allOptions)
                 {
                     dropdownRegion.options.Add(new Dropdown.OptionData(option));
-                    Debug.Log("Option added: " + option);
+                    // Debug.Log("Option added: " + option);
                 }
 
                 dropdownRegion.value = 1; // default option

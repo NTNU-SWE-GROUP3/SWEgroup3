@@ -9,17 +9,23 @@ using UnityEngine.SceneManagement;
 
 public class PvE : MonoBehaviour
 {
-    string tokenId = "token123";
+    private DontDestroy userdata;
+    string tokenId;
     string plyerInfoUrl = "http://140.122.185.169:5050/gaming/get_player_info";
     string equipUrl = "http://140.122.185.169:5050/gaming/get_skills_card_styles";
     void Start()
     {
+        userdata = FindObjectOfType<DontDestroy>();
+        tokenId = userdata.token;
+        Debug.Log("In PvE: " + userdata.token);
 
     }
 
     public void PvEButton()
     {
         // get token id from login first
+        Debug.Log("In PvE: " + userdata.token);
+
         StartCoroutine(SendRequestInfo(tokenId));
         StartCoroutine(SendRequestEquip(tokenId));
     }
