@@ -10,7 +10,7 @@ using PurchaseControl;
 
 public class Action : MonoBehaviour
 {
-    [SerializeField] string apiUrl = "http://140.122.185.169:5050/gacha/draw";       // call API endpoint
+    [SerializeField] string apiUrl = "http://127.0.0.1:5050/gacha/draw";       // call API endpoint
 
     // default playerId = 1, mode = coin, times = 1
     [SerializeField] string playerId = "1";
@@ -37,6 +37,7 @@ public class Action : MonoBehaviour
     public PurchaseController purchaseController;
     public ErrorMessage errorController;
     public ImageManager imageManager;
+    public BackToLogin backToLogin;
     public bool yesClicked = false;
     public bool noClicked = false;
     public bool buyClicked = false;
@@ -44,7 +45,9 @@ public class Action : MonoBehaviour
     public bool okButtonClicked = false;
     public bool duplicate = false;
 
-    public string response;
+    private string response;
+    private DontDestroy userdata;
+
 
     [System.Serializable]
     public class apiResponse
@@ -57,25 +60,46 @@ public class Action : MonoBehaviour
     void Awake()
     {
         Init();
+        Debug.Log("Token value in Action:" + userdata.token);
     }
 
-
-    void Init()
+    void PanelInit()
     {
         messagePanel.SetActive(false);
         resultPanel.SetActive(false);
-        mask.SetActive(false);
         purchasePanel.SetActive(false);
         duplicatePanel.SetActive(false);
-        gachaResult1.SetActive(false);
-        gachaResult10.SetActive(false);
-        okButton1.SetActive(false);
-        okButton10.SetActive(false);
+        mask.SetActive(false);
+    }
+
+    void FlagInit()
+    {
         yesClicked = false;
         noClicked = false;
         buyClicked = false;
         cancelClicked = false;
         okButtonClicked = false;
+    }
+
+    void OthersInit()
+    {
+        gachaResult1.SetActive(false);
+        gachaResult10.SetActive(false);
+        okButton1.SetActive(false);
+        okButton10.SetActive(false);
+    }
+
+    void PlayerInfoInit()
+    {
+        userdata = FindObjectOfType<DontDestroy>();
+    }
+
+    void Init()
+    {
+        PanelInit();
+        FlagInit();
+        OthersInit();
+        PlayerInfoInit();
     }
 
     public IEnumerator ExecuteDraw(string times, string mode)
@@ -211,7 +235,6 @@ public class Action : MonoBehaviour
         // mask.SetActive(false);
     }
 
-
     public void DrawButton(bool isSingleDraw)
     {
         string times = isSingleDraw ? "1" : "10";
@@ -236,12 +259,12 @@ public class Action : MonoBehaviour
 
         Debug.Log(isSingleDraw ? "Single" : "Mult");
     }
-    IEnumerator SendRequest(string playerId, string mode, string times)
+    IEnumerator SendRequest(string tokenId, string mode, string times)
     {
         WWWForm form = new WWWForm();
 
         form.AddField("mode", mode);
-        form.AddField("account_id", playerId);
+        form.AddField("token_id", "token456");
         form.AddField("times", times);
 
         UnityWebRequest www = UnityWebRequest.Post(apiUrl, form);
@@ -261,6 +284,7 @@ public class Action : MonoBehaviour
             Dictionary<string, object> check = jsonArray[0] as Dictionary<string, object>;
 
             int checkId = int.Parse(check["id"].ToString());
+            backToLogin.check_id = checkId;
             if (checkId < 0)
             {
                 string message = check["note"].ToString();
