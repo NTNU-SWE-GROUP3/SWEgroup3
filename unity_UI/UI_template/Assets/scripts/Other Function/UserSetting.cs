@@ -66,7 +66,8 @@ public class UserSetting : MonoBehaviour
 
 
     //URL
-    public static string serverUrl = "http://127.0.0.1:80";
+    // public static string serverUrl = "http://127.0.0.1:80";
+    public static string serverUrl = "http://140.122.185.169:5050";
     private string serverURL_playerdata = serverUrl + "/user_information/getplayerdata";
     private string serverURL_changeNickname = serverUrl + "/user_information/changenickname";
     private string serverURL_changeEmail = serverUrl + "/user_information/changeemail";
