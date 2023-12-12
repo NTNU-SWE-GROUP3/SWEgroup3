@@ -11,6 +11,12 @@ public class GameController : MonoBehaviour
 {
     public string apiUrl = "http://140.122.185.169:5050/gaming/get_skills_card_styles";
     public string response;
+
+    public GameObject FinishPanel;
+    public Image FinishPanelImage;
+    public Text FinishPanelCoin;
+    public Text FinishPanelLV;
+
     public DrawCard drawCard;
     public CardDatabase cardDatabase;
     public static bool isCom;
@@ -63,6 +69,7 @@ public class GameController : MonoBehaviour
         OpponentSkillId = -1;
         NoSkillCanUse = false;
         isCom = true;
+        FinishPanel.SetActive(false);
         SkipButton.SetActive(false);
         SkillPanel.SetActive(false);
         SkillImage.SetActive(false);
@@ -268,7 +275,7 @@ public class GameController : MonoBehaviour
 
     public void FinishCheck(int PlayerEarnCard, int OpponentEarnCard, int PlayerHandCard, int OpponentHandCard)
     {
-        if (OpponentEarnCard < 10 && PlayerEarnCard < 10 && PlayerHandCard > 0 && OpponentHandCard > 0)
+        if (OpponentEarnCard < 2 && PlayerEarnCard < 2 && PlayerHandCard > 0 && OpponentHandCard > 0)
             StartCoroutine(TurnStart());
         else
         {
@@ -277,15 +284,17 @@ public class GameController : MonoBehaviour
             SkillImage.SetActive(false);
             WinImage.SetActive(true);
             NextRoundText.gameObject.SetActive(true);
-            if (PlayerEarnCard >= 10)
+            if (PlayerEarnCard >= 2)
             {
                 NextRoundText.text = "VICTORY";
                 StartCoroutine(VictorySE());
+                StartCoroutine(GameFinishPanel("win"));
             }
-            else if (OpponentEarnCard >= 10)
+            else if (OpponentEarnCard >= 2)
             {
                 NextRoundText.text = "DEFEAT";
                 StartCoroutine(DefeatSE());
+                StartCoroutine(GameFinishPanel("lose"));
             }
             else
             {
@@ -293,22 +302,48 @@ public class GameController : MonoBehaviour
                 {
                     NextRoundText.text = "VICTORY";
                     StartCoroutine(VictorySE());
+                    StartCoroutine(GameFinishPanel("win"));
                 }
                 else if (OpponentEarnCard > PlayerEarnCard)
                 {
                     NextRoundText.text = "DEFEAT";
                     StartCoroutine(DefeatSE());
+                    StartCoroutine(GameFinishPanel("lose"));
                 }
                 else
                 {
-                    NextRoundText.text = "Draw";
+                    NextRoundText.text = "Tie";
                     StartCoroutine(DrawSE());
+                    StartCoroutine(GameFinishPanel("tie"));
                 }
 
             }
         }
     }
 
+    IEnumerator GameFinishPanel(string winorlose)
+    {
+        yield return new WaitForSeconds(2f);
+        if(winorlose == "win")
+        {
+            FinishPanelImage.sprite = Resources.Load<Sprite>("images/GameSc/Finish/VictoryBanner");
+            FinishPanelCoin.text = "+200";
+            FinishPanelLV.text = "+200";
+        }
+        else if(winorlose == "lose")
+        {
+            FinishPanelImage.sprite = Resources.Load<Sprite>("images/GameSc/Finish/DefeatBanner");
+            FinishPanelCoin.text = "+50";
+            FinishPanelLV.text = "+50";
+        }
+        else
+        {
+            FinishPanelImage.sprite = Resources.Load<Sprite>("images/GameSc/Finish/TieBanner");
+            FinishPanelCoin.text = "+100";
+            FinishPanelLV.text = "+100";
+        }
+        FinishPanel.SetActive(true);
+    }
 
     IEnumerator VictorySE()
     {

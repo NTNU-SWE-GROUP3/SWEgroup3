@@ -2070,9 +2070,9 @@ RectTransform:
   m_Father: {fileID: 931180409}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0.6191667}
-  m_AnchoredPosition: {x: 0, y: 506}
-  m_SizeDelta: {x: 0, y: -56.6476}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: 0, y: 1100.5}
+  m_SizeDelta: {x: 0, y: 1132.3525}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &876056338
 MonoBehaviour:
@@ -2107,7 +2107,7 @@ MonoBehaviour:
   m_ChildAlignment: 4
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 250, y: 450}
+  m_CellSize: {x: 250, y: 373}
   m_Spacing: {x: 85, y: 5}
   m_Constraint: 0
   m_ConstraintCount: 2
@@ -2134,7 +2134,7 @@ MonoBehaviour:
   m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   m_Type: 1
   m_PreserveAspect: 0
-  m_FillCenter: 1
+  m_FillCenter: 0
   m_FillMethod: 4
   m_FillAmount: 1
   m_FillClockwise: 1
@@ -3008,7 +3008,7 @@ MonoBehaviour:
   MessagePanel: {fileID: 931180408}
   Card: {fileID: 0}
   StartSound: {fileID: 8300000, guid: e95b3a5b581e34a7d97543ec1a9034cf, type: 3}
-  ThreeSec: {fileID: 0}
+  ThreeSec: {fileID: 8300000, guid: d213613ed8de542dbbbafc2148af31c2, type: 3}
 --- !u!114 &1211442828
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3023,8 +3023,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   apiUrl: http://140.122.185.169:5050/gaming/get_skills_card_styles
   response: 
+  FinishPanel: {fileID: 574056878}
+  FinishPanelImage: {fileID: 531135114}
+  FinishPanelCoin: {fileID: 362588105}
+  FinishPanelLV: {fileID: 1976877132}
   drawCard: {fileID: 1211442830}
-  cardDatabase: {fileID: 0}
+  cardDatabase: {fileID: 618714808}
   ComPlayer: {fileID: 965809086}
   Timer: {fileID: 0}
   showSkill: {fileID: 876056338}
@@ -3054,8 +3058,8 @@ MonoBehaviour:
   PlayerSkillVoice1: {fileID: 8300000, guid: b886837dc5dbf42ab8a608d93ebe0d40, type: 3}
   PlayerSkillVoice2: {fileID: 8300000, guid: 33b031d57a485469693565f7fd7214aa, type: 3}
   audioManager: {fileID: 0}
-  MusicImg: {fileID: 0}
-  slider: {fileID: 0}
+  MusicImg: {fileID: 1369607599}
+  slider: {fileID: 439512376}
   useSkill: {fileID: 1211442835}
 --- !u!4 &1211442829
 Transform:
@@ -3258,7 +3262,7 @@ MonoBehaviour:
   CancelButton: {fileID: 1746798446}
   TimerText: {fileID: 377826939}
   UseSkillVoice: {fileID: 8300000, guid: 199e5977d4edb4d5a97821984930f453, type: 3}
-  ThreeSec: {fileID: 0}
+  ThreeSec: {fileID: 8300000, guid: d213613ed8de542dbbbafc2148af31c2, type: 3}
 --- !u!1 &1214895670
 GameObject:
   m_ObjectHideFlags: 0
