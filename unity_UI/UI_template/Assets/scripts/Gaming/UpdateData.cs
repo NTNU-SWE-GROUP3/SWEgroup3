@@ -12,6 +12,8 @@ public class UpdateData : MonoBehaviour
 
     public void SetUserdata()
     {
+        Debug.Log("Status: " + GameController.WinOrLose);
+        Debug.Log("PlayerId: " + playerId);
         StartCoroutine(SendRequest(playerId.ToString(), GameController.WinOrLose));
     }
 
@@ -23,15 +25,14 @@ public class UpdateData : MonoBehaviour
     void Start()
     {
         Init();
-        Debug.Log(GameController.WinOrLose);
     }
 
-    IEnumerator SendRequest(string playerId,string status)
+    IEnumerator SendRequest(string playerId, string status)
     {
         WWWForm form = new WWWForm();
 
         form.AddField("account_id", playerId);
-        form.AddField("end_status",status);
+        form.AddField("end_status", status);
 
         UnityWebRequest www = UnityWebRequest.Post(apiUrl, form);
         yield return www.SendWebRequest();

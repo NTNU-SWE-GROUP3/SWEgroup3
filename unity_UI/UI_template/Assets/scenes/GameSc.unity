@@ -1543,7 +1543,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 574056882}
         m_TargetAssemblyTypeName: UpdateData, Assembly-CSharp
-        m_MethodName: UpdateUserData
+        m_MethodName: SetUserdata
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
