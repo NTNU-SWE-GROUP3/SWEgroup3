@@ -21,7 +21,6 @@ def GetEquipedStatus():
         else:
             return jsonify({"skills": -1,"card_styles": -1}), 400
 
-
     except Exception as e:
         return jsonify({"skills": -1,"card_styles": -1}), 400
 
@@ -72,7 +71,7 @@ def getPlayerInfo():
 
         if results is None:
             print("No results")
-        print(results)
+        print(results) 
         return jsonify(results)
 
     except Exception as e:
@@ -86,8 +85,26 @@ def getPlayerInfo():
 def game_finish():
     try:
         account_id = request.form.get("account_id")
+        end_status = request.form.get("end_status")
+
         connection = func.create_mysql_connection()
         cursor = connection.cursor(dictionary=True)
+
+        addcoins = 0
+        addexp = 0
+        if end_status == "win":
+            addcoins = 200
+            addexp = 200
+        elif end_status == "lose":
+            addcoins = 50
+            addexp = 50
+        else:
+            addcoins = 100
+            addcoins = 100
+        
+        cursor.execute("UPDATE account_data SET coin = coin + %s WHERE account_id = %s",(addcoins,account_id),)
+        cursor.execute("UPDATE account_data SET experience = experience + %s WHERE account_id = %s",(addexp,account_id),)
+        
     except Exception as e:
         return 10000
     finally:

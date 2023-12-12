@@ -54,7 +54,7 @@ public class GameController : MonoBehaviour
     public Image MusicImg;
     public Slider slider;
 
-    public static string WinOrLose;
+    public static string WinOrLose = "Hi";
     public UseSkill useSkill;
     public static int PlayerSkillId;
     public static int OpponentSkillId;
@@ -289,13 +289,15 @@ public class GameController : MonoBehaviour
             {
                 NextRoundText.text = "VICTORY";
                 StartCoroutine(VictorySE());
-                StartCoroutine(GameFinishPanel("win"));
+                WinOrLose = "win";
+                StartCoroutine(GameFinishPanel(WinOrLose));
             }
             else if (OpponentEarnCard >= 2)
             {
                 NextRoundText.text = "DEFEAT";
                 StartCoroutine(DefeatSE());
-                StartCoroutine(GameFinishPanel("lose"));
+                WinOrLose = "lose";
+                StartCoroutine(GameFinishPanel(WinOrLose));
             }
             else
             {
