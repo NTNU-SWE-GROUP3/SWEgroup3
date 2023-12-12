@@ -26,16 +26,16 @@ public class ComputerPlayer : MonoBehaviour
         yield return new WaitForSeconds(4);
         if (UseSkill.ComIsdilemmaDictator == false)
         {
-            //int randomIndex = Random.Range(0,OpponentArea.transform.childCount);
-            //Card = OpponentArea.transform.GetChild(randomIndex);
-            if(test == 0){
-                Card = OpponentArea.transform.GetChild(0);
-                test++;
-            }
-            else
-            {
-                Card = OpponentArea.transform.GetChild(OpponentArea.transform.childCount-1);
-            }
+            int randomIndex = Random.Range(0,OpponentArea.transform.childCount);
+            Card = OpponentArea.transform.GetChild(randomIndex);
+            // if(test == 0){
+            //     Card = OpponentArea.transform.GetChild(0);
+            //     test++;
+            // }
+            // else
+            // {
+            //     Card = OpponentArea.transform.GetChild(OpponentArea.transform.childCount-1);
+            // }
         }
         else 
         {
