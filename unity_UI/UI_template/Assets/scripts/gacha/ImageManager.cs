@@ -96,13 +96,13 @@ public class ImageManager : MonoBehaviour
         cardStyleImages.Add(new GachaItem(52, "SnowWhite(騎士)", Resources.Load<Sprite>("images/Skin/Snow White/Knight")));
         cardStyleImages.Add(new GachaItem(53, "SnowWhite(王子)", Resources.Load<Sprite>("images/Skin/Snow White/Prince")));
         cardStyleImages.Add(new GachaItem(54, "SnowWhite(皇后)", Resources.Load<Sprite>("images/Skin/Snow White/Queen")));
-        // 
-        cardStyleImages.Add(new GachaItem(45, "Frozen(平民)", Resources.Load<Sprite>("images/Skin/Frozen/Civil")));
-        cardStyleImages.Add(new GachaItem(56, "Frozen(殺手)", Resources.Load<Sprite>("images/Skin/Frozen/Killer")));
-        cardStyleImages.Add(new GachaItem(57, "Frozen(國王)", Resources.Load<Sprite>("images/Skin/Frozen/King")));
-        cardStyleImages.Add(new GachaItem(58, "Frozen(騎士)", Resources.Load<Sprite>("images/Skin/Frozen/Knight")));
-        cardStyleImages.Add(new GachaItem(59, "Frozen(王子)", Resources.Load<Sprite>("images/Skin/Frozen/Prince")));
-        cardStyleImages.Add(new GachaItem(60, "Frozen(皇后)", Resources.Load<Sprite>("images/Skin/Frozen/Queen")));
+        // Poker
+        cardStyleImages.Add(new GachaItem(45, "Poker(平民)", Resources.Load<Sprite>("images/Skin/Poker/Civil")));
+        cardStyleImages.Add(new GachaItem(56, "Poker(殺手)", Resources.Load<Sprite>("images/Skin/Poker/Killer")));
+        cardStyleImages.Add(new GachaItem(57, "Poker(國王)", Resources.Load<Sprite>("images/Skin/Poker/King")));
+        cardStyleImages.Add(new GachaItem(58, "Poker(騎士)", Resources.Load<Sprite>("images/Skin/Poker/Knight")));
+        cardStyleImages.Add(new GachaItem(59, "Poker(王子)", Resources.Load<Sprite>("images/Skin/Poker/Prince")));
+        cardStyleImages.Add(new GachaItem(60, "Poker(皇后)", Resources.Load<Sprite>("images/Skin/Poker/Queen")));
     }
 
     public Sprite GetSkillImage(int skill_id)

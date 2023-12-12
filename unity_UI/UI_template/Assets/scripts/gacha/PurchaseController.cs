@@ -31,12 +31,61 @@ namespace PurchaseControl
 
         public void OpenPurchasePanel()
         {
+            ClearInputFields();
+            ClearMessages();
+            HideMessage();
             purchasePanel.SetActive(true);
             actionReferences.buyClicked = false;
             actionReferences.cancelClicked = false;
-            // ClearInputFields();
-            ClearMessages();
-            HideMessage();
+
+        }
+
+        public bool CCVCheck()
+        {
+            Debug.Log("Check CCV");
+            if (purchasePanel != null)
+            {
+                InputField ccvField = GameObject.Find("VerifyCode")?.GetComponentInChildren<InputField>();
+                if (ccvField != null && ccvField.text.Length == 3)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool DateCheck()
+        {
+            Debug.Log("Check Date");
+            if (purchasePanel != null)
+            {
+                InputField dateField = GameObject.Find("Date")?.GetComponentInChildren<InputField>();
+                if (dateField != null && dateField.text.Length == 5)
+                {
+                    char separator = dateField.text[2];
+                    Debug.Log(separator);
+
+                    if (separator == '/')
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        public bool PostCheck()
+        {
+            Debug.Log("Check Date");
+            if (purchasePanel != null)
+            {
+                InputField postField = GameObject.Find("PostNumber")?.GetComponentInChildren<InputField>();
+                if (postField != null && postField.text.Length == 5 || postField.text.Length == 3)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public bool CardNumberCheck()
@@ -93,8 +142,8 @@ namespace PurchaseControl
                 inputFields[0].characterLimit = 12;
                 inputFields[0].contentType = InputField.ContentType.IntegerNumber;
 
-                inputFields[1].characterLimit = 4;
-                inputFields[1].contentType = InputField.ContentType.IntegerNumber;
+                inputFields[1].characterLimit = 5;
+                // inputFields[1].contentType = InputField.ContentType.IntegerNumber;
 
                 inputFields[2].characterLimit = 3;
                 inputFields[2].contentType = InputField.ContentType.IntegerNumber;
@@ -161,27 +210,7 @@ namespace PurchaseControl
             messageText.text = message;
         }
 
-        // public void CardNumSeperator()
-        // {
-        //     InputField cardNumField = purchasePanel.GetComponentInChildren<InputField>();
-        //     if (cardNumField != null)
-        //     {
-        //         string formatValue = cardNumField.text;
-        //         for (int i = 0; i < cardNumField.text.Length; i++)
-        //         {
-        //             if (i % 4 == 3)
-        //             {
-        //                 formatValue = formatValue.Insert(i," ");
-        //             }
-        //         }
-        //         cardNumField.text = formatValue;
-        //     }
-        //     else
-        //     {
-        //         Debug.Log("Cant find cardNumField");
-        //     }
-        // }
+
 
     }
-
 }
