@@ -120,8 +120,8 @@ public class UIManager : MonoBehaviour
         }
 
         WWWForm form = new WWWForm();
-        form.AddField("Token", authToken); 
-        form.AddField("targetCardStyleID", targetCardStyleID);
+        form.AddField("tokenId", authToken); 
+        form.AddField("targetCardStyleId", targetCardStyleID);
         Debug.Log("Form Contents: " + FormContentsToString(form));
         using (UnityWebRequest www = UnityWebRequest.Post(serverURL_equip, form))
         {
