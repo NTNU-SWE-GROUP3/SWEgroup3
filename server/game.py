@@ -70,10 +70,26 @@ def getPlayerInfo():
         cursor.execute("SELECT * FROM account_data WHERE account_id = %s", (account_id,))
         results = cursor.fetchone()
 
+        if results is None:
+            print("No results")
         print(results)
-        return results
+        return jsonify(results)
 
+    except Exception as e:
+        print("Error in getPlayerInfo:", e)
+        return [-1]
+    finally:
+        connection.close()
+
+
+@gaming.route("/game_finish",methods=["POST"])
+def game_finish():
+    try:
+        account_id = request.form.get("account_id")
+        connection = func.create_mysql_connection()
+        cursor = connection.cursor(dictionary=True)
     except Exception as e:
         return 10000
     finally:
         connection.close()
+

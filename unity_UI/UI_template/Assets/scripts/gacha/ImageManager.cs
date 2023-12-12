@@ -15,18 +15,19 @@ public class ImageManager : MonoBehaviour
     void InitializeSkill()
     {
         skillImages = new List<GachaItem>();
+        string SkillImagesPath = "images/MainSc/Skill/";
 
 
-        skillImages.Add(new GachaItem(1, "暗影轉職", Resources.Load<Sprite>("images/GameSc/Skill/SkillAssassin")));
-        skillImages.Add(new GachaItem(2, "階級流動", Resources.Load<Sprite>("images/GameSc/Skill/SkillKnight")));
-        skillImages.Add(new GachaItem(3, "知己知彼", Resources.Load<Sprite>("images/GameSc/Skill/SkillShowOpponentCard")));
-        skillImages.Add(new GachaItem(4, "暗影轉職", Resources.Load<Sprite>("images/GameSc/Skill/SkillAssassin")));
-        skillImages.Add(new GachaItem(5, "階級流動", Resources.Load<Sprite>("images/GameSc/Skill/SkillKnight")));
-        skillImages.Add(new GachaItem(6, "知己知彼", Resources.Load<Sprite>("images/GameSc/Skill/SkillShowOpponentCard")));
-        skillImages.Add(new GachaItem(7, "暗影轉職", Resources.Load<Sprite>("images/GameSc/Skill/SkillAssassin")));
-        skillImages.Add(new GachaItem(8, "階級流動", Resources.Load<Sprite>("images/GameSc/Skill/SkillKnight")));
-        skillImages.Add(new GachaItem(9, "知己知彼", Resources.Load<Sprite>("images/GameSc/Skill/SkillShowOpponentCard")));
-        skillImages.Add(new GachaItem(10, "暗影轉職", Resources.Load<Sprite>("images/GameSc/Skill/SkillAssassin")));
+        skillImages.Add(new GachaItem(1, "時間限縮", Resources.Load<Sprite>(SkillImagesPath+"SKillTime")));
+        skillImages.Add(new GachaItem(2, "階級流動", Resources.Load<Sprite>(SkillImagesPath+"SkillKnight")));
+        skillImages.Add(new GachaItem(3, "暗影轉職", Resources.Load<Sprite>(SkillImagesPath+"SkillAssassin")));
+        skillImages.Add(new GachaItem(4, "技能封印", Resources.Load<Sprite>(SkillImagesPath+"SkillStopSkill")));
+        skillImages.Add(new GachaItem(5, "力量剝奪", Resources.Load<Sprite>(SkillImagesPath+"SkillCivilian")));
+        skillImages.Add(new GachaItem(6, "黃金風暴", Resources.Load<Sprite>(SkillImagesPath + "SkillCoin")));
+        skillImages.Add(new GachaItem(7, "知己知彼", Resources.Load<Sprite>(SkillImagesPath + "SkillShowOpponent")));
+        skillImages.Add(new GachaItem(8, "抉擇束縛", Resources.Load<Sprite>(SkillImagesPath+ "SkillCardChoose")));
+        skillImages.Add(new GachaItem(9, "強制徵收", Resources.Load<Sprite>(SkillImagesPath + "SkillEarn1")));
+        skillImages.Add(new GachaItem(10, "勝者之堆", Resources.Load<Sprite>(SkillImagesPath+ "SkillMin1")));
     }
     void InitializeCardStyle()
     {
