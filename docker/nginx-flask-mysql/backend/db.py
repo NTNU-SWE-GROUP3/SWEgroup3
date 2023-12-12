@@ -46,6 +46,21 @@ class DBManager:
 
 
 
+    def NicknameExist(self, nickname):
+        insert_stmt = (
+            "SELECT count(*) FROM account_data ad "
+            "WHERE ad.nickname = %s LIMIT 1"
+        )
+        data = (nickname,)   # it have to be tuple style here.
+        self.cursor.execute(insert_stmt, data)
+        current_app.logger.info(self.cursor._executed)
+        rec = []
+        for c in self.cursor:
+            rec.append(c[0])
+        return True if rec[0] == 1 else False
+
+
+
     def AccountPasswordCheck(self, accountName, accountPassword):
         insertStmt = (
             "SELECT a.id FROM account a "
@@ -117,6 +132,31 @@ class DBManager:
 
 
 
+    def UpdateNewNickname(self, tokenid, nickname):
+        insert_stmt = (
+            "UPDATE account_data SET nickname = %s "
+            "WHERE account_id = (SELECT id FROM account WHERE token_id = %s) "
+        )
+        data = (nickname,tokenid)
+        self.cursor.execute(insert_stmt, data)
+        current_app.logger.info(self.cursor._executed)
+        self.connection.commit()
+
+
+
+    def UpdateNewEmail(self, accountid, newemail):
+        insert_stmt = (
+            "UPDATE account a "
+            "SET a.email = %s "
+            "WHERE a.id = %s "
+        )
+        data = (newemail,accountid)
+        self.cursor.execute(insert_stmt, data)
+        current_app.logger.info(self.cursor._executed)
+        self.connection.commit()
+
+
+
     def FindAccountId(self, accountName):
             insertStmt = (
                 "SELECT a.id FROM account a "
@@ -133,6 +173,42 @@ class DBManager:
                 return rec[0]
             else:
                 return -1
+
+    def FindAccountEmail(self, token):
+            insertStmt = (
+                "SELECT a.email FROM account a "
+                "WHERE a.token_id = %s "
+                "LIMIT 1"
+            )
+            data = (accountName,)
+            self.cursor.execute(insertStmt, data)
+            current_app.logger.info(self.cursor._executed)
+            rec = []
+            for c in self.cursor:
+                rec.append(c[0])
+            if(bool(rec)):
+                return rec[0]
+            else:
+                return -1
+
+
+    def FindAccountIDByToken(self, token):
+            insertStmt = (
+                "SELECT a.id FROM account a "
+                "WHERE a.token_id = %s "
+                "LIMIT 1"
+            )
+            data = (token,)
+            self.cursor.execute(insertStmt, data)
+            current_app.logger.info(self.cursor._executed)
+            rec = []
+            for c in self.cursor:
+                rec.append(c[0])
+            if(bool(rec)):
+                return rec[0]
+            else:
+                return -1
+
 
     def AcountEmailCheck(self, account_id, input_email):
         insertStmt = (
@@ -185,6 +261,23 @@ class DBManager:
         else:
             return -1
 
+    #if tokenid not even exist, -1 will be returned
+    def GetTokenExpiredTime(self, tokenid):
+        insertStmt = (
+            "SELECT a.token_validity FROM account a "
+            "WHERE a.token_id = %s LIMIT 1"
+        )
+        data = (tokenid,)
+        self.cursor.execute(insertStmt, data)
+        current_app.logger.info(self.cursor._executed)
+        rec = []
+        for c in self.cursor:
+            rec.append(c[0])
+        if(bool(rec)):
+            return rec[0]
+        else:
+            return -1
+
     def ReloadChangePassword(self, accountId, newpassword):
         insert_stmt = (
             "UPDATE account a "
@@ -206,3 +299,131 @@ class DBManager:
             self.cursor.execute(insertStmt, data)
             current_app.logger.info(self.cursor._executed)
             return self.cursor.fetchall()
+
+
+    #>>>>>>>>look up data via token<<<<<<<<<
+
+    def GetUserNickname(self, tokenid):
+            insertStmt = (
+                "SELECT ad.nickname "
+                "FROM account a "
+                "JOIN account_data ad ON a.id = ad.account_id "
+                "WHERE a.token_id = %s"
+            )
+            data = (tokenid,)
+            self.cursor.execute(insertStmt, data)
+            current_app.logger.info(self.cursor._executed)
+            rec = []
+            for c in self.cursor:
+                rec.append(c[0])
+            if(bool(rec)):
+                return rec[0]
+            else:
+                return "guest"
+
+    def GetUserEmail(self, tokenid):
+            insertStmt = (
+                "SELECT a.email FROM account a "
+                "WHERE a.token_id = %s "
+                "LIMIT 1"
+            )
+            data = (tokenid,)
+            self.cursor.execute(insertStmt, data)
+            current_app.logger.info(self.cursor._executed)
+            rec = []
+            for c in self.cursor:
+                rec.append(c[0])
+            if(bool(rec)):
+                return rec[0]
+            else:
+                return -1
+
+    def GetUsertotalgame(self, tokenid):
+            insertStmt = (
+                "SELECT ad.total_match "
+                "FROM account a "
+                "JOIN account_data ad ON a.id = ad.account_id "
+                "WHERE a.token_id = %s"
+            )
+            data = (tokenid,)
+            self.cursor.execute(insertStmt, data)
+            current_app.logger.info(self.cursor._executed)
+            rec = []
+            for c in self.cursor:
+                rec.append(c[0])
+            if(bool(rec)):
+                return rec[0]
+            else:
+                return 0
+
+    def GetUsertotalwin(self, tokenid):
+            insertStmt = (
+                "SELECT ad.total_win "
+                "FROM account a "
+                "JOIN account_data ad ON a.id = ad.account_id "
+                "WHERE a.token_id = %s"
+            )
+            data = (tokenid,)
+            self.cursor.execute(insertStmt, data)
+            current_app.logger.info(self.cursor._executed)
+            rec = []
+            for c in self.cursor:
+                rec.append(c[0])
+            if(bool(rec)):
+                return rec[0]
+            else:
+                return 0
+
+    def GetUserrank(self, tokenid):
+            insertStmt = (
+                "SELECT ad.rank "
+                "FROM account a "
+                "JOIN account_data ad ON a.id = ad.account_id "
+                "WHERE a.token_id = %s"
+            )
+            data = (tokenid,)
+            self.cursor.execute(insertStmt, data)
+            current_app.logger.info(self.cursor._executed)
+            rec = []
+            for c in self.cursor:
+                rec.append(c[0])
+            if(bool(rec)):
+                return rec[0]
+            else:
+                return "Not Ranked"
+
+    def GetUsercoin(self, tokenid):
+            insertStmt = (
+                "SELECT ad.coin "
+                "FROM account a "
+                "JOIN account_data ad ON a.id = ad.account_id "
+                "WHERE a.token_id = %s"
+            )
+            data = (tokenid,)
+            self.cursor.execute(insertStmt, data)
+            current_app.logger.info(self.cursor._executed)
+            rec = []
+            for c in self.cursor:
+                rec.append(c[0])
+            if(bool(rec)):
+                return rec[0]
+            else:
+                return 0
+
+    def GetUserlevel(self, tokenid):
+            insertStmt = (
+                "SELECT ad.level "
+                "FROM account a "
+                "JOIN account_data ad ON a.id = ad.account_id "
+                "WHERE a.token_id = %s"
+            )
+            data = (tokenid,)
+            self.cursor.execute(insertStmt, data)
+            current_app.logger.info(self.cursor._executed)
+            rec = []
+            for c in self.cursor:
+                rec.append(c[0])
+            if(bool(rec)):
+                return rec[0]
+            else:
+                return 0

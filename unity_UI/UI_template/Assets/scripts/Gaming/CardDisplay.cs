@@ -33,7 +33,14 @@ public class CardDisplay : MonoBehaviour
         if(this.gameObject.layer == 7)
         {
             displayCard[0] = CardDatabase.cardList[DeleteChange.ChangedCardId];
-            cardBack = false;
+            if(this.transform.parent.tag == "Player")
+            {
+                cardBack =false;
+            }
+            else 
+            {
+                cardBack = true;
+            }
         }
         else if(this.gameObject.layer == 9 ||this.gameObject.layer == 12)
         {
@@ -88,8 +95,15 @@ public class CardDisplay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        if(this.gameObject.layer == 12)
+        if(this.transform.parent.tag == "Opponent")
+        {
+            cardBack = true;
+        }
+        else if(this.gameObject.layer == 8)
+        {
+            cardBack = false;
+        }
+        else if(this.gameObject.layer == 12)
         {
             if(ClickDetector.cardId == this.id)
             {

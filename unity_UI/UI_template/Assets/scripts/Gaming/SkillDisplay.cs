@@ -9,6 +9,8 @@ public class SkillDisplay : MonoBehaviour
     public List<PlayerSkill> displaySkill = new List<PlayerSkill>();
 
     public GameObject UsedPanel;
+    
+    public GameObject ForbiddenPanel;
 
     public int id;
     public string skillDescription;
@@ -26,6 +28,7 @@ public class SkillDisplay : MonoBehaviour
     void Start()
     {
         UsedPanel.SetActive(false);
+        ForbiddenPanel.SetActive(false);
         displaySkill[0] = SkillDatabase.SkillList[ShowSkill.PlayerSkillIdList[ShowSkill.skillIndex]-1];
         id = displaySkill[0].SkillId;
         skillName = displaySkill[0].SkillName;
@@ -40,6 +43,7 @@ public class SkillDisplay : MonoBehaviour
     {
         if(this.gameObject.layer == 13)
         {
+            ForbiddenPanel.SetActive(false);
             if(ClickDetector.skillId == this.id)
             {
                 if(this.id == 8)
@@ -63,6 +67,11 @@ public class SkillDisplay : MonoBehaviour
         {
             this.GetComponent<Image>().color = new Color32(0,0,0,0);
             UsedPanel.SetActive(true);
+        }
+        else if(this.gameObject.layer == 15)
+        {
+            this.GetComponent<Image>().color = new Color32(0,0,0,0);
+            ForbiddenPanel.SetActive(true);
         }
 
  

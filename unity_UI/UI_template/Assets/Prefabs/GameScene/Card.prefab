@@ -144,7 +144,7 @@ MonoBehaviour:
   PlayerShow: {fileID: 0}
   rectTransform: {fileID: 0}
   originalRectPosition: {x: 0, y: 0}
-  Dragsound: {fileID: 8300000, guid: a7cafb3f4d47049c8aac84f484e0d3ec, type: 3}
+  DragSound: {fileID: 0}
 --- !u!225 &6221166439560918153
 CanvasGroup:
   m_ObjectHideFlags: 0

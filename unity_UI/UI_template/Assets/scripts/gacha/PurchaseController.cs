@@ -13,7 +13,13 @@ namespace PurchaseControl
         [SerializeField] Dropdown dropdownRegion;
         [SerializeField] TextMeshProUGUI messageText;
         public Action actionReferences;
-        string[] allOptions = { "Japan", "Taiwan", "Korea", "China", "Germany", "Italy", "France", "Spain", "Canada" };
+        string[] allOptions = { "Afghanistan","Algeria","Argentina","Australia","Bangladesh","Brazil","Canada","China",
+                                "Colombia","Democratic Republic of the Congo","Egypt","Ethiopia","France","Germany",
+                                "India","Indonesia","Iran","Iraq","Italy","Japan","Kenya","Korea","Mexico","Morocco",
+                                "Myanmar (Burma)","Nigeria","Pakistan","Peru","Philippines","Poland","Russia",
+                                "Saudi Arabia","South Africa","South Korea","Spain","Sudan","Taiwan","Tanzania","Thailand",
+                                "Turkey","Uganda","Ukraine","United Kingdom","United States","Uzbekistan","Venezuela",
+                                "Vietnam","Yemen","Zambia","Zimbabwe"};
         // Text messageText;
 
         void Start()
@@ -41,11 +47,11 @@ namespace PurchaseControl
                 InputField cardNumField = purchasePanel.GetComponentInChildren<InputField>();
                 if (cardNumField != null)
                 {
-                    // if (cardNumField.Length < 12)
-                    // {
-                    //     return false;
-                    // }
-                    // return true;
+                    if (cardNumField.text.Length < 12)
+                    {
+                        return false;
+                    }
+                    return true;
                 }
                 else
                 {
