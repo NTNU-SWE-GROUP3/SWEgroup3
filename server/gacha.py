@@ -23,7 +23,7 @@ def Draw():
             error_message = "Token Expired, please login again"
             resultCards.append(
                     {
-                        "id": -2,
+                        "id": -3,
                         "type": "error",
                         "note": error_message,
                     }

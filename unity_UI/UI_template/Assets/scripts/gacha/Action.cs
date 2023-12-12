@@ -13,7 +13,7 @@ public class Action : MonoBehaviour
     [SerializeField] string apiUrl = "http://140.122.185.169:5050/gacha/draw";       // call API endpoint
 
     // default playerId = 1, mode = coin, times = 1
-    [SerializeField] string playerId = "1";
+    [SerializeField] string playerId = "";
     [SerializeField] string mode = "coin";
     [SerializeField] GotchaPanel gotchaPanel;
     [SerializeField] GameObject messagePanel;
@@ -136,7 +136,7 @@ public class Action : MonoBehaviour
                 if (buyClicked)
                 {
                     Debug.Log("Get info, start drawing...");
-                    StartCoroutine(SendRequest(playerId, mode, times));
+                    StartCoroutine(SendRequest(userdata.token, mode, times));
                 }
                 else if (cancelClicked)
                 {
@@ -146,7 +146,7 @@ public class Action : MonoBehaviour
             else if (mode == "coin")
             {
                 Debug.Log("Yes, Start Drawing");
-                StartCoroutine(SendRequest(playerId, mode, times));
+                StartCoroutine(SendRequest(userdata.token, mode, times));
             }
         }
         else if (noClicked)
@@ -264,7 +264,7 @@ public class Action : MonoBehaviour
         WWWForm form = new WWWForm();
 
         form.AddField("mode", mode);
-        form.AddField("token_id", "token456");
+        form.AddField("token_id", tokenId);
         form.AddField("times", times);
 
         UnityWebRequest www = UnityWebRequest.Post(apiUrl, form);
@@ -284,7 +284,9 @@ public class Action : MonoBehaviour
             Dictionary<string, object> check = jsonArray[0] as Dictionary<string, object>;
 
             int checkId = int.Parse(check["id"].ToString());
+
             backToLogin.check_id = checkId;
+            Debug.Log("check_id: " + checkId);
             if (checkId < 0)
             {
                 string message = check["note"].ToString();

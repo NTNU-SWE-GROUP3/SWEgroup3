@@ -1,8 +1,6 @@
 -- USE game;
-
-
 INSERT INTO `account` (`name`, `email`, `password`, `token_id`, `token_validity`, `verify_code`, `expiration_time`, `salt`) VALUES
-('John Doe', 'john.doe@example.com', 'password123', 'token123', NOW(), 'verify123', NOW(), 'salt123'),
+('Admin', 'admin@gmail.com', 'admin1234567890', 'token123', NOW(), 'verify123', NOW(), 'salt123'),
 ('Jane Smith', 'jane.smith@example.com', 'password456', 'token456', NOW(), 'verify456', NOW(), 'salt456');
 
 

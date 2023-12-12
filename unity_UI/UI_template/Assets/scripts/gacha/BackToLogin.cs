@@ -9,7 +9,7 @@ public class BackToLogin : MonoBehaviour
     public void ReLogin()
     {
         Debug.Log(check_id);
-        if (check_id == -2)
+        if (check_id == -3)
             SceneManager.LoadScene(0);
     }
 }
