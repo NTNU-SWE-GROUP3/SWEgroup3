@@ -38,9 +38,9 @@ public class UIManager : MonoBehaviour
     private int currentSkinIndex = 0;
     private string CurrentCharactor = "";
 
-    private static string serverUrl = "http://127.0.0.1:5050";
+    private static string serverUrl = "http://140.122.185.169:5050";
     private string serverURL_equip = serverUrl + "/card_style/equip_card_style";
-    private string authToken = "12345";
+    private string authToken = "token123";
     // public string[,] cardStyleList = {
     //     {"id", "1"},
     //     {"account_id", "1"},
@@ -120,7 +120,7 @@ public class UIManager : MonoBehaviour
         }
 
         WWWForm form = new WWWForm();
-        form.AddField("Token", authToken); // 
+        form.AddField("Token", authToken); 
         form.AddField("targetCardStyleID", targetCardStyleID);
         Debug.Log("Form Contents: " + FormContentsToString(form));
         using (UnityWebRequest www = UnityWebRequest.Post(serverURL_equip, form))
