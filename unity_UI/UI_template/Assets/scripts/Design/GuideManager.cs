@@ -18,14 +18,16 @@ public class GuideManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI dialogueText;
     [SerializeField] private float typingSpeed = 0.1f;
     [SerializeField] private float waitingSpeed = 0.2f;
-    [SerializeField] private float switchSpeed = 0.8f;
+    //[SerializeField] private float switchSpeed = 0.8f;
 
-
+    [SerializeField] GameObject skindesPanel;
+    [SerializeField] GameObject skindesPanel2;
     [SerializeField] GameObject MaskPanel1;
     [SerializeField] GameObject MaskPanel2;
     [SerializeField] GameObject MaskPanel3;
     [SerializeField] GameObject MaskPanel4;
     [SerializeField] GameObject MaskPanel5;
+    [SerializeField] GameObject button;
     
 
     private Coroutine displayLineCoroutine;
@@ -33,7 +35,7 @@ public class GuideManager : MonoBehaviour
     private int dialogueCurrentLenth;
     private string[] textPtr;
     private int currentstory = 0;
-    private static float[] timeControl ={1f,0.5f,0.5f,0.5f,0.5f};
+    private static float[] timeControl ={0.5f,0.5f,0.5f,0.5f,0.5f,0.5f};
     
     private static string[] intro = {"在某個古老的中世紀酒吧裡\n木制長桌上灰塵飛揚\n沾滿酒漬的桌面反映出暗淡的燭光。", 
                                     "石牆上掛著斑駁的旗幟\n勇士和冒險家的壁畫在暗淡的燈光下閃爍著。", 
@@ -57,14 +59,16 @@ public class GuideManager : MonoBehaviour
     private static string[] gatcha = {"這裡是抽卡區域,玩家可以消耗金幣或寶石抽取稀有造型以及強力技能", 
                                         "左右滑動卡池圖片可以更換卡池,嘗試後請點擊繼續按鈕" };
 
-    private static string[] pg5 = {"這裡是其他對戰區域,玩家可以在這裡選擇\n自訂對戰\n牌位對戰\n電腦對戰\n等三種模式", 
+    private static string[] pg5 = {"這裡是其他對戰區域,玩家可以在這裡選擇\n一般對戰\n牌位對戰\n電腦對戰\n自訂對戰等四種模式" 
     };
     
-    private static string[] pg1 = {"這裡造型裝備區域,玩家可以在這裡選擇造型裝備",};
+    private static string[] pg1 = {"這裡造型裝備區域,卡牌共分為四種陣營及六種職業,分別為\n皇家:國王、皇后、王子\n護衛:騎士\n平民:平民\n刺客:殺手",
+                                    "接著讓我們來看看各個腳色對應的圖示"};
 
     
     void Start()
     {
+        button.SetActive(false);
         ClearMask();
         MainscGuide();
     }
@@ -83,6 +87,8 @@ public class GuideManager : MonoBehaviour
     }
 
     void  ClearMask(){
+        skindesPanel.SetActive(false);
+        skindesPanel2.SetActive(false);
         MaskPanel1.SetActive(false);
         MaskPanel2.SetActive(false);
         MaskPanel3.SetActive(false);
@@ -125,7 +131,9 @@ public class GuideManager : MonoBehaviour
         yield return new WaitForSeconds(timeControl[currentstory]);
         MaskPanel.SetActive(false);
         currentstory++;
+        Debug.Log(currentstory);
         StoryController();
+        
 
     }
 
@@ -222,17 +230,32 @@ public class GuideManager : MonoBehaviour
             }
             break;
 
-            case 6://skin relate
+
+            case 6://skinicon
             if(startc==false){
                 startc=true;
                 MaskPanel5.SetActive(true);
+                Debug.Log("5");
             }
             else{
             startc=false;
             ClearMask();
-            MaskPanel.SetActive(true);
+            skindesPanel.SetActive(true);
+            currentstory++;
             }
             break;
+
+            case 7://skinicon2
+            ClearMask();
+            skindesPanel2.SetActive(true);
+            break;
+
+            case 8://skillicon
+            ClearMask();
+            skindesPanel2.SetActive(true);
+            break;
+
+
 
 
 
