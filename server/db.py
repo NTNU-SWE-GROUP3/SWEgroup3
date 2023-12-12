@@ -10,7 +10,8 @@ class DBManager:
             password='Swegroup3@12345',
             host=host, # name of the mysql service as set in the docker compose file
             database=database,
-            auth_plugin='mysql_native_password'
+            auth_plugin='mysql_native_password',
+            autocommit=True
         )
         # pf.close()
         self.cursor = self.connection.cursor()
@@ -196,13 +197,11 @@ class DBManager:
         data = (tokenid,)
         self.cursor.execute(insertStmt, data)
         current_app.logger.info(self.cursor._executed)
-        rec = []
-        for c in self.cursor:
-            rec.append(c[0])
-        if(bool(rec)):
-            return rec[0]
+        result = self.cursor.fetchone()
+        if(result):
+             return result[0]
         else:
-            return -1
+             return -1
 
     def ReloadChangePassword(self, accountId, newpassword):
         insert_stmt = (
