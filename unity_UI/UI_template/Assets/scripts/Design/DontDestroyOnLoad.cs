@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 
 public class DontDestroy : MonoBehaviour
 {
-    public static string serverURL = "http://127.0.0.1:5050";
+    public static string serverURL = "http://140.122.185.169:5050";
     public string serverURL_CardInfo = serverURL + "/user_data/getcardinfo";
     public string serverURL_SkillInfo = serverURL + "/user_data/getskillinfo";
     public string serverURL_UserSkillData = serverURL + "/user_data/getuserskilldata";
