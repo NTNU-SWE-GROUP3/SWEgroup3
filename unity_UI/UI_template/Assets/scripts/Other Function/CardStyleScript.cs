@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System.Text;
 
 public class UIManager : MonoBehaviour
 {
@@ -110,7 +111,8 @@ public class UIManager : MonoBehaviour
 
     private IEnumerator EquipSkinGetStatus(string targetCardStyleID)
     {
-        //To be continue
+        Debug.Log("EquipSkinGetStatus started");
+
         if (string.IsNullOrEmpty(authToken))
         {
             Debug.LogError("Authentication token is missing. User may not be logged in.");
@@ -120,9 +122,12 @@ public class UIManager : MonoBehaviour
         WWWForm form = new WWWForm();
         form.AddField("Token", authToken); // 
         form.AddField("targetCardStyleID", targetCardStyleID);
+        Debug.Log("Form Contents: " + FormContentsToString(form));
         using (UnityWebRequest www = UnityWebRequest.Post(serverURL_equip, form))
         {
             yield return www.SendWebRequest();
+
+            Debug.Log("Response: " + www.downloadHandler.text);
 
             // Check for errors
             if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
@@ -220,6 +225,7 @@ public class UIManager : MonoBehaviour
                 break;
         }
         string targetCardStyleID = idCount.ToString();
+        Debug.Log($"targetCardStyleID_input: {targetCardStyleID}");
         StartCoroutine(EquipSkinGetStatus(targetCardStyleID));
     }
 
@@ -357,7 +363,17 @@ public class UIManager : MonoBehaviour
 
    
 
+    private string FormContentsToString(WWWForm form)
+    {
+        StringBuilder sb = new StringBuilder();
 
+        foreach (var fieldName in form.headers.Keys)
+        {
+            sb.AppendLine($"{fieldName}: {form.headers[fieldName]}");
+        }
+
+        return sb.ToString();
+    }
 
 
 
