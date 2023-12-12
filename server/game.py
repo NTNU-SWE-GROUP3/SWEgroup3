@@ -81,9 +81,10 @@ def getPlayerInfo():
         connection.close()
 
 
-@gaming.route("/game_finish",methods=["POST"])
+@gaming.route("/game_finish", methods=["POST"])
 def game_finish():
     try:
+        print("Game finished")
         account_id = request.form.get("account_id")
         end_status = request.form.get("end_status")
 
@@ -101,12 +102,16 @@ def game_finish():
         else:
             addcoins = 100
             addcoins = 100
-        
-        cursor.execute("UPDATE account_data SET coin = coin + %s WHERE account_id = %s",(addcoins,account_id),)
-        cursor.execute("UPDATE account_data SET experience = experience + %s WHERE account_id = %s",(addexp,account_id),)
-        
+
+        cursor.execute("UPDATE account_data SET coin = coin + %s WHERE account_id = %s", (addcoins, account_id),)
+        cursor.execute("UPDATE account_data SET experience = experience + %s WHERE account_id = %s", (addexp, account_id),)
+
+        connection.commit()
+
+        return jsonify({"success": True, "message": "Game finished successfully"})
     except Exception as e:
-        return 10000
+        print("Error in game_finish:", e)
+        return jsonify({"success": False, "message": "Internal Server Error"}), 500
     finally:
         connection.close()
 
