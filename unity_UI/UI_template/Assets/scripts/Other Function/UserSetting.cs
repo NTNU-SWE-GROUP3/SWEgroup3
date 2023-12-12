@@ -63,6 +63,12 @@ public class UserSetting : MonoBehaviour
     public Text NoticeTitleText;
     public Button UserWarningButton;
 
+    //UI Text
+    public Text UIUserName;
+    public Text UIUserLevel;
+    public Text UICoins;
+    public Text UIChips;
+
 
 
     //URL
@@ -288,6 +294,12 @@ public class UserSetting : MonoBehaviour
                         player_nickname = responseData.nickname;
                         player_email = responseData.email;
                         player_winrate = responseData.winrate;
+
+                        UIUserName.text = player_nickname;
+                        UIUserLevel.text = player_level.ToString();
+                        UICoins.text = player_coins.ToString();
+                        UIChips.text = "0";
+
                         break;
 
                     case "403011":

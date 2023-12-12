@@ -2665,7 +2665,7 @@ GameObject:
   - component: {fileID: 214517913}
   - component: {fileID: 214517912}
   m_Layer: 5
-  m_Name: Text (Legacy) (1)
+  m_Name: UIDimondsText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3241,7 +3241,7 @@ GameObject:
   - component: {fileID: 262303343}
   - component: {fileID: 262303342}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: UICoinText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4796,7 +4796,7 @@ GameObject:
   - component: {fileID: 423646972}
   - component: {fileID: 423646971}
   m_Layer: 5
-  m_Name: Text (Legacy) (1)
+  m_Name: UILevelText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7477,14 +7477,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c11946e3700234e2db1461d50b1a8dbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player_coins: 0
-  player_level: 0
-  player_totalwin: 0
-  player_totalmatch: 0
-  player_winrate: 0
-  player_ranking: 
-  player_nickname: 
-  player_email: 
 --- !u!4 &641754004
 Transform:
   m_ObjectHideFlags: 0
@@ -7757,7 +7749,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.0031738, y: -303.83}
+  m_AnchoredPosition: {x: -0.0031738281, y: -303.82996}
   m_SizeDelta: {x: -196, y: -926.3347}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &666089065
@@ -18649,6 +18641,10 @@ MonoBehaviour:
   UseSettingMessage: {fileID: 1625042679}
   NoticeTitleText: {fileID: 1643865604}
   UserWarningButton: {fileID: 1070215055}
+  UIUserName: {fileID: 1990254033}
+  UIUserLevel: {fileID: 423646971}
+  UICoins: {fileID: 262303342}
+  UIChips: {fileID: 214517912}
 --- !u!1 &1465905145
 GameObject:
   m_ObjectHideFlags: 0
@@ -19070,14 +19066,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c11946e3700234e2db1461d50b1a8dbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player_coins: 0
-  player_level: 0
-  player_totalwin: 0
-  player_totalmatch: 0
-  player_winrate: 0
-  player_ranking: 
-  player_nickname: 
-  player_email: 
 --- !u!114 &1497517800
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26054,7 +26042,7 @@ GameObject:
   - component: {fileID: 1990254034}
   - component: {fileID: 1990254033}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: UIUsernameText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

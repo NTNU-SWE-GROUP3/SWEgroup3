@@ -84,6 +84,8 @@ public class DontDestroy : MonoBehaviour
 
     public IEnumerator CardInfoRequest()
     {
+        characterDataList.Clear();
+
         WWWForm form = new WWWForm();
 
         using (UnityWebRequest www = UnityWebRequest.Post(serverURL_CardInfo, form))
@@ -149,6 +151,8 @@ public class DontDestroy : MonoBehaviour
 
     public IEnumerator SkillInfoRequest()
     {
+        SkillDataList.Clear();
+
         WWWForm form = new WWWForm();
 
         using (UnityWebRequest www = UnityWebRequest.Post(serverURL_SkillInfo, form))
@@ -209,6 +213,8 @@ public class DontDestroy : MonoBehaviour
 
     public IEnumerator UserCardDataRequest(string player_token)
     {
+        UserCardDataList.Clear();
+
         WWWForm form = new WWWForm();
         form.AddField("Token", player_token); // 
 
@@ -270,6 +276,8 @@ public class DontDestroy : MonoBehaviour
 
     public IEnumerator UserSkillDataRequest(string player_token)
     {
+        UserSkillDataList.Clear();
+
         WWWForm form = new WWWForm();
         form.AddField("Token", player_token); // 
 
@@ -306,7 +314,7 @@ public class DontDestroy : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Invalid data format from the server:" + dataParts.Length);
+                    Debug.Log("No Skill data from the server:" + dataParts.Length);
                 }
             }
         }
