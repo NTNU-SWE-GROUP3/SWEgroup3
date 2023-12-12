@@ -46,7 +46,7 @@ public class UIManager : MonoBehaviour
     //     {"card_style_id", "3"},
     //     {"equip_status", "0"}
     // };
-    private List<DontDestroy.UserCardData> userCardStyleList;
+    // private List<DontDestroy.UserCardData> userCardStyleList;
 
 
     //WarningPanel 
@@ -71,33 +71,33 @@ public class UIManager : MonoBehaviour
         AssassinButton.onClick.AddListener(ViewAssassinSkin);
 
         //Fetching user's card data list
-        GameObject dontDestroyObject = GameObject.Find("DontDestroy");
+        // GameObject dontDestroyObject = GameObject.Find("DontDestroy");
 
-        if (dontDestroyObject != null)
-        {
-            // Access the DontDestroy script
-            DontDestroy dontDestroyScript = dontDestroyObject.GetComponent<DontDestroy>();
+        // if (dontDestroyObject != null)
+        // {
+        //     // Access the DontDestroy script
+            // DontDestroy dontDestroyScript = dontDestroyObject.GetComponent<DontDestroy>();
 
-            if (dontDestroyScript != null)
-            {
-                // Access the UserCardDataList
-                userCardStyleList = dontDestroyScript.UserCardDataList;
+            // if (dontDestroyScript != null)
+            // {
+            //     // Access the UserCardDataList
+            //     userCardStyleList = dontDestroyScript.UserCardDataList;
 
-                // Now you can use userCardList for your logic
-                foreach (var userCardData in userCardStyleList)
-                {
-                    Debug.Log($"CardID: {userCardData.CardID}, EquipStatus: {userCardData.EquipStatus}");
-                }
-            }
-            else
-            {
-                Debug.LogError("DontDestroy script not found on the GameObject.");
-            }
-        }
-        else
-        {
-            Debug.LogError("GameObject with DontDestroy script not found in the scene.");
-        }
+            //     // Now you can use userCardList for your logic
+            //     foreach (var userCardData in userCardStyleList)
+            //     {
+            //         Debug.Log($"CardID: {userCardData.CardID}, EquipStatus: {userCardData.EquipStatus}");
+            //     }
+            // }
+            // else
+            // {
+            //     Debug.LogError("DontDestroy script not found on the GameObject.");
+            // }
+        // }
+        // else
+        // {
+        //     Debug.LogError("GameObject with DontDestroy script not found in the scene.");
+        // }
     }
 
     private void ClosePanel()
@@ -165,6 +165,7 @@ public class UIManager : MonoBehaviour
 
     private void EquipSkin()
     {
+        Debug.Log("EquipSkin button clicked!");
         //calculate target card style id
         int idCount = 0;
         switch(CurrentCharactor)
