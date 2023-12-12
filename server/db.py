@@ -426,5 +426,19 @@ class DBManager:
             return (style_data)
         
         
-        
+    # user_data get AccountDataTable all in once
+    def GetAccountDataTableAll(self, tokenid):
+            query = (
+                "SELECT ad.* FROM account a "
+                "JOIN account_data ad ON a.id = ad.account_id "
+                "WHERE a.token_id = %s"
+            )
+            data = (tokenid,)
+            self.cursor.execute(query, data)
+            current_app.logger.info(self.cursor._executed)
+            rows = self.cursor.fetchall()
+            account_data = []
+            for row in rows:
+                account_data.append(row)
+            return (account_data)
         

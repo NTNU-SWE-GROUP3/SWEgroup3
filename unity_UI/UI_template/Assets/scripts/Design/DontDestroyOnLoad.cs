@@ -11,9 +11,20 @@ public class DontDestroy : MonoBehaviour
     public string serverURL_SkillInfo = serverURL + "/user_data/getskillinfo";
     public string serverURL_UserSkillData = serverURL + "/user_data/getuserskilldata";
     public string serverURL_UserCardData = serverURL + "/user_data/getuserstyledata";
+    public string serverURL_AccountData = serverURL + "/user_data/get_accountdata_table";
 
 
     public string token = "";
+    public int uid;
+    public string nickname = "";
+    public int level;
+    public int experience;
+    public string rank = "";
+    public int total_match;
+    public int total_win;
+    public int ranked_winning_streak;
+    public int rank_xp;
+    public int coin;
 
     // Start is called before the first frame update
     void Awake()
@@ -317,8 +328,71 @@ public class DontDestroy : MonoBehaviour
     }
 
 
+    public IEnumerator AccountTableRequest(string player_token)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("Token", player_token); // 
+
+        using (UnityWebRequest www = UnityWebRequest.Post(serverURL_AccountData, form))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
+            {
+                Debug.LogWarning(www.error);
+                Debug.Log("Internet error @ AccountTableRequest");
+            }
+            else
+            {
+                string dataString = www.downloadHandler.text;
+                //Debug.Log(dataString);
+
+                string[] dataParts = dataString.Split(';');
+
+                // 確保有足夠的元素來初始化變數
+                if (dataParts.Length == 10)
+                {
+                    uid = int.Parse(dataParts[0]);
+                    nickname = dataParts[1];
+                    level = int.Parse(dataParts[2]);
+                    experience = int.Parse(dataParts[3]);
+                    rank = dataParts[4];
+                    total_match = int.Parse(dataParts[5]);
+                    total_win = int.Parse(dataParts[6]);
+                    ranked_winning_streak = int.Parse(dataParts[7]);
+                    rank_xp = int.Parse(dataParts[8]);
+                    coin = int.Parse(dataParts[9]);
+
+                    /*
+                        public int uid;
+                        public string nickname = "";
+                        public int level;
+                        public int experience;
+                        public string rank = "";
+                        public int total_match;
+                        public int total_win;
+                        public int ranked_winning_streak;
+                        public int rank_xp;
+                        public int coin;
+                     */
+                }
+                else
+                {
+                    Debug.Log("Invalid data format from the server:" + dataParts.Length);
+                }
+            }
+        }
+    }
 
 
+
+    public IEnumerator Init_Card_Skill_Account_Data(string token)
+    {
+        yield return StartCoroutine(UserCardDataRequest(token));
+        yield return StartCoroutine(UserSkillDataRequest(token));
+        yield return StartCoroutine(AccountTableRequest(token));
+
+    }
 
 
 

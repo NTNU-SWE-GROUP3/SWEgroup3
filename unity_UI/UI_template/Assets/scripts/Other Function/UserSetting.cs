@@ -272,7 +272,7 @@ public class UserSetting : MonoBehaviour
             {
 
                 string responseText = www.downloadHandler.text;
-                Debug.Log("Server Response: " + responseText);
+                //Debug.Log("Server Response: " + responseText);
                 // 解析伺服器回應的 JSON
                 UserInformationResponseData responseData = JsonUtility.FromJson<UserInformationResponseData>(responseText);
                 // 根據狀態碼執行不同的操作
