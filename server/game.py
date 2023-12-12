@@ -77,3 +77,16 @@ def getPlayerInfo():
         return 10000
     finally:
         connection.close()
+
+
+@gaming.route("/game_finish",methods=["POST"])
+def game_finish():
+    try:
+        account_id = request.form.get("account_id")
+        connection = func.create_mysql_connection()
+        cursor = connection.cursor(dictionary=True)
+    except Exception as e:
+        return 10000
+    finally:
+        connection.close()
+
