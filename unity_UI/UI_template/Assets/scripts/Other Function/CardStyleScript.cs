@@ -84,7 +84,7 @@ public class UIManager : MonoBehaviour
                 userCardStyleList = dontDestroyScript.UserCardDataList;
 
                 // Now you can use userCardList for your logic
-                foreach (var userCardData in userCardList)
+                foreach (var userCardData in userCardStyleList)
                 {
                     Debug.Log($"CardID: {userCardData.CardID}, EquipStatus: {userCardData.EquipStatus}");
                 }
@@ -147,15 +147,15 @@ public class UIManager : MonoBehaviour
                         //change the skin of the card~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~·
                         break;
                     case "200021":
-                        Debug.Log("User doesn't have this item");
+                        Debug.Log("Equip failure");
                         // Warning Panel
-                        Warning_Message.SetText("You do not have this item");;
+                        Warning_Message.SetText("You have failed to equip this item");;
                         WarningPanel.SetActive(true);
                         break;
-                    case "403011":
-                        Debug.Log("Token expired");
+                    case "200022":
+                        Debug.Log("Item doesn't exist in inventory");
                         // Warning Panel
-                        Warning_Message.SetText("Session time out. Please re-sign in");
+                        Warning_Message.SetText("It seems like you do not have this item in inventory");
                         WarningPanel.SetActive(true);
                         break;
                 }
@@ -165,19 +165,60 @@ public class UIManager : MonoBehaviour
 
     private void EquipSkin()
     {
-        for(int i=0; i<userCardStyleList.count; i++)
-        {
-            //set all the equip status of the skins to 0
-            UserCardData userCardData = userCardStyleList[i];
-
-            if (userCardData.EquipStatus == "1")
-            {
-                // Do something with the card data, for example, send it to the backend
-                SendDataToBackend(userCardData);
-            }
-        }
         //calculate target card style id
-        string targetCardStyleID = "";
+        int idCount = 0;
+        switch(CurrentCharactor)
+        {
+            case "King":
+                idCount = 2;
+                break;
+            case "Queen":
+                idCount = 5;
+                break;
+            case "Prince":
+                idCount = 4;
+                break;
+            case "Knight":
+                idCount = 3;
+                break;
+            case "Civil":
+                idCount = 0;
+                break;
+            case "Killer":
+                idCount = 1;
+                break;
+        }
+        switch(currentSkinIndex)
+        {
+            case 0: //Aladin
+                idCount += 7;
+                break;
+            case 1: //Alice in wonderland
+                idCount += 13;
+                break;
+            case 2: //Chinese chess
+                idCount += 37;
+                break;
+            case 3: //Cinderella
+                idCount += 19;
+                break;
+            case 4: //Frozen
+                idCount += 1;
+                break;
+            case 5: //Japanese chess
+                idCount += 43;
+                break;
+            case 6: //Poker
+                idCount += 31;
+                break;
+            case 7: //Romeo and Juliette
+                idCount += 25;
+                break;
+            case 8: //Snow white
+                idCount += 49;
+                break;
+        }
+        string targetCardStyleID = idCount.ToString();
         StartCoroutine(EquipSkinGetStatus(targetCardStyleID));
     }
 
@@ -313,36 +354,7 @@ public class UIManager : MonoBehaviour
         EquipButton.onClick.AddListener(EquipSkin);
     }
 
-    private void SendDataToBackend(UserCardData cardData)
-    {
-        StartCoroutine(SendCardDataToBackend(cardData));
-    }
-
-    private IEnumerator SendCardDataToBackend(UserCardData cardData)
-    {        
-        // Create a WWWForm and add data to it
-        WWWForm form = new WWWForm();
-        form.AddField("CardID", cardData.CardID);
-        form.AddField("EquipStatus", cardData.EquipStatus);
-
-        using (UnityWebRequest www = UnityWebRequest.Post(serverURL, form))
-        {
-            yield return www.SendWebRequest();
-
-            if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
-            {
-                Debug.LogWarning(www.error);
-                Debug.Log("Internet error @ SendCardDataToBackend");
-            }
-            else
-            {
-                Debug.Log("Card data sent to the backend successfully");
-            }
-        }
-    }
-
-
-
+   
 
 
 

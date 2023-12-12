@@ -2,26 +2,41 @@ import mysql.connector
 from flask import Flask, request, jsonify, Blueprint
 import func
 import traceback
-from flask import current_app
 
 card_style = Blueprint('card_style', __name__, url_prefix='/card_style')
 
+''' =========================
+equip skin
+input
+    token ID
+    target card style
+output
+    status
+        200001 : equip success
+        200021 : equip failure
+        200022 : Item doesn't exist in inventory
+========================= '''
 @card_style.route("/equip_card_style", methods=['POST'])
 def EquipCardStyle():
-    print("Hello")
     try:
         tokenId = request.form.get("tokenId")
         targetCardStyleId = request.form.get("targetCardStyleId")
 
         print("Token ID: ", tokenId)
         print("Target Card Style ID: ", targetCardStyleId)
-        # current_app.logger("Token ID: ", tokenId)
-        # current_app.logger("Target Card Style ID: ", targetCardStyleId)
 
         haveItem = HaveCardStyle(tokenId, targetCardStyleId)
         print("haveItem: ", haveItem)
 
         if haveItem:
+            unselectSkinId = FindEquippedCardStyle(tokenId)
+            print("target unselect skin id: ", unselectSkinId)
+            if unselectSkinId:
+                unEquipSuccess = UnEquipCardStyle(tokenId, unselectSkinId)
+                if not unEquipSuccess:
+                    print("Failed to unequip skin")
+                    return False
+                print("Succeeded to unequip skin")
             equipSuccess = UpdateEquipStatus(tokenId, targetCardStyleId)
             if equipSuccess:
                 print("Successfully equipped skin")
@@ -93,6 +108,53 @@ def UpdateEquipStatus(tokenId, targetCardStyleId):
         print("Error in EquipCardStyle")
         conn.close()
         return False
+    
+def UnEquipCardStyle(tokenId, targetCardStyleId):
+    try:
+        conn = func.create_mysql_connection()
+        cursor = conn.cursor()
+        cursor.execute(
+            "UPDATE account_card_style acs "
+            "JOIN account a ON a.id = acs.account_id "
+            "SET acs.equip_status = 0 "
+            "WHERE a.token_id = %s AND acs.card_style_id = %s",
+            (tokenId, targetCardStyleId,)
+        )
+        conn.commit()
+        conn.close()
+        print("Successfully unequipped card style")
+        return True
+    except Exception as e:
+        print("Error in UnEquipCardStyle")
+        conn.close()
+        return False
+
+def FindEquippedCardStyle(tokenId):
+    try:
+        conn = func.create_mysql_connection()
+        cursor = conn.cursor()
+        cursor.execute(
+            "SELECT acs.card_style_id "
+            "FROM account a "
+            "JOIN account_card_style acs ON a.id = acs.account_id "
+            "WHERE a.token_id = %s AND acs.equip_status = 1",
+            (tokenId,)
+        )
+        result = cursor.fetchone()
+        if result:
+            equippedSkin = result[0]
+            print("equippedSkin: ", equippedSkin)
+            conn.close()
+            return equippedSkin
+        else:
+            print("No equipped skin")
+            conn.close()
+            return None
+        
+    except Exception as e:
+        print("Error in FindEquippedCardStyle")
+        conn.close()
+        return None
     
 
             
