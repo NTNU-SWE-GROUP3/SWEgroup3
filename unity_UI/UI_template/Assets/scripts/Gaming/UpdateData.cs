@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 public class UpdateData : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class UpdateData : MonoBehaviour
         Debug.Log("Status: " + GameController.WinOrLose);
         Debug.Log("PlayerId: " + playerId);
         StartCoroutine(SendRequest(playerId.ToString(), GameController.WinOrLose));
+        SceneManager.LoadScene(1);
     }
 
     void Init()
