@@ -289,13 +289,15 @@ public class GameController : MonoBehaviour
             {
                 NextRoundText.text = "VICTORY";
                 StartCoroutine(VictorySE());
-                StartCoroutine(GameFinishPanel("win"));
+                WinOrLose = "win";
+                StartCoroutine(GameFinishPanel(WinOrLose));
             }
             else if (OpponentEarnCard >= 2)
             {
                 NextRoundText.text = "DEFEAT";
                 StartCoroutine(DefeatSE());
-                StartCoroutine(GameFinishPanel("lose"));
+                WinOrLose = "lose";
+                StartCoroutine(GameFinishPanel(WinOrLose));
             }
             else
             {
