@@ -1,4 +1,4 @@
--- USE game;
+USE game;
 
 
 INSERT INTO `account` (`name`, `email`, `password`, `token_id`, `token_validity`, `verify_code`, `expiration_time`, `salt`) VALUES
