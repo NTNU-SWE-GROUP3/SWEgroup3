@@ -86,18 +86,16 @@ public static class MatchmakingService
         {
             Data = new Dictionary<string, DataObject> {
                 { Constants.JoinKey, new DataObject(DataObject.VisibilityOptions.Member, joinCode) },
-                { Constants.GameTypeKey, new DataObject(DataObject.VisibilityOptions.Public, data.Type.ToString(), DataObject.IndexOptions.N1) }, {
-                    Constants.DifficultyKey,
-                    new DataObject(DataObject.VisibilityOptions.Public, data.Difficulty.ToString(), DataObject.IndexOptions.N2)
-                }
+                { Constants.GameTypeKey, new DataObject(DataObject.VisibilityOptions.Public, data.Type.ToString(), DataObject.IndexOptions.N1) },
+                { Constants.DifficultyKey, new DataObject(DataObject.VisibilityOptions.Public, data.Difficulty.ToString(), DataObject.IndexOptions.N2) }
+
             }
         };
 
         //The name of the lobby will be same as the host player.
         _currentLobby = await Lobbies.Instance.CreateLobbyAsync("New", data.MaxPlayers, options);
         Debug.Log($"Lobby created: {_currentLobby.Id}");
-
-        //Transport.SetHostRelayData(a.RelayServer.IpV4, (ushort)a.RelayServer.Port, a.AllocationIdBytes, a.Key, a.ConnectionData);
+        // //Transport.SetHostRelayData(a.RelayServer.IpV4, (ushort)a.RelayServer.Port, a.AllocationIdBytes, a.Key, a.ConnectionData);
 
         Heartbeat();
         PeriodicallyRefreshLobby();
@@ -125,11 +123,14 @@ public static class MatchmakingService
         }
     }
 
-    public static async Task JoinLobbyWithAllocation(string lobbyId)
+    //Quick Join the Normal/Ranked lobbies
+    //type: Normal:0 Ranked:1
+    //level: Normal:0 Ranked 1~5
+    public static async Task QuickJoinLobbyWithAllocation(int type, int level)
     {
         _currentLobby = await Lobbies.Instance.JoinLobbyByIdAsync(lobbyId);
         var a = await RelayService.Instance.JoinAllocationAsync(_currentLobby.Data[Constants.JoinKey].Value);
-        
+
         Transport.SetClientRelayData(a.RelayServer.IpV4, (ushort)a.RelayServer.Port, a.AllocationIdBytes, a.Key, a.ConnectionData, a.HostConnectionData);
         PeriodicallyRefreshLobby();
     }
@@ -151,53 +152,81 @@ public static class MatchmakingService
         await Task.Delay(LobbyRefreshRate * 1000);
         while (!_updateLobbySource.IsCancellationRequested && _currentLobby != null)
         {
-            _currentLobby = await Lobbies.Instance.GetLobbyAsync(_currentLobby.Id);
-            CurrentLobbyRefreshed?.Invoke(_currentLobby);
+            new QueryFilter(QueryFilter.FieldOptions.AvailableSlots, "0", QueryFilter.OpOptions.GT),
+            new QueryFilter(QueryFilter.FieldOptions.IsLocked, "0", QueryFilter.OpOptions.EQ),
+            new QueryFilter(QueryFilter.FieldOptions.N1, type.ToString(), QueryFilter.OpOptions.EQ),
+            new QueryFilter(QueryFilter.FieldOptions.N2, level.ToString(), QueryFilter.OpOptions.EQ),
+        };
+
+        _currentLobby = await Lobbies.Instance.QuickJoinLobbyAsync(options);
+        // var a = await RelayService.Instance.JoinAllocationAsync(_currentLobby.Data[Constants.JoinKey].Value);
+        // Transport.SetClientRelayData(a.RelayServer.IpV4, (ushort)a.RelayServer.Port, a.AllocationIdBytes, a.Key, a.ConnectionData, a.HostConnectionData);
+        PeriodicallyRefreshLobby();
+
+
+        // This function is used for Friend game X join, but with problem....
+        public static async Task JoinLobbyWithAllocationCode(string lobbyCode)
+        {
+            _currentLobby = await Lobbies.Instance.JoinLobbyByCodeAsync(lobbyCode);
+            // var a = await RelayService.Instance.JoinAllocationAsync(_currentLobby.Data[Constants.JoinKey].Value);
+            // Transport.SetClientRelayData(a.RelayServer.IpV4, (ushort)a.RelayServer.Port, a.AllocationIdBytes, a.Key, a.ConnectionData, a.HostConnectionData);
+
+            PeriodicallyRefreshLobby();
+        }
+
+        private static async void PeriodicallyRefreshLobby()
+        {
+            _updateLobbySource = new CancellationTokenSource();
             await Task.Delay(LobbyRefreshRate * 1000);
+            while (!_updateLobbySource.IsCancellationRequested && _currentLobby != null)
+            {
+                _currentLobby = await Lobbies.Instance.GetLobbyAsync(_currentLobby.Id);
+                CurrentLobbyRefreshed?.Invoke(_currentLobby);
+                await Task.Delay(LobbyRefreshRate * 1000);
+            }
+        }
+
+        public static async Task LeaveLobby()
+        {
+            _heartbeatSource?.Cancel();
+            _updateLobbySource?.Cancel();
+
+            if (_currentLobby != null)
+                try
+                {
+                    if (_currentLobby.HostId == Authentication.PlayerId) await Lobbies.Instance.DeleteLobbyAsync(_currentLobby.Id);
+                    else await Lobbies.Instance.RemovePlayerAsync(_currentLobby.Id, Authentication.PlayerId);
+                    _currentLobby = null;
+                }
+                catch (Exception e)
+                {
+                    Debug.Log(e);
+                }
         }
     }
 
-    public static async Task LeaveLobby()
+    public class Constants
     {
-        _heartbeatSource?.Cancel();
-        _updateLobbySource?.Cancel();
+        public const string JoinKey = "j";
+        public const string DifficultyKey = "d";
+        public const string GameTypeKey = "t";
 
-        if (_currentLobby != null)
-            try
-            {
-                if (_currentLobby.HostId == Authentication.PlayerId) await Lobbies.Instance.DeleteLobbyAsync(_currentLobby.Id);
-                else await Lobbies.Instance.RemovePlayerAsync(_currentLobby.Id, Authentication.PlayerId);
-                _currentLobby = null;
-            }
-            catch (Exception e)
-            {
-                Debug.Log(e);
-            }
+        public const int MAX_PLAYER = 2;
+
+        public static readonly List<string> GameTypes = new() { "Normal", "Friends", "Rank" };
+
+        public static readonly List<string> Difficulties = new() { "None", "Basic", "Medium", "Hard", "Extreme", "Nightmare" };
+        // None: for Friends, Normal
+        // Basic: for Rank 1 - 2
+        // Medium: for Rank 3 - 4
+        // Hard: for Rank 5
+        // Extreme: for Rank 6
+        // Nightmare: for Rank 7
     }
-}
 
-public class Constants
-{
-    public const string JoinKey = "j";
-    public const string DifficultyKey = "d";
-    public const string GameTypeKey = "t";
-
-    public const int MAX_PLAYER = 2;
-
-    public static readonly List<string> GameTypes = new() { "Normal", "Friends", "Rank" };
-
-    public static readonly List<string> Difficulties = new() { "None", "Basic", "Medium", "Hard", "Extreme", "Nightmare" };
-    // None: for Friends, Normal
-    // Basic: for Rank 1 - 2
-    // Medium: for Rank 3 - 4
-    // Hard: for Rank 5
-    // Extreme: for Rank 6
-    // Nightmare: for Rank 7
-}
-
-public struct LobbyData
-{
-    public int MaxPlayers;
-    public int Difficulty;
-    public int Type;
-}
+    public struct LobbyData
+    {
+        public int MaxPlayers;
+        public int Difficulty;
+        public int Type;
+    }
