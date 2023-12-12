@@ -194,6 +194,18 @@ public class Action : MonoBehaviour
                 Debug.Log("Invalid card number.");
                 return;
             }
+            if (!purchaseController.DateCheck())
+            {
+                purchaseController.DisplayMessage("Please enter a valid date.");
+                Debug.Log("Invalid card date.");
+                return;
+            }
+            if (!purchaseController.CCVCheck())
+            {
+                purchaseController.DisplayMessage("Please enter a valid CCV code.");
+                Debug.Log("Invalid ccv code.");
+                return;
+            }
             buyClicked = true;
             cancelClicked = false;
             purchasePanel.SetActive(false);
