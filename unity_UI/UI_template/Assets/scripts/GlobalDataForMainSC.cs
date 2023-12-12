@@ -19,31 +19,25 @@ public class GlobalDataForMainSC : MonoBehaviour
     void Start()
     {
         // 獲取 DontDestroy 類的實例
-        userdata = FindObjectOfType<DontDestroy>();
 
+        // I'm So SORRY! 這裡不需要這個！ 但可以用來測試一下
+       
+        userdata = FindObjectOfType<DontDestroy>();
         if (userdata != null)
         {
             player_token = userdata.token;
             Debug.Log("Token value: " + player_token);
 
-            //StartCoroutine(userdata.CardInfoRequest());
-            //StartCoroutine(userdata.SkillInfoRequest());
-            StartCoroutine(InitData());
+            string cardDescription = userdata.characterDataList[2].CardDescription;
+            Debug.Log("character 3 Description: " + cardDescription);
 
         }
         else
         {
             Debug.LogError("DontDestroy script not found!");
         }
-        
-    }
 
-    IEnumerator InitData()
-    {
-        yield return StartCoroutine(userdata.UserCardDataRequest(player_token));
-        yield return StartCoroutine(userdata.UserSkillDataRequest(player_token));
 
     }
-
 
 }

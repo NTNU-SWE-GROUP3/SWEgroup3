@@ -169,7 +169,7 @@ public class DontDestroy : MonoBehaviour
 
                         // 使用取得的數據初始化變數
                         InitializeSkillVariables(id, cardname, description, probability);
-                        Debug.Log("id:" + id + "\ntype:" + cardname + "\ndescription:" + description + "\nvalue:" + probability);
+                        //Debug.Log("id:" + id + "\ntype:" + cardname + "\ndescription:" + description + "\nvalue:" + probability);
                     }
                 }
                 else
@@ -213,7 +213,7 @@ public class DontDestroy : MonoBehaviour
             else
             {
                 string dataString = www.downloadHandler.text;
-                Debug.Log(dataString);
+                //Debug.Log(dataString);
 
                 string[] dataParts = dataString.Split(';');
 
@@ -229,12 +229,12 @@ public class DontDestroy : MonoBehaviour
 
                         // 使用取得的數據初始化變數
                         InitializeUserCardDataVariables(CardID, EquipStatus);
-                        Debug.Log("CardID:" + CardID + "\nEquipStatus:" + EquipStatus);
+                        //Debug.Log("CardID:" + CardID + "\nEquipStatus:" + EquipStatus);
                     }
                 }
                 else
                 {
-                    Debug.Log("Invalid data format from the server:" + dataParts.Length);
+                    Debug.Log("No Card data from the server:");
                 }
             }
         }
@@ -274,7 +274,7 @@ public class DontDestroy : MonoBehaviour
             else
             {
                 string dataString = www.downloadHandler.text;
-                Debug.Log(dataString);
+                //Debug.Log(dataString);
 
                 string[] dataParts = dataString.Split(';');
 
@@ -290,7 +290,7 @@ public class DontDestroy : MonoBehaviour
 
                         // 使用取得的數據初始化變數
                         InitializeUserSkillDataVariables(SkillID, EquipStatus);
-                        Debug.Log("SkillID:" + SkillID + "\nEquipStatus:" + EquipStatus);
+                        //Debug.Log("SkillID:" + SkillID + "\nEquipStatus:" + EquipStatus);
                     }
                 }
                 else
