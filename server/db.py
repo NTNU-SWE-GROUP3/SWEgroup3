@@ -25,10 +25,11 @@ class DBManager:
         data = (accountName,)   # it have to be tuple style here.
         self.cursor.execute(insert_stmt, data)
         current_app.logger.info(self.cursor._executed)
-        rec = []
-        for c in self.cursor:
-            rec.append(c[0])
-        return True if rec[0] >= 1 else False
+        result = self.cursor.fetchone()
+        if(result[0] >= 1):
+            return True
+        else:
+            return False
 
 
 
@@ -40,10 +41,11 @@ class DBManager:
         data = (accountEmail,)   # it have to be tuple style here.
         self.cursor.execute(insert_stmt, data)
         current_app.logger.info(self.cursor._executed)
-        rec = []
-        for c in self.cursor:
-            rec.append(c[0])
-        return True if rec[0] == 1 else False
+        result = self.cursor.fetchone()
+        if(result[0] >= 1):
+             return True
+        else:
+             return False
 
 
 
@@ -58,13 +60,12 @@ class DBManager:
         data = (accountPassword, accountName)
         self.cursor.execute(insertStmt, data)
         current_app.logger.info(self.cursor._executed)
-        rec = []
-        for c in self.cursor:
-            rec.append(c[0])
-        if(bool(rec)):
-            return rec[0]
+        result = self.cursor.fetchone()
+        if(result):
+             account_id = result[0]
+             return account_id
         else:
-            return -1
+             return -1
 
 
     # Use this when sign up and reset password(forget password)
