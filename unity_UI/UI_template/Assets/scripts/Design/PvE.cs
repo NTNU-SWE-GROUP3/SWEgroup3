@@ -18,7 +18,6 @@ public class PvE : MonoBehaviour
         userdata = FindObjectOfType<DontDestroy>();
         tokenId = userdata.token;
         Debug.Log("In PvE: " + userdata.token);
-
     }
 
     public void PvEButton()
@@ -61,6 +60,7 @@ public class PvE : MonoBehaviour
                 int win_streak = int.Parse(jsonDict["ranked_winning_streak"].ToString());
                 int total_match = int.Parse(jsonDict["total_match"].ToString());
                 int total_win = int.Parse(jsonDict["total_win"].ToString());
+                Debug.Log(id);
                 PlayerPrefs.SetInt("id", id);
                 PlayerPrefs.SetInt("coin", coin);
                 PlayerPrefs.SetInt("exp", exp);

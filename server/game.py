@@ -70,11 +70,14 @@ def getPlayerInfo():
         cursor.execute("SELECT * FROM account_data WHERE account_id = %s", (account_id,))
         results = cursor.fetchone()
 
+        if results is None:
+            print("No results")
         print(results)
-        return results
+        return jsonify(results)
 
     except Exception as e:
-        return 10000
+        print("Error in getPlayerInfo:", e)
+        return [-1]
     finally:
         connection.close()
 

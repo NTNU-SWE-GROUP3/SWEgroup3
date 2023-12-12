@@ -325,6 +325,7 @@ public class Action : MonoBehaviour
     void ShowResponse(string response)
     {
         resultPanel.SetActive(true);
+        duplicate = false;
 
         List<object> jsonArray = Json.Deserialize(response) as List<object>;
 
