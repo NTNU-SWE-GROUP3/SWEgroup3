@@ -54,7 +54,7 @@ public class GameController : MonoBehaviour
     public Image MusicImg;
     public Slider slider;
 
-    public static string WinOrLose;
+    public static string WinOrLose = "Hi";
     public UseSkill useSkill;
     public static int PlayerSkillId;
     public static int OpponentSkillId;

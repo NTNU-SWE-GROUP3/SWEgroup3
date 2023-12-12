@@ -69,7 +69,7 @@ def Draw():
                         total_coins += 500
                     else:
                         cardProb = selectedCard[1]
-                        InsertCard(playerId, cardId, type)
+                        InsertCard(playerId, cardId, type)  
 
                 resultCards.append(
                     {
