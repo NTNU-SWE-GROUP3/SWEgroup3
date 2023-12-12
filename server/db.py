@@ -104,6 +104,18 @@ class DBManager:
         self.cursor.execute(insert_stmt, data)
         current_app.logger.info(self.cursor._executed)
         self.connection.commit()
+        
+    
+    
+    def InitNewAccountData(self, accountId):
+        insert_stmt = (
+            "INSERT INTO account_data(account_id, nickname, level, experience, `rank`, total_match, total_win, ranked_winning_streak, ranked_XP, coin) "
+            "VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+        )
+        data = (accountId, "Guest", "0", "0", "Not Ranked", "0", "0", "0", "0", "3000",)
+        self.cursor.execute(insert_stmt, data)
+        current_app.logger.info(self.cursor._executed)
+        self.connection.commit()
 
 
 

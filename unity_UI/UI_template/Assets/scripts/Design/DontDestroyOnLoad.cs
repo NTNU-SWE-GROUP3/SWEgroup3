@@ -19,9 +19,16 @@ public class DontDestroy : MonoBehaviour
     void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
-        StartCoroutine(CardInfoRequest());
-        StartCoroutine(SkillInfoRequest());
+        StartCoroutine(InitData());
     }
+
+    IEnumerator InitData()
+    {
+        yield return StartCoroutine(CardInfoRequest());
+        yield return StartCoroutine(SkillInfoRequest());
+
+    }
+
 
     // 定義資料結構
     [System.Serializable]

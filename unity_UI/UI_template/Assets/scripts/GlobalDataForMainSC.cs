@@ -28,10 +28,7 @@ public class GlobalDataForMainSC : MonoBehaviour
 
             //StartCoroutine(userdata.CardInfoRequest());
             //StartCoroutine(userdata.SkillInfoRequest());
-            StartCoroutine(userdata.UserCardDataRequest(player_token));
-            StartCoroutine(userdata.UserSkillDataRequest(player_token));
-
-
+            StartCoroutine(InitData());
 
         }
         else
@@ -41,7 +38,12 @@ public class GlobalDataForMainSC : MonoBehaviour
         
     }
 
+    IEnumerator InitData()
+    {
+        yield return StartCoroutine(userdata.UserCardDataRequest(player_token));
+        yield return StartCoroutine(userdata.UserSkillDataRequest(player_token));
 
+    }
 
 
 }
