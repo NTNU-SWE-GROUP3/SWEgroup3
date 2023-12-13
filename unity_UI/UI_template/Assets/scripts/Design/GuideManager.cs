@@ -73,7 +73,7 @@ public class GuideManager : MonoBehaviour
 
     private static string[] pg1d2 = {"而四種陣營之間也互相存在剋制關係: 分別為\n皇家 勝過 騎士\n騎士 勝過 平民\n平民 勝過 殺手\n殺手 勝過 皇家",
                                     "另外,由於皇室鬥爭,皇室內部也存在剋制關係: \n國王勝過王子\n王子勝過皇后\n皇后勝過國王",
-                                    "讓我們來看看各個腳色對應的關係圖"};
+                                    "讓我們來看看各個角色對應的關係圖"};
 
     private static string[] pg2 = {"這裡是技能裝備區域,由於招不到調酒師所以目前未完全開放,請期待final demo的實裝版本"};
 
