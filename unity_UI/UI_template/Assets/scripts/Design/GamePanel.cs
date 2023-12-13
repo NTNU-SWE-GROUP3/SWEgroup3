@@ -62,7 +62,7 @@ public class GamePanel : MonoBehaviour
 
             case 4:
             End.SetActive(true);
-            Icontext.text = "當任意一方贏牌數達到10章便結束遊戲";
+            Icontext.text = "當任意一方贏牌數達到10張便結束遊戲";
             current++;
             break;
 
