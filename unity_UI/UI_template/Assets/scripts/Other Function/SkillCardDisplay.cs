@@ -13,7 +13,7 @@ public class SkillCardDisplay : MonoBehaviour
     // public SkillPopup skillDescriptionPanel;
 
     // Replace with your Flask server URL
-    private string serverUrl = "http://127.0.0.1:5050";
+    private string serverUrl = "http://140.122.185.169:5050";
 
     //private string token;
 
