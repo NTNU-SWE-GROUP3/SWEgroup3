@@ -188,7 +188,7 @@ def GetCardData(types):
             cursor.execute("SELECT skill_id, skill_probability FROM skill")
         elif types == "card_style":
             print("Get card style")
-            cursor.execute("SELECT card_style_id, card_style_probability FROM card_style")
+            cursor.execute("SELECT card_style_id, card_style_probability FROM card_style WHERE card_style_id < 55")
         else:
             return None
 
@@ -220,6 +220,7 @@ def RandomlySelectCard(cardType):
             if num <= cumulativeProb:
                 print(card)
                 return card
+            
     except Exception as e:
         print("Error in RandomlySelectCard:", e)
         raise ValueError("Error in RandomlySelectCard")
