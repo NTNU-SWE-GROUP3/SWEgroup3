@@ -27,6 +27,10 @@ public class GuideManager : MonoBehaviour
     [SerializeField] GameObject MaskPanel3;
     [SerializeField] GameObject MaskPanel4;
     [SerializeField] GameObject MaskPanel5;
+    [SerializeField] GameObject MaskPanel6;
+    [SerializeField] GameObject MaskPanel7;
+    [SerializeField] GameObject MaskPanel8;
+    [SerializeField] GameObject GPanel;
     [SerializeField] GameObject button;
     
     public Animator Transition; 
@@ -37,7 +41,7 @@ public class GuideManager : MonoBehaviour
     private int dialogueCurrentLenth;
     private string[] textPtr;
     private int currentstory = 0;
-    private static float[] timeControl ={0.5f,0.5f,0.5f,0.5f,0.5f,0.5f};
+    // private static float[] timeControl ={0.5f,0.5f,0.5f,0.5f,0.5f,0.5f,0.5f,0.5f,0.5f};
     
     private static string[] intro = {"在某個古老的中世紀酒吧裡\n木制長桌上灰塵飛揚\n沾滿酒漬的桌面反映出暗淡的燭光。", 
                                     "石牆上掛著斑駁的旗幟\n勇士和冒險家的壁畫在暗淡的燈光下閃爍著。", 
@@ -50,7 +54,7 @@ public class GuideManager : MonoBehaviour
                                     "人們聚在一起\n為了贏得學分\n為了譜寫屬於自己的傳奇故事\n他們將卡牌的世界帶入現實\n與朋友和陌生人一同開展這場精彩絕倫的遊戲之旅。" };
 
             
-    private static string[] start = {"歡迎來到xxx 請讓我為進行你導覽", 
+    private static string[] start = {"歡迎來到Fate of thrones 請讓我為進行你導覽", 
                                     "首先,我們所在的位置是遊戲大廳,正上方顯示的是玩家資訊,由左到到右分別為\n玩家暱稱\n玩家頭像\n以及玩家經驗", 
                                     "現在請試著點擊玩家頭像\n" };
     private bool startc = false;
@@ -58,14 +62,27 @@ public class GuideManager : MonoBehaviour
     private static string[] user = {"這裡是玩家設定,玩家可以自行調整遊戲相關設定", 
                                         "了解後請點擊離開按鈕\n" };
 
-    private static string[] gatcha = {"這裡是抽卡區域,玩家可以消耗金幣或寶石抽取稀有造型以及強力技能", 
+    private static string[] gatcha = {"這裡是抽卡區域,玩家可以消耗金幣或寶石抽取稀有造型以及具有不同能力的啤酒", 
                                         "左右滑動卡池圖片可以更換卡池,嘗試後請點擊繼續按鈕" };
 
     private static string[] pg5 = {"這裡是其他對戰區域,玩家可以在這裡選擇\n一般對戰\n牌位對戰\n電腦對戰\n自訂對戰等四種模式" 
     };
     
-    private static string[] pg1 = {"這裡造型裝備區域,卡牌共分為四種陣營及六種職業,分別為\n皇家:國王、皇后、王子\n護衛:騎士\n平民:平民\n刺客:殺手",
+    private static string[] pg1 = {"這裡造型裝備區域,卡牌共分為四種陣營及六種職業,分別為\n皇家:國王、皇后、王子\n騎士:騎士\n平民:平民\n殺手:殺手",
                                     "接著讓我們來看看各個腳色對應的圖示"};
+
+    private static string[] pg1d2 = {"而四種陣營之間也互相存在剋制關係: 分別為\n皇家 勝過 騎士\n騎士 勝過 平民\n平民 勝過 殺手\n殺手 勝過 皇家",
+                                    "另外,由於皇室鬥爭,皇室內部也存在剋制關係: \n國王勝過王子\n王子勝過皇后\n皇后勝過國王",
+                                    "讓我們來看看各個腳色對應的關係圖"};
+
+    private static string[] pg2 = {"這裡是技能裝備區域,由於招不到調酒師所以目前未完全開放,請期待final demo的實裝版本"};
+
+    private static string[] pg3 = {"恭喜你完成遊戲大廳的導覽\n接著讓我們一起進入遊戲吧"};
+
+    private static string[] enterGame = {"請試著點擊 '電腦對戰' 模式"};
+
+    private static string[] game1 = {"歡迎來到遊戲吧檯,讓我為你介紹場地布置"};
+
 
     
     void Start()
@@ -73,6 +90,8 @@ public class GuideManager : MonoBehaviour
         dialoguePanel.SetActive(false);
         button.SetActive(false);
         ClearMask();
+        Mainsc.SetActive(true);
+        Gamesc.SetActive(false);
         StartCoroutine(Enteranimation());
         
     }
@@ -83,10 +102,12 @@ public class GuideManager : MonoBehaviour
         StoryController();
     }
 
-    void GamescGuide(){
-
-
-
+    public void GamescGuide(){
+        StartCoroutine(animationstart());
+        Gamesc.SetActive(true);
+        Mainsc.SetActive(false);
+        StartCoroutine(animationend());
+        StoryController2();
         
     }
 
@@ -97,6 +118,15 @@ public class GuideManager : MonoBehaviour
     MainscGuide();
     }
 
+    private IEnumerator animationstart() {
+    Transition.SetTrigger("Start");
+    yield return new WaitForSeconds(transitionTime);
+    }
+    private IEnumerator animationend() {
+    Transition.SetTrigger("End");
+    yield return new WaitForSeconds(transitionTime);
+    }
+
     void  ClearMask(){
         skindesPanel.SetActive(false);
         skindesPanel2.SetActive(false);
@@ -105,6 +135,13 @@ public class GuideManager : MonoBehaviour
         MaskPanel3.SetActive(false);
         MaskPanel4.SetActive(false);
         MaskPanel5.SetActive(false);
+        MaskPanel6.SetActive(false);
+        MaskPanel7.SetActive(false);
+        MaskPanel8.SetActive(false);
+    }
+
+    void  ClearMask2(){
+        
     }
     public void EnterDialogueMode(string[] targetText,int lenth) 
     {
@@ -139,7 +176,7 @@ public class GuideManager : MonoBehaviour
         
         dialoguePanel.SetActive(false);
         dialogueText.text = "";
-        yield return new WaitForSeconds(timeControl[currentstory]);
+        yield return new WaitForSeconds(0.5f);
         MaskPanel.SetActive(false);
         currentstory++;
         Debug.Log(currentstory);
@@ -175,17 +212,18 @@ public class GuideManager : MonoBehaviour
         continueIcon.SetActive(true);
 
     }
+
     public void StoryController(){
         switch(currentstory){
         
             case 0://intro
             MaskPanel.SetActive(true);
-            EnterDialogueMode(intro,1);//9
+            EnterDialogueMode(intro,9);//9
             break;
 
             case 1://start
             MaskPanel.SetActive(true);
-            EnterDialogueMode(start,1);
+            EnterDialogueMode(start,3);
             break;
 
             case 2://user
@@ -198,7 +236,7 @@ public class GuideManager : MonoBehaviour
             startc=false;
             ClearMask();
             MaskPanel.SetActive(true);
-            EnterDialogueMode(user,1);
+            EnterDialogueMode(user,2);
             }
             break;
 
@@ -210,7 +248,7 @@ public class GuideManager : MonoBehaviour
             else{
             startc=false;
             MaskPanel.SetActive(true);
-            EnterDialogueMode(gatcha,1);
+            EnterDialogueMode(gatcha,2);
             }
             break;
 
@@ -237,7 +275,7 @@ public class GuideManager : MonoBehaviour
             startc=false;
             ClearMask();
             MaskPanel.SetActive(true);
-            EnterDialogueMode(pg1,1);
+            EnterDialogueMode(pg1,2);
             }
             break;
 
@@ -256,23 +294,88 @@ public class GuideManager : MonoBehaviour
             }
             break;
 
-            case 7://skinicon2
+            case 7://skin
             ClearMask();
-            skindesPanel2.SetActive(true);
+            MaskPanel.SetActive(true);
+            EnterDialogueMode(pg1d2,3);
             break;
 
-            case 8://skillicon
+            case 8://skinicon
             ClearMask();
             skindesPanel2.SetActive(true);
+            currentstory++;
             break;
 
+            case 9://skillicon
+            ClearMask();
+            MaskPanel.SetActive(true);
+            EnterDialogueMode(pg2,1);
+            break;
 
+            case 10://main
+            if(startc==false){
+                startc=true;
+                MaskPanel6.SetActive(true);
+            }
+            else{
+            startc=false;
+            ClearMask();
+            MaskPanel.SetActive(true);
+            EnterDialogueMode(pg3,1);
+            }
+            break;
 
+            case 11://game
+            if(startc==false){
+                startc=true;
+                MaskPanel7.SetActive(true);
+            }
+            else{
+            startc=false;
+            ClearMask();
+            MaskPanel.SetActive(true);
+            EnterDialogueMode(enterGame,1);
+            }
+            break;
 
+            case 12:
+            startc=false;
+            ClearMask();
+            MaskPanel8.SetActive(true);
+            currentstory ++;
+            break;
 
+            case 13:
+            MaskPanel.SetActive(true);
+            EnterDialogueMode(game1,1);
+            break;
 
+            case 14:
+            ClearMask2();
+            MaskPanel.SetActive(true);
+            currentstory++;
+            break;
 
 
         }
     }
+
+    public void StoryController2(){
+        switch(currentstory){
+
+            case 0://intro
+            
+            break;
+
+            case 1:
+            ClearMask2();
+            MaskPanel.SetActive(true);
+            currentstory++;
+            break;
+
+
+        }
+    }
+
+
 }
