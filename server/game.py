@@ -29,7 +29,8 @@ def GetEquippedSkills(account_id):
         connection = func.create_mysql_connection()
         cursor = connection.cursor(dictionary=True)
 
-        cursor.execute("SELECT skill_id FROM account_skill WHERE account_id = %s AND equip_status = 1", (account_id,))
+        # cursor.execute("SELECT skill_id FROM account_skill WHERE account_id = %s AND equip_status = 1", (account_id,))
+        cursor.execute("SELECT skill_id FROM account_skill WHERE account_id = %s", (account_id,))
         results = cursor.fetchall()
 
         connection.close()
@@ -46,7 +47,8 @@ def GetEquippedCardStyles(account_id):
         connection = func.create_mysql_connection()
         cursor = connection.cursor(dictionary=True)
 
-        cursor.execute("SELECT card_style_id FROM account_card_style WHERE account_id = %s AND equip_status = 1", (account_id,))
+        # cursor.execute("SELECT card_style_id FROM account_card_style WHERE account_id = %s AND equip_status = 1", (account_id,))
+        cursor.execute("SELECT card_style_id FROM account_card_style WHERE account_id = %s", (account_id,))
         results = cursor.fetchall()
 
         connection.close()
