@@ -18,7 +18,7 @@ public class GuideManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI dialogueText;
     [SerializeField] private float typingSpeed = 0.1f;
     [SerializeField] private float waitingSpeed = 0.2f;
-    //[SerializeField] private float switchSpeed = 0.8f;
+    [SerializeField] private float startSpeed = 0.5f;
 
     [SerializeField] GameObject skindesPanel;
     [SerializeField] GameObject skindesPanel2;
@@ -29,6 +29,8 @@ public class GuideManager : MonoBehaviour
     [SerializeField] GameObject MaskPanel5;
     [SerializeField] GameObject button;
     
+    public Animator Transition; 
+    public float transitionTime = 1f;
 
     private Coroutine displayLineCoroutine;
     private int dialogueLenth;
@@ -68,9 +70,11 @@ public class GuideManager : MonoBehaviour
     
     void Start()
     {
+        dialoguePanel.SetActive(false);
         button.SetActive(false);
         ClearMask();
-        MainscGuide();
+        StartCoroutine(Enteranimation());
+        
     }
 
     void MainscGuide(){
@@ -84,6 +88,13 @@ public class GuideManager : MonoBehaviour
 
 
         
+    }
+
+    private IEnumerator Enteranimation() {
+    // Transition.SetTrigger("End");
+    yield return new WaitForSeconds(transitionTime);
+    yield return new WaitForSeconds(startSpeed);
+    MainscGuide();
     }
 
     void  ClearMask(){

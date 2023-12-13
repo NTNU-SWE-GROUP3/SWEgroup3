@@ -22,6 +22,10 @@ public class SceneController : MonoBehaviour
         {
             StartCoroutine(LoadSceneTwo());
         }
+        else if(Input.GetKey("[3]"))
+        {
+            StartCoroutine(LoadSceneThree());
+        }
 
         
     }
@@ -58,5 +62,32 @@ public class SceneController : MonoBehaviour
 
         SceneManager.LoadScene(2);
 
+    }
+
+    IEnumerator LoadSceneThree()
+    {
+
+        Transition.SetTrigger("Start");
+
+        yield return new WaitForSeconds(transitionTime);
+
+        SceneManager.LoadScene(3);
+
+    }
+
+    public void ToScene0(){
+        StartCoroutine(LoadSceneZero());
+    }
+
+    public void ToScene1(){
+        StartCoroutine(LoadSceneOne());
+    }
+
+    public void ToScene2(){
+        StartCoroutine(LoadSceneTwo());
+    }
+
+    public void ToScene3(){
+        StartCoroutine(LoadSceneThree());
     }
 }
