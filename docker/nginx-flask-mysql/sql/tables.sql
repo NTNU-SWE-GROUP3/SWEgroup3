@@ -28,7 +28,10 @@ CREATE TABLE `account` (
   `email` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
   `token_id` varchar(255) DEFAULT NULL,
-  `token_validity` int DEFAULT NULL,
+  `token_validity` datetime DEFAULT NULL,
+  `verify_code` varchar(255) DEFAULT NULL,
+  `expiration_time` datetime DEFAULT NULL,
+  `salt` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `token_id` (`token_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -82,6 +85,7 @@ CREATE TABLE `account_card_style` (
   `id` int NOT NULL AUTO_INCREMENT,
   `account_id` int DEFAULT NULL,
   `card_style_id` int DEFAULT NULL,
+  `equip_status` int DEFAULT 0,
   PRIMARY KEY (`id`),
   KEY `account_id` (`account_id`),
   KEY `card_style_id` (`card_style_id`),
@@ -114,6 +118,8 @@ CREATE TABLE `account_data` (
   `rank` varchar(255) DEFAULT NULL,
   `total_match` int DEFAULT NULL,
   `total_win` int DEFAULT NULL,
+  `ranked_winning_streak`int DEFAULT NULL,
+  `ranked_XP` int DEFAULT NULL,
   `coin` int DEFAULT NULL,
   KEY `account_id` (`account_id`),
   CONSTRAINT `account_data_ibfk_1` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`)
@@ -140,6 +146,7 @@ CREATE TABLE `account_skill` (
   `id` int NOT NULL AUTO_INCREMENT,
   `account_id` int DEFAULT NULL,
   `skill_id` int DEFAULT NULL,
+  `equip_status` int DEFAULT 0,
   PRIMARY KEY (`id`),
   KEY `account_id` (`account_id`),
   KEY `skill_id` (`skill_id`),
@@ -191,8 +198,9 @@ DROP TABLE IF EXISTS `card_style`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `card_style` (
   `card_style_id` int NOT NULL AUTO_INCREMENT,
-  `card_style_name` int DEFAULT NULL,
+  `card_style_name` varchar(255) DEFAULT NULL,
   `card_style_description` varchar(255) DEFAULT NULL,
+  `card_style_probability` decimal(4,3) DEFAULT 0.000,
   PRIMARY KEY (`card_style_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -217,6 +225,7 @@ CREATE TABLE `skill` (
   `skill_id` int NOT NULL AUTO_INCREMENT,
   `skill_name` varchar(255) NOT NULL,
   `skill_description` varchar(255) DEFAULT NULL,
+  `skill_probability` decimal(4,3) DEFAULT 0.000,
   PRIMARY KEY (`skill_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;

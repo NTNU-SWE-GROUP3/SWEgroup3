@@ -5,13 +5,11 @@ MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - Card: {fileID: 225055715617019185, guid: ea56a1f28f125b64b94264841ed61629, type: 3}
-  - OpponentArea: {instanceID: 0}
-  - OpponentShow: {instanceID: 0}
-  - OpponentEarn: {instanceID: 0}
   - PlayerArea: {instanceID: 0}
-  - PlayerShow: {instanceID: 0}
-  - PlayerEarn: {instanceID: 0}
-  - DrawArea: {fileID: 9143562386135196759, guid: 62d2ecb5bcbc8d14982303110362e974, type: 3}
+  - OpponentArea: {instanceID: 0}
+  - DrawSound1: {fileID: 8300000, guid: 4b4ed2ce0eee642f1b1592612c9ef1a5, type: 3}
+  - DrawSound2: {fileID: 8300000, guid: 915399e4e9b294b0393b13c702bd7d7a, type: 3}
+  - tmp: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

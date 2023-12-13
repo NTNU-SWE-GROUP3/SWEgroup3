@@ -12,11 +12,6 @@ public class Card
     public char set;
     public Sprite cardSprite;
     
-    public Card()
-    {
-
-    }
-
     public Card(int _id, string _cardName, string _cardSkill, string _cardDescription, char _set, Sprite _cardSprite)
     {
         id = _id;
