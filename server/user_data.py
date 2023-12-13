@@ -121,3 +121,38 @@ def GetUserStyleData():
     #current_app.logger.info(data)
     
     return result_text
+
+
+
+
+
+''' ==============================
+user_accountdata_table Request
+input
+    Token
+output
+    result_text
+        
+============================== '''
+@user_data.route('/get_accountdata_table', methods=['POST'])
+def GetAccountDataTable():
+
+    # DataBase connection
+    global conn
+    if not conn:
+        conn = DBManager(password_file='/run/secrets/db-password')
+        
+    
+    # Input
+    token = request.form.get('Token')
+
+    current_app.logger.info("token: %s", token)
+    
+    # Success
+    data = conn.GetAccountDataTableAll(token)
+    text_data = [';'.join(map(str, item)) for item in data]
+    result_text = ';'.join(text_data).replace(' ', '')
+    
+    #current_app.logger.info(data)
+    
+    return result_text

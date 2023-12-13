@@ -68,6 +68,9 @@ def AccountSignUp():
     conn.SetNewAccount(accountName, accountEmail, accountPassword)
 
     accountId = conn.FindAccountId(accountName)
+    
+    #Init Account Data
+    conn.InitNewAccountData(accountId)
 
     # Hash password with salt
     conn.UpdateNewAccountPassword(accountId)

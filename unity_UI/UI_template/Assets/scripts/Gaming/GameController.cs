@@ -53,7 +53,7 @@ public class GameController : MonoBehaviour
     bool NoSkillCanUse;
     public Image MusicImg;
     public Slider slider;
-
+    public static string WinOrLose;
     public UseSkill useSkill;
     public static int PlayerSkillId;
     public static int OpponentSkillId;
@@ -275,7 +275,7 @@ public class GameController : MonoBehaviour
 
     public void FinishCheck(int PlayerEarnCard, int OpponentEarnCard, int PlayerHandCard, int OpponentHandCard)
     {
-        if (OpponentEarnCard < 2 && PlayerEarnCard < 2 && PlayerHandCard > 0 && OpponentHandCard > 0)
+        if (OpponentEarnCard < 10 && PlayerEarnCard < 10 && PlayerHandCard > 0 && OpponentHandCard > 0)
             StartCoroutine(TurnStart());
         else
         {
@@ -284,17 +284,19 @@ public class GameController : MonoBehaviour
             SkillImage.SetActive(false);
             WinImage.SetActive(true);
             NextRoundText.gameObject.SetActive(true);
-            if (PlayerEarnCard >= 2)
+            if (PlayerEarnCard >= 10)
             {
                 NextRoundText.text = "VICTORY";
                 StartCoroutine(VictorySE());
-                StartCoroutine(GameFinishPanel("win"));
+                WinOrLose = "win";
+                StartCoroutine(GameFinishPanel(WinOrLose));
             }
-            else if (OpponentEarnCard >= 2)
+            else if (OpponentEarnCard >= 10)
             {
                 NextRoundText.text = "DEFEAT";
                 StartCoroutine(DefeatSE());
-                StartCoroutine(GameFinishPanel("lose"));
+                WinOrLose = "lose";
+                StartCoroutine(GameFinishPanel(WinOrLose));
             }
             else
             {
@@ -302,19 +304,22 @@ public class GameController : MonoBehaviour
                 {
                     NextRoundText.text = "VICTORY";
                     StartCoroutine(VictorySE());
-                    StartCoroutine(GameFinishPanel("win"));
+                    WinOrLose = "win";
+                    StartCoroutine(GameFinishPanel(WinOrLose));
                 }
                 else if (OpponentEarnCard > PlayerEarnCard)
                 {
                     NextRoundText.text = "DEFEAT";
                     StartCoroutine(DefeatSE());
-                    StartCoroutine(GameFinishPanel("lose"));
+                    WinOrLose = "lose";
+                    StartCoroutine(GameFinishPanel(WinOrLose));
                 }
                 else
                 {
                     NextRoundText.text = "Tie";
                     StartCoroutine(DrawSE());
-                    StartCoroutine(GameFinishPanel("tie"));
+                    WinOrLose = "tie";
+                    StartCoroutine(GameFinishPanel(WinOrLose));
                 }
 
             }
@@ -327,19 +332,30 @@ public class GameController : MonoBehaviour
         if(winorlose == "win")
         {
             FinishPanelImage.sprite = Resources.Load<Sprite>("images/GameSc/Finish/VictoryBanner");
-            FinishPanelCoin.text = "+200";
             FinishPanelLV.text = "+200";
+            if(UseSkill.UseCoinPlus == true)
+                FinishPanelCoin.text = "+300";
+            
+            else
+                FinishPanelCoin.text = "+200";
+
         }
         else if(winorlose == "lose")
         {
             FinishPanelImage.sprite = Resources.Load<Sprite>("images/GameSc/Finish/DefeatBanner");
-            FinishPanelCoin.text = "+50";
+            if(UseSkill.UseCoinPlus == true)
+                FinishPanelCoin.text = "+75";
+            else
+                FinishPanelCoin.text = "+50";
             FinishPanelLV.text = "+50";
         }
         else
         {
             FinishPanelImage.sprite = Resources.Load<Sprite>("images/GameSc/Finish/TieBanner");
-            FinishPanelCoin.text = "+100";
+            if(UseSkill.UseCoinPlus == true)
+                FinishPanelCoin.text = "+150";
+            else
+                FinishPanelCoin.text = "+100";
             FinishPanelLV.text = "+100";
         }
         FinishPanel.SetActive(true);
@@ -399,14 +415,33 @@ public class GameController : MonoBehaviour
             string[] skillStrings = skillsString.Split(',');
 
             List<int> skills = new List<int>();
+            List<int> random_skills = new List<int>();
             foreach (string skillStr in skillStrings)
             {
                 int id = System.Convert.ToInt32(skillStr);
                 skills.Add(id);
             }
-
             Debug.Log("Loaded Skills: " + string.Join(", ", skills));
-            return skills;
+            
+            if(skills.Count > 3)
+            {
+                for (int i = 0; i < skills.Count - 1; i++)
+                {
+                    int temp = skills[i];
+                    int rand = Random.Range(i, skills.Count);
+                    skills[i] = skills[rand];
+                    skills[rand] = temp;
+                }
+                for(int i = 0; i < 3; i++)
+                {
+                    random_skills.Add(skills[i]);
+                }
+                return random_skills;
+            }
+            else
+                return skills;
+
+        
         }
         else
         {

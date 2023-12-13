@@ -4,6 +4,8 @@ from flask_mail import Mail
 from account import account
 from forget_password import forget_password
 from user_information import user_information
+import logging
+from card_style import card_style
 from skill_style import skill_style
 import logging
 
@@ -42,6 +44,7 @@ def get():
 server.register_blueprint(account)
 server.register_blueprint(forget_password)
 server.register_blueprint(user_information)
+server.register_blueprint(card_style)
 server.register_blueprint(skill_style)
 
 if __name__ == '__main__':

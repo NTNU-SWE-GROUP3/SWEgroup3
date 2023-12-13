@@ -15,18 +15,19 @@ public class ImageManager : MonoBehaviour
     void InitializeSkill()
     {
         skillImages = new List<GachaItem>();
+        string SkillImagesPath = "images/MainSc/Skill/";
 
 
-        skillImages.Add(new GachaItem(1, "暗影轉職", Resources.Load<Sprite>("images/GameSc/Skill/SkillAssassin")));
-        skillImages.Add(new GachaItem(2, "階級流動", Resources.Load<Sprite>("images/GameSc/Skill/SkillKnight")));
-        skillImages.Add(new GachaItem(3, "知己知彼", Resources.Load<Sprite>("images/GameSc/Skill/SkillShowOpponentCard")));
-        skillImages.Add(new GachaItem(4, "暗影轉職", Resources.Load<Sprite>("images/GameSc/Skill/SkillAssassin")));
-        skillImages.Add(new GachaItem(5, "階級流動", Resources.Load<Sprite>("images/GameSc/Skill/SkillKnight")));
-        skillImages.Add(new GachaItem(6, "知己知彼", Resources.Load<Sprite>("images/GameSc/Skill/SkillShowOpponentCard")));
-        skillImages.Add(new GachaItem(7, "暗影轉職", Resources.Load<Sprite>("images/GameSc/Skill/SkillAssassin")));
-        skillImages.Add(new GachaItem(8, "階級流動", Resources.Load<Sprite>("images/GameSc/Skill/SkillKnight")));
-        skillImages.Add(new GachaItem(9, "知己知彼", Resources.Load<Sprite>("images/GameSc/Skill/SkillShowOpponentCard")));
-        skillImages.Add(new GachaItem(10, "暗影轉職", Resources.Load<Sprite>("images/GameSc/Skill/SkillAssassin")));
+        skillImages.Add(new GachaItem(1, "時間限縮", Resources.Load<Sprite>(SkillImagesPath+"SKillTime")));
+        skillImages.Add(new GachaItem(2, "階級流動", Resources.Load<Sprite>(SkillImagesPath+"SkillKnight")));
+        skillImages.Add(new GachaItem(3, "暗影轉職", Resources.Load<Sprite>(SkillImagesPath+"SkillAssassin")));
+        skillImages.Add(new GachaItem(4, "技能封印", Resources.Load<Sprite>(SkillImagesPath+"SkillStopSkill")));
+        skillImages.Add(new GachaItem(5, "力量剝奪", Resources.Load<Sprite>(SkillImagesPath+"SkillCivilian")));
+        skillImages.Add(new GachaItem(6, "黃金風暴", Resources.Load<Sprite>(SkillImagesPath + "SkillCoin")));
+        skillImages.Add(new GachaItem(7, "知己知彼", Resources.Load<Sprite>(SkillImagesPath + "SkillShowOpponent")));
+        skillImages.Add(new GachaItem(8, "抉擇束縛", Resources.Load<Sprite>(SkillImagesPath+ "SkillCardChoose")));
+        skillImages.Add(new GachaItem(9, "強制徵收", Resources.Load<Sprite>(SkillImagesPath + "SkillEarn1")));
+        skillImages.Add(new GachaItem(10, "勝者之堆", Resources.Load<Sprite>(SkillImagesPath+ "SkillMin1")));
     }
     void InitializeCardStyle()
     {
@@ -95,13 +96,13 @@ public class ImageManager : MonoBehaviour
         cardStyleImages.Add(new GachaItem(52, "SnowWhite(騎士)", Resources.Load<Sprite>("images/Skin/Snow White/Knight")));
         cardStyleImages.Add(new GachaItem(53, "SnowWhite(王子)", Resources.Load<Sprite>("images/Skin/Snow White/Prince")));
         cardStyleImages.Add(new GachaItem(54, "SnowWhite(皇后)", Resources.Load<Sprite>("images/Skin/Snow White/Queen")));
-        // 
-        cardStyleImages.Add(new GachaItem(45, "Frozen(平民)", Resources.Load<Sprite>("images/Skin/Frozen/Civil")));
-        cardStyleImages.Add(new GachaItem(56, "Frozen(殺手)", Resources.Load<Sprite>("images/Skin/Frozen/Killer")));
-        cardStyleImages.Add(new GachaItem(57, "Frozen(國王)", Resources.Load<Sprite>("images/Skin/Frozen/King")));
-        cardStyleImages.Add(new GachaItem(58, "Frozen(騎士)", Resources.Load<Sprite>("images/Skin/Frozen/Knight")));
-        cardStyleImages.Add(new GachaItem(59, "Frozen(王子)", Resources.Load<Sprite>("images/Skin/Frozen/Prince")));
-        cardStyleImages.Add(new GachaItem(60, "Frozen(皇后)", Resources.Load<Sprite>("images/Skin/Frozen/Queen")));
+        // Poker
+        cardStyleImages.Add(new GachaItem(45, "Poker(平民)", Resources.Load<Sprite>("images/Skin/Poker/Civil")));
+        cardStyleImages.Add(new GachaItem(56, "Poker(殺手)", Resources.Load<Sprite>("images/Skin/Poker/Killer")));
+        cardStyleImages.Add(new GachaItem(57, "Poker(國王)", Resources.Load<Sprite>("images/Skin/Poker/King")));
+        cardStyleImages.Add(new GachaItem(58, "Poker(騎士)", Resources.Load<Sprite>("images/Skin/Poker/Knight")));
+        cardStyleImages.Add(new GachaItem(59, "Poker(王子)", Resources.Load<Sprite>("images/Skin/Poker/Prince")));
+        cardStyleImages.Add(new GachaItem(60, "Poker(皇后)", Resources.Load<Sprite>("images/Skin/Poker/Queen")));
     }
 
     public Sprite GetSkillImage(int skill_id)

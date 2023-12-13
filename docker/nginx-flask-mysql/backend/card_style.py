@@ -119,6 +119,7 @@ output
 ========================= 
 @card_style.route('/sell_card_style', methods=['POST'])
 def SellCardStyle():
+    #database connection
     global conn
     if not conn:
         conn = BPManager(password_file='/run/secrets/db-password')
@@ -132,6 +133,31 @@ def SellCardStyle():
 
     #check if user have the card style
     if not(conn.HaveCardStyle(accountID, targetCardStyleID)):
+    token = request.form.get('Token')
+    # targetCardStyleID = request.form.get('card_style_id')
+    current_app.logger.info("tokenID: %s", token)
+    # current_app.logger.info("target card style id: %s", targetCardStyleID)
+    # current_app.logger.info(request.form.items())
+    
+    #check token validity
+    expiredtime = conn.GetTokenExpiredTime(token)
+    current_app.logger.info("Expired time: %s", expiredtime)
+    now = datetime.datetime.now()
+    current_app.logger.info("Now: %s || Expired time: %s)", now, expiredtime)
+    if (expiredtime == -1):
+        return jsonify(status = "403011", msg = "No such token")
+    elif(now > expiredtime):
+        return jsonify(status = "403011", msg = "Token expired")
+    
+    targetCardStyle = request.form.get('TargetCardStyle')
+    current_app.logger.info("target card style: %s", targetCardStyle)
+    #success
+    # cardStyle = conn.GetCardStyle(token)
+
+    #check if user have the card style
+    cardStyle = conn.GetCardStyle(token, targetCardStyle)
+    current_app.logger.info("have card style: ", cardStyle)
+    if cardStyle==-1:
         current_app.logger.info("User does not have this item")
         return jsonify(status = "200022")
     
