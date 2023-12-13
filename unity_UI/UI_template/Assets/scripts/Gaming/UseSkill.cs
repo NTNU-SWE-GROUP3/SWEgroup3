@@ -61,7 +61,6 @@ public class UseSkill : MonoBehaviour
         
         if( isPlayer == true)
         {
-        
             switch (skillId)
             {
                 case -1:
