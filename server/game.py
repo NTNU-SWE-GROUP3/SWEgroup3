@@ -107,16 +107,31 @@ def game_finish():
             addcoins = 100
             addcoins = 100
 
-        cursor.execute("UPDATE account_data SET coin = coin + %s WHERE account_id = %s", (addcoins, account_id),)
-        cursor.execute("UPDATE account_data SET experience = experience + %s WHERE account_id = %s", (addexp, account_id),)
-        if win:
-            cursor.execute("UPDATE account_data SET total_win = total_win + 1 WHERE account_id = %s", (account_id),)
+        sql = """
+            UPDATE account_data 
+            SET coin = coin + %s, 
+            experience = experience + %s, 
+            total_match = total_match + 1 
+            WHERE account_id = %s
+            """
 
-        cursor.execute("UPDATE account_data SET total_match = total_match + 1 WHERE account_id = %s", (account_id),)
-        
-
-
+        cursor.execute(sql, (addcoins, addexp, account_id))
         connection.commit()
+        # cursor.execute("UPDATE account_data SET coin = coin + %s WHERE account_id = %s", (addcoins, account_id),)
+        # connection.commit()
+
+        # cursor.execute("UPDATE account_data SET experience = experience + %s WHERE account_id = %s", (addexp, account_id),)
+        # connection.commit()
+
+        # cursor.execute("UPDATE account_data SET total_match = total_match + 1 WHERE account_id = %s", (account_id,))
+        # connection.commit()
+
+        if win:
+            cursor.execute("UPDATE account_data SET total_win = total_win + 1 WHERE account_id = %s", (account_id,))
+            connection.commit()
+
+
+        # connection.commit()
 
         return jsonify({"success": True, "message": "Game finished successfully"})
     except Exception as e:
