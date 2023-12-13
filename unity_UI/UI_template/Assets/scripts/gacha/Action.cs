@@ -10,12 +10,23 @@ using PurchaseControl;
 
 public class Action : MonoBehaviour
 {
+    // URL
     [SerializeField] string apiUrl = "http://140.122.185.169:5050/gacha/draw";       // call API endpoint
+    public static string serverUrl = "http://140.122.185.169:5050";
+    [SerializeField] string serverURL_playerdata = serverUrl + "/user_information/getplayerdata";
 
-    // default playerId = 1, mode = coin, times = 1
     [SerializeField] string playerId = "";
     [SerializeField] string mode = "coin";
-    [SerializeField] GotchaPanel gotchaPanel;
+
+    // Flag
+    public bool yesClicked = false;
+    public bool noClicked = false;
+    public bool buyClicked = false;
+    public bool cancelClicked = false;
+    public bool okButtonClicked = false;
+    public bool duplicate = false;
+
+    // GameObject
     [SerializeField] GameObject messagePanel;
     [SerializeField] GameObject resultPanel;
     [SerializeField] GameObject purchasePanel;
@@ -26,6 +37,9 @@ public class Action : MonoBehaviour
     [SerializeField] GameObject okButton10;
     [SerializeField] GameObject gachaResult1;
     [SerializeField] GameObject gachaResult10;
+
+    [SerializeField] GotchaPanel gotchaPanel;
+
     [SerializeField] Button yesButton;
     [SerializeField] Button noButton;
     [SerializeField] Button buyButton;
@@ -38,15 +52,16 @@ public class Action : MonoBehaviour
     public ErrorMessage errorController;
     public ImageManager imageManager;
     public BackToLogin backToLogin;
-    public bool yesClicked = false;
-    public bool noClicked = false;
-    public bool buyClicked = false;
-    public bool cancelClicked = false;
-    public bool okButtonClicked = false;
-    public bool duplicate = false;
+
 
     private string response;
     private DontDestroy userdata;
+    public GameObject UserSettingWarningPanel;
+    public Text UseSettingMessage;
+    public Text NoticeTitleText;
+    public Text UserCoinsDisplay;
+    public Button UserWarningButton;
+
 
 
     [System.Serializable]
@@ -318,6 +333,7 @@ public class Action : MonoBehaviour
                     StartCoroutine(ShowResponseAnimation10(response));
                 }
             }
+            UpdateUserGeneralData();
         }
     }
     IEnumerator ShowResponseAnimation1(string response)
@@ -406,5 +422,53 @@ public class Action : MonoBehaviour
         }
     }
 
+
+    private void UpdateUserGeneralData()
+    {
+        // 執行UpdateUserGeneralData操作
+        StartCoroutine(PlayerDataRequest(userdata.token));
+        Debug.Log("Try to Update User General Data");
+    }
+
+
+    private IEnumerator PlayerDataRequest(string player_token)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("Token", userdata.token); // 
+
+        using (UnityWebRequest www = UnityWebRequest.Post(serverURL_playerdata, form))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
+            {
+                Debug.LogWarning(www.error);
+
+                // Warning Panel
+                UserSettingWarningPanel.SetActive(true);
+                NoticeTitleText.text = ("網路連接錯誤");
+                UseSettingMessage.text = "Please check your internet connection";
+                Debug.Log("Internet error");
+
+            }
+            else
+            {
+
+                string responseText = www.downloadHandler.text;
+                UserInformationResponseData responseData = JsonUtility.FromJson<UserInformationResponseData>(responseText);
+                switch (responseData.status)
+                {
+                    case "400004":
+                        Debug.Log("Get player data successfully");
+                        UserCoinsDisplay.text = responseData.coin.ToString();
+
+                        break;
+                    case "403011":
+                        break;
+
+                }
+            }
+        }
+    }
 
 }
