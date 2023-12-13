@@ -11,13 +11,27 @@ public class ComputerPlayer : MonoBehaviour
     public Transform Card;
     public UseSkill useSkill;
     public int test = 0;
-    int[] ComSkillIdList = {4,6,9};
+    int[] ComSkillIdList = {4,5,6};
+    int[] skills = {1,2,3,4,5,7,8,9,10};
     public static int ComSkillIndex;
     int randomTime;
     int useSkillOrNot;
     
     void Start()
     {
+        
+        for (int i = 0; i < 9; i++)
+        {
+            int temp = skills[i];
+            int rand = Random.Range(i, 9);
+            skills[i] = skills[rand];
+            skills[rand] = temp;
+        }
+        for (int i = 0; i < 3; i++)
+        {
+            ComSkillIdList[i] = skills[i];
+        }
+        Debug.Log("ComSKill" + string.Join(", ", ComSkillIdList));
         Random.InitState((int)System.DateTime.Now.Ticks);
         ComSkillIndex = 0;
     }
