@@ -95,9 +95,11 @@ def game_finish():
 
         addcoins = 0
         addexp = 0
+        win = False
         if end_status == "win":
             addcoins = 200
             addexp = 200
+            win = True
         elif end_status == "lose":
             addcoins = 50
             addexp = 50
@@ -107,6 +109,12 @@ def game_finish():
 
         cursor.execute("UPDATE account_data SET coin = coin + %s WHERE account_id = %s", (addcoins, account_id),)
         cursor.execute("UPDATE account_data SET experience = experience + %s WHERE account_id = %s", (addexp, account_id),)
+        if win:
+            cursor.execute("UPDATE account_data SET total_win = total_win + 1 WHERE account_id = %s", (account_id),)
+
+        cursor.execute("UPDATE account_data SET total_match = total_match + 1 WHERE account_id = %s", (account_id),)
+        
+
 
         connection.commit()
 
