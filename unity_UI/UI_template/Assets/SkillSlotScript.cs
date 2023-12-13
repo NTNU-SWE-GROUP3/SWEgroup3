@@ -44,13 +44,54 @@ public class SkillSlotScript : MonoBehaviour
 
     private Sprite GetSkillSprite(int skillStyleID)
     {
-        // Load the sprites from the specified folder
-        Object[] skillSprites = Resources.LoadAll("images/MainSc/Skill", typeof(Sprite));
+        // // Load the sprites from the specified folder
+        // Object[] skillSprites = Resources.LoadAll("images/MainSc/Skill", typeof(Sprite));
 
-        // Check if the skillStyleID is within the array bounds
-        if (skillStyleID >= 0 && skillStyleID < skillSprites.Length)
+        // // Check if the skillStyleID is within the array bounds
+        // if (skillStyleID >= 0 && skillStyleID <= skillSprites.Length)
+        // {
+        //     return (Sprite)skillSprites[skillStyleID-1];
+        // }
+        string SkillImagesPath = "images/MainSc/Skill/";
+        if (skillStyleID == 1)
         {
-            return (Sprite)skillSprites[skillStyleID];
+            return Resources.Load<Sprite>(SkillImagesPath+"SKillTime");
+        }
+        else if (skillStyleID == 2)
+        {
+            return Resources.Load<Sprite>(SkillImagesPath+"SkillKnight");
+        }
+        else if (skillStyleID == 3)
+        {
+            return Resources.Load<Sprite>(SkillImagesPath+"SkillAssassin");
+        }
+        else if (skillStyleID == 4)
+        {
+            return Resources.Load<Sprite>(SkillImagesPath+"SkillStopSkill");
+        }
+         else if (skillStyleID == 5)
+        {
+            return Resources.Load<Sprite>(SkillImagesPath+"SkillCivilian" );
+        }
+         else if (skillStyleID == 6)
+        {
+            return Resources.Load<Sprite>(SkillImagesPath+"SkillCoin");
+        }
+         else if (skillStyleID == 7)
+        {
+            return Resources.Load<Sprite>(SkillImagesPath+"SkillShowOpponent");
+        }
+         else if (skillStyleID == 8)
+        {
+            return Resources.Load<Sprite>(SkillImagesPath+"SkillCardChoose");
+        }
+         else if (skillStyleID == 9)
+        {
+            return Resources.Load<Sprite>(SkillImagesPath+"SkillMin1");
+        }
+         else if (skillStyleID == 10)
+        {
+            return Resources.Load<Sprite>(SkillImagesPath+"SkillEarn1");
         }
 
         // Return null if the skill ID is out of bounds
