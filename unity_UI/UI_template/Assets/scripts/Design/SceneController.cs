@@ -8,27 +8,27 @@ public class SceneController : MonoBehaviour
     public Animator Transition; 
     public float transitionTime = 1f;
     
-    void Update()
-    {
-        if (Input.GetKey("[0]"))
-        {
-            StartCoroutine(LoadSceneZero());
-        }
-        else if(Input.GetKey("[1]"))
-        {
-            StartCoroutine(LoadSceneOne());
-        }
-        else if(Input.GetKey("[2]"))
-        {
-            StartCoroutine(LoadSceneTwo());
-        }
-        else if(Input.GetKey("[3]"))
-        {
-            StartCoroutine(LoadSceneThree());
-        }
+    // void Update()
+    // {
+    //     if (Input.GetKey("[0]"))
+    //     {
+    //         StartCoroutine(LoadSceneZero());
+    //     }
+    //     else if(Input.GetKey("[1]"))
+    //     {
+    //         StartCoroutine(LoadSceneOne());
+    //     }
+    //     else if(Input.GetKey("[2]"))
+    //     {
+    //         StartCoroutine(LoadSceneTwo());
+    //     }
+    //     else if(Input.GetKey("[3]"))
+    //     {
+    //         StartCoroutine(LoadSceneThree());
+    //     }
 
         
-    }
+    // }
 
 
     IEnumerator LoadSceneZero()
