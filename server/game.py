@@ -105,7 +105,7 @@ def game_finish():
             addexp = 50
         else:
             addcoins = 100
-            addcoins = 100
+            addexp = 100
 
         sql = """
             UPDATE account_data 
@@ -115,7 +115,7 @@ def game_finish():
             WHERE account_id = %s
             """
 
-        cursor.execute(sql, (addcoins, addexp, account_id))
+        cursor.execute(sql, (addcoins, addexp, account_id),)
         connection.commit()
         # cursor.execute("UPDATE account_data SET coin = coin + %s WHERE account_id = %s", (addcoins, account_id),)
         # connection.commit()
