@@ -54,7 +54,7 @@ public class GuideManager : MonoBehaviour
                                     "人們聚在一起\n為了贏得學分\n為了譜寫屬於自己的傳奇故事\n他們將卡牌的世界帶入現實\n與朋友和陌生人一同開展這場精彩絕倫的遊戲之旅。" };
 
             
-    private static string[] start = {"歡迎來到Fate of thrones 請讓我為您進行導覽", 
+    private static string[] start = {"歡迎來到Fate of thrones 請讓我為你進行導覽", 
                                     "首先,我們所在的位置是遊戲大廳,正上方顯示的是玩家資訊,由左到到右分別為\n玩家暱稱\n玩家頭像\n以及玩家經驗", 
                                     "現在請試著點擊玩家頭像\n" };
     private bool startc = false;

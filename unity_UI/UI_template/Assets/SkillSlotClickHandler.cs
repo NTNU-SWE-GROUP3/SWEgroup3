@@ -1,12 +1,15 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class SkillSlotClickHandler : MonoBehaviour, IPointerClickHandler
+public class SkillSlotClickHandler : MonoBehaviour
 {
     private string skillName;
     private string description;
     private float probability;
-    private SkillPopup skillPopup;
+    public GameObject skillPopup;
+    public Text SkillName;
+    public Text skillDescription;
 
     public void SetSkillInfo(string name, string desc, float prob)
     {
@@ -15,16 +18,16 @@ public class SkillSlotClickHandler : MonoBehaviour, IPointerClickHandler
         probability = prob;
     }
 
-    public void SetSkillPopup(SkillPopup popup)
-    {
-        skillPopup = popup;
-    }
+    // public void SetSkillPopup(SkillPopup popup)
+    // {
+    //     skillPopup = popup;
+    // }
 
-    public void OnPointerClick(PointerEventData eventData)
+    public void OnPointerClick()
     {
-        if (skillPopup != null)
-        {
-            skillPopup.ShowSkillInfo(skillName, description, probability);
-        }
+        skillPopup.SetActive(true);
+        SkillName.text = this.GetComponent<SkillSlotScript>().skillName;
+        skillDescription.text = this.GetComponent<SkillSlotScript>().skillDes;
+        
     }
 }

@@ -10,6 +10,8 @@ public class SkillSlotScript : MonoBehaviour
 {
     //public GameObject SkillPopupPrefab;
     public Image skillImage;
+    public string skillName;
+    public string skillDes;
     private int skillStyleID;
 
     // Function to set the skill style based on the skill ID or other parameters
@@ -17,6 +19,8 @@ public class SkillSlotScript : MonoBehaviour
     {
         this.skillStyleID = skillStyleID;
         Sprite skillSprite = GetSkillSprite(skillStyleID);
+        skillName = GetSkillName(skillStyleID);
+        skillDes = GetSkillDesc(skillStyleID);
 
         if (skillSprite != null)
         {
@@ -101,15 +105,15 @@ public class SkillSlotScript : MonoBehaviour
     private string GetSkillName(int skillStyleID)
     {
         // Replace with your actual skill names array
-        string[] skillNames = { "Skill 1", "Skill 2", "Skill 3", "Skill 4", "Skill 5", "Skill 6", "Skill 7", "Skill 8", "Skill 9", "Skill 10" };
-        return skillNames[skillStyleID];
+        string[] skillNames = { "時間限縮", "階級流動", "暗影轉職", "技能封印", "力量剝奪", "黃金風暴", "知己知彼", "抉擇束縛", "強制徵收", "勝者之堆" };
+        return skillNames[skillStyleID-1];
     }
 
     private string GetSkillDesc(int skillStyleID)
     {
         // Replace with your actual skill descriptions array
-        string[] skillDescs = { "Description 1", "Description 2", "Description 3", "Description 4", "Description 5", "Description 6", "Description 7", "Description 8", "Description 9", "Description 10" };
-        return skillDescs[skillStyleID];
+        string[] skillDescs = { "此回合縮短對手選牌時間1秒", "一張平民變騎士", "一張平民變殺手", "下回合禁止對方使用玩家技能", "此回合對方平民卡技能無效", "獲勝金幣總數*1.5", "查看對手剩餘手牌", "限制對手只能從隨機的兩張牌中出一張", "對手贏牌區張數-1", "我方贏牌區張數+1" };
+        return skillDescs[skillStyleID-1];
     }
 
     private float GetSkillProbability(int skillStyleID)
