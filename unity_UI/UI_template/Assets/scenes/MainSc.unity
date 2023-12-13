@@ -7442,7 +7442,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: PvE
+  m_Text: "\u96FB\u8166\u5C0D\u6230"
 --- !u!222 &612781376
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10966,43 +10966,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 864325121}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1224200637}
-        m_TargetAssemblyTypeName: LobbyController, Assembly-CSharp
-        m_MethodName: EnterLobbyRank
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 439585652}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 1433501962}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &864325121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12549,19 +12513,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 993879194}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 928648857}
-        m_TargetAssemblyTypeName: Pg5PanelController, Assembly-CSharp
-        m_MethodName: ShowFriendlyPanel
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &993879194
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15708,7 +15660,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u6392\u4F4D"
+  m_Text: "\u6392\u4F4D\u5C0D\u6230"
 --- !u!222 &1270485725
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -24165,19 +24117,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1850286985}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 928648858}
-        m_TargetAssemblyTypeName: PvE, Assembly-CSharp
-        m_MethodName: PvEButton
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1850286985
 MonoBehaviour:
   m_ObjectHideFlags: 0

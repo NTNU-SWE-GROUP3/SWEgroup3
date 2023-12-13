@@ -65,7 +65,7 @@ public class GuideManager : MonoBehaviour
     private static string[] gatcha = {"這裡是抽卡區域,玩家可以消耗金幣或寶石抽取稀有造型以及具有不同能力的啤酒", 
                                         "左右滑動卡池圖片可以更換卡池,嘗試後請點擊繼續按鈕" };
 
-    private static string[] pg5 = {"這裡是其他對戰區域,玩家可以在這裡選擇\n一般對戰\n牌位對戰\n電腦對戰\n自訂對戰等四種模式" 
+    private static string[] pg5 = {"這裡是其他對戰區域,玩家可以在這裡選擇\n一般對戰\n排位對戰\n電腦對戰\n自訂對戰等四種模式" 
     };
     
     private static string[] pg1 = {"這裡造型裝備區域,卡牌共分為四種陣營及六種職業,分別為\n皇家:國王、皇后、王子\n騎士:騎士\n平民:平民\n殺手:殺手",
