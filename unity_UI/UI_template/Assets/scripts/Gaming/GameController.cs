@@ -84,7 +84,38 @@ public class GameController : MonoBehaviour
     }
     public IEnumerator TurnStart()
     {
-       
+        GameTurn turnStartSignal = gameObject.AddComponent<GameTurn>();
+        turnStartSignal.gameType = 1;
+        turnStartSignal.roomId = 1;
+        turnStartSignal.playerToken = "ABC";
+        
+        CoroutineWithData cd2 = new CoroutineWithData(this, Flask.SendRequest(turnStartSignal.SaveToString(),"turnStart"));
+        yield return cd2.coroutine;
+        Debug.Log("return : " + cd2.result);
+
+        string retString = cd2.result.ToString();
+        TrunStat ret = new TrunStat();
+        if (retString == "ConnectionError" || retString == "ProtocolError" || retString == "InProgress" || retString == "DataProcessingError")
+        {
+            Debug.Log("GameController:" + retString);
+            //back to game lobby or Main Scene,
+            
+        }
+        else
+        {
+            ret = TrunStat.CreateFromJSON(cd2.result.ToString());
+        }
+
+        if(ret.state == -1)
+        {
+            Debug.Log("GameController:" + ret.errMessage);
+            //opponent disconnected,back to game lobby or Main Scene
+        }
+        else
+        {
+            Debug.Log("GameController:" + ret.errMessage);
+        }
+
         Turn++;
         MessagePanel.SetActive(true);
         DestoryCardOnPanel();
@@ -215,26 +246,37 @@ public class GameController : MonoBehaviour
 
         //---pass player skill id to server and receive opponent skill id------
         SkillSelection selected = gameObject.AddComponent<SkillSelection>();
-        selected.type = 0;
-        selected.player = 0;
+        selected.gameType = 1;
+        selected.roomId = 1;
+        selected.playerToken = "ABC";
         selected.playerSkillID = PlayerSkillId;
         
         CoroutineWithData cd = new CoroutineWithData(this, Flask.SendRequest(selected.SaveToString(),"skill"));
         yield return cd.coroutine;
         Debug.Log("return : " + cd.result);
 
-        string retString = cd.result.ToString();
-        SkillMsgBack ret = new SkillMsgBack();
-        if (retString == "ConnectionError" || retString == "ProtocolError" || retString == "InProgress" || retString == "DataProcessingError")
+        string retString2 = cd.result.ToString();
+        SkillMsgBack ret2 = new SkillMsgBack();
+        if (retString2 == "ConnectionError" || retString2 == "ProtocolError" || retString2 == "InProgress" || retString2 == "DataProcessingError")
         {
-            Debug.Log("CountDown:" + retString);
-            //here should back to login scene
-            ret.OpponentSkillId = -1;
+            Debug.Log("GameController:" + retString2);
+            //here should back to game lobby or Main scene
         }
         else
         {
-            ret = SkillMsgBack.CreateFromJSON(cd.result.ToString());
+            ret2 = SkillMsgBack.CreateFromJSON(cd.result.ToString());
         }
+
+        if(ret2.OpponentSkillId == -1)
+        {
+            Debug.Log("GameController:" +ret2.errMessage);
+            //opponent disconnected,back to game lobby or Main Scene
+        }
+        else
+        {
+            Debug.Log("Opponent skill:" + ret2.OpponentSkillId);
+        }
+
         //---------------------------------------------------------------------
 
         Debug.Log("PLayer SUS" + PlayerSkillId);

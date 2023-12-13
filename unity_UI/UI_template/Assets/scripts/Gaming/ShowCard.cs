@@ -53,7 +53,7 @@ public class ShowCard : MonoBehaviour
         GC = GameObject.Find("GameController").GetComponent<GameController>();
         deletChange = GameObject.Find("GameController").GetComponent<DeleteChange>();
     }
-    public IEnumerator Show(int winLoss,bool trojanActivate)
+    public IEnumerator Show(int OpponentCardId)
     {
         PlayerCardObject = PlayerShow.transform.GetChild(0).gameObject;
         OpponentCardObject = OpponentShow.transform.GetChild(0).gameObject;

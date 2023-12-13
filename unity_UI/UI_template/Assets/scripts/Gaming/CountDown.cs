@@ -45,7 +45,9 @@ public class CountDown : MonoBehaviour
         }
 
         GameStart gs = gameObject.AddComponent<GameStart>();
-        gs.type = 0;
+        gs.gameType = 1;
+        gs.roomId = 1;
+        gs.playerToken = "ABC";
 
         CoroutineWithData cd = new CoroutineWithData(this, Flask.SendRequest(gs.SaveToString(),"gameStart"));
         yield return cd.coroutine;
@@ -61,6 +63,12 @@ public class CountDown : MonoBehaviour
         else
         {
             ret = RoomInfo.CreateFromJSON(cd.result.ToString());
+        }
+
+        if(ret.roomId == -1)
+        {
+            Debug.Log("GameController: this room doesn't exist.");
+            //back to game lobby or main scene
         }
 
         int cardSet = -1;
@@ -112,11 +120,10 @@ public class CountDown : MonoBehaviour
         OpponentCard = OpponentCardObject.GetComponent<CardDisplay>();
 
         CardSelection selected = gameObject.AddComponent<CardSelection>();
-        selected.type = 0;
-        selected.player = 0;
+        selected.gameType = 1;
+        selected.roomId = 1;
+        selected.playerToken = "ABC";
         selected.playerCardID = PlayerCard.id;
-        selected.opponetCardID = OpponentCard.id;
-        selected.isRevolution = ShowCard.isRevolution;
         
         CoroutineWithData cd = new CoroutineWithData(this, Flask.SendRequest(selected.SaveToString(),"cardSelection"));
         yield return cd.coroutine;
@@ -128,15 +135,23 @@ public class CountDown : MonoBehaviour
         {
             Debug.Log("CountDown:" + retString);
             //here should back to login scene
-            ret.winLoss = 0;
-            ret.trojanActivate = false;
         }
         else
         {
             ret = MsgBack.CreateFromJSON(cd.result.ToString());
         }
 
-        StartCoroutine(showcard.Show(ret.winLoss , ret.trojanActivate));
+        if(ret.OpponentCardId == -1)
+        {
+            Debug.Log("CountDown:" + ret.errMessage);
+            //back to game lobby or Main scene
+        }
+        else
+        {
+            Debug.Log("Opponent card:" + ret.OpponentCardId);
+        }
+
+        StartCoroutine(showcard.Show(ret.OpponentCardId));
         TimerText.text = "Show!"; 
         yield return new WaitForSeconds(1f);
         DragCard.canDrag = true;

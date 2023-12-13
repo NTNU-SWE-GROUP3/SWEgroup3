@@ -6,11 +6,10 @@ using System;
 
 public class CardSelection: MonoBehaviour
 {
-    public int type;
-    public int player;
+    public int gameType;
+    public int roomId;
+    public string playerToken;
     public int playerCardID;
-    public int opponetCardID;
-    public bool isRevolution;
 
     public string SaveToString()
     {
@@ -21,8 +20,8 @@ public class CardSelection: MonoBehaviour
 [Serializable]
 public class MsgBack
 {
-    public int winLoss;
-    public bool trojanActivate;
+    public int OpponentCardId;
+    public string errMessage;
 
     public static MsgBack CreateFromJSON(string jsonString)
     {
@@ -43,8 +42,9 @@ public class MsgBack
 
 public class SkillSelection: MonoBehaviour
 {
-    public int type;
-    public int player;
+    public int gameType;
+    public int roomId;
+    public string playerToken;
     public int playerSkillID;
 
     public string SaveToString()
@@ -57,6 +57,7 @@ public class SkillSelection: MonoBehaviour
 public class SkillMsgBack
 {
     public int OpponentSkillId;
+    public string errMessage;
 
     public static SkillMsgBack CreateFromJSON(string jsonString)
     {
@@ -77,7 +78,9 @@ public class SkillMsgBack
 
 public class GameStart: MonoBehaviour
 {
-    public int type;
+    public int gameType;
+    public int roomId;
+    public string playerToken;
     public string SaveToString()
     {
         return JsonUtility.ToJson(this);
@@ -105,6 +108,40 @@ public class RoomInfo
             return null;
         }
         
+    }
+}
+
+
+public class GameTurn: MonoBehaviour
+{
+    public int gameType;
+    public int roomId;
+    public string playerToken;
+    
+    public string SaveToString()
+    {
+        return JsonUtility.ToJson(this);
+    }
+}
+
+[Serializable]
+public class TrunStat
+{
+    public int state;
+    public string errMessage;
+
+    public static TrunStat CreateFromJSON(string jsonString)
+    {
+        if (jsonString != "ConnectionError" && jsonString != "ProtocolError" && jsonString != "InProgress" && jsonString != "DataProcessingError")
+        {
+            Debug.Log("TrunStatBack:" + jsonString);
+            return JsonUtility.FromJson<TrunStat>(jsonString);
+        }
+        else
+        {
+            Debug.Log("TrunStatBackErr:" + jsonString);
+            return null;
+        }
     }
 }
 
