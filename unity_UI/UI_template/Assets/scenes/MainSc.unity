@@ -28621,6 +28621,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1581288625}
     - target: {fileID: 6373189785584892490, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
+      propertyPath: NoticeTitleText
+      value: 
+      objectReference: {fileID: 1643865604}
+    - target: {fileID: 6373189785584892490, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
       propertyPath: errorController
       value: 
       objectReference: {fileID: 889481094}
@@ -28629,9 +28633,25 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2127197517}
     - target: {fileID: 6373189785584892490, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
+      propertyPath: UserCoinsDisplay
+      value: 
+      objectReference: {fileID: 262303342}
+    - target: {fileID: 6373189785584892490, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
+      propertyPath: UseSettingMessage
+      value: 
+      objectReference: {fileID: 1625042679}
+    - target: {fileID: 6373189785584892490, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
+      propertyPath: UserWarningButton
+      value: 
+      objectReference: {fileID: 1070215055}
+    - target: {fileID: 6373189785584892490, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
       propertyPath: duplicatePanelTexts
       value: 
       objectReference: {fileID: 546484131}
+    - target: {fileID: 6373189785584892490, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
+      propertyPath: UserSettingWarningPanel
+      value: 
+      objectReference: {fileID: 129613174}
     - target: {fileID: 7690228223650693897, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
       propertyPath: GachaResult1
       value: 
