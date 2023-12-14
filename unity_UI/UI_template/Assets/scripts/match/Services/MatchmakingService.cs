@@ -123,6 +123,17 @@ public static class MatchmakingService
         }
     }
 
+    public static async Task CreateOrJoinLobby(int type, int level)
+    {
+        data = new LobbyData
+        {
+            MaxPlayers = 2,
+            Type = type,
+            Difficulty = level
+        }
+        _currentLobby = await QuickJoinLobbyWithAllocation(type, level) ?? await CreateLobbyWithAllocation(data);
+    }
+
     //Quick Join the Normal/Ranked lobbies
     //type: Normal:0 Ranked:1
     //level: Normal:0 Ranked 1~5
@@ -137,10 +148,10 @@ public static class MatchmakingService
             new(QueryFilter.FieldOptions.N1, type.ToString(), QueryFilter.OpOptions.EQ),
             new(QueryFilter.FieldOptions.N2, level.ToString(), QueryFilter.OpOptions.EQ)
         };
-        var lobby = await LobbyService.Instance.QuickJoinLobbyAsync(options);
+        _currentLobbylobby = await LobbyService.Instance.QuickJoinLobbyAsync(options);
         // var a = await RelayService.Instance.JoinAllocationAsync(_currentLobby.Data[Constants.JoinKey].Value);
         /* Test */
-        if( type == 1 ) // Friend
+        if (type == 1) // Friend
         {
             Debug.Log($"Quick Join Normal Lobby ({lobby.LobbyCode})");
         }
