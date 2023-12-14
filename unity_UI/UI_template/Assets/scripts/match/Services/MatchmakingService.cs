@@ -139,6 +139,16 @@ public static class MatchmakingService
         };
         var lobby = await LobbyService.Instance.QuickJoinLobbyAsync(options);
         // var a = await RelayService.Instance.JoinAllocationAsync(_currentLobby.Data[Constants.JoinKey].Value);
+        /* Test */
+        if( type == 1 ) // Friend
+        {
+            Debug.Log($"Quick Join Normal Lobby ({lobby.LobbyCode})");
+        }
+        else // type == 2
+        {
+            Debug.Log($"Quick Join Rank Lobby ({lobby.LobbyCode})");
+        }
+        /* End test */
 
         // Transport.SetClientRelayData(a.RelayServer.IpV4, (ushort)a.RelayServer.Port, a.AllocationIdBytes, a.Key, a.ConnectionData, a.HostConnectionData);
         PeriodicallyRefreshLobby();
