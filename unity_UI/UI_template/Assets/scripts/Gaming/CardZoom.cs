@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class CardZoom : MonoBehaviour
 {
-    public GameObject canvas;
+    public GameObject CardZoomZone;
     private GameObject zoomCard;
     private Transform border;
     private Transform cardName;
@@ -19,7 +19,8 @@ public class CardZoom : MonoBehaviour
 
     public void  Awake()
     {
-        canvas = GameObject.Find("Canvas");
+        Input.simulateMouseWithTouches = true;
+        CardZoomZone = GameObject.Find("Canvas").GetComponentInChildren<Transform>().Find("CardZoomZone").gameObject;
     }
 
     public void OnHoverEnter()
@@ -35,7 +36,7 @@ public class CardZoom : MonoBehaviour
             skillText = zoomCard.GetComponentInChildren<Transform>().Find("Border/Description Border/cardSkill Text").GetComponent<Text>();
             desText = zoomCard.GetComponentInChildren<Transform>().Find("Border/Description Border/Description Text").GetComponent<Text>();
             cardImage = zoomCard.GetComponentInChildren<Transform>().Find("Border/Image Border/Image").GetComponent<Image>();
-            zoomCard.transform.SetParent(canvas.transform,false);
+            zoomCard.transform.SetParent(CardZoomZone.transform,true);
             zoomCard.layer = LayerMask.NameToLayer("Zoom");
 
             RectTransform rect;
