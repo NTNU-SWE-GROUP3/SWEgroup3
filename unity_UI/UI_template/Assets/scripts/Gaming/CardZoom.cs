@@ -25,9 +25,19 @@ public class CardZoom : MonoBehaviour
 
     public void OnHoverEnter()
     {
+        Vector2 position;
         if(this.transform.parent.tag == "Player")
         {
-            zoomCard = Instantiate(gameObject,new Vector2(Input.mousePosition.x,Input.mousePosition.y+250),Quaternion.identity);
+            if (Input.touchCount > 0)
+            {
+                Touch touch = Input.GetTouch(0); // Get the first touch
+                position = touch.position; // Use the position of the touch
+            }
+            else
+            {
+                position = Input.mousePosition; // Use mouse position as fallback
+            }
+            zoomCard = Instantiate(gameObject,new Vector2(position.x,position.y+250),Quaternion.identity);
             border = zoomCard.GetComponentInChildren<Transform>().Find("Border");
             cardName = zoomCard.GetComponentInChildren<Transform>().Find("Border/Name");
             nameText = zoomCard.GetComponentInChildren<Transform>().Find("Border/Name/Name Text").GetComponent<Text>();
