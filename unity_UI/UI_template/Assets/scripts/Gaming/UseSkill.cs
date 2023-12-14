@@ -26,9 +26,15 @@ public class UseSkill : MonoBehaviour
     public static int[] PlayerDilemmaDictatorId = {0,0};
     private int cardId = 0;
     public AudioClip UseSkillVoice;
+    public AudioClip ThreeSec;
     AudioSource audioSource;
+
+    public static bool UseTimeLimit;
+    public static bool UseCoinPlus;
     void Start()
     {
+        UseCoinPlus = false;
+        UseTimeLimit = false;
         PlayerSkillForbidden = false;
         ComSkillNextForbidden = false;
         SC = GameObject.Find("GameController").GetComponent<ShowCard>();
@@ -47,6 +53,10 @@ public class UseSkill : MonoBehaviour
         {
             TimerText.text = Clock.ToString();
             yield return new WaitForSeconds(1);
+            if (Clock == (3 + 1))
+            {
+                audioSource.PlayOneShot(ThreeSec);
+            }
             Clock -- ;
         }
         SkillPanel.gameObject.SetActive(false);
@@ -69,7 +79,15 @@ public class UseSkill : MonoBehaviour
                     break;
                 case 1: //時間限縮
                     Debug.Log("Player Use Skill 1");
-                    yield return new WaitForSeconds(1);
+                    SC.WinImage.SetActive(false);
+                    SC.SkillImage.SetActive(true);
+                    SC.skillMessage.gameObject.SetActive(true);
+                    SC.skillDescription.gameObject.SetActive(true);
+                    audioSource.PlayOneShot(UseSkillVoice);
+                    SC.skillMessage.text = "時間限縮!";
+                    SC.skillDescription.text = "此回合出牌時間縮短1秒";
+                    UseTimeLimit = true;
+                    yield return new WaitForSeconds(2);
                     break;
                 case 2: //階級流動
                     Debug.Log("Player Use Skill 2");
@@ -130,6 +148,14 @@ public class UseSkill : MonoBehaviour
                     break;
                 case 6: //黃金風暴
                     Debug.Log("Player Use Skill 6");
+                    SC.WinImage.SetActive(false);
+                    SC.SkillImage.SetActive(true);
+                    SC.skillMessage.gameObject.SetActive(true);
+                    SC.skillDescription.gameObject.SetActive(true);
+                    audioSource.PlayOneShot(UseSkillVoice);
+                    SC.skillMessage.text = "黃金風暴!";
+                    SC.skillDescription.text = "玩家獲勝金幣*1.5";
+                    UseCoinPlus = true;
                     yield return new WaitForSeconds(2);
                     break;
                 case 7: //知己知彼
@@ -217,9 +243,16 @@ public class UseSkill : MonoBehaviour
                     Clock = -1;
                     break;
                 case 1: //時間限縮
-                    audioSource.PlayOneShot(UseSkillVoice);
                     Debug.Log("Opponent Use Skill 1");
-                    yield return new WaitForSeconds(1);
+                    SC.WinImage.SetActive(false);
+                    SC.SkillImage.SetActive(true);
+                    SC.skillMessage.gameObject.SetActive(true);
+                    SC.skillDescription.gameObject.SetActive(true);
+                    audioSource.PlayOneShot(UseSkillVoice);
+                    SC.skillMessage.text = "時間限縮!";
+                    SC.skillDescription.text = "此回合出牌時間縮短1秒";
+                    UseTimeLimit = true;
+                    yield return new WaitForSeconds(2);
                     break;
                 case 2: //階級流動
                     audioSource.PlayOneShot(UseSkillVoice);

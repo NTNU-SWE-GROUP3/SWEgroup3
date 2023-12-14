@@ -11,6 +11,12 @@ public class GameController : MonoBehaviour
 {
     public string apiUrl = "http://140.122.185.169:5050/gaming/get_skills_card_styles";
     public string response;
+
+    public GameObject FinishPanel;
+    public Image FinishPanelImage;
+    public Text FinishPanelCoin;
+    public Text FinishPanelLV;
+
     public DrawCard drawCard;
     public CardDatabase cardDatabase;
     public static bool isCom;
@@ -46,13 +52,13 @@ public class GameController : MonoBehaviour
     public AudioManager audioManager;
     bool NoSkillCanUse;
     public Image MusicImg;
-
+    public Slider slider;
+    public static string WinOrLose;
     public UseSkill useSkill;
     public static int PlayerSkillId;
     public static int OpponentSkillId;
     public static bool OpponentFUS;
     AudioSource audioSource;
-
     bool ComSkillForbidden;
     // int id;
 
@@ -63,6 +69,7 @@ public class GameController : MonoBehaviour
         OpponentSkillId = -1;
         NoSkillCanUse = false;
         isCom = true;
+        FinishPanel.SetActive(false);
         SkipButton.SetActive(false);
         SkillPanel.SetActive(false);
         SkillImage.SetActive(false);
@@ -281,11 +288,15 @@ public class GameController : MonoBehaviour
             {
                 NextRoundText.text = "VICTORY";
                 StartCoroutine(VictorySE());
+                WinOrLose = "win";
+                StartCoroutine(GameFinishPanel(WinOrLose));
             }
             else if (OpponentEarnCard >= 10)
             {
                 NextRoundText.text = "DEFEAT";
                 StartCoroutine(DefeatSE());
+                WinOrLose = "lose";
+                StartCoroutine(GameFinishPanel(WinOrLose));
             }
             else
             {
@@ -293,36 +304,74 @@ public class GameController : MonoBehaviour
                 {
                     NextRoundText.text = "VICTORY";
                     StartCoroutine(VictorySE());
+                    WinOrLose = "win";
+                    StartCoroutine(GameFinishPanel(WinOrLose));
                 }
                 else if (OpponentEarnCard > PlayerEarnCard)
                 {
                     NextRoundText.text = "DEFEAT";
                     StartCoroutine(DefeatSE());
+                    WinOrLose = "lose";
+                    StartCoroutine(GameFinishPanel(WinOrLose));
                 }
                 else
                 {
-                    NextRoundText.text = "Draw";
+                    NextRoundText.text = "Tie";
                     StartCoroutine(DrawSE());
+                    WinOrLose = "tie";
+                    StartCoroutine(GameFinishPanel(WinOrLose));
                 }
 
             }
         }
     }
 
+    IEnumerator GameFinishPanel(string winorlose)
+    {
+        yield return new WaitForSeconds(2f);
+        if(winorlose == "win")
+        {
+            FinishPanelImage.sprite = Resources.Load<Sprite>("images/GameSc/Finish/VictoryBanner");
+            FinishPanelLV.text = "+200";
+            if(UseSkill.UseCoinPlus == true)
+                FinishPanelCoin.text = "+300";
+            
+            else
+                FinishPanelCoin.text = "+200";
+
+        }
+        else if(winorlose == "lose")
+        {
+            FinishPanelImage.sprite = Resources.Load<Sprite>("images/GameSc/Finish/DefeatBanner");
+            if(UseSkill.UseCoinPlus == true)
+                FinishPanelCoin.text = "+75";
+            else
+                FinishPanelCoin.text = "+50";
+            FinishPanelLV.text = "+50";
+        }
+        else
+        {
+            FinishPanelImage.sprite = Resources.Load<Sprite>("images/GameSc/Finish/TieBanner");
+            if(UseSkill.UseCoinPlus == true)
+                FinishPanelCoin.text = "+150";
+            else
+                FinishPanelCoin.text = "+100";
+            FinishPanelLV.text = "+100";
+        }
+        FinishPanel.SetActive(true);
+    }
 
     IEnumerator VictorySE()
     {
-        MusicImg = GameObject.Find("MusicButton").GetComponent<Image>();
+        slider = GameObject.Find("Slider").GetComponent<Slider>();
+        float vol = slider.value;
         yield return new WaitForSeconds(2.5f);
         audioSource.PlayOneShot(VictoryVoice);
-        if (MusicImg.sprite == Resources.Load<Sprite>("images/Music1"))
-        {
-            audioSource.PlayOneShot(VictoryMusic);
-        }
+        audioSource.PlayOneShot(VictoryMusic, vol);
     }
     IEnumerator DefeatSE()
     {
-        MusicImg = GameObject.Find("MusicButton").GetComponent<Image>();
+        slider = GameObject.Find("Slider").GetComponent<Slider>();
         yield return new WaitForSeconds(2.5f);
         int RandNum = Random.Range(0, 2);
         if (RandNum == 0)
@@ -366,14 +415,33 @@ public class GameController : MonoBehaviour
             string[] skillStrings = skillsString.Split(',');
 
             List<int> skills = new List<int>();
+            List<int> random_skills = new List<int>();
             foreach (string skillStr in skillStrings)
             {
                 int id = System.Convert.ToInt32(skillStr);
                 skills.Add(id);
             }
-
             Debug.Log("Loaded Skills: " + string.Join(", ", skills));
-            return skills;
+            
+            if(skills.Count > 3)
+            {
+                for (int i = 0; i < skills.Count - 1; i++)
+                {
+                    int temp = skills[i];
+                    int rand = Random.Range(i, skills.Count);
+                    skills[i] = skills[rand];
+                    skills[rand] = temp;
+                }
+                for(int i = 0; i < 3; i++)
+                {
+                    random_skills.Add(skills[i]);
+                }
+                return random_skills;
+            }
+            else
+                return skills;
+
+        
         }
         else
         {

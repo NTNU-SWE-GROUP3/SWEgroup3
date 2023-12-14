@@ -1,11 +1,18 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
+using TMPro;
+using System.Text;
 
 public class UIManager : MonoBehaviour
 {
     //Panel
     private GameObject SkinPanel;
     public GameObject MaskPanel;
+    private GameObject WarningPanel;
     //Skin Panel
     public Image CurrentSkinImage;
     public Button PreviousSkinButton;
@@ -31,6 +38,23 @@ public class UIManager : MonoBehaviour
     private int currentSkinIndex = 0;
     private string CurrentCharactor = "";
 
+    private static string serverUrl = "http://140.122.185.169:5050";
+    private string serverURL_equip = serverUrl + "/card_style/equip_card_style";
+    private string authToken = "token123";
+    // public string[,] cardStyleList = {
+    //     {"id", "1"},
+    //     {"account_id", "1"},
+    //     {"card_style_id", "3"},
+    //     {"equip_status", "0"}
+    // };
+    // private List<DontDestroy.UserCardData> userCardStyleList;
+
+
+    //WarningPanel 
+
+    public TMP_Text Warning_Message;
+    public Button Warning_ConfirmButton;
+
     private void Start()
     {
 
@@ -47,6 +71,34 @@ public class UIManager : MonoBehaviour
         CivillianButton.onClick.AddListener(ViewCivillianSkin);
         AssassinButton.onClick.AddListener(ViewAssassinSkin);
 
+        //Fetching user's card data list
+        // GameObject dontDestroyObject = GameObject.Find("DontDestroy");
+
+        // if (dontDestroyObject != null)
+        // {
+        //     // Access the DontDestroy script
+            // DontDestroy dontDestroyScript = dontDestroyObject.GetComponent<DontDestroy>();
+
+            // if (dontDestroyScript != null)
+            // {
+            //     // Access the UserCardDataList
+            //     userCardStyleList = dontDestroyScript.UserCardDataList;
+
+            //     // Now you can use userCardList for your logic
+            //     foreach (var userCardData in userCardStyleList)
+            //     {
+            //         Debug.Log($"CardID: {userCardData.CardID}, EquipStatus: {userCardData.EquipStatus}");
+            //     }
+            // }
+            // else
+            // {
+            //     Debug.LogError("DontDestroy script not found on the GameObject.");
+            // }
+        // }
+        // else
+        // {
+        //     Debug.LogError("GameObject with DontDestroy script not found in the scene.");
+        // }
     }
 
     private void ClosePanel()
@@ -57,9 +109,124 @@ public class UIManager : MonoBehaviour
         CurrentCharactor = "";
 }
 
+    private IEnumerator EquipSkinGetStatus(string targetCardStyleID)
+    {
+        Debug.Log("EquipSkinGetStatus started");
+
+        if (string.IsNullOrEmpty(authToken))
+        {
+            Debug.LogError("Authentication token is missing. User may not be logged in.");
+            yield break;
+        }
+
+        WWWForm form = new WWWForm();
+        form.AddField("tokenId", authToken); 
+        form.AddField("targetCardStyleId", targetCardStyleID);
+        Debug.Log("Form Contents: " + FormContentsToString(form));
+        using (UnityWebRequest www = UnityWebRequest.Post(serverURL_equip, form))
+        {
+            yield return www.SendWebRequest();
+
+            Debug.Log("Response: " + www.downloadHandler.text);
+
+            // Check for errors
+            if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
+            {
+                Debug.LogWarning(www.error);
+                // Warning Panel
+                Warning_Message.SetText("Please check your network connection");
+                WarningPanel.SetActive(true);
+            }
+            else //equip the skin
+            {
+                string equipStatus = www.downloadHandler.text;
+                Debug.Log("Equip Status: " + equipStatus);
+
+                ResponseData responseData = JsonUtility.FromJson<ResponseData>(equipStatus);
+                switch(responseData.status)
+                {
+                    case "200001":
+                        Debug.Log("Equip success!");
+                        Warning_Message.SetText("Equip success!");
+                        WarningPanel.SetActive(true);
+                        //change the skin of the card~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~·
+                        break;
+                    case "200021":
+                        Debug.Log("Equip failure");
+                        // Warning Panel
+                        Warning_Message.SetText("You have failed to equip this item");;
+                        WarningPanel.SetActive(true);
+                        break;
+                    case "200022":
+                        Debug.Log("Item doesn't exist in inventory");
+                        // Warning Panel
+                        Warning_Message.SetText("It seems like you do not have this item in inventory");
+                        WarningPanel.SetActive(true);
+                        break;
+                }
+            }
+        }
+    }
+
     private void EquipSkin()
     {
-        //To be continue
+        Debug.Log("EquipSkin button clicked!");
+        //calculate target card style id
+        int idCount = 0;
+        switch(CurrentCharactor)
+        {
+            case "King":
+                idCount = 2;
+                break;
+            case "Queen":
+                idCount = 5;
+                break;
+            case "Prince":
+                idCount = 4;
+                break;
+            case "Knight":
+                idCount = 3;
+                break;
+            case "Civil":
+                idCount = 0;
+                break;
+            case "Killer":
+                idCount = 1;
+                break;
+        }
+        switch(currentSkinIndex)
+        {
+            case 0: //Aladin
+                idCount += 7;
+                break;
+            case 1: //Alice in wonderland
+                idCount += 13;
+                break;
+            case 2: //Chinese chess
+                idCount += 37;
+                break;
+            case 3: //Cinderella
+                idCount += 19;
+                break;
+            case 4: //Frozen
+                idCount += 1;
+                break;
+            case 5: //Japanese chess
+                idCount += 43;
+                break;
+            case 6: //Poker
+                idCount += 31;
+                break;
+            case 7: //Romeo and Juliette
+                idCount += 25;
+                break;
+            case 8: //Snow white
+                idCount += 49;
+                break;
+        }
+        string targetCardStyleID = idCount.ToString();
+        Debug.Log($"targetCardStyleID_input: {targetCardStyleID}");
+        StartCoroutine(EquipSkinGetStatus(targetCardStyleID));
     }
 
     private void SellSkin()
@@ -194,12 +361,19 @@ public class UIManager : MonoBehaviour
         EquipButton.onClick.AddListener(EquipSkin);
     }
 
+   
 
+    private string FormContentsToString(WWWForm form)
+    {
+        StringBuilder sb = new StringBuilder();
 
+        foreach (var fieldName in form.headers.Keys)
+        {
+            sb.AppendLine($"{fieldName}: {form.headers[fieldName]}");
+        }
 
-
-
-
+        return sb.ToString();
+    }
 
 
 

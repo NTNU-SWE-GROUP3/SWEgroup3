@@ -1,5 +1,5 @@
 import mysql.connector
-from flask import current_app
+from flask import current_app, jsonify
 
 class DBManager:
     def __init__(self, database='game', host="localhost", user="swegroup3", password_file=None):
@@ -10,7 +10,8 @@ class DBManager:
             password='Swegroup3@12345',
             host=host, # name of the mysql service as set in the docker compose file
             database=database,
-            auth_plugin='mysql_native_password'
+            auth_plugin='mysql_native_password',
+            autocommit=True
         )
         # pf.close()
         self.cursor = self.connection.cursor()
@@ -25,10 +26,11 @@ class DBManager:
         data = (accountName,)   # it have to be tuple style here.
         self.cursor.execute(insert_stmt, data)
         current_app.logger.info(self.cursor._executed)
-        rec = []
-        for c in self.cursor:
-            rec.append(c[0])
-        return True if rec[0] >= 1 else False
+        result = self.cursor.fetchone()
+        if(result[0] >= 1):
+            return True
+        else:
+            return False
 
 
 
@@ -40,10 +42,11 @@ class DBManager:
         data = (accountEmail,)   # it have to be tuple style here.
         self.cursor.execute(insert_stmt, data)
         current_app.logger.info(self.cursor._executed)
-        rec = []
-        for c in self.cursor:
-            rec.append(c[0])
-        return True if rec[0] == 1 else False
+        result = self.cursor.fetchone()
+        if(result[0] >= 1):
+             return True
+        else:
+             return False
 
 
 
@@ -58,13 +61,12 @@ class DBManager:
         data = (accountPassword, accountName)
         self.cursor.execute(insertStmt, data)
         current_app.logger.info(self.cursor._executed)
-        rec = []
-        for c in self.cursor:
-            rec.append(c[0])
-        if(bool(rec)):
-            return rec[0]
+        result = self.cursor.fetchone()
+        if(result):
+             account_id = result[0]
+             return account_id
         else:
-            return -1
+             return -1
 
 
     # Use this when sign up and reset password(forget password)
@@ -99,6 +101,18 @@ class DBManager:
             "VALUES(%s, %s, %s, NULL, NULL, SUBSTRING(SHA1(RAND()), 1, 32))"
         )
         data = (accountName, accountEmail, accountPassword,)
+        self.cursor.execute(insert_stmt, data)
+        current_app.logger.info(self.cursor._executed)
+        self.connection.commit()
+        
+    
+    
+    def InitNewAccountData(self, accountId):
+        insert_stmt = (
+            "INSERT INTO account_data(account_id, nickname, level, experience, `rank`, total_match, total_win, ranked_winning_streak, ranked_XP, coin) "
+            "VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+        )
+        data = (accountId, "Guest", "0", "0", "Not Ranked", "0", "0", "0", "0", "3000",)
         self.cursor.execute(insert_stmt, data)
         current_app.logger.info(self.cursor._executed)
         self.connection.commit()
@@ -195,13 +209,11 @@ class DBManager:
         data = (tokenid,)
         self.cursor.execute(insertStmt, data)
         current_app.logger.info(self.cursor._executed)
-        rec = []
-        for c in self.cursor:
-            rec.append(c[0])
-        if(bool(rec)):
-            return rec[0]
+        result = self.cursor.fetchone()
+        if(result):
+             return result[0]
         else:
-            return -1
+             return -1
 
     def ReloadChangePassword(self, accountId, newpassword):
         insert_stmt = (
@@ -352,3 +364,81 @@ class DBManager:
                 return rec[0]
             else:
                 return 0
+            
+    ##>>Dont Destroy<<
+    def GetCardInfo(self):
+            query = (
+                "SELECT * FROM card_style"
+            )
+            self.cursor.execute(query)
+            current_app.logger.info(self.cursor._executed)
+            rows = self.cursor.fetchall()
+            card_info = []
+            for row in rows:
+                card_info.append(row)
+            return (card_info)
+        
+    def GetSkillInfo(self):
+            query = (
+                "SELECT * FROM skill"
+            )
+            self.cursor.execute(query)
+            current_app.logger.info(self.cursor._executed)
+            rows = self.cursor.fetchall()
+            card_info = []
+            for row in rows:
+                card_info.append(row)
+            return (card_info)
+        
+        
+    def GetSkillData(self, tokenid):
+            query = (
+                "SELECT account_skill.skill_id, account_skill.equip_status "
+                "FROM account_skill "
+                "JOIN account ON account_skill.account_id = account.id "
+                "WHERE account.token_id = %s"
+            )
+            data = (tokenid,)
+            self.cursor.execute(query, data)
+            current_app.logger.info(self.cursor._executed)
+            rows = self.cursor.fetchall()
+            skill_data = []
+            for row in rows:
+                skill_data.append(row)
+            return (skill_data)
+        
+        
+
+    def GetStyleData(self, tokenid):
+            query = (
+                "SELECT account_card_style.card_style_id, account_card_style.equip_status "
+                "FROM account_card_style "
+                "JOIN account ON account_card_style.account_id = account.id "
+                "WHERE account.token_id = %s"
+            )
+            data = (tokenid,)
+            self.cursor.execute(query, data)
+            current_app.logger.info(self.cursor._executed)
+            rows = self.cursor.fetchall()
+            style_data = []
+            for row in rows:
+                style_data.append(row)
+            return (style_data)
+        
+        
+    # user_data get AccountDataTable all in once
+    def GetAccountDataTableAll(self, tokenid):
+            query = (
+                "SELECT ad.* FROM account a "
+                "JOIN account_data ad ON a.id = ad.account_id "
+                "WHERE a.token_id = %s"
+            )
+            data = (tokenid,)
+            self.cursor.execute(query, data)
+            current_app.logger.info(self.cursor._executed)
+            rows = self.cursor.fetchall()
+            account_data = []
+            for row in rows:
+                account_data.append(row)
+            return (account_data)
+        

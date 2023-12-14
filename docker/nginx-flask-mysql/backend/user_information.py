@@ -204,6 +204,7 @@ def verify_email():
     if not conn:
         conn = DBManager(password_file='/run/secrets/db-password')
 
+
     random_code = request.form.get('code')
     current_app.logger.info("random_code: %s", random_code)
     userid = request.form.get('user_id')
@@ -228,3 +229,8 @@ def verify_email():
 
     # Example: Return a response to the user
     return "Email verification successful!"
+
+
+
+
+    

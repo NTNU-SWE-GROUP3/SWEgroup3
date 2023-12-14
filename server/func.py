@@ -7,7 +7,7 @@ db_config = {
     "user": "swegroup3",
     "password": "Swegroup3@12345",
     "database": "game",
-    "auth_plugin": "mysql_native_password"
+    "auth_plugin": "mysql_native_password",
 }
 
 def create_mysql_connection():

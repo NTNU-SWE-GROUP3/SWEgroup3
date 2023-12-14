@@ -21,7 +21,6 @@ def GetEquipedStatus():
         else:
             return jsonify({"skills": -1,"card_styles": -1}), 400
 
-
     except Exception as e:
         return jsonify({"skills": -1,"card_styles": -1}), 400
 
@@ -30,7 +29,8 @@ def GetEquippedSkills(account_id):
         connection = func.create_mysql_connection()
         cursor = connection.cursor(dictionary=True)
 
-        cursor.execute("SELECT skill_id FROM account_skill WHERE account_id = %s AND equip_status = 1", (account_id,))
+        # cursor.execute("SELECT skill_id FROM account_skill WHERE account_id = %s AND equip_status = 1", (account_id,))
+        cursor.execute("SELECT skill_id FROM account_skill WHERE account_id = %s", (account_id,))
         results = cursor.fetchall()
 
         connection.close()
@@ -48,6 +48,7 @@ def GetEquippedCardStyles(account_id):
         cursor = connection.cursor(dictionary=True)
 
         cursor.execute("SELECT card_style_id FROM account_card_style WHERE account_id = %s AND equip_status = 1", (account_id,))
+        # cursor.execute("SELECT card_style_id FROM account_card_style WHERE account_id = %s", (account_id,))
         results = cursor.fetchall()
 
         connection.close()
@@ -70,10 +71,72 @@ def getPlayerInfo():
         cursor.execute("SELECT * FROM account_data WHERE account_id = %s", (account_id,))
         results = cursor.fetchone()
 
-        print(results)
-        return results
+        if results is None:
+            print("No results")
+        print(results) 
+        return jsonify(results)
 
     except Exception as e:
-        return 10000
+        print("Error in getPlayerInfo:", e)
+        return [-1]
     finally:
         connection.close()
+
+
+@gaming.route("/game_finish", methods=["POST"])
+def game_finish():
+    try:
+        print("Game finished")
+        account_id = request.form.get("account_id")
+        end_status = request.form.get("end_status")
+
+        connection = func.create_mysql_connection()
+        cursor = connection.cursor(dictionary=True)
+
+        addcoins = 0
+        addexp = 0
+        win = False
+        if end_status == "win":
+            addcoins = 200
+            addexp = 200
+            win = True
+        elif end_status == "lose":
+            addcoins = 50
+            addexp = 50
+        else:
+            addcoins = 100
+            addexp = 100
+
+        sql = """
+            UPDATE account_data 
+            SET coin = coin + %s, 
+            experience = experience + %s, 
+            total_match = total_match + 1 
+            WHERE account_id = %s
+            """
+
+        cursor.execute(sql, (addcoins, addexp, account_id),)
+        connection.commit()
+        # cursor.execute("UPDATE account_data SET coin = coin + %s WHERE account_id = %s", (addcoins, account_id),)
+        # connection.commit()
+
+        # cursor.execute("UPDATE account_data SET experience = experience + %s WHERE account_id = %s", (addexp, account_id),)
+        # connection.commit()
+
+        # cursor.execute("UPDATE account_data SET total_match = total_match + 1 WHERE account_id = %s", (account_id,))
+        # connection.commit()
+
+        if win:
+            cursor.execute("UPDATE account_data SET total_win = total_win + 1 WHERE account_id = %s", (account_id,))
+            connection.commit()
+
+
+        # connection.commit()
+
+        return jsonify({"success": True, "message": "Game finished successfully"})
+    except Exception as e:
+        print("Error in game_finish:", e)
+        return jsonify({"success": False, "message": "Internal Server Error"}), 500
+    finally:
+        connection.close()
+

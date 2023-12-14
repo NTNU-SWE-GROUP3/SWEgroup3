@@ -18,8 +18,8 @@ public class CardDatabase : MonoBehaviour
     {
         for(int i = 0;i<cardStyleIdList.Count;i++)
         {
-            // if(cardStyleIdList[i] < 1 || cardStyleIdList[i] >60 )
-            //     Debug.Log("CardStyle Error");
+            if(cardStyleIdList[i] < 1 || cardStyleIdList[i] >60 )
+                Debug.Log("CardStyle Error :" + cardStyleIdList[i]);
             switch((cardStyleIdList[i]-1)/6)
             {
                 case 0 :
@@ -35,7 +35,7 @@ public class CardDatabase : MonoBehaviour
                     SkinStyle = "Cinderella"; 
                     break;
                 case 4 :
-                    SkinStyle = "Romet and Julliette"; 
+                    SkinStyle = "Romet and Juliette"; 
                     break;
                 case 5 :
                     SkinStyle = "Chess"; 
@@ -48,9 +48,6 @@ public class CardDatabase : MonoBehaviour
                     break;
                 case 8 :
                     SkinStyle = "Snow white"; 
-                    break;
-                case 9 :
-                    SkinStyle = "Frozen"; 
                     break;
             }
 

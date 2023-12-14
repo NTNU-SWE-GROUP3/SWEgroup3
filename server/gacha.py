@@ -9,19 +9,32 @@ gacha = Blueprint('gacha',__name__, url_prefix='/gacha')
 def Draw():
     try:
         mode = request.form.get("mode")  # coin or cash
-        playerId = request.form.get("account_id")
+        token_id = request.form.get("token_id")
         times = request.form.get("times")  # 1 or 10
         coinsRequired = Cost(times, mode)
-
-        print("player: ", playerId)
-        print("mode: ", mode)
-        print("times: ", times)
-        print("coins required: ", coinsRequired)
 
         resultCards = []
         check = False
         error_message = ""
         total_coins = 0
+
+        playerId = func.GetAccountId(token_id)
+        if playerId == -2 or playerId == -1:
+            error_message = "Token Expired, please login again"
+            resultCards.append(
+                    {
+                        "id": -3,
+                        "type": "error",
+                        "note": error_message,
+                    }
+                )
+            response = resultCards
+            return jsonify(response)
+
+        print("player: ", playerId)
+        print("mode: ", mode)
+        print("times: ", times)
+        print("coins required: ", coinsRequired)
 
         if (mode == "coin"):
             check = CoinCheck(playerId, coinsRequired)
@@ -33,7 +46,6 @@ def Draw():
             error_message = "Transaction failed."
 
         if check:
-            resultCoins = []
             N = int(times)
             print(N)
             for i in range(N):
@@ -49,7 +61,6 @@ def Draw():
                     print(coinValue)
                     total_coins += coinValue
                     # UpdatePlayerCoins(playerId, -coinValue)
-                    resultCoins.append({"coin": coinValue})
                 else:
                     selectedCard = RandomlySelectCard(type)
                     cardId = selectedCard[0]
@@ -58,7 +69,7 @@ def Draw():
                         total_coins += 500
                     else:
                         cardProb = selectedCard[1]
-                        InsertCard(playerId, cardId, type)
+                        InsertCard(playerId, cardId, type)  
 
                 resultCards.append(
                     {
@@ -177,7 +188,7 @@ def GetCardData(types):
             cursor.execute("SELECT skill_id, skill_probability FROM skill")
         elif types == "card_style":
             print("Get card style")
-            cursor.execute("SELECT card_style_id, card_style_probability FROM card_style")
+            cursor.execute("SELECT card_style_id, card_style_probability FROM card_style WHERE card_style_id < 55")
         else:
             return None
 
@@ -209,6 +220,7 @@ def RandomlySelectCard(cardType):
             if num <= cumulativeProb:
                 print(card)
                 return card
+            
     except Exception as e:
         print("Error in RandomlySelectCard:", e)
         raise ValueError("Error in RandomlySelectCard")

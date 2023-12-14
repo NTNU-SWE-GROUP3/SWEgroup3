@@ -155,10 +155,10 @@ TextureImporter:
       name: FrameButtons_2
       rect:
         serializedVersion: 2
-        x: 0
-        y: 3174
-        width: 3585
-        height: 1587
+        x: 45
+        y: 3459
+        width: 3243
+        height: 1302
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

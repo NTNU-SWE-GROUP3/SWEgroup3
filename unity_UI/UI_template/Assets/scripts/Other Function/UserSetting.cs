@@ -63,10 +63,17 @@ public class UserSetting : MonoBehaviour
     public Text NoticeTitleText;
     public Button UserWarningButton;
 
+    //UI Text
+    public Text UIUserName;
+    public Text UIUserLevel;
+    public Text UICoins;
+    public Text UIChips;
+
 
 
     //URL
-    public static string serverUrl = "http://127.0.0.1:80";
+    public static string serverUrl = "http://140.122.185.169:5050";
+
     private string serverURL_playerdata = serverUrl + "/user_information/getplayerdata";
     private string serverURL_changeNickname = serverUrl + "/user_information/changenickname";
     private string serverURL_changeEmail = serverUrl + "/user_information/changeemail";
@@ -271,7 +278,7 @@ public class UserSetting : MonoBehaviour
             {
 
                 string responseText = www.downloadHandler.text;
-                Debug.Log("Server Response: " + responseText);
+                //Debug.Log("Server Response: " + responseText);
                 // 解析伺服器回應的 JSON
                 UserInformationResponseData responseData = JsonUtility.FromJson<UserInformationResponseData>(responseText);
                 // 根據狀態碼執行不同的操作
@@ -287,6 +294,12 @@ public class UserSetting : MonoBehaviour
                         player_nickname = responseData.nickname;
                         player_email = responseData.email;
                         player_winrate = responseData.winrate;
+
+                        UIUserName.text = player_nickname;
+                        UIUserLevel.text = player_level.ToString();
+                        UICoins.text = player_coins.ToString();
+                        UIChips.text = "0";
+
                         break;
 
                     case "403011":
