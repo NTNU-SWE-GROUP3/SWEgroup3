@@ -59,7 +59,7 @@ public class ComputerPlayer : MonoBehaviour
                 if (OpponentArea.transform.GetChild(i).gameObject.GetComponent<CardDisplay>().id == UseSkill.ComDilemmaDictatorId[randomIndex])
                 {
                     Card = OpponentArea.transform.GetChild(i);
-                    UseSkill.PlayerIsdilemmaDictator = false;
+                    UseSkill.ComIsdilemmaDictator = false;
                 }
             }
         }
