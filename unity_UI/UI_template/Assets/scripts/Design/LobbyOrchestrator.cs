@@ -58,7 +58,7 @@ public class LobbyOrchestrator : NetworkBehaviour {
     {
         await Authentication.Login();
         try{
-            await MatchmakingService.QuickJoinLobbyWithAllocation( 2, 1 ); // Level is editing...
+            await MatchmakingService.CreateOrJoinLobby( 2, 1 ); // Level is editing...
         }
         catch ( Exception e ){
             Debug.LogError(e);
@@ -69,7 +69,7 @@ public class LobbyOrchestrator : NetworkBehaviour {
     {
         await Authentication.Login();
         try{
-            await MatchmakingService.QuickJoinLobbyWithAllocation( 1, 0 ); // Level is editing...
+            await MatchmakingService.CreateOrJoinLobby( 1, 0 ); // Level is editing...
         }
         catch ( Exception e ){
             Debug.LogError(e);

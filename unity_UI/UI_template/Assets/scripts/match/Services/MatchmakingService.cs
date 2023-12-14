@@ -125,13 +125,30 @@ public static class MatchmakingService
 
     public static async Task CreateOrJoinLobby(int type, int level)
     {
-        data = new LobbyData
+        var data = new LobbyData
         {
             MaxPlayers = 2,
             Type = type,
             Difficulty = level
+        };
+
+        try{
+            await QuickJoinLobbyWithAllocation(type, level);
         }
-        _currentLobby = await QuickJoinLobbyWithAllocation(type, level) ?? await CreateLobbyWithAllocation(data);
+        catch{
+            await CreateLobbyWithAllocation(data);
+        }
+
+        /* Test */
+        if (type == 1) // Friend
+        {
+            Debug.Log($"Quick Join Normal Lobby ({_currentLobby.Id})");
+        }
+        else // type == 2
+        {
+            Debug.Log($"Quick Join Rank Lobby ({_currentLobby.Id})");
+        }
+        /* End test */
     }
 
     //Quick Join the Normal/Ranked lobbies
@@ -148,18 +165,8 @@ public static class MatchmakingService
             new(QueryFilter.FieldOptions.N1, type.ToString(), QueryFilter.OpOptions.EQ),
             new(QueryFilter.FieldOptions.N2, level.ToString(), QueryFilter.OpOptions.EQ)
         };
-        _currentLobbylobby = await LobbyService.Instance.QuickJoinLobbyAsync(options);
+        _currentLobby = await LobbyService.Instance.QuickJoinLobbyAsync(options);
         // var a = await RelayService.Instance.JoinAllocationAsync(_currentLobby.Data[Constants.JoinKey].Value);
-        /* Test */
-        if (type == 1) // Friend
-        {
-            Debug.Log($"Quick Join Normal Lobby ({lobby.LobbyCode})");
-        }
-        else // type == 2
-        {
-            Debug.Log($"Quick Join Rank Lobby ({lobby.LobbyCode})");
-        }
-        /* End test */
 
         // Transport.SetClientRelayData(a.RelayServer.IpV4, (ushort)a.RelayServer.Port, a.AllocationIdBytes, a.Key, a.ConnectionData, a.HostConnectionData);
         PeriodicallyRefreshLobby();
