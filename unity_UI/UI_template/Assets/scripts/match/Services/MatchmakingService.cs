@@ -94,7 +94,7 @@ public static class MatchmakingService
 
         //The name of the lobby will be same as the host player.
         _currentLobby = await Lobbies.Instance.CreateLobbyAsync("New", data.MaxPlayers, options);
-        Debug.Log($"Lobby created: {_currentLobby.Id}");
+        Debug.Log($"Lobby created: {_currentLobby.Id}, {_currentLobby.LobbyCode}");
         // //Transport.SetHostRelayData(a.RelayServer.IpV4, (ushort)a.RelayServer.Port, a.AllocationIdBytes, a.Key, a.ConnectionData);
 
         Heartbeat();
@@ -142,11 +142,11 @@ public static class MatchmakingService
         /* Test */
         if (type == 1) // Friend
         {
-            Debug.Log($"Quick Join Normal Lobby ({_currentLobby.Id})");
+            Debug.Log($"Quick Join Normal Lobby ({_currentLobby.Id}, {_currentLobby.LobbyCode})");
         }
         else // type == 2
         {
-            Debug.Log($"Quick Join Rank Lobby ({_currentLobby.Id})");
+            Debug.Log($"Quick Join Rank Lobby ({_currentLobby.Id}, {_currentLobby.LobbyCode})");
         }
         /* End test */
     }
@@ -176,6 +176,7 @@ public static class MatchmakingService
     public static async Task JoinLobbyWithAllocationCode(string lobbyCode)
     {
         _currentLobby = await Lobbies.Instance.JoinLobbyByCodeAsync(lobbyCode);
+        Debug.Log($"Join Friend Lobby ({_currentLobby.Id}, {_currentLobby.LobbyCode})");
         // var a = await RelayService.Instance.JoinAllocationAsync(_currentLobby.Data[Constants.JoinKey].Value);
 
         // Transport.SetClientRelayData(a.RelayServer.IpV4, (ushort)a.RelayServer.Port, a.AllocationIdBytes, a.Key, a.ConnectionData, a.HostConnectionData);

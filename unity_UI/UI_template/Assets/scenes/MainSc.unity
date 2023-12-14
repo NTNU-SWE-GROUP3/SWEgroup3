@@ -14946,7 +14946,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UIsys: {fileID: 1433501962}
   Lobby: {fileID: 439585652}
-  _joinCodeText: {fileID: 0}
+  _joinCodeText: {fileID: 1762903743}
 --- !u!224 &1224200638
 RectTransform:
   m_ObjectHideFlags: 0
