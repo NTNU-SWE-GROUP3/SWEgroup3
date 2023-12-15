@@ -13,6 +13,15 @@ using System.Collections;
 ///     but the transport and RPC logic remains here. It's possible we could pull
 /// </summary>
 public class LobbyOrchestrator : NetworkBehaviour {
+
+    private DontDestroy userdata;
+    static int userRank;
+
+    void start()
+    {
+        userdata = FindObjectOfType<DontDestroy>();
+        userRank = int.Parse(userdata.rank);
+    }
     public static async void FriendCreate()
     {
         await Authentication.Login();
@@ -58,7 +67,11 @@ public class LobbyOrchestrator : NetworkBehaviour {
     {
         await Authentication.Login();
         try{
-            await MatchmakingService.CreateOrJoinLobby( 2, 1 ); // Level is editing...
+            if( userRank.Equals("1") || userRank.Equals("2") )         await MatchmakingService.CreateOrJoinLobby( 2, 1 );
+            else if( userRank.Equals("3") || userRank.Equals("4") )    await MatchmakingService.CreateOrJoinLobby( 2, 2 );
+            else if( userRank.Equals("5") )                            await MatchmakingService.CreateOrJoinLobby( 2, 3 );
+            else if( userRank.Equals("6") )                            await MatchmakingService.CreateOrJoinLobby( 2, 4 );
+            else if( userRank.Equals("7") )                            await MatchmakingService.CreateOrJoinLobby( 2, 5 );
         }
         catch ( Exception e ){
             Debug.LogError(e);
