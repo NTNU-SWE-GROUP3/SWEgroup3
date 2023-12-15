@@ -32,12 +32,13 @@ public class SkillCardDisplay : MonoBehaviour
         string urlCard = serverUrl + "/skill_style/display_skill_style";
         WWWForm form = new WWWForm();
         string token = userdata.token;
+        Debug.Log("Display token: " + token);
         //string skillId = "1";
         form.AddField("Token", token);
         //form.AddField("SkillId", skillId);
 
-         // HANDLE CARD DISPLAYED BY TOKEN 
-        UnityWebRequest requestCard = UnityWebRequest.Post(urlCard, form);       
+        // HANDLE CARD DISPLAYED BY TOKEN 
+        UnityWebRequest requestCard = UnityWebRequest.Post(urlCard, form);
         yield return requestCard.SendWebRequest();
 
         if (requestCard.result == UnityWebRequest.Result.ConnectionError || requestCard.result == UnityWebRequest.Result.ProtocolError)
@@ -49,7 +50,7 @@ public class SkillCardDisplay : MonoBehaviour
             string jsonCardResponse = requestCard.downloadHandler.text;
             Debug.Log("JSON card response = " + jsonCardResponse);
             // SkillStyleResponse response = JsonUtility.FromJson<SkillStyleResponse>(jsonResponse);
-        
+
             SkillStyleResponse responseCard = JsonUtility.FromJson<SkillStyleResponse>(jsonCardResponse);
             //Debug.Log("Notice: " + responseCard);
             //StartCoroutine(DisplaySkillDesc(responseCard));
@@ -62,14 +63,18 @@ public class SkillCardDisplay : MonoBehaviour
                 if (responseCard.status == "400055")
                 {
                     Debug.Log("success 400055");
-                    Debug.Log ("response card skill oclection : " + responseCard.skill_collection);
+                    Debug.Log("response card skill oclection : " + responseCard.skill_collection);
+                    foreach (Transform child in Skill_Bar.transform)
+                    {
+                        Destroy(child.gameObject);
+                    }
                     foreach (int skillStyle in responseCard.skill_collection)
                     {
-                        Debug.Log ("skillstyle in skillcardDisplay.cs : " + skillStyle);
+                        Debug.Log("skillstyle in skillcardDisplay.cs : " + skillStyle);
                         GameObject Skill_slot = Instantiate(Skill_slotPrefab, Skill_Bar.transform);
                         SkillSlotScript skillSlotScript = Skill_slot.GetComponent<SkillSlotScript>();
                         skillSlotScript.SetSkillStyle(skillStyle);
-                    
+
                     }
                 }
                 else
@@ -84,7 +89,7 @@ public class SkillCardDisplay : MonoBehaviour
         }
     }
 
-    
+
     [System.Serializable]
     public class SkillStyleResponse
     {
