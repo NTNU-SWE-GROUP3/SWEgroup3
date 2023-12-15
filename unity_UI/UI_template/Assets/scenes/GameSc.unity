@@ -2155,6 +2155,8 @@ MonoBehaviour:
   SkillImage: {fileID: 312526179}
   WinImage: {fileID: 1214895670}
   DrawArea: {fileID: 1715371806}
+  PlayerEarnText: {fileID: 1561420044}
+  OpponentEarnText: {fileID: 993464735}
   SkillMassage: {fileID: 1455593241}
   SkillDescription: {fileID: 933379069}
   DrawAreaCount: {fileID: 975557086}

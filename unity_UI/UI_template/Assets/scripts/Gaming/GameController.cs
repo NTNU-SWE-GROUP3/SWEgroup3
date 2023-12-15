@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 using UnityEngine.UI;
 using UnityEngine.Serialization;
 
@@ -23,6 +24,8 @@ public class GameController : MonoBehaviour
     public GameObject SkillImage;
     public GameObject WinImage;
     public GameObject DrawArea;
+    public Text PlayerEarnText;
+    public Text OpponentEarnText;
     public Text SkillMassage;
     public Text SkillDescription;
     public Text DrawAreaCount;
@@ -88,6 +91,8 @@ public class GameController : MonoBehaviour
         turnStartSignal.gameType = 1;
         turnStartSignal.roomId = 1;
         turnStartSignal.playerToken = "ABC";
+        turnStartSignal.playerEarn = Convert.ToInt32(PlayerEarnText.text);
+        turnStartSignal.opponentEarn = Convert.ToInt32(OpponentEarnText.text);
         
         CoroutineWithData cd2 = new CoroutineWithData(this, Flask.SendRequest(turnStartSignal.SaveToString(),"turnStart"));
         yield return cd2.coroutine;
@@ -374,7 +379,7 @@ public class GameController : MonoBehaviour
     {
         MusicImg = GameObject.Find("MusicButton").GetComponent<Image>();
         yield return new WaitForSeconds(2.5f);
-        int RandNum = Random.Range(0, 2);
+        int RandNum = UnityEngine.Random.Range(0, 2);
         if(RandNum == 0)
         {
             audioSource.PlayOneShot(DefeatVoice1);

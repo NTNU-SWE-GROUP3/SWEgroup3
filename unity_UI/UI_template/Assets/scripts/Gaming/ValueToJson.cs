@@ -117,6 +117,8 @@ public class GameTurn: MonoBehaviour
     public int gameType;
     public int roomId;
     public string playerToken;
+    public int playerEarn;
+    public int opponentEarn;
     
     public string SaveToString()
     {

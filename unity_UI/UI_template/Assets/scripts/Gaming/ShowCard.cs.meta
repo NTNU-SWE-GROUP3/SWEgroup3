@@ -6,8 +6,8 @@ MonoImporter:
   defaultReferences:
   - PlayerShow: {instanceID: 0}
   - OpponentShow: {instanceID: 0}
-  - PlayerEarn: {instanceID: 0}
-  - OpponentEarn: {instanceID: 0}
+  - PlayerEarn: {fileID: 2705303539994526234, guid: 3614c5492f2454e48b7a3e340835d953, type: 3}
+  - OpponentEarn: {fileID: 3243715292028838269, guid: 10761a2b84106844c9739628b37da254, type: 3}
   - DrawArea: {instanceID: 0}
   - PlayerArea: {instanceID: 0}
   - OpponentArea: {instanceID: 0}
