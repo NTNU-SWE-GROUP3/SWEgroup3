@@ -53,4 +53,26 @@ public class LobbyOrchestrator : NetworkBehaviour {
             }
         //}
     }
+
+    public static async void LobbyRank()
+    {
+        await Authentication.Login();
+        try{
+            await MatchmakingService.CreateOrJoinLobby( 2, 1 ); // Level is editing...
+        }
+        catch ( Exception e ){
+            Debug.LogError(e);
+        }
+    }
+
+    public static async void LobbyNormal()
+    {
+        await Authentication.Login();
+        try{
+            await MatchmakingService.CreateOrJoinLobby( 1, 0 ); // Level is editing...
+        }
+        catch ( Exception e ){
+            Debug.LogError(e);
+        }
+    }
 }

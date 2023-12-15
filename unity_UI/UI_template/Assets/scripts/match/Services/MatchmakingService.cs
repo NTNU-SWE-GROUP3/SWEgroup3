@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Unity.Netcode.Transports.UTP;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
-using Unity.Services.Relay;
+// using Unity.Services.Relay;
 using Unity.Services.Core;
 using Unity.Services.Authentication;
 using UnityEngine;
@@ -79,25 +79,23 @@ public static class MatchmakingService
     public static async Task CreateLobbyWithAllocation(LobbyData data)
     {
         // Create a relay allocation and generate a join code to share with the lobby
-        var a = await RelayService.Instance.CreateAllocationAsync(data.MaxPlayers);
-        var joinCode = await RelayService.Instance.GetJoinCodeAsync(a.AllocationId);
+        // var a = await RelayService.Instance.CreateAllocationAsync(data.MaxPlayers);
+        // var joinCode = await RelayService.Instance.GetJoinCodeAsync(a.AllocationId);
         // Create a lobby, adding the relay join code to the lobby data
         var options = new CreateLobbyOptions
         {
             Data = new Dictionary<string, DataObject> {
-                { Constants.JoinKey, new DataObject(DataObject.VisibilityOptions.Member, joinCode) },
-                { Constants.GameTypeKey, new DataObject(DataObject.VisibilityOptions.Public, data.Type.ToString(), DataObject.IndexOptions.N1) }, {
-                    Constants.DifficultyKey,
-                    new DataObject(DataObject.VisibilityOptions.Public, data.Difficulty.ToString(), DataObject.IndexOptions.N2)
-                }
+                // { Constants.JoinKey, new DataObject(DataObject.VisibilityOptions.Member, joinCode) },
+                { Constants.GameTypeKey, new DataObject(DataObject.VisibilityOptions.Public, data.Type.ToString(), DataObject.IndexOptions.N1) },
+                { Constants.DifficultyKey, new DataObject(DataObject.VisibilityOptions.Public, data.Difficulty.ToString(), DataObject.IndexOptions.N2) }
+
             }
         };
 
         //The name of the lobby will be same as the host player.
         _currentLobby = await Lobbies.Instance.CreateLobbyAsync("New", data.MaxPlayers, options);
-        Debug.Log($"Lobby created: {_currentLobby.Id}");
-
-        //Transport.SetHostRelayData(a.RelayServer.IpV4, (ushort)a.RelayServer.Port, a.AllocationIdBytes, a.Key, a.ConnectionData);
+        Debug.Log($"Lobby created: {_currentLobby.Id}, {_currentLobby.LobbyCode}");
+        // //Transport.SetHostRelayData(a.RelayServer.IpV4, (ushort)a.RelayServer.Port, a.AllocationIdBytes, a.Key, a.ConnectionData);
 
         Heartbeat();
         PeriodicallyRefreshLobby();
@@ -125,12 +123,52 @@ public static class MatchmakingService
         }
     }
 
-    public static async Task JoinLobbyWithAllocation(string lobbyId)
+    public static async Task CreateOrJoinLobby(int type, int level)
     {
-        _currentLobby = await Lobbies.Instance.JoinLobbyByIdAsync(lobbyId);
-        var a = await RelayService.Instance.JoinAllocationAsync(_currentLobby.Data[Constants.JoinKey].Value);
-        
-        Transport.SetClientRelayData(a.RelayServer.IpV4, (ushort)a.RelayServer.Port, a.AllocationIdBytes, a.Key, a.ConnectionData, a.HostConnectionData);
+        var data = new LobbyData
+        {
+            MaxPlayers = 2,
+            Type = type,
+            Difficulty = level
+        };
+
+        try{
+            await QuickJoinLobbyWithAllocation(type, level);
+        }
+        catch{
+            await CreateLobbyWithAllocation(data);
+        }
+
+        /* Test */
+        if (type == 1) // Friend
+        {
+            Debug.Log($"Quick Join Normal Lobby ({_currentLobby.Id}, {_currentLobby.LobbyCode})");
+        }
+        else // type == 2
+        {
+            Debug.Log($"Quick Join Rank Lobby ({_currentLobby.Id}, {_currentLobby.LobbyCode})");
+        }
+        /* End test */
+    }
+
+    //Quick Join the Normal/Ranked lobbies
+    //type: Normal:0 Ranked:1
+    //level: Normal:0 Ranked 1~5
+    public static async Task QuickJoinLobbyWithAllocation(int type, int level)
+    {
+        QuickJoinLobbyOptions options = new QuickJoinLobbyOptions();
+
+        options.Filter = new List<QueryFilter>()
+        {
+            new(QueryFilter.FieldOptions.AvailableSlots, "0", QueryFilter.OpOptions.GT),
+            new(QueryFilter.FieldOptions.IsLocked, "0", QueryFilter.OpOptions.EQ),
+            new(QueryFilter.FieldOptions.N1, type.ToString(), QueryFilter.OpOptions.EQ),
+            new(QueryFilter.FieldOptions.N2, level.ToString(), QueryFilter.OpOptions.EQ)
+        };
+        _currentLobby = await LobbyService.Instance.QuickJoinLobbyAsync(options);
+        // var a = await RelayService.Instance.JoinAllocationAsync(_currentLobby.Data[Constants.JoinKey].Value);
+
+        // Transport.SetClientRelayData(a.RelayServer.IpV4, (ushort)a.RelayServer.Port, a.AllocationIdBytes, a.Key, a.ConnectionData, a.HostConnectionData);
         PeriodicallyRefreshLobby();
     }
 
@@ -138,9 +176,10 @@ public static class MatchmakingService
     public static async Task JoinLobbyWithAllocationCode(string lobbyCode)
     {
         _currentLobby = await Lobbies.Instance.JoinLobbyByCodeAsync(lobbyCode);
-        var a = await RelayService.Instance.JoinAllocationAsync(_currentLobby.Data[Constants.JoinKey].Value);
+        Debug.Log($"Join Friend Lobby ({_currentLobby.Id}, {_currentLobby.LobbyCode})");
+        // var a = await RelayService.Instance.JoinAllocationAsync(_currentLobby.Data[Constants.JoinKey].Value);
 
-        Transport.SetClientRelayData(a.RelayServer.IpV4, (ushort)a.RelayServer.Port, a.AllocationIdBytes, a.Key, a.ConnectionData, a.HostConnectionData);
+        // Transport.SetClientRelayData(a.RelayServer.IpV4, (ushort)a.RelayServer.Port, a.AllocationIdBytes, a.Key, a.ConnectionData, a.HostConnectionData);
 
         PeriodicallyRefreshLobby();
     }
@@ -165,6 +204,7 @@ public static class MatchmakingService
         if (_currentLobby != null)
             try
             {
+                Debug.Log($"Leaving lobby {_currentLobby.Id}");
                 if (_currentLobby.HostId == Authentication.PlayerId) await Lobbies.Instance.DeleteLobbyAsync(_currentLobby.Id);
                 else await Lobbies.Instance.RemovePlayerAsync(_currentLobby.Id, Authentication.PlayerId);
                 _currentLobby = null;
