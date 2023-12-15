@@ -23,14 +23,14 @@ public class LobbyController : MonoBehaviour
         LobbyOrchestrator.LobbyRank();
     }
     public void CreateLobbyFriend(){
-
         LobbyOrchestrator.FriendCreate();
     }
     public void JoinLobbyFriend(){
         LobbyOrchestrator.FriendJoin( _joinCodeText.text.Replace("\u200B", "") );
     }
 
-    public void LeaveLobby(){
+    public async void LeaveLobby(){
+        await MatchmakingService.LeaveLobby();
         UIsys.SetActive(true);
         Lobby.SetActive(false);
     }

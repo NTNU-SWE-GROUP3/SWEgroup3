@@ -204,6 +204,7 @@ public static class MatchmakingService
         if (_currentLobby != null)
             try
             {
+                Debug.Log($"Leaving lobby {_currentLobby.Id}");
                 if (_currentLobby.HostId == Authentication.PlayerId) await Lobbies.Instance.DeleteLobbyAsync(_currentLobby.Id);
                 else await Lobbies.Instance.RemovePlayerAsync(_currentLobby.Id, Authentication.PlayerId);
                 _currentLobby = null;
