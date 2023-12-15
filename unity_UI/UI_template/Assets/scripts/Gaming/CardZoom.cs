@@ -16,6 +16,7 @@ public class CardZoom : MonoBehaviour
     private Text skillText;
     private Text desText;
     private Image cardImage;
+    private Image iconImage;
 
     public void  Awake()
     {
@@ -46,8 +47,10 @@ public class CardZoom : MonoBehaviour
             skillText = zoomCard.GetComponentInChildren<Transform>().Find("Border/Description Border/cardSkill Text").GetComponent<Text>();
             desText = zoomCard.GetComponentInChildren<Transform>().Find("Border/Description Border/Description Text").GetComponent<Text>();
             cardImage = zoomCard.GetComponentInChildren<Transform>().Find("Border/Image Border/Image").GetComponent<Image>();
+            iconImage = zoomCard.GetComponentInChildren<Transform>().Find("Border/Icon").GetComponent<Image>();
             zoomCard.transform.SetParent(CardZoomZone.transform,true);
             zoomCard.layer = LayerMask.NameToLayer("Zoom");
+        
 
             RectTransform rect;
             rect = zoomCard.GetComponent<RectTransform>();
@@ -86,6 +89,10 @@ public class CardZoom : MonoBehaviour
             rect = cardImage.GetComponent<RectTransform>();
             rect.sizeDelta = new Vector2(250,150);
             rect.position = new Vector2(rect.position.x,rect.position.y);
+
+            rect = iconImage.GetComponent<RectTransform>();
+            rect.sizeDelta = new Vector2(110,130);
+            rect.position = new Vector2(rect.position.x+75,rect.position.y+100);
         }
         
     }
