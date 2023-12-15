@@ -10751,6 +10751,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 856053666}
   m_CullTransparentMesh: 1
+--- !u!1 &858120165 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1953962081316898176, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
+  m_PrefabInstance: {fileID: 3915036173632937927}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &863965451
 GameObject:
   m_ObjectHideFlags: 0
@@ -12059,8 +12064,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
-  m_sharedMaterial: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -19087,7 +19092,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4436682766119827445, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
   m_PrefabInstance: {fileID: 3915036173632937927}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1497517790}
+  m_GameObject: {fileID: 858120165}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c4ecefc937c754d8f8c20b767a2a704d, type: 3}
@@ -19098,21 +19103,10 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6373189785584892490, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
   m_PrefabInstance: {fileID: 3915036173632937927}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1497517790}
+  m_GameObject: {fileID: 858120165}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 37e76d74e80a14b4cb084eb11399c3a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1488098391 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7045561917990397920, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
-  m_PrefabInstance: {fileID: 3915036173632937927}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1497517790}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63be880beb3ab42de9ac8578f4eacced, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1491211904
@@ -19194,36 +19188,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1491211904}
   m_CullTransparentMesh: 1
---- !u!1 &1497517790 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1953962081316898176, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
+--- !u!114 &1497517800 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7896146215662171552, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
   m_PrefabInstance: {fileID: 3915036173632937927}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1497517795
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1497517790}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c11946e3700234e2db1461d50b1a8dbc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1497517800
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1497517790}
+  m_GameObject: {fileID: 858120165}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: daafa627378ca4dd18f2036ecb1e9a64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  check_id: 0
+--- !u!114 &1497517805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 858120165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d0ec453b192e4add9e6d27b1de9a2b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serverURL_playerdata: http://140.122.185.169:5050/user_information/getplayerdata
+  skillCardDisplay: {fileID: 1704554889}
+  UserSettingWarningPanel: {fileID: 129613174}
+  UseSettingMessage: {fileID: 1625042679}
+  NoticeTitleText: {fileID: 1643865604}
+  UserCoinsDisplay: {fileID: 262303342}
 --- !u!1 &1524685071
 GameObject:
   m_ObjectHideFlags: 0
@@ -28829,6 +28822,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2059665199}
     m_Modifications:
+    - target: {fileID: 857080060370538352, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
+      propertyPath: Skill_Bar
+      value: 
+      objectReference: {fileID: 1704554884}
+    - target: {fileID: 857080060370538352, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
+      propertyPath: Skill_slotPrefab
+      value: 
+      objectReference: {fileID: 311818632}
     - target: {fileID: 1095526205808246081, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -28879,15 +28880,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1095526205808246081, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1095526205808246081, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1095526205808246081, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1095526205808246081, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -28970,10 +28971,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1531474926}
     - target: {fileID: 6373189785584892490, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
-      propertyPath: apiUrl
-      value: http://140.122.185.169:5050/gacha/draw
-      objectReference: {fileID: 0}
-    - target: {fileID: 6373189785584892490, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
       propertyPath: OkButton
       value: 
       objectReference: {fileID: 2037673649}
@@ -28981,10 +28978,6 @@ PrefabInstance:
       propertyPath: noButton
       value: 
       objectReference: {fileID: 2137463890}
-    - target: {fileID: 6373189785584892490, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
-      propertyPath: playerId
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6373189785584892490, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
       propertyPath: buyButton
       value: 
@@ -28998,17 +28991,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1380195228}
     - target: {fileID: 6373189785584892490, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
-      propertyPath: globalData
-      value: 
-      objectReference: {fileID: 1497517795}
-    - target: {fileID: 6373189785584892490, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
       propertyPath: okButton10
       value: 
       objectReference: {fileID: 2037673647}
-    - target: {fileID: 6373189785584892490, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
-      propertyPath: backToLogin
-      value: 
-      objectReference: {fileID: 1497517800}
     - target: {fileID: 6373189785584892490, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
       propertyPath: gotchaPanel
       value: 
@@ -29018,6 +29003,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 34531448}
     - target: {fileID: 6373189785584892490, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
+      propertyPath: updateGacha
+      value: 
+      objectReference: {fileID: 1497517805}
+    - target: {fileID: 6373189785584892490, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
       propertyPath: cancelButton
       value: 
       objectReference: {fileID: 1449476145}
@@ -29025,10 +29014,6 @@ PrefabInstance:
       propertyPath: gachaResult1
       value: 
       objectReference: {fileID: 246800806}
-    - target: {fileID: 6373189785584892490, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
-      propertyPath: imageManager
-      value: 
-      objectReference: {fileID: 1488098391}
     - target: {fileID: 6373189785584892490, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
       propertyPath: messagePanel
       value: 
@@ -29066,6 +29051,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 262303342}
     - target: {fileID: 6373189785584892490, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
+      propertyPath: skillCardDisplay
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6373189785584892490, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
       propertyPath: UseSettingMessage
       value: 
       objectReference: {fileID: 1625042679}
@@ -29086,10 +29075,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 246800806}
     - target: {fileID: 7690228223650693897, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
-      propertyPath: imageManager
-      value: 
-      objectReference: {fileID: 1488098391}
-    - target: {fileID: 7690228223650693897, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
       propertyPath: GachaResult10
       value: 
       objectReference: {fileID: 2127197515}
@@ -29101,16 +29086,14 @@ PrefabInstance:
       propertyPath: resultPanel
       value: 
       objectReference: {fileID: 34531448}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 0}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1953962081316898176, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1497517795}
-    - targetCorrespondingSourceObject: {fileID: 1953962081316898176, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1497517800}
+      insertIndex: 3
+      addedObject: {fileID: 1497517805}
   m_SourcePrefab: {fileID: 100100000, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
 --- !u!1001 &4381920427795635522
 PrefabInstance:
