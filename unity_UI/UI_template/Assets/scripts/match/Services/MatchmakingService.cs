@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -10,6 +11,12 @@ using Unity.Services.Core;
 using Unity.Services.Authentication;
 using UnityEngine;
 using Object = UnityEngine.Object;
+
+using UnityEngine.UI;
+using UnityEngine.Serialization;
+using UnityEngine.Networking;
+using MiniJSON;
+using UnityEngine.SceneManagement;
 
 public static class Authentication
 {
@@ -40,6 +47,7 @@ public static class MatchmakingService
 
     private static Lobby _currentLobby;
     private static CancellationTokenSource _heartbeatSource, _updateLobbySource;
+    static string StartGameURL = "http://140.122.185.169:5050/gameStart";
 
     private static UnityTransport Transport
     {
@@ -123,17 +131,19 @@ public static class MatchmakingService
         }
     }
 
-    public static async Task CreateOrJoinLobby(int type, int level)
+    public static async Task CreateOrJoinLobby(int type, int level, string userID )
     {
         var data = new LobbyData
         {
             MaxPlayers = 2,
             Type = type,
-            Difficulty = level
+            Difficulty = level,
+            P1ID = userID,
         };
 
         try{
             await QuickJoinLobbyWithAllocation(type, level);
+            SendRequestStartGame( userID ); // Player who "joined" the lobby send start game request
         }
         catch{
             await CreateLobbyWithAllocation(data);
@@ -173,9 +183,10 @@ public static class MatchmakingService
     }
 
     // This function is used for Friend game X join, but with problem....
-    public static async Task JoinLobbyWithAllocationCode(string lobbyCode)
+    public static async Task JoinLobbyWithAllocationCode(string lobbyCode, string userID)
     {
         _currentLobby = await Lobbies.Instance.JoinLobbyByCodeAsync(lobbyCode);
+        SendRequestStartGame( userID ); // Player who "joined" the lobby send start game request
         Debug.Log($"Join Friend Lobby ({_currentLobby.Id}, {_currentLobby.LobbyCode})");
         // var a = await RelayService.Instance.JoinAllocationAsync(_currentLobby.Data[Constants.JoinKey].Value);
 
@@ -214,6 +225,20 @@ public static class MatchmakingService
                 Debug.Log(e);
             }
     }
+
+    static IEnumerator SendRequestStartGame( string P2ID )
+    {
+        Debug.Log("SendRequestStartGame");
+        WWWForm form = new WWWForm();
+
+        form.AddField( "gameType", _currentLobby.Data["type"].ToString() );
+        form.AddField( "roomId", _currentLobby.Id.ToString() );
+        form.AddField( "Player1Token", _currentLobby.Data["p1ID"].ToString() );
+        form.AddField( "Player2Token", P2ID );
+
+        UnityWebRequest www = UnityWebRequest.Post( StartGameURL, form);
+        yield return www.SendWebRequest();
+    }
 }
 
 public class Constants
@@ -224,7 +249,7 @@ public class Constants
 
     public const int MAX_PLAYER = 2;
 
-    public static readonly List<string> GameTypes = new() { "Normal", "Friends", "Rank" };
+    public static readonly List<string> GameTypes = new() { "Normal", "Friends", "Rank", "PVE" };
 
     public static readonly List<string> Difficulties = new() { "None", "Basic", "Medium", "Hard", "Extreme", "Nightmare" };
     // None: for Friends, Normal
@@ -240,4 +265,5 @@ public struct LobbyData
     public int MaxPlayers;
     public int Difficulty;
     public int Type;
+    public string P1ID;
 }
