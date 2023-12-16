@@ -11,8 +11,9 @@ public class Card
     public string cardDescription;
     public char set;
     public Sprite cardSprite;
+    public Sprite icon;
     
-    public Card(int _id, string _cardName, string _cardSkill, string _cardDescription, char _set, Sprite _cardSprite)
+    public Card(int _id, string _cardName, string _cardSkill, string _cardDescription, char _set, Sprite _cardSprite, Sprite _icon)
     {
         id = _id;
         cardName = _cardName;
@@ -20,6 +21,7 @@ public class Card
         cardDescription = _cardDescription;
         set = _set;
         cardSprite = _cardSprite;
+        icon = _icon;
     
     }
 

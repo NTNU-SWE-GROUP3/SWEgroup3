@@ -1148,10 +1148,10 @@ RectTransform:
   - {fileID: 393826937}
   - {fileID: 1100977956}
   - {fileID: 561383060}
-  - {fileID: 323195471}
   - {fileID: 975557085}
   - {fileID: 1561420043}
   - {fileID: 993464733}
+  - {fileID: 323195471}
   - {fileID: 425344040}
   - {fileID: 1877897721}
   - {fileID: 327947320}
@@ -5644,60 +5644,70 @@ MonoBehaviour:
     cardDescription: 
     set: 0
     cardSprite: {fileID: 0}
+    icon: {fileID: 0}
   - id: 0
     cardName: 
     cardSkill: 
     cardDescription: 
     set: 0
     cardSprite: {fileID: 0}
+    icon: {fileID: 0}
   - id: 0
     cardName: 
     cardSkill: 
     cardDescription: 
     set: 0
     cardSprite: {fileID: 0}
+    icon: {fileID: 0}
   - id: 0
     cardName: 
     cardSkill: 
     cardDescription: 
     set: 0
     cardSprite: {fileID: 0}
+    icon: {fileID: 0}
   - id: 0
     cardName: 
     cardSkill: 
     cardDescription: 
     set: 0
     cardSprite: {fileID: 0}
+    icon: {fileID: 0}
   - id: 0
     cardName: 
     cardSkill: 
     cardDescription: 
     set: 0
     cardSprite: {fileID: 0}
+    icon: {fileID: 0}
   - id: 0
     cardName: 
     cardSkill: 
     cardDescription: 
     set: 0
     cardSprite: {fileID: 0}
+    icon: {fileID: 0}
   - id: 0
     cardName: 
     cardSkill: 
     cardDescription: 
     set: 0
     cardSprite: {fileID: 0}
+    icon: {fileID: 0}
   - id: 0
     cardName: 
     cardSkill: 
     cardDescription: 
     set: 0
     cardSprite: {fileID: 0}
+    icon: {fileID: 0}
   - id: 0
     cardName: 
     cardSkill: 
     cardDescription: 
     set: 0
     cardSprite: {fileID: 0}
+    icon: {fileID: 0}
   handCardSetB:
   - id: 0
     cardName: 
@@ -5705,60 +5715,70 @@ MonoBehaviour:
     cardDescription: 
     set: 0
     cardSprite: {fileID: 0}
+    icon: {fileID: 0}
   - id: 0
     cardName: 
     cardSkill: 
     cardDescription: 
     set: 0
     cardSprite: {fileID: 0}
+    icon: {fileID: 0}
   - id: 0
     cardName: 
     cardSkill: 
     cardDescription: 
     set: 0
     cardSprite: {fileID: 0}
+    icon: {fileID: 0}
   - id: 0
     cardName: 
     cardSkill: 
     cardDescription: 
     set: 0
     cardSprite: {fileID: 0}
+    icon: {fileID: 0}
   - id: 0
     cardName: 
     cardSkill: 
     cardDescription: 
     set: 0
     cardSprite: {fileID: 0}
+    icon: {fileID: 0}
   - id: 0
     cardName: 
     cardSkill: 
     cardDescription: 
     set: 0
     cardSprite: {fileID: 0}
+    icon: {fileID: 0}
   - id: 0
     cardName: 
     cardSkill: 
     cardDescription: 
     set: 0
     cardSprite: {fileID: 0}
+    icon: {fileID: 0}
   - id: 0
     cardName: 
     cardSkill: 
     cardDescription: 
     set: 0
     cardSprite: {fileID: 0}
+    icon: {fileID: 0}
   - id: 0
     cardName: 
     cardSkill: 
     cardDescription: 
     set: 0
     cardSprite: {fileID: 0}
+    icon: {fileID: 0}
   - id: 0
     cardName: 
     cardSkill: 
     cardDescription: 
     set: 0
     cardSprite: {fileID: 0}
+    icon: {fileID: 0}
 --- !u!4 &2130717431
 Transform:
   m_ObjectHideFlags: 0

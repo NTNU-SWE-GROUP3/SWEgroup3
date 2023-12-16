@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1095526205808246081}
+  - component: {fileID: 857080060370538352}
   - component: {fileID: 4436682766119827445}
   - component: {fileID: 8041044610724349160}
   - component: {fileID: 6373189785584892490}
@@ -16,6 +17,8 @@ GameObject:
   - component: {fileID: 7045561917990397920}
   - component: {fileID: 7690228223650693897}
   - component: {fileID: 4298997299974111394}
+  - component: {fileID: 817417963397513096}
+  - component: {fileID: 7896146215662171552}
   m_Layer: 5
   m_Name: Pg4PanelController
   m_TagString: Untagged
@@ -42,6 +45,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &857080060370538352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1953962081316898176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 473ea692ef8847e4cb8dfe78ec43f57d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Skill_Bar: {fileID: 0}
+  Skill_slotPrefab: {fileID: 0}
 --- !u!114 &4436682766119827445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -85,33 +102,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37e76d74e80a14b4cb084eb11399c3a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  apiUrl: http://127.0.0.1:5000/gacha/draw
+  apiUrl: http://140.122.185.169:5050/gacha/draw
+  serverURL_playerdata: http://140.122.185.169:5050/user_information/getplayerdata
   playerId: 1
   mode: coin
-  gotchaPanel: {fileID: 0}
+  yesClicked: 0
+  noClicked: 0
+  buyClicked: 0
+  cancelClicked: 0
+  okButtonClicked: 0
+  duplicate: 0
   messagePanel: {fileID: 0}
   resultPanel: {fileID: 0}
   purchasePanel: {fileID: 0}
+  duplicatePanel: {fileID: 0}
+  duplicatePanelTexts: {fileID: 0}
   mask: {fileID: 0}
   okButton1: {fileID: 0}
   okButton10: {fileID: 0}
   gachaResult1: {fileID: 0}
   gachaResult10: {fileID: 0}
+  gotchaPanel: {fileID: 0}
   yesButton: {fileID: 0}
   noButton: {fileID: 0}
   buyButton: {fileID: 0}
   cancelButton: {fileID: 0}
+  OkButton: {fileID: 0}
   gachaAnimator1: {fileID: 0}
   gachaAnimator10: {fileID: 0}
   animationController: {fileID: 7690228223650693897}
   purchaseController: {fileID: 3596307941874823376}
   errorController: {fileID: 0}
-  yesClicked: 0
-  noClicked: 0
-  buyClicked: 0
-  cancelClicked: 0
-  skipAnimation: 0
-  response: 
+  imageManager: {fileID: 7045561917990397920}
+  backToLogin: {fileID: 7896146215662171552}
+  skillCardDisplay: {fileID: 0}
+  UserSettingWarningPanel: {fileID: 0}
+  UseSettingMessage: {fileID: 0}
+  NoticeTitleText: {fileID: 0}
+  UserCoinsDisplay: {fileID: 0}
+  UserWarningButton: {fileID: 0}
 --- !u!114 &3596307941874823376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,8 +190,7 @@ MonoBehaviour:
   GachaResult1: {fileID: 0}
   GachaResult10: {fileID: 0}
   coinSprite: {fileID: 132803025, guid: 91e7404700a7af84cbd4e238e3560854, type: 3}
-  skillSprite: {fileID: 21300000, guid: 367f6047ed3c64144bba0a5c86dceec4, type: 3}
-  cardStyleSprite: {fileID: 21300000, guid: e7a5d80905ac1714ba15e5eeac21a71e, type: 3}
+  imageManager: {fileID: 7045561917990397920}
 --- !u!114 &4298997299974111394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,3 +203,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87d4c998f4d89400091ede44a2a8baac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &817417963397513096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1953962081316898176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c11946e3700234e2db1461d50b1a8dbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7896146215662171552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1953962081316898176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daafa627378ca4dd18f2036ecb1e9a64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  check_id: 0

@@ -10,6 +10,7 @@ public class ShowSkill : MonoBehaviour
     public static List<int> PlayerSkillIdList = new List<int>();
     public IEnumerator ShowSkills()
     {
+        PlayerSkillIdList.Add(7);
         skillIndex = 0;
         for(int i = 0;i<PlayerSkillIdList.Count;i++)
         {
