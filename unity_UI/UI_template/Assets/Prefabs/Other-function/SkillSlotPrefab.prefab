@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 8752096315558074531}
   - component: {fileID: 483500562651311067}
   - component: {fileID: 6998857917827244470}
+  - component: {fileID: 1875173528240847921}
+  - component: {fileID: 8413050955560972230}
   m_Layer: 5
   m_Name: SkillSlotPrefab
   m_TagString: Untagged
@@ -60,7 +62,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.93773586, b: 0.93773586, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -89,6 +91,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 884bf8123aeb6054cbe92b05f2267078, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillPopup: {fileID: 0}
+  SkillName: {fileID: 0}
+  skillDescription: {fileID: 0}
 --- !u!114 &6998857917827244470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,10 +138,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 483500562651311067}
+        m_TargetAssemblyTypeName: SkillSlotClickHandler, Assembly-CSharp
+        m_MethodName: OnPointerClick
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -145,3 +150,36 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+--- !u!114 &1875173528240847921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5874541200414952619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ebbf84f790d9fd42b5a1d15b60df17c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillImage: {fileID: 8752096315558074531}
+  skillName: 
+  skillDes: 
+  skillStyleID: 0
+  equipButtonController: {fileID: 8413050955560972230}
+--- !u!114 &8413050955560972230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5874541200414952619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce9712d7869812f4a92ea024c5bf8e09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  equipButton: {fileID: 0}
+  equipButtonText: {fileID: 0}
+  equipPanel: {fileID: 0}
+  equipPanelText: {fileID: 0}

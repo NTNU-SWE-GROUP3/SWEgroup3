@@ -12,16 +12,18 @@ public class SkillSlotScript : MonoBehaviour
     public Image skillImage;
     public string skillName;
     public string skillDes;
-    private int skillStyleID;
+    public int skillStyleID;
+    public EquipButtonController equipButtonController;
 
     // Function to set the skill style based on the skill ID or other parameters
     public void SetSkillStyle(int skillStyleID)
     {
         this.skillStyleID = skillStyleID;
+        Debug.Log("skillstyleId from skillslotscript = " + skillStyleID);
         Sprite skillSprite = GetSkillSprite(skillStyleID);
         skillName = GetSkillName(skillStyleID);
         skillDes = GetSkillDesc(skillStyleID);
-
+        UpdateEquipButtonController();
         if (skillSprite != null)
         {
             skillImage.sprite = skillSprite;
@@ -32,30 +34,13 @@ public class SkillSlotScript : MonoBehaviour
         }
     }
 
-    // public void OnSkillSlotClicked()
-    // {
-    //     // Replace with the actual popup panel prefab
-    //     GameObject SkillPopupObject = Instantiate(SkillPopupPrefab);
-    //     SkillPopup popupScript = SkillPopupObject.GetComponent<SkillPopup>();
-
-    //     // Set the content based on the skillStyleID
-    //     popupScript.ShowSkillInfo(GetSkillName(skillStyleID), GetSkillDesc(skillStyleID), GetSkillProbability(skillStyleID));
-
-    //     // Attach a close button listener to destroy the popup when closed
-    //     Button closeButton = SkillPopupObject.GetComponentInChildren<Button>();
-    //     closeButton.onClick.AddListener(() => Destroy(SkillPopupObject));
-    // }
+    private void UpdateEquipButtonController()
+    {
+        equipButtonController.SetSkillStyleID(skillStyleID);
+    }
 
     private Sprite GetSkillSprite(int skillStyleID)
     {
-        // // Load the sprites from the specified folder
-        // Object[] skillSprites = Resources.LoadAll("images/MainSc/Skill", typeof(Sprite));
-
-        // // Check if the skillStyleID is within the array bounds
-        // if (skillStyleID >= 0 && skillStyleID <= skillSprites.Length)
-        // {
-        //     return (Sprite)skillSprites[skillStyleID-1];
-        // }
         string SkillImagesPath = "images/MainSc/Skill/";
         if (skillStyleID == 1)
         {

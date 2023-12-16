@@ -13,7 +13,7 @@ public class SkillCardDisplay : MonoBehaviour
     public GameObject Skill_slotPrefab;
 
     // Replace with your Flask server URL
-    private string serverUrl = "http://127.0.0.1:8001";
+    // private string serverUrl = "http://127.0.0.1:5050";
     private DontDestroy userdata;
     // public SkillPopup skillDescriptionPanel;
 
@@ -25,14 +25,6 @@ public class SkillCardDisplay : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(DisplaySkillStyle());
-    }
-
-    IEnumerator DisplaySkillStyle()
-    {
-        string url = serverUrl + "/skill_style/display_skill_style";
-        WWWForm form = new WWWForm();
-        string token = "token123";
         Debug.Log("displayingskillllllllllll");
         userdata = FindObjectOfType<DontDestroy>();
         StartCoroutine(DisplaySkillStyle());
@@ -43,7 +35,8 @@ public class SkillCardDisplay : MonoBehaviour
         //Button skillButton = null;
         string urlCard = serverUrl + "/skill_style/display_skill_style";
         WWWForm form = new WWWForm();
-        string token = userdata.token;
+        // string token = userdata.token;
+        string token = "token123";
         Debug.Log("Display token: " + token);
         //string skillId = "1";
         form.AddField("Token", token);
