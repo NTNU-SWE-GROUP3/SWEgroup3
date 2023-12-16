@@ -11,13 +11,27 @@ public class ComputerPlayer : MonoBehaviour
     public Transform Card;
     public UseSkill useSkill;
     public int test = 0;
-    int[] ComSkillIdList = {4,6,9};
+    int[] ComSkillIdList = {4,5,6};
+    int[] skills = {1,2,3,4,5,7,8,9,10};
     public static int ComSkillIndex;
     int randomTime;
     int useSkillOrNot;
     
     void Start()
     {
+        
+        for (int i = 0; i < 9; i++)
+        {
+            int temp = skills[i];
+            int rand = Random.Range(i, 9);
+            skills[i] = skills[rand];
+            skills[rand] = temp;
+        }
+        for (int i = 0; i < 3; i++)
+        {
+            ComSkillIdList[i] = skills[i];
+        }
+        Debug.Log("ComSKill" + string.Join(", ", ComSkillIdList));
         Random.InitState((int)System.DateTime.Now.Ticks);
         ComSkillIndex = 0;
     }
@@ -26,16 +40,16 @@ public class ComputerPlayer : MonoBehaviour
         yield return new WaitForSeconds(4);
         if (UseSkill.ComIsdilemmaDictator == false)
         {
-            //int randomIndex = Random.Range(0,OpponentArea.transform.childCount);
-            //Card = OpponentArea.transform.GetChild(randomIndex);
-            if(test == 0){
-                Card = OpponentArea.transform.GetChild(0);
-                test++;
-            }
-            else
-            {
-                Card = OpponentArea.transform.GetChild(OpponentArea.transform.childCount-1);
-            }
+            int randomIndex = Random.Range(0,OpponentArea.transform.childCount);
+            Card = OpponentArea.transform.GetChild(randomIndex);
+            // if(test == 0){
+            //     Card = OpponentArea.transform.GetChild(0);
+            //     test++;
+            // }
+            // else
+            // {
+            //     Card = OpponentArea.transform.GetChild(OpponentArea.transform.childCount-1);
+            // }
         }
         else 
         {
@@ -45,7 +59,7 @@ public class ComputerPlayer : MonoBehaviour
                 if (OpponentArea.transform.GetChild(i).gameObject.GetComponent<CardDisplay>().id == UseSkill.ComDilemmaDictatorId[randomIndex])
                 {
                     Card = OpponentArea.transform.GetChild(i);
-                    UseSkill.PlayerIsdilemmaDictator = false;
+                    UseSkill.ComIsdilemmaDictator = false;
                 }
             }
         }

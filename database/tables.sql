@@ -1,4 +1,4 @@
--- USE game;
+USE game;
 -- Execute below command on your shell to setup tables, after uncomment above 'USE game;'
 -- mysql -u swegroup3 -p < (work directory's URL here)/database/tables.sql
 

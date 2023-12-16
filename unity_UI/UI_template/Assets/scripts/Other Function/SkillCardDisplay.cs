@@ -14,6 +14,11 @@ public class SkillCardDisplay : MonoBehaviour
 
     // Replace with your Flask server URL
     private string serverUrl = "http://127.0.0.1:8001";
+    private DontDestroy userdata;
+    // public SkillPopup skillDescriptionPanel;
+
+    // Replace with your Flask server URL
+    private string serverUrl = "http://140.122.185.169:5050";
 
     //private string token;
 
@@ -28,50 +33,82 @@ public class SkillCardDisplay : MonoBehaviour
         string url = serverUrl + "/skill_style/display_skill_style";
         WWWForm form = new WWWForm();
         string token = "token123";
+        Debug.Log("displayingskillllllllllll");
+        userdata = FindObjectOfType<DontDestroy>();
+        StartCoroutine(DisplaySkillStyle());
+    }
+
+    public IEnumerator DisplaySkillStyle()
+    {
+        //Button skillButton = null;
+        string urlCard = serverUrl + "/skill_style/display_skill_style";
+        WWWForm form = new WWWForm();
+        string token = userdata.token;
+        Debug.Log("Display token: " + token);
         //string skillId = "1";
         form.AddField("Token", token);
         //form.AddField("SkillId", skillId);
 
-        UnityWebRequest request = UnityWebRequest.Post(url, form);
-        //UnityWebRequest request = UnityWebRequest.Post(url);
-        //UnityWebRequest request = UnityWebRequest.Get(url);
-        
-        yield return request.SendWebRequest();
+        // HANDLE CARD DISPLAYED BY TOKEN 
+        UnityWebRequest requestCard = UnityWebRequest.Post(urlCard, form);
+        yield return requestCard.SendWebRequest();
 
-        if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
+        if (requestCard.result == UnityWebRequest.Result.ConnectionError || requestCard.result == UnityWebRequest.Result.ProtocolError)
         {
-            Debug.LogError("requesttttt errrorrr : " + request.error);
+            Debug.LogError("requesttttt errrorrr : " + requestCard.error);
         }
         else
         {
-            string jsonResponse = request.downloadHandler.text;
-            SkillStyleResponse response = JsonUtility.FromJson<SkillStyleResponse>(jsonResponse);
-            Debug.LogError("Notice: " + response);
+            string jsonCardResponse = requestCard.downloadHandler.text;
+            Debug.Log("JSON card response = " + jsonCardResponse);
+            // SkillStyleResponse response = JsonUtility.FromJson<SkillStyleResponse>(jsonResponse);
 
-            if (response.status == "400055")
+            SkillStyleResponse responseCard = JsonUtility.FromJson<SkillStyleResponse>(jsonCardResponse);
+            //Debug.Log("Notice: " + responseCard);
+            //StartCoroutine(DisplaySkillDesc(responseCard));
+
+            if (responseCard != null)
             {
-                foreach (int skillStyle in response.skillStyles)
+                Debug.Log("Response status: " + responseCard.status);
+                Debug.Log("Response message: " + responseCard.msg);
+
+                if (responseCard.status == "400055")
                 {
-                    // Instantiate skill slot prefab
-                    GameObject Skill_slot = Instantiate(Skill_slotPrefab, Skill_Bar.transform);
-                    
-                    // Attach a script to the instantiated slot to set skill card appearance
-                    SkillSlotScript skillSlotScript = Skill_slot.GetComponent<SkillSlotScript>();
-                    skillSlotScript.SetSkillStyle(skillStyle);
+                    Debug.Log("success 400055");
+                    Debug.Log("response card skill oclection : " + responseCard.skill_collection);
+                    foreach (Transform child in Skill_Bar.transform)
+                    {
+                        Destroy(child.gameObject);
+                    }
+                    foreach (int skillStyle in responseCard.skill_collection)
+                    {
+                        Debug.Log("skillstyle in skillcardDisplay.cs : " + skillStyle);
+                        GameObject Skill_slot = Instantiate(Skill_slotPrefab, Skill_Bar.transform);
+                        SkillSlotScript skillSlotScript = Skill_slot.GetComponent<SkillSlotScript>();
+                        skillSlotScript.SetSkillStyle(skillStyle);
+
+                    }
+                }
+                else
+                {
+                    Debug.LogError("Error: Invalid status or null skill_collection");
                 }
             }
             else
             {
-                Debug.LogError("hsahshesdhdshshshshshs Error: " + response.msg);
+                Debug.LogError("Error: Failed to deserialize response");
             }
         }
     }
-}
 
-[System.Serializable]
-public class SkillStyleResponse
-{
-    public string status;
-    public string msg;
-    public int[] skillStyles;
+
+    [System.Serializable]
+    public class SkillStyleResponse
+    {
+        public string status;
+        public string msg;
+        public int[] skill_collection;
+    }
+
+
 }

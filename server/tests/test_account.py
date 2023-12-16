@@ -1,7 +1,7 @@
 import secrets
 import string
 import sys, os
-sys.path.append(os.path.abspath("server"))
+sys.path.append(os.path.abspath(".."))
 from main import app
 
 
@@ -149,16 +149,19 @@ def test_AccountLogin_SqlInjection():
     response = client.post("/account/sql/injection/test", data={
         "Account": "test000001", })
     assert response.status_code == 200
-    assert response.json["result"] != [], f"result should not be empty."
+    # result should not be empty.
+    assert response.json["result"] != []
 
     # Case 1
     response = client.post("/account/sql/injection/test", data={
         "Account": "test000001'; select * from account; -- ", })
     assert response.status_code == 200
-    assert response.json["result"] == [], f"result should be empty."
+    # result should be empty.
+    assert response.json["result"] == []
 
     # Case 2
     response = client.post("/account/sql/injection/test", data={
         "Account": "' or 1=1; -- ", })
     assert response.status_code == 200
-    assert response.json["result"] == [], f"result should be empty."
+    # result should be empty.
+    assert response.json["result"] == []
