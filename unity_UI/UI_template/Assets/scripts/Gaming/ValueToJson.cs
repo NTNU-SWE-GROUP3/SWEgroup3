@@ -99,12 +99,12 @@ public class RoomInfo
         
         if (jsonString != "ConnectionError" && jsonString != "ProtocolError" && jsonString != "InProgress" && jsonString != "DataProcessingError")
         {
-            Debug.Log("msgBack:" + jsonString);
+            Debug.Log("RoomInfoBack:" + jsonString);
             return JsonUtility.FromJson<RoomInfo>(jsonString);
         }
         else
         {
-            Debug.Log("msgBackErr:" + jsonString);
+            Debug.Log("RoomInfoBackErr:" + jsonString);
             return null;
         }
         
@@ -136,14 +136,119 @@ public class TrunStat
     {
         if (jsonString != "ConnectionError" && jsonString != "ProtocolError" && jsonString != "InProgress" && jsonString != "DataProcessingError")
         {
-            Debug.Log("TrunStatBack:" + jsonString);
+            Debug.Log("TurnStatBack:" + jsonString);
             return JsonUtility.FromJson<TrunStat>(jsonString);
         }
         else
         {
-            Debug.Log("TrunStatBackErr:" + jsonString);
+            Debug.Log("TurnStatBackErr:" + jsonString);
             return null;
         }
+    }
+}
+
+//player skill
+public class DeckReconUse: MonoBehaviour
+{
+    public int gameType;
+    public int roomId;
+    public string playerToken;
+    public string SaveToString()
+    {
+        return JsonUtility.ToJson(this);
+    }
+}
+
+[Serializable]
+public class deckReconBack
+{
+    public int[] cardSet;
+
+    public static deckReconBack CreateFromJSON(string jsonString)
+    {
+        
+        if (jsonString != "ConnectionError" && jsonString != "ProtocolError" && jsonString != "InProgress" && jsonString != "DataProcessingError")
+        {
+            Debug.Log("deckRecoBack:" + jsonString);
+            return JsonUtility.FromJson<deckReconBack>(jsonString);
+        }
+        else
+        {
+            Debug.Log("deckRecoBackErr:" + jsonString);
+            return null;
+        }
+        
+    }
+}
+
+//card skill - user
+public class EasyDelete: MonoBehaviour
+{
+    public int gameType;
+    public int roomId;
+    public string playerToken;
+    public int cardId;
+    public string SaveToString()
+    {
+        return JsonUtility.ToJson(this);
+    }
+}
+
+[Serializable]
+public class EasyDeleteBack
+{
+    public int state;
+    public string errMessage;
+
+    public static EasyDeleteBack CreateFromJSON(string jsonString)
+    {
+        
+        if (jsonString != "ConnectionError" && jsonString != "ProtocolError" && jsonString != "InProgress" && jsonString != "DataProcessingError")
+        {
+            Debug.Log("msgBack:" + jsonString);
+            return JsonUtility.FromJson<EasyDeleteBack>(jsonString);
+        }
+        else
+        {
+            Debug.Log("msgBackErr:" + jsonString);
+            return null;
+        }
+        
+    }
+}
+
+//card skill
+public class EasyDeleteCheck: MonoBehaviour
+{
+    public int gameType;
+    public int roomId;
+    public string playerToken;
+    public string SaveToString()
+    {
+        return JsonUtility.ToJson(this);
+    }
+}
+
+[Serializable]
+public class EasyDeleteCheckBack
+{
+    public int deletedCard;
+    public string errMessage;
+
+    public static EasyDeleteCheckBack CreateFromJSON(string jsonString)
+    {
+        
+        if (jsonString != "ConnectionError" && jsonString != "ProtocolError" && jsonString != "InProgress" && jsonString != "DataProcessingError")
+        {
+            Debug.Log("msgBack:" + jsonString);
+            return JsonUtility.FromJson<EasyDeleteCheckBack>(jsonString);
+        }
+        else
+        {
+            Debug.Log("msgBackErr:" + jsonString);
+            return null;
+        }
+        
     }
 }
 
