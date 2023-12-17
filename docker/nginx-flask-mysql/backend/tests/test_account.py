@@ -1,6 +1,9 @@
+# Before you execute pytest, change your current directory to 'tests' here.
+import sys, os
+sys.path.append(os.path.abspath(".."))
+from app import server
 import secrets
 import string
-from app import server
 
 
 def generateRandomString():

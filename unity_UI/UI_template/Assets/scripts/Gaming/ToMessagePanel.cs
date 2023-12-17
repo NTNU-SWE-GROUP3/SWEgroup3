@@ -16,6 +16,8 @@ public class ToMessagePanel : MonoBehaviour
     private Text skillText;
     private Text desText;
     private Image cardImage;
+    private Image iconImage;
+
     public void  Awake()
     {
         CardPanel = GameObject.Find("Canvas").GetComponentInChildren<Transform>().Find("MessagePanel/CardPanel");
@@ -31,6 +33,7 @@ public class ToMessagePanel : MonoBehaviour
             skillText = zoomCard.GetComponentInChildren<Transform>().Find("Border/Description Border/cardSkill Text").GetComponent<Text>();
             desText = zoomCard.GetComponentInChildren<Transform>().Find("Border/Description Border/Description Text").GetComponent<Text>();
             cardImage = zoomCard.GetComponentInChildren<Transform>().Find("Border/Image Border/Image").GetComponent<Image>();
+            iconImage = zoomCard.GetComponentInChildren<Transform>().Find("Border/Icon").GetComponent<Image>();
             zoomCard.transform.SetParent(CardPanel,false);
             if(MoveToChoose == true)
                 zoomCard.layer = LayerMask.NameToLayer("Choose");
@@ -69,10 +72,14 @@ public class ToMessagePanel : MonoBehaviour
             rect = desText.GetComponent<RectTransform>();
             rect.position = new Vector2(rect.position.x,rect.position.y-15);
             rect.sizeDelta = new Vector2(265,130);
-            desText.fontSize = 30;
+            desText.fontSize = 28;
 
             rect = cardImage.GetComponent<RectTransform>();
             rect.sizeDelta = new Vector2(250,150);
             rect.position = new Vector2(rect.position.x,rect.position.y);
+
+            rect = iconImage.GetComponent<RectTransform>();
+            rect.sizeDelta = new Vector2(50,50);
+            rect.position = new Vector2(rect.position.x+40,rect.position.y+70);
     }
 }
