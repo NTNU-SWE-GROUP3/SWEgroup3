@@ -3,6 +3,3 @@ docker/nginx-flask-mysql/backend/__pycache__/*.pyc
 .vscode
 docker/nginx-flask-mysql/backend/app.log
 docker/nginx-flask-mysql/backend/tests/__pycache__
-server/__pycache__/*.pyc
-app.log
-server/tests/__pycache__/*.pyc

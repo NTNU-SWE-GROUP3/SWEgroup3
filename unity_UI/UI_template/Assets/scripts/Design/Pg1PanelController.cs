@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class Pg1PanelController : MonoBehaviour
 {
-    public GameObject SkinPanel;
-    public GameObject MaskPanel; 
+    public GameObject KingPanel;
+    public GameObject QueenPanel;
+    public GameObject PrincePanel;
+    public GameObject KnightPanel;
+    public GameObject CivilianPanel;
+    public GameObject AssassinPanel;
+    public GameObject MaskPanel;
     // Start is called before the first frame update
     void Start()
     {
@@ -13,39 +18,43 @@ public class Pg1PanelController : MonoBehaviour
     }
 
     public void BackToSkinMain(){
-        SkinPanel.SetActive(false);
+        KingPanel.SetActive(false);
+        QueenPanel.SetActive(false);
+        PrincePanel.SetActive(false);
+        KnightPanel.SetActive(false);
+        CivilianPanel.SetActive(false);
+        AssassinPanel.SetActive(false);
         MaskPanel.SetActive(false);
     }
 
     public void ShowKingPanel(){
         BackToSkinMain();
         MaskPanel.SetActive(true);
-        SkinPanel.SetActive(true);
+        KingPanel.SetActive(true);
     }
     public void ShowQueenPanel(){
         BackToSkinMain();
         MaskPanel.SetActive(true);
-        SkinPanel.SetActive(true);
+        QueenPanel.SetActive(true);
     }
     public void ShowPrincePanel(){
         BackToSkinMain();
         MaskPanel.SetActive(true);
-        SkinPanel.SetActive(true);
+        PrincePanel.SetActive(true);
     }
     public void ShowKnightPanel(){
         BackToSkinMain();
         MaskPanel.SetActive(true);
-        SkinPanel.SetActive(true);
+        KnightPanel.SetActive(true);
     }
     public void ShowCivilianPanel(){
         BackToSkinMain();
         MaskPanel.SetActive(true);
-        SkinPanel.SetActive(true);
+        CivilianPanel.SetActive(true);
     }
     public void ShowAssassinPanel(){
         BackToSkinMain();
         MaskPanel.SetActive(true);
-        SkinPanel.SetActive(true);
+        AssassinPanel.SetActive(true);
     }
-    //我寫在CardStyleScriptㄌ
 }

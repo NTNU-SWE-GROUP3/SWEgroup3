@@ -26,7 +26,6 @@ public class CountDown : MonoBehaviour
     CardDisplay OpponentCard;
 
     public AudioClip StartSound;
-    public AudioClip ThreeSec;
     AudioSource audioSource;
     // Start is called before the first frame update
     private void Start()
@@ -94,11 +93,6 @@ public class CountDown : MonoBehaviour
     {
         MessagePanel.SetActive(false);
         TurnTime = 5;
-        if(UseSkill.UseTimeLimit == true)
-        {
-            TurnTime --;
-            UseSkill.UseTimeLimit = false;
-        }
         timeUp = false;
         TimerText.gameObject.SetActive(true);
         if (ConfirmButton.CardSelected == false && UseSkill.PlayerIsdilemmaDictator == true)
@@ -111,9 +105,6 @@ public class CountDown : MonoBehaviour
         {
             TimerText.text = TurnTime.ToString();
             yield return new WaitForSeconds(1);
-            if(TurnTime == (3 + 1)){
-                audioSource.PlayOneShot(ThreeSec);
-            }
             TurnTime -- ;
         }
         timeUp = true;

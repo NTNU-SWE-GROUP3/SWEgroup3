@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class CardZoom : MonoBehaviour
 {
-    public GameObject CardZoomZone;
+    public GameObject canvas;
     private GameObject zoomCard;
     private Transform border;
     private Transform cardName;
@@ -16,29 +16,17 @@ public class CardZoom : MonoBehaviour
     private Text skillText;
     private Text desText;
     private Image cardImage;
-    private Image iconImage;
 
     public void  Awake()
     {
-        Input.simulateMouseWithTouches = true;
-        CardZoomZone = GameObject.Find("Canvas").GetComponentInChildren<Transform>().Find("CardZoomZone").gameObject;
+        canvas = GameObject.Find("Canvas");
     }
 
     public void OnHoverEnter()
     {
-        Vector2 position;
         if(this.transform.parent.tag == "Player")
         {
-            if (Input.touchCount > 0)
-            {
-                Touch touch = Input.GetTouch(0); // Get the first touch
-                position = touch.position; // Use the position of the touch
-            }
-            else
-            {
-                position = Input.mousePosition; // Use mouse position as fallback
-            }
-            zoomCard = Instantiate(gameObject,new Vector2(position.x,position.y+250),Quaternion.identity);
+            zoomCard = Instantiate(gameObject,new Vector2(Input.mousePosition.x,Input.mousePosition.y+250),Quaternion.identity);
             border = zoomCard.GetComponentInChildren<Transform>().Find("Border");
             cardName = zoomCard.GetComponentInChildren<Transform>().Find("Border/Name");
             nameText = zoomCard.GetComponentInChildren<Transform>().Find("Border/Name/Name Text").GetComponent<Text>();
@@ -47,10 +35,8 @@ public class CardZoom : MonoBehaviour
             skillText = zoomCard.GetComponentInChildren<Transform>().Find("Border/Description Border/cardSkill Text").GetComponent<Text>();
             desText = zoomCard.GetComponentInChildren<Transform>().Find("Border/Description Border/Description Text").GetComponent<Text>();
             cardImage = zoomCard.GetComponentInChildren<Transform>().Find("Border/Image Border/Image").GetComponent<Image>();
-            iconImage = zoomCard.GetComponentInChildren<Transform>().Find("Border/Icon").GetComponent<Image>();
-            zoomCard.transform.SetParent(CardZoomZone.transform,true);
+            zoomCard.transform.SetParent(canvas.transform,false);
             zoomCard.layer = LayerMask.NameToLayer("Zoom");
-        
 
             RectTransform rect;
             rect = zoomCard.GetComponent<RectTransform>();
@@ -89,10 +75,6 @@ public class CardZoom : MonoBehaviour
             rect = cardImage.GetComponent<RectTransform>();
             rect.sizeDelta = new Vector2(250,150);
             rect.position = new Vector2(rect.position.x,rect.position.y);
-
-            rect = iconImage.GetComponent<RectTransform>();
-            rect.sizeDelta = new Vector2(110,130);
-            rect.position = new Vector2(rect.position.x+75,rect.position.y+100);
         }
         
     }

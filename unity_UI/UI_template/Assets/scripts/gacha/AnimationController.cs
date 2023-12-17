@@ -49,8 +49,7 @@ namespace ResultAnimation
                     {
                         case "coins":
                             resultImages[i].sprite = coinSprite;
-                            string money = dict["note"].ToString();
-                            resultText[i].text = "coin x " + money;
+                            resultText[i].text = "coin";
                             AdjustImageSize(resultImages[i], coinSprite);
                             break;
                         case "skill":
@@ -86,9 +85,8 @@ namespace ResultAnimation
                 switch (resultType)
                 {
                     case "coins":
-                        string money = dict["note"].ToString();
                         resultImage.sprite = coinSprite;
-                        resultText.text = "coin x " + money;
+                        resultText.text = "coin";
                         // AdjustImageSize(resultImage, coinSprite);
                         break;
                     case "skill":

@@ -7,47 +7,22 @@ using UnityEngine.UI;
 public class AudioManager : MonoBehaviour
 {
     private Image img;
-    //private int count = 1;
+    private int count = 1;
 
     private AudioSource audioSource;
-    private Slider slider;
-    private bool stop = false;
 
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        img = GameObject.Find("Handle").GetComponent<Image>();
-        slider = GameObject.Find("Slider").GetComponent<Slider>();
+        img = GameObject.Find("MusicButton").GetComponent<Image>();
     }
-    void Update()
-    {
-        if(stop == false)
-        {
-            audioSource.volume = slider.value;
-        }
-    }
-
     public void StopBGM()
     {
+        //audioSource.Stop();
+        //慢慢的把音樂切掉才比較好聽 所以我一開始就使用的方式
         StartCoroutine(FadeOut());
     }
-
-    public IEnumerator FadeOut()
-    {
-        stop = true;
-        while (audioSource.volume > 0)
-        {
-            audioSource.volume -= 0.007f;
-            yield return new WaitForSeconds(0.02f);
-        }
-    }
-
-    public override int GetHashCode()
-    {
-        return img.GetHashCode();
-    }
-
-    /*public void ToggleAudio()
+    public void ToggleAudio()
     {
         Next();
         if (audioSource != null)
@@ -69,5 +44,19 @@ public class AudioManager : MonoBehaviour
     {
         return obj is AudioManager change &&
                EqualityComparer<Image>.Default.Equals(img, change.img);
-    }*/
+    }
+
+    public IEnumerator FadeOut()
+    {
+        while (audioSource.volume > 0)
+        {
+            audioSource.volume -= 0.005f;
+            yield return new WaitForSeconds(0.02f);
+        }
+    }
+
+    public override int GetHashCode()
+    {
+        return img.GetHashCode();
+    }
 }

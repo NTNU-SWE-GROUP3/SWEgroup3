@@ -46,21 +46,6 @@ class DBManager:
 
 
 
-    def NicknameExist(self, nickname):
-        insert_stmt = (
-            "SELECT count(*) FROM account_data ad "
-            "WHERE ad.nickname = %s LIMIT 1"
-        )
-        data = (nickname,)   # it have to be tuple style here.
-        self.cursor.execute(insert_stmt, data)
-        current_app.logger.info(self.cursor._executed)
-        rec = []
-        for c in self.cursor:
-            rec.append(c[0])
-        return True if rec[0] == 1 else False
-
-
-
     def AccountPasswordCheck(self, accountName, accountPassword):
         insertStmt = (
             "SELECT a.id FROM account a "
@@ -132,31 +117,6 @@ class DBManager:
 
 
 
-    def UpdateNewNickname(self, tokenid, nickname):
-        insert_stmt = (
-            "UPDATE account_data SET nickname = %s "
-            "WHERE account_id = (SELECT id FROM account WHERE token_id = %s) "
-        )
-        data = (nickname,tokenid)
-        self.cursor.execute(insert_stmt, data)
-        current_app.logger.info(self.cursor._executed)
-        self.connection.commit()
-
-
-
-    def UpdateNewEmail(self, accountid, newemail):
-        insert_stmt = (
-            "UPDATE account a "
-            "SET a.email = %s "
-            "WHERE a.id = %s "
-        )
-        data = (newemail,accountid)
-        self.cursor.execute(insert_stmt, data)
-        current_app.logger.info(self.cursor._executed)
-        self.connection.commit()
-
-
-
     def FindAccountId(self, accountName):
             insertStmt = (
                 "SELECT a.id FROM account a "
@@ -173,42 +133,6 @@ class DBManager:
                 return rec[0]
             else:
                 return -1
-
-    def FindAccountEmail(self, token):
-            insertStmt = (
-                "SELECT a.email FROM account a "
-                "WHERE a.token_id = %s "
-                "LIMIT 1"
-            )
-            data = (accountName,)
-            self.cursor.execute(insertStmt, data)
-            current_app.logger.info(self.cursor._executed)
-            rec = []
-            for c in self.cursor:
-                rec.append(c[0])
-            if(bool(rec)):
-                return rec[0]
-            else:
-                return -1
-
-
-    def FindAccountIDByToken(self, token):
-            insertStmt = (
-                "SELECT a.id FROM account a "
-                "WHERE a.token_id = %s "
-                "LIMIT 1"
-            )
-            data = (token,)
-            self.cursor.execute(insertStmt, data)
-            current_app.logger.info(self.cursor._executed)
-            rec = []
-            for c in self.cursor:
-                rec.append(c[0])
-            if(bool(rec)):
-                return rec[0]
-            else:
-                return -1
-
 
     def AcountEmailCheck(self, account_id, input_email):
         insertStmt = (

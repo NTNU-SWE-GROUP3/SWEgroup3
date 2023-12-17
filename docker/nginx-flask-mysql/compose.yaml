@@ -21,15 +21,14 @@ services:
     environment:
       - MYSQL_DATABASE=swegroup3game
       - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/db-password
-    # Development use only
-    # Comment out ports setting in production version
+    # development use only
     ports:
-      - 3307:3306
+      - 3306:3306
     # Expose ports without publishing them to the host machine - they'll only be accessible to linked services.
     # Only the internal port can be specified.
-    # expose:
-    #   - 3306
-    #   - 33060
+    expose:
+      - 3306
+      - 33060
 
   backend:
     build:
@@ -39,7 +38,7 @@ services:
     secrets:
       - db-password
     ports:
-      - 8001:8000
+      - 8000:8000
     volumes:
       - ./backend:/code
     networks:
