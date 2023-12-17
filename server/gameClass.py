@@ -16,9 +16,12 @@ class Room:
         self.player2CurCardId = player2CurCardId
         self.player1CurSkillId = player1CurSkillId #current skill id 
         self.player2CurSkillId = player2CurSkillId
+        self.player1CurSkillCardId = -2
+        self.player2CurSkillCardId = -2
         self.timer_thread = None
         self.time_is_up = False
         self.timerStopped = False
+        self.timerStarted = False
 
     def run_timer(self, time_limit):
         start_time = time.time()
@@ -35,11 +38,21 @@ class Room:
         self.timerStopped = False
 
     def start_timer(self, time_limit):
+        if self.timerStarted == False:
+            self.timerStarted = True
+        else:
+            print(f'room(id:{self.roomId}) timer has started')
+            return
         self.timerStopped = False
         timer_thread = threading.Thread(target=self.run_timer, args=(time_limit,))
         timer_thread.start()
     
     def stop_timer(self):
+        if self.timerStarted == True:
+            self.timerStarted = False
+        else:
+            print(f'room(id:{self.roomId}) timer has stopped')
+            return
         print(f'room(id:{self.roomId}) timer stop')
         self.timerStopped = True
     def is_time_up(self):
@@ -69,7 +82,7 @@ def creat_room(mode,id,player1_token,player2_token):
     # Create card and skill sets for players
     random.seed()
     a = random.randint(0,1)
-    print("gameClass:a=" + str(a))
+    #print("gameClass:a=" + str(a))
     if a % 2 == 0:
         player1_cards = CardSet(set='A', card_ids=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
         player2_cards = CardSet(set='B', card_ids=[11, 12, 13, 14, 15, 16, 17, 18, 19, 20])
@@ -86,5 +99,5 @@ def creat_room(mode,id,player1_token,player2_token):
     player2 = Player(token=player2_token, card_set=player2_cards, skill_set=player2_skills)
 
     # Create a room and assign players
-    room = Room(mode=mode,roomId=id, player1=player1, player2=player2,player1TurnStart=False,player2TurnStart=False,player1Earn=0,player2Earn=0,player1CurCardId=-1,player2CurCardId=-1,player1CurSkillId=-1,player2CurSkillId=-1)
+    room = Room(mode=mode,roomId=id, player1=player1, player2=player2,player1TurnStart=False,player2TurnStart=False,player1Earn=0,player2Earn=0,player1CurCardId=-1,player2CurCardId=-1,player1CurSkillId=-2,player2CurSkillId=-2)
     return room

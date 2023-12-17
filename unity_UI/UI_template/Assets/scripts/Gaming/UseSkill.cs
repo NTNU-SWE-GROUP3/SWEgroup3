@@ -56,7 +56,7 @@ public class UseSkill : MonoBehaviour
         GC.DestoryCardOnPanel();
     }
 
-    public IEnumerator Use(int skillId,bool isPlayer)
+    public IEnumerator Use(int gameType,int skillId,bool isPlayer)
     {
         
         if( isPlayer == true)
@@ -240,7 +240,43 @@ public class UseSkill : MonoBehaviour
                                 break;
                             }
                         }
-                    }     
+                    }
+                    else if(gameType == 1)
+                    {
+                        SkillCheck gs = gameObject.AddComponent<SkillCheck>();
+                        gs.gameType = 1;
+                        gs.roomId = 1;
+                        gs.playerToken = "ABC";
+
+                        CoroutineWithData cd = new CoroutineWithData(this, Flask.SendRequest(gs.SaveToString(),"useSkill"));
+                        yield return cd.coroutine;
+                        Debug.Log("return : " + cd.result);
+
+                        string retString = cd.result.ToString();
+                        SkillCheckBack ret = new SkillCheckBack();
+                        if (retString == "ConnectionError" || retString == "ProtocolError" || retString == "InProgress" || retString == "DataProcessingError")
+                        {
+                            Debug.Log("UseSkill:" + retString);
+                            //here should back to login scene
+                        }
+                        else
+                        {
+                            ret = SkillCheckBack.CreateFromJSON(cd.result.ToString());
+                        }
+
+                        if(ret.cardId == -2)
+                        {
+                            Debug.Log("UseSkill:" + ret.errMessage);
+                            //back to game lobby or main scene
+                        }
+                        else
+                        {
+                            cardId = ret.cardId;
+                        }
+
+                        deleteChange.Change(OpponentArea,cardId, "階級流動");
+                    }
+
                     yield return StartCoroutine(OpponentFinishCheck());
                     break;
                 case 3: //暗影轉職
@@ -264,7 +300,43 @@ public class UseSkill : MonoBehaviour
                                 break;
                             }
                         }
-                    }    
+                    }
+                    else if(gameType == 1)
+                    {
+                        SkillCheck gs = gameObject.AddComponent<SkillCheck>();
+                        gs.gameType = 1;
+                        gs.roomId = 1;
+                        gs.playerToken = "ABC";
+
+                        CoroutineWithData cd = new CoroutineWithData(this, Flask.SendRequest(gs.SaveToString(),"useSkill"));
+                        yield return cd.coroutine;
+                        Debug.Log("return : " + cd.result);
+
+                        string retString = cd.result.ToString();
+                        SkillCheckBack ret = new SkillCheckBack();
+                        if (retString == "ConnectionError" || retString == "ProtocolError" || retString == "InProgress" || retString == "DataProcessingError")
+                        {
+                            Debug.Log("UseSkill:" + retString);
+                            //here should back to login scene
+                        }
+                        else
+                        {
+                            ret = SkillCheckBack.CreateFromJSON(cd.result.ToString());
+                        }
+
+                        if(ret.cardId == -2)
+                        {
+                            Debug.Log("UseSkill:" + ret.errMessage);
+                            //back to game lobby or main scene
+                        }
+                        else
+                        {
+                            cardId = ret.cardId;
+                        }
+
+                        deleteChange.Change(OpponentArea,cardId, "暗影轉職");
+                    }
+                    
                     yield return StartCoroutine(OpponentFinishCheck());
                     break;
                 case 4: //技能封印

@@ -1,0 +1,22 @@
+cards = [
+        { "cardID" : 0 , "cardName" : "國王" , "cardSkill" : "無技能" , "cardDescription" : "若對手為暗殺者或皇后落敗，反之則獲勝，相同則平手" , "cardSet" : 'A'},
+        { "cardID" : 1 , "cardName" : "皇后" , "cardSkill" : "無技能" , "cardDescription" : "若對手為暗殺者或王子落敗，反之則獲勝，相同則平手" , "cardSet" : 'A'},
+        { "cardID" : 2 , "cardName" : "王子" , "cardSkill" : "無技能" , "cardDescription" : "若對手為暗殺者或國王落敗，反之則獲勝，相同則平手" , "cardSet" : 'A'},
+        { "cardID" : 3 , "cardName" : "騎士" , "cardSkill" : "無技能" , "cardDescription" : "若對手為國王、皇后或王子落敗，暗殺者或平民則獲勝，相同則平手。" , "cardSet" : 'A'},
+        { "cardID" : 4 , "cardName" : "騎士" , "cardSkill" : "無技能" , "cardDescription" : "若對手為國王、皇后或王子落敗，暗殺者或平民則獲勝，相同則平手。" , "cardSet" : 'A'},
+        { "cardID" : 5 , "cardName" : "殺手" , "cardSkill" : "無技能" , "cardDescription" : "若對手為騎士落敗，國王、皇后或王子則獲勝，其他及相同則平手。" , "cardSet" : 'A'},
+        { "cardID" : 6 , "cardName" : "殺手" , "cardSkill" : "無技能" , "cardDescription" : "若對手為騎士落敗，國王、皇后或王子則獲勝，其他及相同則平手。" , "cardSet" : 'A'},
+        { "cardID" : 7 , "cardName" : "平民" , "cardSkill" : "簡易剔除" , "cardDescription" : "觸發條件：<平手>\n從對手手排中選出一張卡牌移出遊戲。" , "cardSet" : 'A'},
+        { "cardID" : 8 , "cardName" : "平民" , "cardSkill" : "全部重置" , "cardDescription" : "觸發條件：<平手>\n將對手贏到的牌全部放到平手區。" , "cardSet" : 'A'},
+        { "cardID" : 9 , "cardName" : "平民" , "cardSkill" : "不敗的勇者" , "cardDescription" : "觸發條件：<不限>\n可以贏過任何一張牌。" , "cardSet" : 'A'},
+        { "cardID" : 10 , "cardName" : "國王" , "cardSkill" : "無技能" , "cardDescription" : "若對手為暗殺者或皇后落敗，反之則獲勝，相同則平手" , "cardSet" : 'B'},
+        { "cardID" : 11 , "cardName" : "皇后" , "cardSkill" : "無技能" , "cardDescription" : "若對手為暗殺者或王子落敗，反之則獲勝，相同則平手" , "cardSet" : 'B'},
+        { "cardID" : 12 , "cardName" : "王子" , "cardSkill" : "無技能" , "cardDescription" : "若對手為暗殺者或國王落敗，反之則獲勝，相同則平手" , "cardSet" : 'B'},
+        { "cardID" : 13 , "cardName" : "騎士" , "cardSkill" : "無技能" , "cardDescription" : "若對手為國王、皇后或王子落敗，暗殺者或平民則獲勝，相同則平手。" , "cardSet" : 'B'},
+        { "cardID" : 14 , "cardName" : "殺手" , "cardSkill" : "無技能" , "cardDescription" : "若對手為騎士落敗，國王、皇后或王子則獲勝，其他及相同則平手。" , "cardSet" : 'B'},
+        { "cardID" : 15 , "cardName" : "平民" , "cardSkill" : "爆發式成長" , "cardDescription" : "觸發條件：<平手>\n自身增加X張的贏取卡(X為回合數)。" , "cardSet" : 'B'},
+        { "cardID" : 16 , "cardName" : "平民" , "cardSkill" : "大革命" , "cardDescription" : "觸發條件：<平手>\n觸發成功後，所有卡牌優劣反轉。" , "cardSet" : 'B'},
+        { "cardID" : 17 , "cardName" : "平民" , "cardSkill" : "特洛伊木馬" , "cardDescription" : "觸發條件：<輸王家或騎士>對手一半贏牌轉為玩家贏牌。" , "cardSet" : 'B'},
+        { "cardID" : 18 , "cardName" : "平民" , "cardSkill" : "無技能" , "cardDescription" : "看似軟弱但淺藏無限力量，尤其在大革命發動以後。" , "cardSet" : 'B'},
+        { "cardID" : 19 , "cardName" : "平民" , "cardSkill" : "無技能" , "cardDescription" : "看似軟弱但淺藏無限力量，尤其在大革命發動以後。" , "cardSet" : 'B'}
+]

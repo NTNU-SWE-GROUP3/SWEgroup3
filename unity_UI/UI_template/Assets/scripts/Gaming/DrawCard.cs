@@ -21,10 +21,14 @@ public class DrawCard : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
     }
-    public IEnumerator Drawing(int n)
+    public IEnumerator Drawing(int gameType,int n)
     {
         Random.InitState((int)System.DateTime.Now.Ticks);
-        //var n = Random.Range(1, 100);
+        if(gameType != 1)
+        {
+            n = Random.Range(1, 100);
+        }
+        
         Debug.Log("Random number: "+n);
         GameObject First ;
         GameObject Second;

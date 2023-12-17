@@ -53,7 +53,7 @@ public class ShowCard : MonoBehaviour
         GC = GameObject.Find("GameController").GetComponent<GameController>();
         deletChange = GameObject.Find("GameController").GetComponent<DeleteChange>();
     }
-    public IEnumerator Show(int OpponentCardId)
+    public IEnumerator Show(int gameType)
     {
         PlayerCardObject = PlayerShow.transform.GetChild(0).gameObject;
         OpponentCardObject = OpponentShow.transform.GetChild(0).gameObject;
@@ -356,7 +356,7 @@ public class ShowCard : MonoBehaviour
                         PlaySE(SkillSound);
                         skillMessage.text = "簡易剔除!";
                         skillDescription.text = "對手將選擇一張牌剔除";
-                        OpponentSimpleRejection();
+                        OpponentSimpleRejection(gameType);
                     }
                     yield return new WaitForSeconds(3f);
                 }
@@ -369,7 +369,7 @@ public class ShowCard : MonoBehaviour
         //-------------------------\\
         RefreshEarnText(2);
         RefreshEarnText(1);
-        GC.FinishCheck(PlayerEarn.transform.childCount + PlayerX, OpponentEarn.transform.childCount + OpponentX, PlayerArea.transform.childCount, OpponentArea.transform.childCount);
+        GC.FinishCheck(gameType,PlayerEarn.transform.childCount + PlayerX, OpponentEarn.transform.childCount + OpponentX, PlayerArea.transform.childCount, OpponentArea.transform.childCount);
 
     }
     // 玩家贏
@@ -469,15 +469,63 @@ public class ShowCard : MonoBehaviour
         }
 
     }
-    void OpponentSimpleRejection()
+    
+    IEnumerator OpponentSimpleRejection(int gameType)
     {
         
         if(GameController.isCom == true)
         {
             CardDelete = PlayerArea.transform.GetChild(0).gameObject.GetComponent<CardDisplay>();
             deletChange.Delete(PlayerArea,CardDelete.id);
+            skillDescription.text = "對方替除了你的"+ CardDelete.cardName;
         }
-        skillDescription.text = "對方替除了你的"+ CardDelete.cardName;
+        else if (gameType == 1)
+        {
+            SkillCheck gs = gameObject.AddComponent<SkillCheck>();
+            gs.gameType = 1;
+            gs.roomId = 1;
+            gs.playerToken = "ABC";
+
+            CoroutineWithData cd = new CoroutineWithData(this, Flask.SendRequest(gs.SaveToString(),"useSkill"));
+            yield return cd.coroutine;
+            Debug.Log("return : " + cd.result);
+
+            string retString = cd.result.ToString();
+            SkillCheckBack ret = new SkillCheckBack();
+            if (retString == "ConnectionError" || retString == "ProtocolError" || retString == "InProgress" || retString == "DataProcessingError")
+            {
+                Debug.Log("UseSkill:" + retString);
+                //here should back to login scene
+            }
+            else
+            {
+                ret = SkillCheckBack.CreateFromJSON(cd.result.ToString());
+            }
+
+            if(ret.cardId == -2)
+            {
+                Debug.Log("UseSkill:" + ret.errMessage);
+                //back to game lobby or main scene
+            }
+            else
+            {
+                
+                CardDelete = PlayerArea.transform.GetChild(0).gameObject.GetComponent<CardDisplay>();
+
+                for(int i = 0;i<OpponentArea.transform.childCount;i++)
+                {
+                    CardDelete = PlayerArea.transform.GetChild(i).gameObject.GetComponent<CardDisplay>();
+                    if (CardDelete.id == ret.cardId)
+                    {
+                        break;
+                    }
+                }
+
+                deletChange.Delete(PlayerArea,CardDelete.id);
+                skillDescription.text = "對方替除了你的"+ CardDelete.cardName;
+            }
+        }
+        
 
         
     }

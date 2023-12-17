@@ -46,6 +46,7 @@ public class SkillSelection: MonoBehaviour
     public int roomId;
     public string playerToken;
     public int playerSkillID;
+    public int cardId;
 
     public string SaveToString()
     {
@@ -66,6 +67,41 @@ public class SkillMsgBack
         {
             Debug.Log("SkillmsgBack:" + jsonString);
             return JsonUtility.FromJson<SkillMsgBack>(jsonString);
+        }
+        else
+        {
+            Debug.Log("SkillmsgBackErr:" + jsonString);
+            return null;
+        }
+        
+    }
+}
+
+public class SkillCheck: MonoBehaviour
+{
+    public int gameType;
+    public int roomId;
+    public string playerToken;
+
+    public string SaveToString()
+    {
+        return JsonUtility.ToJson(this);
+    }
+}
+
+[Serializable]
+public class SkillCheckBack
+{
+    public int cardId;
+    public string errMessage;
+
+    public static SkillCheckBack CreateFromJSON(string jsonString)
+    {
+        
+        if (jsonString != "ConnectionError" && jsonString != "ProtocolError" && jsonString != "InProgress" && jsonString != "DataProcessingError")
+        {
+            Debug.Log("SkillmsgBack:" + jsonString);
+            return JsonUtility.FromJson<SkillCheckBack>(jsonString);
         }
         else
         {
