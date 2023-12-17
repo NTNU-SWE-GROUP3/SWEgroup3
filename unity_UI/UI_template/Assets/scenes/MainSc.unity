@@ -22279,7 +22279,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1566575138}
   - component: {fileID: 1566575137}
-  - component: {fileID: 1566575136}
+  - component: {fileID: 1566575139}
   m_Layer: 0
   m_Name: AudioBox
   m_TagString: Untagged
@@ -22287,18 +22287,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1566575136
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1566575135}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49695e9716ba2433c9d2245efe3e27e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!82 &1566575137
 AudioSource:
   m_ObjectHideFlags: 0
@@ -22410,6 +22398,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1566575139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1566575135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49695e9716ba2433c9d2245efe3e27e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip1: {fileID: 8300000, guid: a014fa9e8356e044b8ca643c5b106723, type: 3}
+  clip2: {fileID: 8300000, guid: 8ecde6abd50024b8c94f8a16af9c42ed, type: 3}
 --- !u!1 &1579283021
 GameObject:
   m_ObjectHideFlags: 0
