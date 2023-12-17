@@ -11,7 +11,7 @@ public class Flask
     {
         //string url = "http://140.122.185.169:5050/api/";
         // string url = "http://172.23.0.220:5000/api/";
-        string url = "http://140.122.20.42:5000/api/";
+        string url = "http://192.168.1.106:5000/api/";
         //string url = "http://127.0.0.1:5000/api/";
         return url + func;
     }
