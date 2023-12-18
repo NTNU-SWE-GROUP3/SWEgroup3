@@ -26,11 +26,11 @@ public class MainAudioManager : MonoBehaviour
 
     private void Update()
     {
-        float x = panelHolder.GetComponent<RectTransform>().offsetMax.x;
         audioSource.volume = MusicSlider.value;
+        float x = panelHolder.GetComponent<RectTransform>().offsetMax.x;
         Debug.Log(x);
         
-        if (x <= -1079 && x >= -1081)
+        if (x <= -879 && x >= -1281)
         {
             if (audioSource.clip != clip2)
             {
@@ -39,7 +39,7 @@ public class MainAudioManager : MonoBehaviour
                 audioSource.Play();
             }
         }
-        else if ((x > -2158 && x < -1081) || (x <= -0.1 && x > -1079))
+        else if ((x > -1958 && x < -1281) || (x <= -200 && x > -879))
         {
             if (audioSource.clip == clip1)
             {
