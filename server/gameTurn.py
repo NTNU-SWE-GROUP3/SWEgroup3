@@ -10,17 +10,24 @@ import time
 gameTurn = Blueprint("gameTurn", __name__, url_prefix="/api")
 
 
-def timer(time_up_event):
-    time.sleep(5)  # Wait for 10 seconds
-    time_up_event.set()  # Signal that the time is up
+def timer(time_up_event,room):
+    start_time = time.time()
+    timeUp = True
+    while time.time() - start_time < 10:
+        if room.player1TurnStart != False and room.player2TurnStart != False:
+            timeUp = False
+            break
+        time.sleep(1)
+    if timeUp:
+        time_up_event.set()  # Signal that the time is up
 
 async def wait_start(room):
     time_up_event = threading.Event()
-    timer_thread = threading.Thread(target=timer(time_up_event))
+    timer_thread = threading.Thread(target=timer(time_up_event,room))
     timer_thread.start()
-    while (room.player1TurnStart == False or room.player2TurnStart == False):
-        if time_up_event.is_set():
-            return -1
+    
+    if time_up_event.is_set():
+        return -1
     return 0
 
 @gameTurn.route('/turnStart', methods=['POST'])
@@ -70,6 +77,6 @@ async def handle_turnStart():
     
     
     print(response_data)
-    playerRoom.start_timer(20) # the room will be remvoed when no player send signals in 20 seconds.
+    playerRoom.start_timer(30) # the room will be remvoed when no player send signals in 20 seconds.
     return jsonify(response_data)
 

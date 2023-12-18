@@ -2124,6 +2124,7 @@ MonoBehaviour:
   TimerText: {fileID: 1164825670}
   PlayerArea: {fileID: 4935448267223214921}
   PlayerShow: {fileID: 789898237}
+  OpponentArea: {fileID: 1001469411}
   OpponentShow: {fileID: 1907401954}
   ShowDisplay: {fileID: 1605720186}
   MessagePanel: {fileID: 931180408}

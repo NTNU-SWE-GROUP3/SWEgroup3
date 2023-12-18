@@ -41,8 +41,8 @@ public class ConfirmButton : MonoBehaviour
         gs.playerToken = "ABC";
         gs.playerSkillID = skillId;
         gs.cardId = ClickDetector.cardId;
-
-        CoroutineWithData cd = new CoroutineWithData(this, Flask.SendRequest(gs.SaveToString(),"gameStart"));
+        Debug.Log("useSkill");
+        CoroutineWithData cd = new CoroutineWithData(this, Flask.SendRequest(gs.SaveToString(),"useSkill"));
         yield return cd.coroutine;
         Debug.Log("return : " + cd.result);
 
@@ -63,16 +63,23 @@ public class ConfirmButton : MonoBehaviour
             Debug.Log("ConfirmButton:" + ret.errMessage);
             //back to game lobby or main scene
         }
+        else
+        {
+            Debug.Log("ConfirmButton:" + ret.errMessage);
+        }
     }
 
     public void ClickConfirm()
     {
+        
         int gameType = 1;
         if (skillName.text == "簡易剔除!")
         {
             if(gameType == 1)
             {
-                SendSkillCard(11);
+                Debug.Log("ONCLICK");
+                StartCoroutine(SendSkillCard(11));
+                Debug.Log("ONCLICKEND");
             }
 
             deleteChange.Delete(OpponentArea,ClickDetector.cardId);
@@ -83,7 +90,7 @@ public class ConfirmButton : MonoBehaviour
         {
             if(gameType == 1)
             {
-                SendSkillCard(2);
+                StartCoroutine(SendSkillCard(2));
             }
             
 
@@ -96,7 +103,7 @@ public class ConfirmButton : MonoBehaviour
         {
             if(gameType == 1)
             {
-                SendSkillCard(3);
+                StartCoroutine(SendSkillCard(3));
             }
 
             deleteChange.Change(PlayerArea,ClickDetector.cardId, "暗影轉職");

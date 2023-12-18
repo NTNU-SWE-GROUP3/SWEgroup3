@@ -350,15 +350,18 @@ public class ShowCard : MonoBehaviour
                 if(OpponentCard.id == 7)
                 {
                     if (isPlayerPeasantImmunity == true)
-                         yield return StartCoroutine(PeasantImmunity());
+                    {
+                        yield return StartCoroutine(PeasantImmunity());
+                        yield return new WaitForSeconds(3f);
+                    }
                     else
                     {
                         PlaySE(SkillSound);
                         skillMessage.text = "簡易剔除!";
                         skillDescription.text = "對手將選擇一張牌剔除";
-                        OpponentSimpleRejection(gameType);
+                        yield return OpponentSimpleRejection(gameType);
                     }
-                    yield return new WaitForSeconds(3f);
+                    
                 }
             }
         }
@@ -484,9 +487,9 @@ public class ShowCard : MonoBehaviour
             SkillCheck gs = gameObject.AddComponent<SkillCheck>();
             gs.gameType = 1;
             gs.roomId = 1;
-            gs.playerToken = "ABC";
+            gs.playerToken = "XYZ";
 
-            CoroutineWithData cd = new CoroutineWithData(this, Flask.SendRequest(gs.SaveToString(),"useSkill"));
+            CoroutineWithData cd = new CoroutineWithData(this, Flask.SendRequest(gs.SaveToString(),"useSkillCheck"));
             yield return cd.coroutine;
             Debug.Log("return : " + cd.result);
 

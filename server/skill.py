@@ -44,26 +44,34 @@ def useSkill(room,playerToken,SkillId,cardId):
             room.player2Earn += 1
     elif SkillId == 11:#簡易剔除 
         if room.player1.token == playerToken:
+            print(room.player2.card_set.card_ids.index)
             index = room.player2.card_set.card_ids.index(cardId)
-            room.player1.card_set.card_ids.pop(index)
+            room.player2.card_set.card_ids.pop(index)
             room.player1CurSkillCardId = cardId
 
         else:
+            print(room.player1.card_set.card_ids.index)
             index = room.player1.card_set.card_ids.index(cardId)
-            room.player2.card_set.card_ids.pop(index)
+            room.player1.card_set.card_ids.pop(index)
             room.player2CurSkillCardId = cardId
             
 
 
 
-def timer(time_up_event):
-    time_up_event
-    time.sleep(10)  # Wait for 10 seconds
-    time_up_event.set()  # Signal that the time is up
+def timer(time_up_event,room):
+    start_time = time.time()
+    timeUp = True
+    while time.time() - start_time < 10:
+        if room.player1CurSkillId != -2 and room.player2CurSkillId != -2:
+            timeUp = False
+            break
+        time.sleep(1)
+    if timeUp:
+        time_up_event.set()  # Signal that the time is up
 
 async def wait_skill(room):
     time_up_event = threading.Event()
-    timer_thread = threading.Thread(target=timer(time_up_event))
+    timer_thread = threading.Thread(target=timer(time_up_event,room))
     timer_thread.start()
     while (room.player1CurSkillId == -2 or room.player2CurSkillId == -2):
         print(str(room.player1CurSkillId) + ":" + str(room.player2CurSkillId))
@@ -72,22 +80,33 @@ async def wait_skill(room):
             return -1
     return 0
 
+def timer2(time_up_event,room):
+    start_time = time.time()
+    timeUp = True
+    while time.time() - start_time < 10:
+        if room.player1CurSkillCardId != -2 or room.player2CurSkillCardId != -2:
+            timeUp = False
+            break
+        time.sleep(1)
+    if timeUp:
+        time_up_event.set()  # Signal that the time is up
+
 async def wait_skillCheck(room):
     time_up_event = threading.Event()
-    timer_thread = threading.Thread(target=timer(time_up_event))
+    timer_thread = threading.Thread(target=timer2(time_up_event,room))
     timer_thread.start()
-    while (room.player1CurSkillCardId == -2 and room.player2CurSkillCardId == -2):
-        #print(str(room.player1CurSkillId) + ":" + str(room.player2CurSkillId))
-        if time_up_event.is_set():
-            print('wait_skill_check : -2')
-            return -2
+    
+    if time_up_event.is_set():
+        print('wait_skill_check : -2')
+        return -2
+    
     if(room.player1CurSkillCardId != -2):
         return room.player1CurSkillCardId
     else:
         return room.player2CurSkillCardId
 
 @skill.route('/deckRecon', methods=['POST'])
-async def handle_skill():
+async def handle_deckRecon():
     data = request.get_json()
     print('skill:')
     print(data)   
@@ -109,6 +128,7 @@ async def handle_skill():
             elif room.player2.token == playerToken:
                 room.stop_timer()
                 response_data = json.dumps(room.player1.card_set.card_ids)
+            break
     
     playerRoom = room_list[index]
     if(index == -1):
@@ -135,7 +155,9 @@ async def handle_useSkill():
     for room in room_list:
         if room.roomId == roomId:
             room.stop_timer()
+            index = room_list.index(room)
             useSkill(room,playerToken,skillId,cardId)#for skill 2 and 3
+            break
     
     playerRoom = room_list[index]
     if(index == -1):
@@ -148,7 +170,7 @@ async def handle_useSkill():
     return jsonify(response_data)
 
 @skill.route('/useSkillCheck', methods=['POST'])#for skill 2 and 3
-async def handle_useSkill():
+async def handle_useSkillCheck():
     data = request.get_json()
     print('useSkillCheck:')
     print(data)   
@@ -163,10 +185,12 @@ async def handle_useSkill():
     for room in room_list:
         if room.roomId == roomId:
             room.stop_timer()
+            index = room_list.index(room)
             if room.player1.token == playerToken:
                 ret = await wait_skillCheck(room)
             elif room.player2.token == playerToken:
                 ret = await wait_skillCheck(room)
+            break
     
     playerRoom = room_list[index]
     if(index == -1):

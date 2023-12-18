@@ -19,46 +19,53 @@ class Room:
         self.player1CurSkillCardId = -2
         self.player2CurSkillCardId = -2
         self.timer_thread = None
-        self.time_is_up = False
         self.timerStopped = False
         self.timerStarted = False
+        self.turnEnd = 0
 
     def run_timer(self, time_limit):
         start_time = time.time()
-        print(f'room(id:{self.roomId}) timer start')
+
+        print(f'{start_time}room(id:{self.roomId}) timer start')
         while time.time() - start_time < time_limit:
             if self.timerStopped:
                 break
             time.sleep(1)
-        print(f'runTimer:{self.timerStopped}')
+        print(f'{time.time()} <- {start_time}runTimer:{self.timerStopped}')
         if self.timerStopped == False:
             print(f'room(id:{self.roomId}) time is up, roomId set to -1')
-            self.time_is_up = True
             self.roomId = -1 # the system should remove the room whose roomId is -1.
         self.timerStopped = False
 
     def start_timer(self, time_limit):
         if self.timerStarted == False:
             self.timerStarted = True
+            #self.timerStopped = False
+            timer_thread = threading.Thread(target=self.run_timer, args=(time_limit,))
+            timer_thread.start()
         else:
             print(f'room(id:{self.roomId}) timer has started')
-            return
-        self.timerStopped = False
-        timer_thread = threading.Thread(target=self.run_timer, args=(time_limit,))
-        timer_thread.start()
+        
     
     def stop_timer(self):
         if self.timerStarted == True:
             self.timerStarted = False
+            self.timerStopped = True
+            print(f'room(id:{self.roomId}) timer stop')
         else:
             print(f'room(id:{self.roomId}) timer has stopped')
-            return
-        print(f'room(id:{self.roomId}) timer stop')
-        self.timerStopped = True
-    def is_time_up(self):
-        ret = self.time_is_up
-        #self.time_is_up = False
-        return ret
+        
+
+    def turn_end(self):
+        self.turnEnd += 1
+        if self.turnEnd == 2:
+            self.player1TurnStart = False
+            self.player2TurnStart = False
+            self.player1CurSkillId = -2
+            self.player2CurSkillId = -2
+            self.player1CurCardId = -1
+            self.player2CurCardId = -1
+            self.turnEnd = 0
 
 
 class Player:
@@ -84,11 +91,11 @@ def creat_room(mode,id,player1_token,player2_token):
     a = random.randint(0,1)
     #print("gameClass:a=" + str(a))
     if a % 2 == 0:
-        player1_cards = CardSet(set='A', card_ids=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
-        player2_cards = CardSet(set='B', card_ids=[11, 12, 13, 14, 15, 16, 17, 18, 19, 20])
+        player1_cards = CardSet(set='A', card_ids=[0,1, 2, 3, 4, 5, 6, 7, 8, 9])
+        player2_cards = CardSet(set='B', card_ids=[10,11, 12, 13, 14, 15, 16, 17, 18, 19])
     else:
-        player1_cards = CardSet(set='B', card_ids=[11, 12, 13, 14, 15, 16, 17, 18, 19, 20])
-        player2_cards = CardSet(set='A', card_ids=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+        player1_cards = CardSet(set='B', card_ids=[10,11, 12, 13, 14, 15, 16, 17, 18, 19])
+        player2_cards = CardSet(set='A', card_ids=[0,1, 2, 3, 4, 5, 6, 7, 8, 9])
     
     #here should grab data from database to check which skills are equipped.
     player1_skills = SkillSet( skill_stats=[True, True, True, True, True, True, True, True, True, True])

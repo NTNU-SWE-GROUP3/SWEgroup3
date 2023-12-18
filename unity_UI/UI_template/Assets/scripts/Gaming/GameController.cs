@@ -58,7 +58,7 @@ public class GameController : MonoBehaviour
         PlayerSkillId = -1;
         OpponentSkillId = -1;
         NoSkillCanUse = false;
-        isCom = true;
+        isCom = false;
         SkipButton.SetActive(false);
         SkillPanel.SetActive(false);
         SkillImage.SetActive(false);

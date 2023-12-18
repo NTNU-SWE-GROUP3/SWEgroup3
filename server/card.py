@@ -10,18 +10,24 @@ card = Blueprint("card", __name__, url_prefix="/api")
 
 
 
-def timer(time_up_event):
-    time_up_event
-    time.sleep(3)  # Wait for 3 seconds
-    time_up_event.set()  # Signal that the time is up
+def timer(time_up_event,room):
+    start_time = time.time()
+    timeUp = True
+    while time.time() - start_time < 10:
+        if room.player1CurCardId != -1 and room.player2CurCardId != -1:
+            timeUp = False
+            break
+        time.sleep(1)
+    if timeUp:
+        time_up_event.set()  # Signal that the time is up
 
 async def wait_card(room):
     time_up_event = threading.Event()
-    timer_thread = threading.Thread(target=timer(time_up_event))
+    timer_thread = threading.Thread(target=timer(time_up_event,room))
     timer_thread.start()
-    while (room.player1CurCardId == -1 or room.player2CurCardId == -1):
-        if time_up_event.is_set():
-            return -1
+    
+    if time_up_event.is_set():
+        return -1
     return 0
 
 
@@ -36,9 +42,10 @@ async def handle_Card():
     #here should verify player token
     cardId = data["playerCardID"]
     isPlayer1 = False
-    playerRoom = gameClass.creat_room(1,-1,'none','none')
+    roomIndex = -1
     for room in room_list:
         if room.roomId == roomId:
+            roomIndex = room_list.index(room)
             if room.player1.token == playerToken:
                 room.stop_timer()
                 isPlayer1 = True
@@ -70,8 +77,8 @@ async def handle_Card():
                 playerRoom = room
                 break
 
-
-    if(index == -1):
+    playerRoom = room_list[roomIndex]
+    if(roomIndex == -1):
         response_data = dict(OpponentCardId = -1,errMessage = 'The room does not exist.' )
 
     retStat = await wait_card(playerRoom)
@@ -86,14 +93,8 @@ async def handle_Card():
         errMessage = 'Only received card from you.'
         response_data = dict(OpponentCardId = -1,errMessage = errMessage )
 
-    #turn end
-    playerRoom.player2TurnStart = False
-    playerRoom.player2TurnStart = False
-    playerRoom.player1CurSkillId = -2
-    playerRoom.player2CurSkillId = -2
-    playerRoom.player1CurCardId = -1
-    playerRoom.player2CurCardId = -1
 
     print(response_data)
+    playerRoom.turn_end()
     playerRoom.start_timer(30) # the room will be remvoed when no player send signals in 20 seconds.
     return jsonify(response_data)
