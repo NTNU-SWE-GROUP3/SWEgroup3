@@ -32,7 +32,7 @@ public class DrawCard : MonoBehaviour
         Debug.Log("Random number: "+n);
         GameObject First ;
         GameObject Second;
-        if(n % 2 == 0)
+        if(n % 2 == 1)
         {
             First = OpponentArea;
             Second = PlayerArea;

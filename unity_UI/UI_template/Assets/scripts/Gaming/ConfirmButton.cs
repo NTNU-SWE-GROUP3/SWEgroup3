@@ -38,7 +38,7 @@ public class ConfirmButton : MonoBehaviour
         SkillSelection gs = gameObject.AddComponent<SkillSelection>();
         gs.gameType = 1;
         gs.roomId = 1;
-        gs.playerToken = "ABC";
+        gs.playerToken = "XYZ";
         gs.playerSkillID = skillId;
         gs.cardId = ClickDetector.cardId;
         Debug.Log("useSkill");
@@ -94,7 +94,7 @@ public class ConfirmButton : MonoBehaviour
             }
             
 
-            deleteChange.Change(PlayerArea,ClickDetector.cardId, "階級流動");
+            StartCoroutine(deleteChange.Change(PlayerArea,ClickDetector.cardId, "階級流動"));
             UseSkill.Clock= 0;
             // MessagePanel.SetActive(false);
             GC.DestoryCardOnPanel();
@@ -106,7 +106,7 @@ public class ConfirmButton : MonoBehaviour
                 StartCoroutine(SendSkillCard(3));
             }
 
-            deleteChange.Change(PlayerArea,ClickDetector.cardId, "暗影轉職");
+            StartCoroutine(deleteChange.Change(PlayerArea,ClickDetector.cardId, "暗影轉職"));
             UseSkill.Clock = 0;
             // MessagePanel.SetActive(false);
             GC.DestoryCardOnPanel();
@@ -127,6 +127,11 @@ public class ConfirmButton : MonoBehaviour
                     break;
                 }
             }
+            /*
+            if(gameType == 1)
+            {
+                StartCoroutine(SendSkillCard(8));
+            }*/
             UseSkill.Clock = 0;
         }
         else

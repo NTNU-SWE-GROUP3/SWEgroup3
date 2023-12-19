@@ -20,6 +20,7 @@ public class CountDown : MonoBehaviour
     public GameObject MessagePanel;
     public Transform Card;
     ShowCard showcard;
+    public static int playerCardSet = -1;
 
     GameObject PlayerCardObject;
     GameObject OpponentCardObject;
@@ -51,7 +52,7 @@ public class CountDown : MonoBehaviour
             GameStart gs = gameObject.AddComponent<GameStart>();
             gs.gameType = 1;
             gs.roomId = 1;
-            gs.playerToken = "ABC";
+            gs.playerToken = "XYZ";
 
             CoroutineWithData cd = new CoroutineWithData(this, Flask.SendRequest(gs.SaveToString(),"gameStart"));
             yield return cd.coroutine;
@@ -76,12 +77,14 @@ public class CountDown : MonoBehaviour
             }
 
             
-            if(ret.opponentCardSet == "A")
+            if(ret.playerCardSet == "A")
             {
+                playerCardSet = 0;
                 cardSet = 0;
             }
             else
             {
+                playerCardSet = 1;
                 cardSet = 1;
             }
         }
@@ -122,14 +125,12 @@ public class CountDown : MonoBehaviour
         {
             // pass card info to server 
             PlayerCardObject = PlayerShow.transform.GetChild(0).gameObject;
-            OpponentCardObject = OpponentShow.transform.GetChild(0).gameObject;
             PlayerCard = PlayerCardObject.GetComponent<CardDisplay>();
-            OpponentCard = OpponentCardObject.GetComponent<CardDisplay>();
 
             CardSelection selected = gameObject.AddComponent<CardSelection>();
             selected.gameType = 1;
             selected.roomId = 1;
-            selected.playerToken = "ABC";
+            selected.playerToken = "XYZ";
             selected.playerCardID = PlayerCard.id;
             
             CoroutineWithData cd = new CoroutineWithData(this, Flask.SendRequest(selected.SaveToString(),"cardSelection"));
@@ -159,19 +160,27 @@ public class CountDown : MonoBehaviour
             }
 
             Transform Card;
+            int test = -1;
+            Debug.Log("OpponentArea.transform.childCount:" + OpponentArea.transform.childCount);
             for(int i = 0;i<OpponentArea.transform.childCount;i++)
             {
-                if (OpponentArea.transform.GetChild(i).gameObject.GetComponent<CardDisplay>().id == ret.OpponentCardId)
+                Debug.Log(OpponentArea.transform.GetChild(i).gameObject.GetComponent<CardDisplay>().id);
+                if (OpponentArea.transform.GetChild(i).gameObject.GetComponent<CardDisplay>().id == ret.OpponentCardId && test != 0)
                 {
+                    test = 0;
                     Card = OpponentArea.transform.GetChild(i);
                     Card.SetParent(OpponentShow.transform,false);
                     Card.position = OpponentShow.transform.position;
                     Card.gameObject.layer = LayerMask.NameToLayer("CardBack");
-                    break;
+                    //yield return new WaitForSeconds(1f);
+                    //break;
                 }
             }
 
-            
+            if(test == -1)
+            {
+                Debug.Log("Didn't find the card from opponent");
+            }
         }
         StartCoroutine(showcard.Show(gameType));
         TimerText.text = "Show!"; 

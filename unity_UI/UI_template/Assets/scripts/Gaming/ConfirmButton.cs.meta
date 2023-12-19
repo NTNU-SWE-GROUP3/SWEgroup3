@@ -5,11 +5,15 @@ MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - skillName: {instanceID: 0}
+  - SkipButton: {instanceID: 0}
   - OpponentArea: {instanceID: 0}
+  - PlayerArea: {fileID: 5438779555529309308, guid: ba109f6aad84dd94285eecdf66bd296c, type: 3}
+  - PlayerShow: {fileID: 774172642033849534, guid: 71613f38c60424a40816f3ff0f26ca3c, type: 3}
   - MessagePanel: {instanceID: 0}
   - Panel: {instanceID: 0}
   - CancelButton: {instanceID: 0}
-  - Click2: {fileID: 8300000, guid: 33b031d57a485469693565f7fd7214aa, type: 3}
+  - useSkill: {instanceID: 0}
+  - SkillPanel: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

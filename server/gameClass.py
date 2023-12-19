@@ -18,6 +18,8 @@ class Room:
         self.player2CurSkillId = player2CurSkillId
         self.player1CurSkillCardId = -2
         self.player2CurSkillCardId = -2
+        self.delimmaCardId1 = -2
+        self.delimmaCardId2 = -2
         self.timer_thread = None
         self.timerStopped = False
         self.timerStarted = False
@@ -63,6 +65,10 @@ class Room:
             self.player2TurnStart = False
             self.player1CurSkillId = -2
             self.player2CurSkillId = -2
+            self.player1CurSkillCardId = -2
+            self.player2CurSkillCardId = -2
+            self.delimmaCardId1 = -2
+            self.delimmaCardId2 = -2
             self.player1CurCardId = -1
             self.player2CurCardId = -1
             self.turnEnd = 0

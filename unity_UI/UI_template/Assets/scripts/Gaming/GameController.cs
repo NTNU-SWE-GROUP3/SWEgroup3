@@ -92,7 +92,7 @@ public class GameController : MonoBehaviour
             GameTurn turnStartSignal = gameObject.AddComponent<GameTurn>();
             turnStartSignal.gameType = 1;
             turnStartSignal.roomId = 1;
-            turnStartSignal.playerToken = "ABC";
+            turnStartSignal.playerToken = "XYZ";
             turnStartSignal.playerEarn = Convert.ToInt32(PlayerEarnText.text);
             turnStartSignal.opponentEarn = Convert.ToInt32(OpponentEarnText.text);
             
@@ -277,7 +277,7 @@ public class GameController : MonoBehaviour
             SkillSelection selected = gameObject.AddComponent<SkillSelection>();
             selected.gameType = 1;
             selected.roomId = 1;
-            selected.playerToken = "ABC";
+            selected.playerToken = "XYZ";
             selected.playerSkillID = PlayerSkillId;
             
             CoroutineWithData cd = new CoroutineWithData(this, Flask.SendRequest(selected.SaveToString(),"skill"));

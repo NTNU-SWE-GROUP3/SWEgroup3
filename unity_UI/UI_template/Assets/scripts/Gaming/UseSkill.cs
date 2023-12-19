@@ -160,6 +160,42 @@ public class UseSkill : MonoBehaviour
                     {
                         randomIndex[1] = Random.Range(0,OpponentArea.transform.childCount);
                     } while (randomIndex[0] == randomIndex[1]);
+
+                    if(gameType == 1)
+                    {
+                        dilemmaUse gs = gameObject.AddComponent<dilemmaUse>();
+                        gs.gameType = 1;
+                        gs.roomId = 1;
+                        gs.playerToken = "XYZ";
+                        gs.cardId1 = randomIndex[0];
+                        gs.cardId2 = randomIndex[1];
+
+                        CoroutineWithData cd = new CoroutineWithData(this, Flask.SendRequest(gs.SaveToString(),"dilemmaUse"));
+                        yield return cd.coroutine;
+                        Debug.Log("return : " + cd.result);
+
+                        string retString = cd.result.ToString();
+                        dilemmaUseBack ret = new dilemmaUseBack();
+                        if (retString == "ConnectionError" || retString == "ProtocolError" || retString == "InProgress" || retString == "DataProcessingError")
+                        {
+                            Debug.Log("dilemmaUse:" + retString);
+                            //here should back to login scene
+                        }
+                        else
+                        {
+                            ret = dilemmaUseBack.CreateFromJSON(cd.result.ToString());
+                        }
+
+                        if(ret.state == -1)
+                        {
+                            Debug.Log("dilemmaUse:" + ret.errMessage);
+                            //back to game lobby or main scene
+                        }
+                        else
+                        {
+                            Debug.Log("dilemmaUse:" + ret.errMessage);
+                        }
+                    }
                     
                     for(int i = 0;i<OpponentArea.transform.childCount;i++)
                     {
@@ -175,6 +211,42 @@ public class UseSkill : MonoBehaviour
                             card.CardShowOnMessagePanel(false);
                         }
                     }
+
+                    yield return new WaitForSeconds(2);
+                    /*
+                    if(gameType == 1)
+                    {
+                        SkillCheck gs = gameObject.AddComponent<SkillCheck>();
+                        gs.gameType = 1;
+                        gs.roomId = 1;
+                        gs.playerToken = "XYZ";
+
+                        CoroutineWithData cd = new CoroutineWithData(this, Flask.SendRequest(gs.SaveToString(),"useSkillCheck"));
+                        yield return cd.coroutine;
+                        Debug.Log("return : " + cd.result);
+
+                        string retString = cd.result.ToString();
+                        SkillCheckBack ret = new SkillCheckBack();
+                        if (retString == "ConnectionError" || retString == "ProtocolError" || retString == "InProgress" || retString == "DataProcessingError")
+                        {
+                            Debug.Log("useSkillCheck:" + retString);
+                            //here should back to login scene
+                        }
+                        else
+                        {
+                            ret = SkillCheckBack.CreateFromJSON(cd.result.ToString());
+                        }
+
+                        if(ret.cardId == -2)
+                        {
+                            Debug.Log("useSkillCheck:" + ret.errMessage);
+                            //back to game lobby or main scene
+                        }
+                        else
+                        {
+                            Debug.Log("useSkillCheck:" + ret.errMessage);
+                        }
+                    }*/
                     yield return StartCoroutine(OpponentFinishCheck());
                     break;
                 case 9: //強制徵收
@@ -240,15 +312,16 @@ public class UseSkill : MonoBehaviour
                                 break;
                             }
                         }
+                        yield return StartCoroutine(OpponentFinishCheck());
                     }
                     else if(gameType == 1)
                     {
                         SkillCheck gs = gameObject.AddComponent<SkillCheck>();
                         gs.gameType = 1;
                         gs.roomId = 1;
-                        gs.playerToken = "ABC";
+                        gs.playerToken = "XYZ";
 
-                        CoroutineWithData cd = new CoroutineWithData(this, Flask.SendRequest(gs.SaveToString(),"useSkill"));
+                        CoroutineWithData cd = new CoroutineWithData(this, Flask.SendRequest(gs.SaveToString(),"useSkillCheck"));
                         yield return cd.coroutine;
                         Debug.Log("return : " + cd.result);
 
@@ -256,7 +329,7 @@ public class UseSkill : MonoBehaviour
                         SkillCheckBack ret = new SkillCheckBack();
                         if (retString == "ConnectionError" || retString == "ProtocolError" || retString == "InProgress" || retString == "DataProcessingError")
                         {
-                            Debug.Log("UseSkill:" + retString);
+                            Debug.Log("useSkillCheck:" + retString);
                             //here should back to login scene
                         }
                         else
@@ -266,7 +339,7 @@ public class UseSkill : MonoBehaviour
 
                         if(ret.cardId == -2)
                         {
-                            Debug.Log("UseSkill:" + ret.errMessage);
+                            Debug.Log("useSkillCheck:" + ret.errMessage);
                             //back to game lobby or main scene
                         }
                         else
@@ -274,10 +347,10 @@ public class UseSkill : MonoBehaviour
                             cardId = ret.cardId;
                         }
 
-                        deleteChange.Change(OpponentArea,cardId, "階級流動");
+                        yield return deleteChange.Change(OpponentArea,cardId, "階級流動");
                     }
 
-                    yield return StartCoroutine(OpponentFinishCheck());
+                    
                     break;
                 case 3: //暗影轉職
                     Clock = 4;
@@ -300,15 +373,16 @@ public class UseSkill : MonoBehaviour
                                 break;
                             }
                         }
+                        yield return StartCoroutine(OpponentFinishCheck());
                     }
                     else if(gameType == 1)
                     {
                         SkillCheck gs = gameObject.AddComponent<SkillCheck>();
                         gs.gameType = 1;
                         gs.roomId = 1;
-                        gs.playerToken = "ABC";
+                        gs.playerToken = "XYZ";
 
-                        CoroutineWithData cd = new CoroutineWithData(this, Flask.SendRequest(gs.SaveToString(),"useSkill"));
+                        CoroutineWithData cd = new CoroutineWithData(this, Flask.SendRequest(gs.SaveToString(),"useSkillCheck"));
                         yield return cd.coroutine;
                         Debug.Log("return : " + cd.result);
 
@@ -316,7 +390,7 @@ public class UseSkill : MonoBehaviour
                         SkillCheckBack ret = new SkillCheckBack();
                         if (retString == "ConnectionError" || retString == "ProtocolError" || retString == "InProgress" || retString == "DataProcessingError")
                         {
-                            Debug.Log("UseSkill:" + retString);
+                            Debug.Log("useSkillCheck:" + retString);
                             //here should back to login scene
                         }
                         else
@@ -326,7 +400,7 @@ public class UseSkill : MonoBehaviour
 
                         if(ret.cardId == -2)
                         {
-                            Debug.Log("UseSkill:" + ret.errMessage);
+                            Debug.Log("useSkillCheck:" + ret.errMessage);
                             //back to game lobby or main scene
                         }
                         else
@@ -334,10 +408,10 @@ public class UseSkill : MonoBehaviour
                             cardId = ret.cardId;
                         }
 
-                        deleteChange.Change(OpponentArea,cardId, "暗影轉職");
+                        yield return deleteChange.Change(OpponentArea,cardId, "暗影轉職");
                     }
                     
-                    yield return StartCoroutine(OpponentFinishCheck());
+                    
                     break;
                 case 4: //技能封印
                     audioSource.PlayOneShot(UseSkillVoice);
@@ -394,12 +468,50 @@ public class UseSkill : MonoBehaviour
                     SkipButton.SetActive(false);
 
                     int[] randomIndex = {0,0};
-                    randomIndex[0] = Random.Range(0,PlayerArea.transform.childCount);
-                    do
+                    if(gameType != 1)
                     {
-                        randomIndex[1] = Random.Range(0,PlayerArea.transform.childCount);
-                    } while (randomIndex[0] == randomIndex[1]);
-                    
+                        randomIndex[0] = Random.Range(0,PlayerArea.transform.childCount);
+                        do
+                        {
+                            randomIndex[1] = Random.Range(0,PlayerArea.transform.childCount);
+                        } while (randomIndex[0] == randomIndex[1]);
+                    }
+                    else
+                    {
+                        dilemmaCheck gs = gameObject.AddComponent<dilemmaCheck>();
+                        gs.gameType = 1;
+                        gs.roomId = 1;
+                        gs.playerToken = "XYZ";
+
+                        CoroutineWithData cd = new CoroutineWithData(this, Flask.SendRequest(gs.SaveToString(),"dilemmaUseCheck"));
+                        yield return cd.coroutine;
+                        Debug.Log("return : " + cd.result);
+
+                        string retString = cd.result.ToString();
+                        dilemmaCheckBack ret = new dilemmaCheckBack();
+                        if (retString == "ConnectionError" || retString == "ProtocolError" || retString == "InProgress" || retString == "DataProcessingError")
+                        {
+                            Debug.Log("dilemmaUseCheck:" + retString);
+                            //here should back to login scene
+                        }
+                        else
+                        {
+                            ret = dilemmaCheckBack.CreateFromJSON(cd.result.ToString());
+                        }
+
+                        if(ret.cardId1 == -1 && ret.cardId2 == -1)
+                        {
+                            Debug.Log("dilemmaUseCheck:" + ret.errMessage);
+                            //back to game lobby or main scene
+                        }
+                        else
+                        {
+                            Debug.Log("dilemmaUseCheck:" + ret.errMessage);
+                            randomIndex[0] = ret.cardId1;
+                            randomIndex[1] = ret.cardId2;
+                        }
+                    }
+
                     for(int i = 0;i<PlayerArea.transform.childCount;i++)
                     {
                         card = PlayerArea.transform.GetChild(i).GetComponent<ToMessagePanel>();
@@ -412,7 +524,7 @@ public class UseSkill : MonoBehaviour
                         {   PlayerDilemmaDictatorId[1] = PlayerArea.transform.GetChild(i).gameObject.GetComponent<CardDisplay>().id;
                             card.CardShowOnMessagePanel(true);
                         }
-                    }  
+                    } 
                     yield return(StartCoroutine(Timer()));
                     break;
                 case 9: //強制徵收
