@@ -12523,6 +12523,7 @@ MonoBehaviour:
   KnightButton: {fileID: 1647853518}
   CivillianButton: {fileID: 800343033}
   AssassinButton: {fileID: 821092670}
+  Warning_Title: {fileID: 1643865604}
   Warning_Message: {fileID: 1625042679}
   Warning_ConfirmButton: {fileID: 1070215055}
 --- !u!1 &984615305
