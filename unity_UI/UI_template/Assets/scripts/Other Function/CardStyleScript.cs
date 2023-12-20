@@ -41,14 +41,16 @@ public class UIManager : MonoBehaviour
     // private static string serverUrl = "http://127.0.0.1:5050";
     private static string serverUrl = "http://140.122.185.169:5050";
     private string serverURL_equip = serverUrl + "/card_style/equip_card_style";
-    private string authToken = "token123";
+    private string authToken = "";
+    // private string authToken = "token123";
 
     //WarningPanel 
 
+    public Text Warning_Title;
     public Text Warning_Message;
     public Button Warning_ConfirmButton;
 
-    private DontDestroy userdata;
+    // private DontDestroy userdata;
 
     private void Start()
     {
@@ -67,7 +69,8 @@ public class UIManager : MonoBehaviour
         AssassinButton.onClick.AddListener(ViewAssassinSkin);
 
         //Fetching user's token
-        userdata = FindObjectOfType<DontDestroy>();
+        // userdata = FindObjectOfType<DontDestroy>();
+        DontDestroy userdata = FindObjectOfType<DontDestroy>();
         if(userdata != null)
         {
             authToken = userdata.token;
@@ -99,10 +102,14 @@ public class UIManager : MonoBehaviour
         }
 
         WWWForm form = new WWWForm();
-        form.AddField("Token", authToken); // 
-        form.AddField("targetCardStyleID", targetCardStyleID);
+        form.AddField("tokenId", authToken); // 
+        form.AddField("targetCardStyleId", targetCardStyleID);
         form.AddField("targetCharacterType", targetCharacterType);
-        Debug.Log("Form Contents: " + FormContentsToString(form));
+        // Debug.Log("Form Contents: " + FormContentsToString(form));
+        Debug.Log("Token" + authToken);
+        Debug.Log("targetCardStyleID: " + targetCardStyleID);
+        Debug.Log("targetCharacterType: " + targetCharacterType);
+
         using (UnityWebRequest www = UnityWebRequest.Post(serverURL_equip, form))
         {
             yield return www.SendWebRequest();
@@ -114,6 +121,7 @@ public class UIManager : MonoBehaviour
             {
                 Debug.LogWarning(www.error);
                 // Warning Panel
+                Warning_Title.text = "Attention!";
                 Warning_Message.text = "Please check your network connection";
                 WarningPanel.SetActive(true);
             }
@@ -127,6 +135,7 @@ public class UIManager : MonoBehaviour
                 {
                     case "200001":
                         Debug.Log("Equip success!");
+                        Warning_Title.text = "Congratulations!";
                         Warning_Message.text = "Equip success!";
                         WarningPanel.SetActive(true);
                         //change the skin of the card~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~·
@@ -134,12 +143,14 @@ public class UIManager : MonoBehaviour
                     case "200021":
                         Debug.Log("Equip failure");
                         // Warning Panel
+                        Warning_Title.text = "Sorry!";
                         Warning_Message.text = "You have failed to equip this item";
                         WarningPanel.SetActive(true);
                         break;
                     case "200022":
                         Debug.Log("Item doesn't exist in inventory");
                         // Warning Panel
+                        Warning_Title.text = "Oops!";
                         Warning_Message.text = "It seems like you do not have this item in inventory";
                         WarningPanel.SetActive(true);
                         break;
@@ -214,6 +225,9 @@ public class UIManager : MonoBehaviour
     private void SellSkin()
     {
         //To be continue
+        Warning_Title.text = "Sorry...";
+        Warning_Message.text = "This function is not yet available. Please wait for the next update";
+        WarningPanel.SetActive(true);
     }
 
     private void OnNextButtonClicked()
