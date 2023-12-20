@@ -12506,6 +12506,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaskPanel: {fileID: 1531474926}
+  WarningPanel: {fileID: 129613174}
   CurrentSkinImage: {fileID: 1250843911}
   PreviousSkinButton: {fileID: 134756891}
   NextSkinButton: {fileID: 996933431}
@@ -12522,6 +12523,8 @@ MonoBehaviour:
   KnightButton: {fileID: 1647853518}
   CivillianButton: {fileID: 800343033}
   AssassinButton: {fileID: 821092670}
+  Warning_Message: {fileID: 1625042679}
+  Warning_ConfirmButton: {fileID: 1070215055}
 --- !u!1 &984615305
 GameObject:
   m_ObjectHideFlags: 0
