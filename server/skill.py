@@ -10,8 +10,11 @@ import time
 skill = Blueprint("skill", __name__, url_prefix="/api")
 
 def useSkill(room,playerToken,SkillId,cardId):
-    if SkillId == 2 and cardId != -1:#階級流動
+    if SkillId == 2 and cardId != -2:#階級流動
         if room.player1.token == playerToken:
+            if cardId == -1:
+                room.player1CurSkillCardId = cardId
+                return
             index = room.player1.card_set.card_ids.index(cardId)
             room.player1.card_set.card_ids.pop(index)
             room.player1CurSkillCardId = cardId
@@ -20,6 +23,9 @@ def useSkill(room,playerToken,SkillId,cardId):
             else:
                 room.player1.card_set.card_ids.append(13)
         else:
+            if cardId == -1:
+                room.player2CurSkillCardId = cardId
+                return
             index = room.player2.card_set.card_ids.index(cardId)
             room.player2.card_set.card_ids.pop(index)
             room.player2CurSkillCardId = cardId
@@ -27,8 +33,11 @@ def useSkill(room,playerToken,SkillId,cardId):
                 room.player2.card_set.card_ids.append(3)
             else:
                 room.player2.card_set.card_ids.append(13)
-    elif SkillId == 3 and cardId != -1:#暗影轉職
+    elif SkillId == 3 and cardId != -2:#暗影轉職
         if room.player1.token == playerToken:
+            if cardId == -1:
+                room.player1CurSkillCardId = cardId
+                return
             index = room.player1.card_set.card_ids.index(cardId)
             room.player1.card_set.card_ids.pop(index)
             room.player1CurSkillCardId = cardId
@@ -37,6 +46,9 @@ def useSkill(room,playerToken,SkillId,cardId):
             else:
                 room.player1.card_set.card_ids.append(14)
         else:
+            if cardId == -1:
+                room.player2CurSkillCardId = cardId
+                return
             index = room.player2.card_set.card_ids.index(cardId)
             room.player2.card_set.card_ids.pop(index)
             room.player2CurSkillCardId = cardId
@@ -54,14 +66,20 @@ def useSkill(room,playerToken,SkillId,cardId):
             room.player1Earn += 1
         else:
             room.player2Earn += 1
-    elif SkillId == 11:#簡易剔除 
+    elif SkillId == 11 and cardId != -2:#簡易剔除 
         if room.player1.token == playerToken:
+            if cardId == -1:
+                room.player1CurSkillCardId = cardId
+                return
             print(room.player2.card_set.card_ids.index)
             index = room.player2.card_set.card_ids.index(cardId)
             room.player2.card_set.card_ids.pop(index)
             room.player1CurSkillCardId = cardId
 
         else:
+            if cardId == -1:
+                room.player2CurSkillCardId = cardId
+                return
             print(room.player1.card_set.card_ids.index)
             index = room.player1.card_set.card_ids.index(cardId)
             room.player1.card_set.card_ids.pop(index)
@@ -73,7 +91,7 @@ def useSkill(room,playerToken,SkillId,cardId):
 def timer(time_up_event,room):
     start_time = time.time()
     timeUp = True
-    while time.time() - start_time < 30:
+    while time.time() - start_time < 10:
         if room.player1CurSkillId != -2 and room.player2CurSkillId != -2:
             timeUp = False
             break
@@ -95,7 +113,7 @@ async def wait_skill(room):
 def timer2(time_up_event,room,player):
     start_time = time.time()
     timeUp = True
-    while time.time() - start_time < 30:
+    while time.time() - start_time < 10:
         if room.player1CurSkillCardId != -2 and player == 2:
             timeUp = False
             break
@@ -109,7 +127,7 @@ def timer2(time_up_event,room,player):
 def timer3(time_up_event,room):
     start_time = time.time()
     timeUp = True
-    while time.time() - start_time < 30:
+    while time.time() - start_time < 10:
         if room.delimmaCardId1 != -2 and room.delimmaCardId2 != -2:
             timeUp = False
             break
