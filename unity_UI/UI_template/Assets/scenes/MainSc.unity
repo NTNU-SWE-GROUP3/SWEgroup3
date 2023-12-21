@@ -19876,6 +19876,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   img: {fileID: 1701624549}
   slider: {fileID: 578770116}
+  clip1: {fileID: 8300000, guid: a014fa9e8356e044b8ca643c5b106723, type: 3}
+  clip2: {fileID: 8300000, guid: a2e9a403d9cf34f238eb36c19abb7ec9, type: 3}
 --- !u!82 &1566575137
 AudioSource:
   m_ObjectHideFlags: 0
@@ -19886,7 +19888,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 2dce50f21721b4ae6a9e6fa23f61ac05, type: 3}
+  m_audioClip: {fileID: 8300000, guid: a014fa9e8356e044b8ca643c5b106723, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.3
   m_Pitch: 1
