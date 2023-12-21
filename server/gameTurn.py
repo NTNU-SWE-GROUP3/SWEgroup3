@@ -13,7 +13,7 @@ gameTurn = Blueprint("gameTurn", __name__, url_prefix="/api")
 def timer(time_up_event,room):
     start_time = time.time()
     timeUp = True
-    while time.time() - start_time < 10:
+    while time.time() - start_time < 20:
         if room.player1TurnStart != False and room.player2TurnStart != False:
             timeUp = False
             break
@@ -30,8 +30,15 @@ async def wait_start(room):
         return -1
     return 0
 
+def killSpareRoom():
+    for room in room_list:
+        if room.roomId == -1:
+            index = room_list.index(room)
+            room_list.pop(index)
+
 @gameTurn.route('/turnStart', methods=['POST'])
 async def handle_turnStart():
+    killSpareRoom()
     data = request.get_json()
     print('turnStart:')
     print(data)   

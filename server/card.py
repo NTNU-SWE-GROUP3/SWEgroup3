@@ -13,7 +13,7 @@ card = Blueprint("card", __name__, url_prefix="/api")
 def timer(time_up_event,room):
     start_time = time.time()
     timeUp = True
-    while time.time() - start_time < 10:
+    while time.time() - start_time < 30:
         if room.player1CurCardId != -1 and room.player2CurCardId != -1:
             timeUp = False
             break

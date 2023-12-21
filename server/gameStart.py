@@ -12,10 +12,10 @@ room_list.append(room)
 #-------------------------------------------------------------
 
 
-@gameStart.route('/gameStart', methods=['POST'])
-def handle_request():   
+@gameStart.route('/getCardSet', methods=['POST'])
+def handle_getCardSet():   
     data = request.get_json()
-    print('gameStart:')
+    print('getCardSet:')
     print(data)   
     gameType = data["gameType"]
     roomId = data["roomId"]
@@ -43,19 +43,30 @@ def handle_request():
     return jsonify(response_data)
 
 
-@gameStart.route('/gameStart2', methods=['POST'])
-def handle_request2():      
-    gameType = request.form.get("gameType")
-    if gameType == 0:#PVE
-        room = gameClass.creat_room(0,1,'ABC','computer')#roomId, player1_token, player2_token 
-        response_data = dict(roomId=room.roomId, playerCardSet = room.player1.card_set.set , opponentCardSet = room.player2.card_set.set)
-        room_list.append(room)
-    else:#PVP
-        room = gameClass.creat_room(1,1,'ABC','XYZ')#roomId, player1_token, player2_token 
-        response_data = dict(roomId=room.roomId, playerCardSet = room.player1.card_set.set , opponentCardSet = room.player2.card_set.set)
-        room_list.append(room)
+@gameStart.route('/gameStart', methods=['POST'])
+def handle_request():   
+    data = request.get_json()
+    print('gameStart:')
+    print(data)   
+    gameType = data["gameType"]
+    roomId = data["roomId"]
+    player1Token = data["player1Token"]
+    player2Token = data["player2Token"]
+    print("Player:" + str(roomId))
+    print(room_list)
 
+    playerRoom = gameClass.creat_room( gameType, roomId, player1Token, player2Token )
+    room_list.append(playerRoom)
+    
+
+    if(playerRoom.roomId == -1):
+        response_data = dict(roomId=-1, playerCardSet = 'None' , opponentCardSet = 'None')
     print(response_data)
+
+    playerRoom.time_is_up = False
+    playerRoom.start_timer(30) # the room will be remvoed when no player send signals in 20 seconds.
     return jsonify(response_data)
 
+# Promising that gameType is correct: 0 for PVE, 1 for PVP
+# Promising that if PVE, then Player2Token == 'computer'
 

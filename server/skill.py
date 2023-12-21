@@ -73,7 +73,7 @@ def useSkill(room,playerToken,SkillId,cardId):
 def timer(time_up_event,room):
     start_time = time.time()
     timeUp = True
-    while time.time() - start_time < 10:
+    while time.time() - start_time < 30:
         if room.player1CurSkillId != -2 and room.player2CurSkillId != -2:
             timeUp = False
             break
@@ -95,7 +95,7 @@ async def wait_skill(room):
 def timer2(time_up_event,room,player):
     start_time = time.time()
     timeUp = True
-    while time.time() - start_time < 10:
+    while time.time() - start_time < 30:
         if room.player1CurSkillCardId != -2 and player == 2:
             timeUp = False
             break
@@ -109,7 +109,7 @@ def timer2(time_up_event,room,player):
 def timer3(time_up_event,room):
     start_time = time.time()
     timeUp = True
-    while time.time() - start_time < 10:
+    while time.time() - start_time < 30:
         if room.delimmaCardId1 != -2 and room.delimmaCardId2 != -2:
             timeUp = False
             break
