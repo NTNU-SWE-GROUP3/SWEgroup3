@@ -17,12 +17,7 @@ public class SkillSlotClickHandler : MonoBehaviour
         description = desc;
         probability = prob;
     }
-
-    // public void SetSkillPopup(SkillPopup popup)
-    // {
-    //     skillPopup = popup;
-    // }
-
+    
     public void OnPointerClick()
     {
         skillPopup.SetActive(true);

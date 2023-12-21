@@ -6,19 +6,16 @@ using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using TMPro;
 
+
 public class SkillCardDisplay : MonoBehaviour
 {
     public GameObject Skill_Bar;
     public GameObject Skill_slotPrefab;
+    // private string serverUrl = "http://127.0.0.1:5050";
     private DontDestroy userdata;
-    // public SkillPopup skillDescriptionPanel;
 
-    // Replace with your Flask server URL
     private string serverUrl = "http://140.122.185.169:5050";
 
-    //private string token;
-
-    // Start is called before the first frame update
     void Start()
     {
         Debug.Log("displayingskillllllllllll");
@@ -28,14 +25,12 @@ public class SkillCardDisplay : MonoBehaviour
 
     public IEnumerator DisplaySkillStyle()
     {
-        //Button skillButton = null;
         string urlCard = serverUrl + "/skill_style/display_skill_style";
         WWWForm form = new WWWForm();
         string token = userdata.token;
+        // string token = "token123";
         Debug.Log("Display token: " + token);
-        //string skillId = "1";
         form.AddField("Token", token);
-        //form.AddField("SkillId", skillId);
 
         // HANDLE CARD DISPLAYED BY TOKEN 
         UnityWebRequest requestCard = UnityWebRequest.Post(urlCard, form);
