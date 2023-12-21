@@ -4722,7 +4722,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1497517800}
         m_TargetAssemblyTypeName: BackToLogin, Assembly-CSharp
         m_MethodName: ReLogin
         m_Mode: 1
@@ -19263,6 +19263,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1491211904}
   m_CullTransparentMesh: 1
+--- !u!114 &1497517800 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7896146215662171552, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
+  m_PrefabInstance: {fileID: 3915036173632937927}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 858120165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daafa627378ca4dd18f2036ecb1e9a64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1497517805
 MonoBehaviour:
   m_ObjectHideFlags: 0
