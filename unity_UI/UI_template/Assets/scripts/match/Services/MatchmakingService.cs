@@ -238,6 +238,11 @@ public static class MatchmakingService
 
         UnityWebRequest www = UnityWebRequest.Post( StartGameURL, form);
         yield return www.SendWebRequest();
+
+        if (www.result == UnityWebRequest.Result.Success )
+        {
+            SceneManager.LoadScene(2);
+        }
     }
 }
 
