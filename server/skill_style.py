@@ -16,163 +16,6 @@ skill_style = Blueprint('skill_style', __name__, url_prefix='/skill_style')
 
 conn = None
 
-''' ==============================
-getplayerdata Request (get player skill)
-input
-    token ID
-    target skill
-output
-    status
-        200040 : equip Success
-        200041 : equip failed
-        200052 : user doesnt have this item
-============================== '''
-
-# @skill_style.route('/equip_skill_style', methods=['POST'])
-
-# def EquipSkillStyle():
-
-#     # DataBase connection
-#     # global conn
-#     # if not conn:
-#     #     conn = BPManager(password_file='/run/secrets/bp-password')
-
-#     if not connection:
-#         print("Failed to connect to the database.")
-#         return False
-    
-#     # Input
-#     token = request.form.get('Token')
-#     #skill_id = request.form.get('SkillId')
-#     current_app.logger.info("token: %s", token)
-
-#     # # Input validation
-#     # # there should check if the input are dangerous
-
-#     #token expiredtime
-#     expiredtime = conn.GetTokenExpiredTime(token)
-#     current_app.logger.info("Expired time: %s", expiredtime)
-#     now = datetime.datetime.now()
-#     current_app.logger.info("Now: %s || Expired time: %s)", now, expiredtime)
-#     if (expiredtime == -1):
-#         return jsonify(status = "403011", msg = "No such token")
-#     elif(now > expiredtime):
-#         return jsonify(status = "403011", msg = "Token expired")
-    
-#     targetSkillStyle = request.form.get('TargetSkillStyle')
-#     current_app.logger.info("target skill style: %s", targetSkillStyle)
-
-#     #check if user have the skill style
-#     skillStyle = conn.GetSkillStyle(token, targetSkillStyle)
-#     current_app.logger.info("have skill style: ", skillStyle)
-#     if skillStyle==-1:
-#         current_app.logger.info("User does not have this item")
-#         return jsonify(status = "200051", token = token)
-    
-#     #success
-#     conn.EquipSkillStyle(token, targetSkillStyle)
-#     current_app.logger.info("User has successfully equipped this item")
-#     return jsonify(status="200040")
-
-# # DISPLAY SKILL IN UNITY ?
-
-# @skill_style.route("/display_skill_style", methods=['POST'])
-# def DisplaySkillStyle():
-    
-#     # #database connection
-#     # global conn
-#     # if not conn:
-#     #     conn = BPManager(password_file='/run/secrets/db-password')
-
-#     connection = func.create_mysql_connection()
-
-#     if not connection:
-#         print("Failed to connect to the database.")
-#         return False
-    
-#     cursor = connection.cursor()
-
-#     #input
-#     #skill_id = request.form.get('SkillId')
-#     token = request.form.get('Token')
-#     current_app.logger.info("tokenID: %s", token)
-#     #current_app.logger.info("target skill id: %s", skill_id)
-#     current_app.logger.info(request.form.items())
-    
-#     #check token validity
-#     expiredtime = conn.GetTokenExpiredTime(token)
-#     current_app.logger.info("Expired time: %s", expiredtime)
-#     now = datetime.datetime.now()
-#     current_app.logger.info("Now: %s || Expired time: %s)", now, expiredtime)
-#     if (expiredtime == -1):
-#         return jsonify(status = "403011", msg = "No such token")
-#     elif(now > expiredtime):
-#         return jsonify(status = "403011", msg = "Token expired")
-
-#     #targetSkill = request.form.get('SkillId')
-#     #current_app.logger.info("target skill: %d", targetSkill)
-
-#     #success
-#     skillStyle = conn.DisplaySkillStyle(token)
-#     current_app.logger.info("Retrieved skillStyle: %s", skillStyle)
-
-#     #return skill list
-#     return jsonify(status = "400055",
-#                    msg = "Success",
-#                    token = token,
-#                    skillStyles = skillStyle)
-
-
-# @skill_style.route("/display_skill_desc", methods=['POST'])
-# def DisplaySkillDesc():
-    
-#     # #database connection
-#     # global conn
-#     # if not conn:
-#     #     conn = BPManager(password_file='/run/secrets/db-password')
-
-#     connection = func.create_mysql_connection()
-
-#     if not connection:
-#         print("Failed to connect to the database.")
-#         return False
-
-#     #input
-#     #skill_id = request.form.get('SkillId')
-#     token = request.form.get('Token')
-#     current_app.logger.info("tokenID: %s", token)
-#     #current_app.logger.info("target skill id: %s", skill_id)
-#     current_app.logger.info(request.form.items())
-    
-#     #check token validity
-#     expiredtime = conn.GetTokenExpiredTime(token)
-#     current_app.logger.info("Expired time: %s", expiredtime)
-#     now = datetime.datetime.now()
-#     current_app.logger.info("Now: %s || Expired time: %s)", now, expiredtime)
-#     if (expiredtime == -1):
-#         return jsonify(status = "403011", msg = "No such token")
-#     elif(now > expiredtime):
-#         return jsonify(status = "403011", msg = "Token expired")
-
-#     #targetSkill = request.form.get('SkillId')
-#     #current_app.logger.info("target skill: %d", targetSkill)
-
-#     #success
-#     skillName = conn.getSkillName(token)
-#     skillDesc = conn.getSkillDesc(token)
-#     skillProb = conn.getSkillProb(token)
-#     current_app.logger.info("Retrieved skillname: %s", skillName)
-#     current_app.logger.info("Retrieved skilldesc: %s", skillDesc)
-#     current_app.logger.info("Retrieved skillprob: %s", skillProb)
-
-#     #return skill list
-#     return jsonify(status = "400055",
-#                    msg = "Success",
-#                    token = token,
-#                    skillName = skillName,
-#                    skillDesc = skillDesc,
-#                    skillProb = skillProb)
-
 @skill_style.route("/display_skill_style", methods=['POST'])
 def DisplaySkillStyle():
     try:
@@ -229,41 +72,9 @@ def GetSkillStyle(token_id):
     except Exception as e:
         print("Error in DisplaySkillStyle:", e)
         return False
-
-@skill_style.route("/display_skill_desc", methods=['POST'])
-def DisplaySkillDesc():
-    try:
-        skill_id = request.form.get('Skill_id')
-        #token = request.form.get('Token')
-        #current_app.logger.info("tokenID: %s", token)
-
-        skillDesc = GetSkillDesc(skill_id)
-        return skillDesc
-
-    except Exception as e:
-        print("Error in displayskillstyle:", e)
-        return None
     
-def GetSkillDesc(skill_id):
-    try:
-        connection = func.create_mysql_connection()
-        if not connection:
-            print("Failed to connect to the database.")
-            return None
-
-        cursor = connection.cursor()
-        cursor.execute("SELECT skill_name, skill_description, skill_probability FROM skill WHERE skill_id = %s", (skill_id))
-        response = cursor.fetchall()
-        print("Skilldesc = ", response)
-        connection.close()
-        return response
-    
-    except Exception as e:
-        print("Error in Getskilldesc:", e)
-        return None
-    
-@skill_style.route("/equip_skill", methods=['POST'])
-def EquipSkill():
+@skill_style.route("/check_equip_status", methods=['POST'])
+def CheckEquipStatus():
     try:
         tokenId = request.form.get("tokenId")
         targetSkillId = request.form.get("targetSkillId")
@@ -271,35 +82,20 @@ def EquipSkill():
         print("Token ID: ", tokenId)
         print("Target skill ID: ", targetSkillId)
 
-        haveItem = HaveSkillstyle(tokenId, targetSkillId)
-        print("haveItem: ", haveItem)
-
-        if haveItem:
-            unselectSkinId = FindEquippedskillstyle(tokenId)
-            print("target unselect skin id: ", unselectSkinId)
-            if unselectSkinId:
-                unEquipSuccess = UnEquipSkillstyle(tokenId, unselectSkinId)
-                if not unEquipSuccess:
-                    print("Failed to unequip skin")
-                    return False
-                print("Succeeded to unequip skin")
-            equipSuccess = UpdateEquipStatus(tokenId, targetSkillId)
-            if equipSuccess:
-                print("Successfully equipped skin")
-                return jsonify(status="200001")
-            else:
-                print("Failed to equip skin")
-                return jsonify(status="200021")
+        equip_stat = checkstatus(tokenId, targetSkillId)
+        print("equip STATUS ", equip_stat)
+        if(equip_stat): #true
+            return "1"
         else:
-            print("User doesn't have this item in inventory")
-            return jsonify(status="200022")
+            return "0"
+
     except Exception as e:
         traceback.print_exc()
         error_message = "Internal Server Error"
         response = {"error": str(e) if str(e) else error_message}
         return jsonify(response), 500
     
-def HaveSkillstyle(tokenId, targetSkillId):
+def checkstatus(tokenId, targetSkillId):
     try:
         conn = func.create_mysql_connection()
         if not conn:
@@ -310,95 +106,120 @@ def HaveSkillstyle(tokenId, targetSkillId):
         
         cursor = conn.cursor()
         cursor.execute(
-            "SELECT acs.card_style_id "
+            "SELECT acs.equip_status "
             "FROM account a "
-            "JOIN account_card_style acs ON a.id = acs.account_id "
-            "WHERE a.token_id = %s AND acs.card_style_id = %s ",
+            "JOIN account_skill acs ON a.id = acs.account_id "
+            "WHERE a.token_id = %s AND acs.skill_id = %s ",
             # "LIMIT 1", 
             (tokenId, targetSkillId,))
         
         result = cursor.fetchone()
         print("result: ", result)
 
-        if result is not None:
-            print("User has this item")
+        if result is 1:
+            print("status : item is equipped")
             conn.close()
             return True
-        else:
-            print("User doesn't have this item")
+        elif result is 0:
+            print("status : item not equipped, equipping...")
             conn.close()
             return False
         
     except Exception as e:
-        print("Error in HaveSkillstyle:", e)
+        print("Error in checkequipstatus:", e)
         conn.close()
         return False
     
-def UpdateEquipStatus(tokenId, targetSkillId):
+@skill_style.route("/toggle_equip_status", methods=['POST'])
+def ToggleEquipStatus():
     try:
-        conn = func.create_mysql_connection()
-        cursor = conn.cursor()
-        cursor.execute(
-            "UPDATE account_card_style acs "
-            "JOIN account a ON a.id = acs.account_id "
-            "SET acs.equip_status = 1 "
-            "WHERE a.token_id = %s AND acs.card_style_id = %s",
-            (tokenId, targetSkillId,)
-        )
-        conn.commit()
-        conn.close()
-        print("Successfully equipped skill")
-        return True     
+        tokenId = request.form.get("tokenId")
+        targetSkillId = request.form.get("targetSkillId")
 
-    except Exception as e:
-        print("Error in Equipskillstyle")
-        conn.close()
-        return False
-    
-def UnEquipskillstyle(tokenId, targetSkillId):
-    try:
-        conn = func.create_mysql_connection()
-        cursor = conn.cursor()
-        cursor.execute(
-            "UPDATE account_card_style acs "
-            "JOIN account a ON a.id = acs.account_id "
-            "SET acs.equip_status = 0 "
-            "WHERE a.token_id = %s AND acs.card_style_id = %s",
-            (tokenId, targetSkillId,)
-        )
-        conn.commit()
-        conn.close()
-        print("Successfully unequipped skill")
-        return True
-    except Exception as e:
-        print("Error in UnEquipskillstyle")
-        conn.close()
-        return False
+        print("Token ID: ", tokenId)
+        print("Target skill ID: ", targetSkillId)
 
-def FindEquippedskillstyle(tokenId):
-    try:
-        conn = func.create_mysql_connection()
-        cursor = conn.cursor()
-        cursor.execute(
-            "SELECT acs.card_style_id "
-            "FROM account a "
-            "JOIN account_card_style acs ON a.id = acs.account_id "
-            "WHERE a.token_id = %s AND acs.equip_status = 1",
-            (tokenId,)
-        )
-        result = cursor.fetchone()
-        if result:
-            equippedSkin = result[0]
-            print("equippedSkin: ", equippedSkin)
-            conn.close()
-            return equippedSkin
+        current_status = checkstatus(tokenId, targetSkillId)
+        new_status = not current_status  # Toggle the current status
+
+        # Print the current and new equip status for debugging
+        print("Current Equip Status: ", current_status)
+        print("New Equip Status: ", new_status)
+
+        # Update the equip status in the database
+        update_status_success = updateEquipStatus(tokenId, targetSkillId, new_status)
+
+        if update_status_success:
+            return "1" if new_status else "0"  # Return the new equip status
         else:
-            print("No equipped skin")
-            conn.close()
-            return None
-        
+            return "Error updating equip status", 500
+
     except Exception as e:
-        print("Error in FindEquippedskillstyle")
+        traceback.print_exc()
+        error_message = "Internal Server Error"
+        response = {"error": str(e) if str(e) else error_message}
+        return jsonify(response), 500
+
+
+def updateEquipStatus(tokenId, targetSkillId, new_status):
+    try:
+        conn = func.create_mysql_connection()
+        if not conn:
+            print("Failed to connect to the database.")
+            return False
+
+        print("Successfully connected to server")
+
+        cursor = conn.cursor()
+
+        # Update the equip_status in the database
+        cursor.execute(
+            "UPDATE account_skill "
+            "SET equip_status = %s "
+            "WHERE account_id = (SELECT id FROM account WHERE token_id = %s) "
+            "AND skill_id = %s",
+            (int(new_status), tokenId, targetSkillId)
+        )
+
+        conn.commit()
         conn.close()
-        return None
+        return True
+
+    except Exception as e:
+        print("Error in updateEquipStatus:", e)
+        conn.close()
+        return False
+
+def checkstatus(tokenId, targetSkillId):
+    try:
+        conn = func.create_mysql_connection()
+        if not conn:
+            print("Failed to connect to the database.")
+            return False
+
+        print("Successfully connected to the server")
+
+        cursor = conn.cursor()
+        cursor.execute(
+            "SELECT acs.equip_status "
+            "FROM account a "
+            "JOIN account_skill acs ON a.id = acs.account_id "
+            "WHERE a.token_id = %s AND acs.skill_id = %s",
+            (tokenId, targetSkillId,)
+        )
+
+        result = cursor.fetchone()
+        print("result: ", result)
+
+        if result is not None:
+            equip_status = result[0]
+            print("equip_status: ", equip_status)
+            conn.close()
+            return equip_status == 1
+
+    except Exception as e:
+        print("Error in checkstatus:", e)
+
+    conn.close()
+    return False
     
