@@ -32,6 +32,20 @@ public class SkillSlotScript : MonoBehaviour
         }
     }
 
+    // public void OnSkillSlotClicked()
+    // {
+    //     // Replace with the actual popup panel prefab
+    //     GameObject SkillPopupObject = Instantiate(SkillPopupPrefab);
+    //     SkillPopup popupScript = SkillPopupObject.GetComponent<SkillPopup>();
+
+    //     // Set the content based on the skillStyleID
+    //     popupScript.ShowSkillInfo(GetSkillName(skillStyleID), GetSkillDesc(skillStyleID), GetSkillProbability(skillStyleID));
+
+    //     // Attach a close button listener to destroy the popup when closed
+    //     Button closeButton = SkillPopupObject.GetComponentInChildren<Button>();
+    //     closeButton.onClick.AddListener(() => Destroy(SkillPopupObject));
+    // }
+
     private Sprite GetSkillSprite(int skillStyleID)
     {
         // // Load the sprites from the specified folder
