@@ -70,6 +70,8 @@ def useSkill(room,playerToken,SkillId,cardId):
         if room.player1.token == playerToken:
             if cardId == -1:
                 room.player1CurSkillCardId = cardId
+                print("player1CurSkillCardId:")
+                print(room.player1CurSkillCardId)
                 return
             print(room.player2.card_set.card_ids.index)
             index = room.player2.card_set.card_ids.index(cardId)
@@ -78,6 +80,8 @@ def useSkill(room,playerToken,SkillId,cardId):
 
         else:
             if cardId == -1:
+                print("player1CurSkillCardId:")
+                print(room.player1CurSkillCardId)
                 room.player2CurSkillCardId = cardId
                 return
             print(room.player1.card_set.card_ids.index)
@@ -113,7 +117,7 @@ async def wait_skill(room):
 def timer2(time_up_event,room,player):
     start_time = time.time()
     timeUp = True
-    while time.time() - start_time < 10:
+    while time.time() - start_time < 18:
         if room.player1CurSkillCardId != -2 and player == 2:
             timeUp = False
             break

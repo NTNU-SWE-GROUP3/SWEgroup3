@@ -21,6 +21,7 @@ public class ShowCard : MonoBehaviour
     public Text PlayerEarnText;
     public Text OpponentEarnText;
     public static bool isRevolution;
+    public static bool isEasyDelete = false;
     public bool isPlayerPeasantImmunity;
     public bool isComPeasantImmunity;
     public int PlayerX;
@@ -336,6 +337,7 @@ public class ShowCard : MonoBehaviour
                         PlaySE(SkillSound);
                         skillMessage.text = "簡易剔除!";
                         skillDescription.text = "請選擇一張牌剔除";
+                        isEasyDelete = true;
                         PlayerSimpleRejection();
                         RejectTimerText.gameObject.SetActive(true);
                         while(RejectTimer >= 0)
@@ -345,6 +347,10 @@ public class ShowCard : MonoBehaviour
                             RejectTimer -- ;
                         }
                         RejectTimerText.gameObject.SetActive(false);
+                        if(isEasyDelete == true)
+                        {
+                            StartCoroutine(SendSkillCardSkip());
+                        }
                     }
                 }
                 if(OpponentCard.id == 7)
@@ -619,6 +625,42 @@ public class ShowCard : MonoBehaviour
         else //Opponent
         {
             OpponentEarnText.text  = (OpponentEarn.transform.childCount + OpponentX).ToString();
+        }
+    }
+
+    public IEnumerator SendSkillCardSkip()
+    {
+        SkillSelection gs = gameObject.AddComponent<SkillSelection>();
+        gs.gameType = 1;
+        gs.roomId = 1;
+        gs.playerToken = "ABC";
+        gs.playerSkillID = 11;//簡單剔除
+        gs.cardId = -1;
+        
+        CoroutineWithData cd = new CoroutineWithData(this, Flask.SendRequest(gs.SaveToString(),"useSkill"));
+        yield return cd.coroutine;
+        Debug.Log("return : " + cd.result);
+
+        string retString = cd.result.ToString();
+        SkillMsgBack ret = new SkillMsgBack();
+        if (retString == "ConnectionError" || retString == "ProtocolError" || retString == "InProgress" || retString == "DataProcessingError")
+        {
+            Debug.Log("SkipButton:" + retString);
+            //here should back to login scene
+        }
+        else
+        {
+            ret = SkillMsgBack.CreateFromJSON(cd.result.ToString());
+        }
+
+        if(ret.OpponentSkillId == -1)
+        {
+            Debug.Log("SkipButton:" + ret.errMessage);
+            //back to game lobby or main scene
+        }
+        else
+        {
+            Debug.Log("SkipButton:" + ret.errMessage);
         }
     }
 }

@@ -44,7 +44,7 @@ public class SkipButton : MonoBehaviour
     public void ClickSkip()
     {
         Debug.Log("ClickSkip:" + GameController.PlayerSkillId);
-        if(GameController.PlayerSkillId == 2 || GameController.PlayerSkillId == 3 )//簡易剔除 should be added in.
+        if(GameController.PlayerSkillId == 2 || GameController.PlayerSkillId == 3 )
         {
             StartCoroutine(SendSkillCard(GameController.PlayerSkillId));
         }

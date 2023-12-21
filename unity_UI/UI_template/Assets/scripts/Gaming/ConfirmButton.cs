@@ -77,11 +77,10 @@ public class ConfirmButton : MonoBehaviour
         {
             if(gameType == 1)
             {
-                Debug.Log("ONCLICK");
                 StartCoroutine(SendSkillCard(11));
-                Debug.Log("ONCLICKEND");
+                
             }
-
+            ShowCard.isEasyDelete = false;
             deleteChange.Delete(OpponentArea,ClickDetector.cardId);
             ShowCard.RejectTimer = 0;
             MessagePanel.SetActive(false);
