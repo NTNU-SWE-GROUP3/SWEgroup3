@@ -331,6 +331,11 @@ public class ShowCard : MonoBehaviour
                 {
                     if (isComPeasantImmunity == true)
                          yield return StartCoroutine(PeasantImmunity());
+                    else if(OpponentArea.transform.childCount == 0)
+                    {
+                        skillMessage.text = "簡易剔除!";
+                        skillDescription.text = "對手已無牌可剃除";
+                    }
                     else
                     {
                         PlaySE(SkillSound);
@@ -351,6 +356,11 @@ public class ShowCard : MonoBehaviour
                 {
                     if (isPlayerPeasantImmunity == true)
                          yield return StartCoroutine(PeasantImmunity());
+                    else if(PlayerArea.transform.childCount == 0)
+                    {
+                        skillMessage.text = "簡易剔除!";
+                        skillDescription.text = "玩家已無牌可剃除";
+                    }
                     else
                     {
                         PlaySE(SkillSound);

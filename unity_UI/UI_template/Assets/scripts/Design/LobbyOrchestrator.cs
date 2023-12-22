@@ -13,6 +13,17 @@ using System.Collections;
 ///     but the transport and RPC logic remains here. It's possible we could pull
 /// </summary>
 public class LobbyOrchestrator : NetworkBehaviour {
+
+    private DontDestroy userdata;
+    static int userRank;
+    static string userID;
+
+    void start()
+    {
+        userdata = FindObjectOfType<DontDestroy>();
+        userRank = int.Parse(userdata.rank);
+        userID = userdata.token;
+    }
     public static async void FriendCreate()
     {
         await Authentication.Login();
@@ -24,7 +35,8 @@ public class LobbyOrchestrator : NetworkBehaviour {
                 {
                     MaxPlayers = 2,
                     Difficulty = 0,
-                    Type = 1
+                    Type = 1,
+                    P1ID = userID,
                 };
 
                 await MatchmakingService.CreateLobbyWithAllocation(data);
@@ -44,7 +56,7 @@ public class LobbyOrchestrator : NetworkBehaviour {
         await Authentication.Login();
         //using (new Load("Joining Lobby...")) {
             try {
-                await MatchmakingService.JoinLobbyWithAllocationCode( code );
+                await MatchmakingService.JoinLobbyWithAllocationCode( code, userID );
                 //NetworkManager.Singleton.StartClient();
             }
             catch (Exception e) {
@@ -52,5 +64,31 @@ public class LobbyOrchestrator : NetworkBehaviour {
                 //CanvasUtilities.Instance.ShowError("Failed joining lobby");
             }
         //}
+    }
+
+    public static async void LobbyRank()
+    {
+        await Authentication.Login();
+        try{
+            if( userRank.Equals("1") || userRank.Equals("2") )         await MatchmakingService.CreateOrJoinLobby( 2, 1, userID );
+            else if( userRank.Equals("3") || userRank.Equals("4") )    await MatchmakingService.CreateOrJoinLobby( 2, 2, userID );
+            else if( userRank.Equals("5") )                            await MatchmakingService.CreateOrJoinLobby( 2, 3, userID );
+            else if( userRank.Equals("6") )                            await MatchmakingService.CreateOrJoinLobby( 2, 4, userID );
+            else if( userRank.Equals("7") )                            await MatchmakingService.CreateOrJoinLobby( 2, 5, userID );
+        }
+        catch ( Exception e ){
+            Debug.LogError(e);
+        }
+    }
+
+    public static async void LobbyNormal()
+    {
+        await Authentication.Login();
+        try{
+            await MatchmakingService.CreateOrJoinLobby( 1, 0, userID ); // Level is editing...
+        }
+        catch ( Exception e ){
+            Debug.LogError(e);
+        }
     }
 }

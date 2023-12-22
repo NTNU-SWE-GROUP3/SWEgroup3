@@ -17,22 +17,20 @@ public class LobbyController : MonoBehaviour
         LeaveLobby();
     }
     public void EnterLobbyNormal(){
-        Lobby.SetActive(true);
-        UIsys.SetActive(false);
+        LobbyOrchestrator.LobbyNormal();
     }
     public void EnterLobbyRank(){
-        
+        LobbyOrchestrator.LobbyRank();
     }
     public void CreateLobbyFriend(){
-
         LobbyOrchestrator.FriendCreate();
     }
     public void JoinLobbyFriend(){
-        Debug.Log( $"Lobby Code input: {_joinCodeText.text.Replace("\u200B", "")}" );
         LobbyOrchestrator.FriendJoin( _joinCodeText.text.Replace("\u200B", "") );
     }
 
-    public void LeaveLobby(){
+    public async void LeaveLobby(){
+        await MatchmakingService.LeaveLobby();
         UIsys.SetActive(true);
         Lobby.SetActive(false);
     }

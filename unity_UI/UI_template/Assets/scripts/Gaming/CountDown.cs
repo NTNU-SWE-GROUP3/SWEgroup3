@@ -50,6 +50,11 @@ public class CountDown : MonoBehaviour
     {
         MessagePanel.SetActive(false);
         TurnTime = 5;
+        if(UseSkill.UseTimeLimit == true)
+        {
+            TurnTime --;
+            UseSkill.UseTimeLimit = false;
+        }
         timeUp = false;
         TimerText.gameObject.SetActive(true);
         if (ConfirmButton.CardSelected == false && UseSkill.PlayerIsdilemmaDictator == true)

@@ -10,12 +10,23 @@ using PurchaseControl;
 
 public class Action : MonoBehaviour
 {
+    // URL
     [SerializeField] string apiUrl = "http://140.122.185.169:5050/gacha/draw";       // call API endpoint
+    
 
-    // default playerId = 1, mode = coin, times = 1
-    [SerializeField] string playerId = "";
+    // [SerializeField] string playerId = "";
+
     [SerializeField] string mode = "coin";
-    [SerializeField] GotchaPanel gotchaPanel;
+
+    // Flag
+    public bool yesClicked = false;
+    public bool noClicked = false;
+    public bool buyClicked = false;
+    public bool cancelClicked = false;
+    public bool okButtonClicked = false;
+    public bool duplicate = false;
+
+    // GameObject
     [SerializeField] GameObject messagePanel;
     [SerializeField] GameObject resultPanel;
     [SerializeField] GameObject purchasePanel;
@@ -26,6 +37,9 @@ public class Action : MonoBehaviour
     [SerializeField] GameObject okButton10;
     [SerializeField] GameObject gachaResult1;
     [SerializeField] GameObject gachaResult10;
+
+    [SerializeField] GotchaPanel gotchaPanel;
+
     [SerializeField] Button yesButton;
     [SerializeField] Button noButton;
     [SerializeField] Button buyButton;
@@ -38,16 +52,14 @@ public class Action : MonoBehaviour
     public ErrorMessage errorController;
     public ImageManager imageManager;
     public BackToLogin backToLogin;
-    public bool yesClicked = false;
-    public bool noClicked = false;
-    public bool buyClicked = false;
-    public bool cancelClicked = false;
-    public bool okButtonClicked = false;
-    public bool duplicate = false;
+    public UpdateGacha updateGacha;
+
 
     private string response;
     private DontDestroy userdata;
-
+    
+    public Button UserWarningButton;
+   
 
     [System.Serializable]
     public class apiResponse
@@ -318,6 +330,8 @@ public class Action : MonoBehaviour
                     StartCoroutine(ShowResponseAnimation10(response));
                 }
             }
+            updateGacha.UpdateUserGeneralData();
+            updateGacha.UpdateUserBackpack();
         }
     }
     IEnumerator ShowResponseAnimation1(string response)
@@ -406,5 +420,7 @@ public class Action : MonoBehaviour
         }
     }
 
+
+    
 
 }
