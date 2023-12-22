@@ -15,6 +15,7 @@ public class EquipButtonController : MonoBehaviour
     private void Start()
     {
         StartCoroutine(StartCheckEquipStatusAndUpdateUI());
+        userdata = FindObjectOfType<DontDestroy>();
     }
 
     // Call this method to set the current skillStyleID
@@ -32,14 +33,14 @@ public class EquipButtonController : MonoBehaviour
 
     IEnumerator StartCheckEquipStatusAndUpdateUI()
     {
-        string url = "http://127.0.0.1:5050/skill_style/check_equip_status";
-        // string url = "http://140.122.185.169:5050/skill_style/check_equip_status";
+        // string url = "http://127.0.0.1:5050/skill_style/check_equip_status";
+        string url = "http://140.122.185.169:5050/skill_style/check_equip_status";
 
         WWWForm form = new WWWForm();
         // int targetSkillId = skillStyleID;
         int targetSkillId = 1;
-        // string token = userdata.token;
-        string token = "token123";
+        string token = userdata.token;
+        // string token = "token123";
         
         form.AddField("tokenId", token);
         form.AddField("targetSkillId", targetSkillId);
@@ -65,14 +66,14 @@ public class EquipButtonController : MonoBehaviour
 
     IEnumerator CheckEquipStatusAndUpdateUI()
     {
-        string url = "http://127.0.0.1:5050/skill_style/check_equip_status";
-        // string url = "http://140.122.185.169:5050/skill_style/check_equip_status";
+        // string url = "http://127.0.0.1:5050/skill_style/check_equip_status";
+        string url = "http://140.122.185.169:5050/skill_style/check_equip_status";
 
         WWWForm form = new WWWForm();
         // int targetSkillId = skillStyleID;
         int targetSkillId = 1;
-        // string token = userdata.token;
-        string token = "token123";
+        string token = userdata.token;
+        // string token = "token123";
         
         form.AddField("tokenId", token);
         form.AddField("targetSkillId", targetSkillId);
@@ -98,13 +99,13 @@ public class EquipButtonController : MonoBehaviour
 
     IEnumerator ToggleEquipStatus()
     {
-        string url = "http://127.0.0.1:5050/skill_style/toggle_equip_status";
-        // string url = "http://140.122.185.169:5050/skill_style/toggle_equip_status";
+        // string url = "http://127.0.0.1:5050/skill_style/toggle_equip_status";
+        string url = "http://140.122.185.169:5050/skill_style/toggle_equip_status";
 
         WWWForm form = new WWWForm();
-        // string token = userdata.token;
-        string token = "token123";
-        Debug.Log("SkillstyleId dalam toggle : " + skillStyleID);
+        string token = userdata.token;
+        // string token = "token123";
+        Debug.Log("SkillstyleId inside toggle : " + skillStyleID);
         
         // int targetSkillId = skillStyleID;
         int targetSkillId = 1; //test
