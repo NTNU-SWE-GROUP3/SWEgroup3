@@ -53,6 +53,66 @@ public class UIManager : MonoBehaviour
 
     private DontDestroy userdata;
 
+
+    //card style
+    string [][] cardStyleList = new string[][]
+    {
+        new string [] {"1", "Civilian (Frozen)", "Dress up your civilian card with Frozen style!", "Regular"},
+        new string [] {"2", "Assassin (Frozen)", "Dress up your Assassin card with Frozen style!", "Regular"},
+        new string [] {"3", "King (Frozen)", "Dress up your King card with Frozen style!", "Regular"},
+        new string [] {"4", "Knight (Frozen)", "Dress up your Knight card with Frozen style!", "Regular"},
+        new string [] {"5", "Prince (Frozen)", "Dress up your Prince card with Frozen style!", "Regular"},
+        new string [] {"6", "Queen (Frozen)", "Dress up your Queen card with Frozen style!", "Regular"},
+        new string [] {"7", "Civilian (Aladin)", "Dress up your civilian card with Aladin style!", "Regular"},
+        new string [] {"8", "Assassin (Aladin)", "Dress up your Assassin card with Aladin style!", "Regular"},
+        new string [] {"9", "King (Aladin)", "Dress up your King card with Aladin style!", "Regular"},
+        new string [] {"10", "Knight (Aladin)", "Dress up your Knight card with Aladin style!", "Regular"},
+        new string [] {"11", "Prince (Aladin)", "Dress up your Prince card with Aladin style!", "Regular"},
+        new string [] {"12", "Queen (Aladin)", "Dress up your Queen card with Aladin style!", "Regular"},
+        new string [] {"13", "Civilian (Alice In Wonderland)", "Dress up your civilian card with Alice In Wonderland style!", "Regular"},
+        new string [] {"14", "Assassin (Alice In Wonderland)", "Dress up your Assassin card with Alice In Wonderland style!", "Regular"},
+        new string [] {"15", "King (Alice In Wonderland)", "Dress up your King card with Alice In Wonderland style!", "Regular"},
+        new string [] {"16", "Knight (Alice In Wonderland)", "Dress up your Knight card with Alice In Wonderland style!", "Regular"},
+        new string [] {"17", "Prince (Alice In Wonderland)", "Dress up your Prince card with Alice In Wonderland style!", "Regular"},
+        new string [] {"18", "Queen (Alice In Wonderland)", "Dress up your Queen card with Alice In Wonderland style!", "Regular"},
+        new string [] {"19", "Civilian (Cinderella)", "Dress up your civilian card with Cinderella style!", "Regular"},
+        new string [] {"20", "Assassin (Cinderella)", "Dress up your Assassin card with Cinderella style!", "Regular"},
+        new string [] {"21", "King (Cinderella)", "Dress up your King card with Cinderella style!", "Regular"},
+        new string [] {"22", "Knight (Cinderella)", "Dress up your Knight card with Cinderella style!", "Regular"},
+        new string [] {"23", "Prince (Cinderella)", "Dress up your Prince card with Cinderella style!", "Regular"},
+        new string [] {"24", "Queen (Cinderella)", "Dress up your Queen card with Cinderella style!", "Regular"},
+        new string [] {"25", "Civilian (Romeo and Julliette)", "Dress up your civilian card with Romeo and Julliette style!", "Regular"},
+        new string [] {"26", "Assassin (Romeo and Julliette)", "Dress up your Assassin card with Romeo and Julliette style!", "Regular"},
+        new string [] {"27", "King (Romeo and Julliette)", "Dress up your King card with Romeo and Julliette style!", "Regular"},
+        new string [] {"28", "Knight (Romeo and Julliette)", "Dress up your Knight card with Romeo and Julliette style!", "Regular"},
+        new string [] {"29", "Prince (Romeo and Julliette)", "Dress up your Prince card with Romeo and Julliette style!", "Regular"},
+        new string [] {"30", "Queen (Romeo and Julliette)", "Dress up your Queen card with Romeo and Julliette style!", "Regular"},
+        new string [] {"31", "Civilian (Poker)", "Dress up your civilian card with Poker style!", "Regular"},
+        new string [] {"32", "Assassin (Poker)", "Dress up your Assassin card with Poker style!", "Regular"},
+        new string [] {"33", "King (Poker)", "Dress up your King card with Poker style!", "Regular"},
+        new string [] {"34", "Knight (Poker)", "Dress up your Knight card with Poker style!", "Regular"},
+        new string [] {"35", "Prince (Poker)", "Dress up your Prince card with Poker style!", "Regular"},
+        new string [] {"36", "Queen (Poker)", "Dress up your Queen card with Poker style!", "Regular"},
+        new string [] {"37", "Civilian (Chinese Chess)", "Dress up your civilian card with Chinese Chess style!", "Regular"},
+        new string [] {"38", "Assassin (Chinese Chess)", "Dress up your Assassin card with Chinese Chess style!", "Regular"},
+        new string [] {"39", "King (Chinese Chess)", "Dress up your King card with Chinese Chess style!", "Regular"},
+        new string [] {"40", "Knight (Chinese Chess)", "Dress up your Knight card with Chinese Chess style!", "Regular"},
+        new string [] {"41", "Prince (Chinese Chess)", "Dress up your Prince card with Chinese Chess style!", "Regular"},
+        new string [] {"42", "Queen (Chinese Chess)", "Dress up your Queen card with Chinese Chess style!", "Regular"},
+        new string [] {"43", "Civilian (Japanese Chess)", "Dress up your civilian card with Japanese Chess style!", "Regular"},
+        new string [] {"44", "Assassin (Japanese Chess)", "Dress up your Assassin card with Japanese Chess style!", "Regular"},
+        new string [] {"45", "King (Japanese Chess)", "Dress up your King card with Japanese Chess style!", "Regular"},
+        new string [] {"46", "Knight (Japanese Chess)", "Dress up your Knight card with Japanese Chess style!", "Regular"},
+        new string [] {"47", "Prince (Japanese Chess)", "Dress up your Prince card with Japanese Chess style!", "Regular"},
+        new string [] {"48", "Queen (Japanese Chess)", "Dress up your Queen card with Japanese Chess style!", "Regular"},
+        new string [] {"49", "Civilian (Snow White)", "Dress up your civilian card with Snow White style!", "Regular"},
+        new string [] {"50", "Assassin (Snow White)", "Dress up your Assassin card with Snow White style!", "Regular"},
+        new string [] {"51", "King (Snow White)", "Dress up your King card with Snow White style!", "Regular"},
+        new string [] {"52", "Knight (Snow White)", "Dress up your Knight card with Snow White style!", "Regular"},
+        new string [] {"53", "Prince (Snow White)", "Dress up your Prince card with Snow White style!", "Regular"},
+        new string [] {"54", "Queen (Snow White)", "Dress up your Queen card with Snow White style!", "Regular"},
+    };
+
     private void Start()
     {
 
@@ -150,7 +210,6 @@ public class UIManager : MonoBehaviour
                         Warning_Title.text = "Congratulations!";
                         Warning_Message.text = "Equip success!";
                         WarningPanel.SetActive(true);
-                        //change the skin of the card~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~·
                         break;
                     case "200021":
                         Debug.Log("Equip failure");
@@ -308,6 +367,7 @@ public class UIManager : MonoBehaviour
 
         currentSkinIndex = (currentSkinIndex + 1) % skincount;
         UpdateSkinImage();
+        UpdateCardStyleData();
     }
 
     private void OnPrevButtonClicked()
@@ -318,6 +378,7 @@ public class UIManager : MonoBehaviour
 
         currentSkinIndex = (currentSkinIndex - 1 + skincount) % skincount;
         UpdateSkinImage();
+        UpdateCardStyleData();
     }
 
     private void UpdateSkinImage()
@@ -337,19 +398,23 @@ public class UIManager : MonoBehaviour
         NextSkinButton.interactable = true;
     }
 
+    private void UpdateCardStyleData()
+    {
+        int target = getTargetCardStyleId();
+        CardName.text = cardStyleList[target-1][1];
+        CardInfo.text = cardStyleList[target-1][2];
+        Rarity.text = cardStyleList[target-1][3]; 
+    }
+
     private void ViewKingSkin()
     {
         SkinPanel.SetActive(true);
         CurrentCharactor = "King";
         UpdateSkinImage();
+        UpdateCardStyleData();
         NextSkinButton.onClick.AddListener(OnNextButtonClicked);
         PreviousSkinButton.onClick.AddListener(OnPrevButtonClicked);
         CurrentSkinTypeText.text = "國王卡牌造型";
-        int target = getTargetCardStyleId();
-        StartCoroutine(logdata(target));
-        // CardName.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        // CardInfo.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        // Rarity.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
         SellButton.onClick.AddListener(SellSkin);
         EquipButton.onClick.AddListener(EquipSkin);
     }
@@ -359,14 +424,10 @@ public class UIManager : MonoBehaviour
         SkinPanel.SetActive(true);
         CurrentCharactor = "Queen";
         UpdateSkinImage();
+        UpdateCardStyleData();
         NextSkinButton.onClick.AddListener(OnNextButtonClicked);
         PreviousSkinButton.onClick.AddListener(OnPrevButtonClicked);
         CurrentSkinTypeText.text = "皇后卡牌造型";
-        int target = getTargetCardStyleId();
-        StartCoroutine(logdata(target));
-        // CardName.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        // CardInfo.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        // Rarity.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
         SellButton.onClick.AddListener(SellSkin);
         EquipButton.onClick.AddListener(EquipSkin);
     }
@@ -376,14 +437,10 @@ public class UIManager : MonoBehaviour
         SkinPanel.SetActive(true);
         CurrentCharactor = "Prince";
         UpdateSkinImage();
+        UpdateCardStyleData();
         NextSkinButton.onClick.AddListener(OnNextButtonClicked);
         PreviousSkinButton.onClick.AddListener(OnPrevButtonClicked);
         CurrentSkinTypeText.text = "王子卡牌造型";
-        int target = getTargetCardStyleId();
-        StartCoroutine(logdata(target));
-        // CardName.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        // CardInfo.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        // Rarity.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
         SellButton.onClick.AddListener(SellSkin);
         EquipButton.onClick.AddListener(EquipSkin);
     }
@@ -393,14 +450,10 @@ public class UIManager : MonoBehaviour
         SkinPanel.SetActive(true);
         CurrentCharactor = "Knight";
         UpdateSkinImage();
+        UpdateCardStyleData();
         NextSkinButton.onClick.AddListener(OnNextButtonClicked);
         PreviousSkinButton.onClick.AddListener(OnPrevButtonClicked);
         CurrentSkinTypeText.text = "騎士卡牌造型";
-        int target = getTargetCardStyleId();
-        StartCoroutine(logdata(target));
-        // CardName.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        // CardInfo.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        // Rarity.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
         SellButton.onClick.AddListener(SellSkin);
         EquipButton.onClick.AddListener(EquipSkin);
     }
@@ -410,14 +463,12 @@ public class UIManager : MonoBehaviour
         SkinPanel.SetActive(true);
         CurrentCharactor = "Civil";
         UpdateSkinImage();
+        UpdateCardStyleData();
         NextSkinButton.onClick.AddListener(OnNextButtonClicked);
         PreviousSkinButton.onClick.AddListener(OnPrevButtonClicked);
         CurrentSkinTypeText.text = "平民卡牌造型";
         int target = getTargetCardStyleId();
         StartCoroutine(logdata(target));
-        // CardName.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        // CardInfo.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        // Rarity.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
         SellButton.onClick.AddListener(SellSkin);
         EquipButton.onClick.AddListener(EquipSkin);
     }
@@ -427,14 +478,12 @@ public class UIManager : MonoBehaviour
         SkinPanel.SetActive(true);
         CurrentCharactor = "Killer";
         UpdateSkinImage();
+        UpdateCardStyleData();
         NextSkinButton.onClick.AddListener(OnNextButtonClicked);
         PreviousSkinButton.onClick.AddListener(OnPrevButtonClicked);
         CurrentSkinTypeText.text = "殺手卡牌造型";
         int target = getTargetCardStyleId();
         StartCoroutine(logdata(target));
-        // CardName.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        // CardInfo.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        // Rarity.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
         SellButton.onClick.AddListener(SellSkin);
         EquipButton.onClick.AddListener(EquipSkin);
     }
