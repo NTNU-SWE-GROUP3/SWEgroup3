@@ -41,6 +41,7 @@ public class UIManager : MonoBehaviour
     // private static string serverUrl = "http://127.0.0.1:5050";
     private static string serverUrl = "http://140.122.185.169:5050";
     private string serverURL_equip = serverUrl + "/card_style/equip_card_style";
+    // private string serverURL_find_card_style = serverUrl + "/card_style/"
     private string authToken = "";
     // private string authToken = "token123";
 
@@ -50,7 +51,7 @@ public class UIManager : MonoBehaviour
     public Text Warning_Message;
     public Button Warning_ConfirmButton;
 
-    // private DontDestroy userdata;
+    private DontDestroy userdata;
 
     private void Start()
     {
@@ -69,8 +70,8 @@ public class UIManager : MonoBehaviour
         AssassinButton.onClick.AddListener(ViewAssassinSkin);
 
         //Fetching user's token
-        // userdata = FindObjectOfType<DontDestroy>();
-        DontDestroy userdata = FindObjectOfType<DontDestroy>();
+        userdata = FindObjectOfType<DontDestroy>();
+        // DontDestroy userdata = FindObjectOfType<DontDestroy>();
         if(userdata != null)
         {
             authToken = userdata.token;
@@ -89,7 +90,18 @@ public class UIManager : MonoBehaviour
         MaskPanel.SetActive(false);
         currentSkinIndex = 0;
         CurrentCharactor = "";
-}
+    }
+
+    private IEnumerator logdata(int targetCardStyleId)
+    {
+        // Debug.log("log data target card style id: ", targetCardStyleId);
+        yield return StartCoroutine(userdata.Init_Card_Skill_Account_Data(authToken));
+
+        CardName.text = userdata.characterDataList[targetCardStyleId].CardName;
+        CardInfo.text = userdata.characterDataList[targetCardStyleId].CardDescription;
+        Rarity.text = userdata.characterDataList[targetCardStyleId].CardProbability;
+        // Debug.log("Character description: " + cardDescription);
+    }
 
     private IEnumerator EquipSkinGetStatus(string targetCardStyleID, string targetCharacterType)
     {
@@ -106,7 +118,7 @@ public class UIManager : MonoBehaviour
         form.AddField("targetCardStyleId", targetCardStyleID);
         form.AddField("targetCharacterType", targetCharacterType);
         // Debug.Log("Form Contents: " + FormContentsToString(form));
-        Debug.Log("Token" + authToken);
+        Debug.Log("Token: " + authToken);
         Debug.Log("targetCardStyleID: " + targetCardStyleID);
         Debug.Log("targetCharacterType: " + targetCharacterType);
 
@@ -159,6 +171,64 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    private int getTargetCardStyleId()
+    {
+        int idCount = 0;
+        switch(CurrentCharactor)
+        {
+            case "King":
+                idCount = 2;
+                break;
+            case "Queen":
+                idCount = 5;
+                break;
+            case "Prince":
+                idCount = 4;
+                break;
+            case "Knight":
+                idCount = 3;
+                break;
+            case "Civil":
+                idCount = 0;
+                break;
+            case "Killer":
+                idCount = 1;
+                break;
+        }
+        string targetCharacterType = (idCount+1).ToString();
+        Debug.Log($"targetCharacterType_input: {targetCharacterType}");
+        switch(currentSkinIndex)
+        {
+            case 0: //Aladin
+                idCount += 7;
+                break;
+            case 1: //Alice in wonderland
+                idCount += 13;
+                break;
+            case 2: //Chinese chess
+                idCount += 37;
+                break;
+            case 3: //Cinderella
+                idCount += 19;
+                break;
+            case 4: //Frozen
+                idCount += 1;
+                break;
+            case 5: //Japanese chess
+                idCount += 43;
+                break;
+            case 6: //Poker
+                idCount += 31;
+                break;
+            case 7: //Romeo and Juliette
+                idCount += 25;
+                break;
+            case 8: //Snow white
+                idCount += 49;
+                break;
+        }
+        return idCount;
+    }
     private void EquipSkin()
     {
         Debug.Log("EquipSkin button clicked!");
@@ -226,7 +296,7 @@ public class UIManager : MonoBehaviour
     {
         //To be continue
         Warning_Title.text = "Sorry...";
-        Warning_Message.text = "This function is not yet available. Please wait for the next update";
+        Warning_Message.text = "This feature is not yet available. Please wait for the next update";
         WarningPanel.SetActive(true);
     }
 
@@ -275,9 +345,11 @@ public class UIManager : MonoBehaviour
         NextSkinButton.onClick.AddListener(OnNextButtonClicked);
         PreviousSkinButton.onClick.AddListener(OnPrevButtonClicked);
         CurrentSkinTypeText.text = "國王卡牌造型";
-        CardName.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        CardInfo.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        Rarity.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+        int target = getTargetCardStyleId();
+        StartCoroutine(logdata(target));
+        // CardName.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+        // CardInfo.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+        // Rarity.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
         SellButton.onClick.AddListener(SellSkin);
         EquipButton.onClick.AddListener(EquipSkin);
     }
@@ -290,9 +362,11 @@ public class UIManager : MonoBehaviour
         NextSkinButton.onClick.AddListener(OnNextButtonClicked);
         PreviousSkinButton.onClick.AddListener(OnPrevButtonClicked);
         CurrentSkinTypeText.text = "皇后卡牌造型";
-        CardName.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        CardInfo.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        Rarity.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+        int target = getTargetCardStyleId();
+        StartCoroutine(logdata(target));
+        // CardName.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+        // CardInfo.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+        // Rarity.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
         SellButton.onClick.AddListener(SellSkin);
         EquipButton.onClick.AddListener(EquipSkin);
     }
@@ -305,9 +379,11 @@ public class UIManager : MonoBehaviour
         NextSkinButton.onClick.AddListener(OnNextButtonClicked);
         PreviousSkinButton.onClick.AddListener(OnPrevButtonClicked);
         CurrentSkinTypeText.text = "王子卡牌造型";
-        CardName.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        CardInfo.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        Rarity.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+        int target = getTargetCardStyleId();
+        StartCoroutine(logdata(target));
+        // CardName.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+        // CardInfo.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+        // Rarity.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
         SellButton.onClick.AddListener(SellSkin);
         EquipButton.onClick.AddListener(EquipSkin);
     }
@@ -320,9 +396,11 @@ public class UIManager : MonoBehaviour
         NextSkinButton.onClick.AddListener(OnNextButtonClicked);
         PreviousSkinButton.onClick.AddListener(OnPrevButtonClicked);
         CurrentSkinTypeText.text = "騎士卡牌造型";
-        CardName.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        CardInfo.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        Rarity.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+        int target = getTargetCardStyleId();
+        StartCoroutine(logdata(target));
+        // CardName.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+        // CardInfo.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+        // Rarity.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
         SellButton.onClick.AddListener(SellSkin);
         EquipButton.onClick.AddListener(EquipSkin);
     }
@@ -335,9 +413,11 @@ public class UIManager : MonoBehaviour
         NextSkinButton.onClick.AddListener(OnNextButtonClicked);
         PreviousSkinButton.onClick.AddListener(OnPrevButtonClicked);
         CurrentSkinTypeText.text = "平民卡牌造型";
-        CardName.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        CardInfo.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        Rarity.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+        int target = getTargetCardStyleId();
+        StartCoroutine(logdata(target));
+        // CardName.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+        // CardInfo.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+        // Rarity.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
         SellButton.onClick.AddListener(SellSkin);
         EquipButton.onClick.AddListener(EquipSkin);
     }
@@ -350,9 +430,11 @@ public class UIManager : MonoBehaviour
         NextSkinButton.onClick.AddListener(OnNextButtonClicked);
         PreviousSkinButton.onClick.AddListener(OnPrevButtonClicked);
         CurrentSkinTypeText.text = "殺手卡牌造型";
-        CardName.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        CardInfo.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        Rarity.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+        int target = getTargetCardStyleId();
+        StartCoroutine(logdata(target));
+        // CardName.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+        // CardInfo.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+        // Rarity.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
         SellButton.onClick.AddListener(SellSkin);
         EquipButton.onClick.AddListener(EquipSkin);
     }
