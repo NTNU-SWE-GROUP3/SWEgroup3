@@ -12,7 +12,7 @@ public class UIManager : MonoBehaviour
     //Panel
     private GameObject SkinPanel;
     public GameObject MaskPanel;
-    private GameObject WarningPanel;
+    public GameObject WarningPanel;
     //Skin Panel
     public Image CurrentSkinImage;
     public Button PreviousSkinButton;
@@ -38,22 +38,80 @@ public class UIManager : MonoBehaviour
     private int currentSkinIndex = 0;
     private string CurrentCharactor = "";
 
+    // private static string serverUrl = "http://127.0.0.1:5050";
     private static string serverUrl = "http://140.122.185.169:5050";
     private string serverURL_equip = serverUrl + "/card_style/equip_card_style";
-    private string authToken = "token123";
-    // public string[,] cardStyleList = {
-    //     {"id", "1"},
-    //     {"account_id", "1"},
-    //     {"card_style_id", "3"},
-    //     {"equip_status", "0"}
-    // };
-    // private List<DontDestroy.UserCardData> userCardStyleList;
+    // private string serverURL_find_card_style = serverUrl + "/card_style/"
+    private string authToken = "";
+    // private string authToken = "token123";
 
+    //WarningPanel
 
-    //WarningPanel 
-
-    public TMP_Text Warning_Message;
+    public Text Warning_Title;
+    public Text Warning_Message;
     public Button Warning_ConfirmButton;
+
+    private DontDestroy userdata;
+
+
+    //card style
+    string [][] cardStyleList = new string[][]
+    {
+        new string [] {"1", "Civilian (Frozen)", "Dress up your civilian card with Frozen style!", "Regular"},
+        new string [] {"2", "Assassin (Frozen)", "Dress up your Assassin card with Frozen style!", "Regular"},
+        new string [] {"3", "King (Frozen)", "Dress up your King card with Frozen style!", "Regular"},
+        new string [] {"4", "Knight (Frozen)", "Dress up your Knight card with Frozen style!", "Regular"},
+        new string [] {"5", "Prince (Frozen)", "Dress up your Prince card with Frozen style!", "Regular"},
+        new string [] {"6", "Queen (Frozen)", "Dress up your Queen card with Frozen style!", "Regular"},
+        new string [] {"7", "Civilian (Aladin)", "Dress up your civilian card with Aladin style!", "Regular"},
+        new string [] {"8", "Assassin (Aladin)", "Dress up your Assassin card with Aladin style!", "Regular"},
+        new string [] {"9", "King (Aladin)", "Dress up your King card with Aladin style!", "Regular"},
+        new string [] {"10", "Knight (Aladin)", "Dress up your Knight card with Aladin style!", "Regular"},
+        new string [] {"11", "Prince (Aladin)", "Dress up your Prince card with Aladin style!", "Regular"},
+        new string [] {"12", "Queen (Aladin)", "Dress up your Queen card with Aladin style!", "Regular"},
+        new string [] {"13", "Civilian (Alice In Wonderland)", "Dress up your civilian card with Alice In Wonderland style!", "Regular"},
+        new string [] {"14", "Assassin (Alice In Wonderland)", "Dress up your Assassin card with Alice In Wonderland style!", "Regular"},
+        new string [] {"15", "King (Alice In Wonderland)", "Dress up your King card with Alice In Wonderland style!", "Regular"},
+        new string [] {"16", "Knight (Alice In Wonderland)", "Dress up your Knight card with Alice In Wonderland style!", "Regular"},
+        new string [] {"17", "Prince (Alice In Wonderland)", "Dress up your Prince card with Alice In Wonderland style!", "Regular"},
+        new string [] {"18", "Queen (Alice In Wonderland)", "Dress up your Queen card with Alice In Wonderland style!", "Regular"},
+        new string [] {"19", "Civilian (Cinderella)", "Dress up your civilian card with Cinderella style!", "Regular"},
+        new string [] {"20", "Assassin (Cinderella)", "Dress up your Assassin card with Cinderella style!", "Regular"},
+        new string [] {"21", "King (Cinderella)", "Dress up your King card with Cinderella style!", "Regular"},
+        new string [] {"22", "Knight (Cinderella)", "Dress up your Knight card with Cinderella style!", "Regular"},
+        new string [] {"23", "Prince (Cinderella)", "Dress up your Prince card with Cinderella style!", "Regular"},
+        new string [] {"24", "Queen (Cinderella)", "Dress up your Queen card with Cinderella style!", "Regular"},
+        new string [] {"25", "Civilian (Romeo and Julliette)", "Dress up your civilian card with Romeo and Julliette style!", "Regular"},
+        new string [] {"26", "Assassin (Romeo and Julliette)", "Dress up your Assassin card with Romeo and Julliette style!", "Regular"},
+        new string [] {"27", "King (Romeo and Julliette)", "Dress up your King card with Romeo and Julliette style!", "Regular"},
+        new string [] {"28", "Knight (Romeo and Julliette)", "Dress up your Knight card with Romeo and Julliette style!", "Regular"},
+        new string [] {"29", "Prince (Romeo and Julliette)", "Dress up your Prince card with Romeo and Julliette style!", "Regular"},
+        new string [] {"30", "Queen (Romeo and Julliette)", "Dress up your Queen card with Romeo and Julliette style!", "Regular"},
+        new string [] {"31", "Civilian (Poker)", "Dress up your civilian card with Poker style!", "Regular"},
+        new string [] {"32", "Assassin (Poker)", "Dress up your Assassin card with Poker style!", "Regular"},
+        new string [] {"33", "King (Poker)", "Dress up your King card with Poker style!", "Regular"},
+        new string [] {"34", "Knight (Poker)", "Dress up your Knight card with Poker style!", "Regular"},
+        new string [] {"35", "Prince (Poker)", "Dress up your Prince card with Poker style!", "Regular"},
+        new string [] {"36", "Queen (Poker)", "Dress up your Queen card with Poker style!", "Regular"},
+        new string [] {"37", "Civilian (Chinese Chess)", "Dress up your civilian card with Chinese Chess style!", "Regular"},
+        new string [] {"38", "Assassin (Chinese Chess)", "Dress up your Assassin card with Chinese Chess style!", "Regular"},
+        new string [] {"39", "King (Chinese Chess)", "Dress up your King card with Chinese Chess style!", "Regular"},
+        new string [] {"40", "Knight (Chinese Chess)", "Dress up your Knight card with Chinese Chess style!", "Regular"},
+        new string [] {"41", "Prince (Chinese Chess)", "Dress up your Prince card with Chinese Chess style!", "Regular"},
+        new string [] {"42", "Queen (Chinese Chess)", "Dress up your Queen card with Chinese Chess style!", "Regular"},
+        new string [] {"43", "Civilian (Japanese Chess)", "Dress up your civilian card with Japanese Chess style!", "Regular"},
+        new string [] {"44", "Assassin (Japanese Chess)", "Dress up your Assassin card with Japanese Chess style!", "Regular"},
+        new string [] {"45", "King (Japanese Chess)", "Dress up your King card with Japanese Chess style!", "Regular"},
+        new string [] {"46", "Knight (Japanese Chess)", "Dress up your Knight card with Japanese Chess style!", "Regular"},
+        new string [] {"47", "Prince (Japanese Chess)", "Dress up your Prince card with Japanese Chess style!", "Regular"},
+        new string [] {"48", "Queen (Japanese Chess)", "Dress up your Queen card with Japanese Chess style!", "Regular"},
+        new string [] {"49", "Civilian (Snow White)", "Dress up your civilian card with Snow White style!", "Regular"},
+        new string [] {"50", "Assassin (Snow White)", "Dress up your Assassin card with Snow White style!", "Regular"},
+        new string [] {"51", "King (Snow White)", "Dress up your King card with Snow White style!", "Regular"},
+        new string [] {"52", "Knight (Snow White)", "Dress up your Knight card with Snow White style!", "Regular"},
+        new string [] {"53", "Prince (Snow White)", "Dress up your Prince card with Snow White style!", "Regular"},
+        new string [] {"54", "Queen (Snow White)", "Dress up your Queen card with Snow White style!", "Regular"},
+    };
 
     private void Start()
     {
@@ -71,34 +129,19 @@ public class UIManager : MonoBehaviour
         CivillianButton.onClick.AddListener(ViewCivillianSkin);
         AssassinButton.onClick.AddListener(ViewAssassinSkin);
 
-        //Fetching user's card data list
-        // GameObject dontDestroyObject = GameObject.Find("DontDestroy");
-
-        // if (dontDestroyObject != null)
-        // {
-        //     // Access the DontDestroy script
-            // DontDestroy dontDestroyScript = dontDestroyObject.GetComponent<DontDestroy>();
-
-            // if (dontDestroyScript != null)
-            // {
-            //     // Access the UserCardDataList
-            //     userCardStyleList = dontDestroyScript.UserCardDataList;
-
-            //     // Now you can use userCardList for your logic
-            //     foreach (var userCardData in userCardStyleList)
-            //     {
-            //         Debug.Log($"CardID: {userCardData.CardID}, EquipStatus: {userCardData.EquipStatus}");
-            //     }
-            // }
-            // else
-            // {
-            //     Debug.LogError("DontDestroy script not found on the GameObject.");
-            // }
-        // }
-        // else
-        // {
-        //     Debug.LogError("GameObject with DontDestroy script not found in the scene.");
-        // }
+        //Fetching user's token
+        userdata = FindObjectOfType<DontDestroy>();
+        // DontDestroy userdata = FindObjectOfType<DontDestroy>();
+        if(userdata != null)
+        {
+            authToken = userdata.token;
+            Debug.Log("Token value: " + authToken);
+            // StartCoroutine(logdata(authToken));
+        }
+        else
+        {
+            Debug.LogError("DontDestroy script not found!");
+        }
     }
 
     private void ClosePanel()
@@ -107,9 +150,20 @@ public class UIManager : MonoBehaviour
         MaskPanel.SetActive(false);
         currentSkinIndex = 0;
         CurrentCharactor = "";
-}
+    }
 
-    private IEnumerator EquipSkinGetStatus(string targetCardStyleID)
+    private IEnumerator logdata(int targetCardStyleId)
+    {
+        // Debug.log("log data target card style id: ", targetCardStyleId);
+        yield return StartCoroutine(userdata.Init_Card_Skill_Account_Data(authToken));
+
+        CardName.text = userdata.characterDataList[targetCardStyleId].CardName;
+        CardInfo.text = userdata.characterDataList[targetCardStyleId].CardDescription;
+        Rarity.text = userdata.characterDataList[targetCardStyleId].CardProbability;
+        // Debug.log("Character description: " + cardDescription);
+    }
+
+    private IEnumerator EquipSkinGetStatus(string targetCardStyleID, string targetCharacterType)
     {
         Debug.Log("EquipSkinGetStatus started");
 
@@ -120,9 +174,14 @@ public class UIManager : MonoBehaviour
         }
 
         WWWForm form = new WWWForm();
-        form.AddField("tokenId", authToken); 
+        form.AddField("tokenId", authToken); // 
         form.AddField("targetCardStyleId", targetCardStyleID);
-        Debug.Log("Form Contents: " + FormContentsToString(form));
+        form.AddField("targetCharacterType", targetCharacterType);
+        // Debug.Log("Form Contents: " + FormContentsToString(form));
+        Debug.Log("Token: " + authToken);
+        Debug.Log("targetCardStyleID: " + targetCardStyleID);
+        Debug.Log("targetCharacterType: " + targetCharacterType);
+
         using (UnityWebRequest www = UnityWebRequest.Post(serverURL_equip, form))
         {
             yield return www.SendWebRequest();
@@ -134,7 +193,8 @@ public class UIManager : MonoBehaviour
             {
                 Debug.LogWarning(www.error);
                 // Warning Panel
-                Warning_Message.SetText("Please check your network connection");
+                Warning_Title.text = "Attention!";
+                Warning_Message.text = "Please check your network connection";
                 WarningPanel.SetActive(true);
             }
             else //equip the skin
@@ -147,20 +207,22 @@ public class UIManager : MonoBehaviour
                 {
                     case "200001":
                         Debug.Log("Equip success!");
-                        Warning_Message.SetText("Equip success!");
+                        Warning_Title.text = "Congratulations!";
+                        Warning_Message.text = "Equip success!";
                         WarningPanel.SetActive(true);
-                        //change the skin of the card~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~·
                         break;
                     case "200021":
                         Debug.Log("Equip failure");
                         // Warning Panel
-                        Warning_Message.SetText("You have failed to equip this item");;
+                        Warning_Title.text = "Sorry!";
+                        Warning_Message.text = "You have failed to equip this item";
                         WarningPanel.SetActive(true);
                         break;
                     case "200022":
                         Debug.Log("Item doesn't exist in inventory");
                         // Warning Panel
-                        Warning_Message.SetText("It seems like you do not have this item in inventory");
+                        Warning_Title.text = "Oops!";
+                        Warning_Message.text = "It seems like you do not have this item in inventory";
                         WarningPanel.SetActive(true);
                         break;
                 }
@@ -168,6 +230,64 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    private int getTargetCardStyleId()
+    {
+        int idCount = 0;
+        switch(CurrentCharactor)
+        {
+            case "King":
+                idCount = 2;
+                break;
+            case "Queen":
+                idCount = 5;
+                break;
+            case "Prince":
+                idCount = 4;
+                break;
+            case "Knight":
+                idCount = 3;
+                break;
+            case "Civil":
+                idCount = 0;
+                break;
+            case "Killer":
+                idCount = 1;
+                break;
+        }
+        string targetCharacterType = (idCount+1).ToString();
+        Debug.Log($"targetCharacterType_input: {targetCharacterType}");
+        switch(currentSkinIndex)
+        {
+            case 0: //Aladin
+                idCount += 7;
+                break;
+            case 1: //Alice in wonderland
+                idCount += 13;
+                break;
+            case 2: //Chinese chess
+                idCount += 37;
+                break;
+            case 3: //Cinderella
+                idCount += 19;
+                break;
+            case 4: //Frozen
+                idCount += 1;
+                break;
+            case 5: //Japanese chess
+                idCount += 43;
+                break;
+            case 6: //Poker
+                idCount += 31;
+                break;
+            case 7: //Romeo and Juliette
+                idCount += 25;
+                break;
+            case 8: //Snow white
+                idCount += 49;
+                break;
+        }
+        return idCount;
+    }
     private void EquipSkin()
     {
         Debug.Log("EquipSkin button clicked!");
@@ -194,6 +314,8 @@ public class UIManager : MonoBehaviour
                 idCount = 1;
                 break;
         }
+        string targetCharacterType = (idCount+1).ToString();
+        Debug.Log($"targetCharacterType_input: {targetCharacterType}");
         switch(currentSkinIndex)
         {
             case 0: //Aladin
@@ -226,12 +348,15 @@ public class UIManager : MonoBehaviour
         }
         string targetCardStyleID = idCount.ToString();
         Debug.Log($"targetCardStyleID_input: {targetCardStyleID}");
-        StartCoroutine(EquipSkinGetStatus(targetCardStyleID));
+        StartCoroutine(EquipSkinGetStatus(targetCardStyleID, targetCharacterType));
     }
 
     private void SellSkin()
     {
         //To be continue
+        Warning_Title.text = "Sorry...";
+        Warning_Message.text = "This feature is not yet available. Please wait for the next update";
+        WarningPanel.SetActive(true);
     }
 
     private void OnNextButtonClicked()
@@ -242,6 +367,7 @@ public class UIManager : MonoBehaviour
 
         currentSkinIndex = (currentSkinIndex + 1) % skincount;
         UpdateSkinImage();
+        UpdateCardStyleData();
     }
 
     private void OnPrevButtonClicked()
@@ -252,6 +378,7 @@ public class UIManager : MonoBehaviour
 
         currentSkinIndex = (currentSkinIndex - 1 + skincount) % skincount;
         UpdateSkinImage();
+        UpdateCardStyleData();
     }
 
     private void UpdateSkinImage()
@@ -260,7 +387,7 @@ public class UIManager : MonoBehaviour
         string path = "images/Skin/" + currentSkinFolder + "/" + CurrentCharactor;
         Sprite sprite = Resources.Load<Sprite>(path);
 
-        if (sprite != null) { 
+        if (sprite != null) {
             CurrentSkinImage.sprite = sprite;
             Debug.Log(skinFolders[currentSkinIndex]);
             Debug.Log(path);
@@ -271,17 +398,23 @@ public class UIManager : MonoBehaviour
         NextSkinButton.interactable = true;
     }
 
+    private void UpdateCardStyleData()
+    {
+        int target = getTargetCardStyleId();
+        CardName.text = cardStyleList[target-1][1];
+        CardInfo.text = cardStyleList[target-1][2];
+        Rarity.text = cardStyleList[target-1][3]; 
+    }
+
     private void ViewKingSkin()
     {
         SkinPanel.SetActive(true);
         CurrentCharactor = "King";
         UpdateSkinImage();
+        UpdateCardStyleData();
         NextSkinButton.onClick.AddListener(OnNextButtonClicked);
         PreviousSkinButton.onClick.AddListener(OnPrevButtonClicked);
         CurrentSkinTypeText.text = "國王卡牌造型";
-        CardName.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        CardInfo.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        Rarity.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
         SellButton.onClick.AddListener(SellSkin);
         EquipButton.onClick.AddListener(EquipSkin);
     }
@@ -291,12 +424,10 @@ public class UIManager : MonoBehaviour
         SkinPanel.SetActive(true);
         CurrentCharactor = "Queen";
         UpdateSkinImage();
+        UpdateCardStyleData();
         NextSkinButton.onClick.AddListener(OnNextButtonClicked);
         PreviousSkinButton.onClick.AddListener(OnPrevButtonClicked);
         CurrentSkinTypeText.text = "皇后卡牌造型";
-        CardName.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        CardInfo.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        Rarity.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
         SellButton.onClick.AddListener(SellSkin);
         EquipButton.onClick.AddListener(EquipSkin);
     }
@@ -306,12 +437,10 @@ public class UIManager : MonoBehaviour
         SkinPanel.SetActive(true);
         CurrentCharactor = "Prince";
         UpdateSkinImage();
+        UpdateCardStyleData();
         NextSkinButton.onClick.AddListener(OnNextButtonClicked);
         PreviousSkinButton.onClick.AddListener(OnPrevButtonClicked);
         CurrentSkinTypeText.text = "王子卡牌造型";
-        CardName.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        CardInfo.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        Rarity.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
         SellButton.onClick.AddListener(SellSkin);
         EquipButton.onClick.AddListener(EquipSkin);
     }
@@ -321,12 +450,10 @@ public class UIManager : MonoBehaviour
         SkinPanel.SetActive(true);
         CurrentCharactor = "Knight";
         UpdateSkinImage();
+        UpdateCardStyleData();
         NextSkinButton.onClick.AddListener(OnNextButtonClicked);
         PreviousSkinButton.onClick.AddListener(OnPrevButtonClicked);
         CurrentSkinTypeText.text = "騎士卡牌造型";
-        CardName.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        CardInfo.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        Rarity.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
         SellButton.onClick.AddListener(SellSkin);
         EquipButton.onClick.AddListener(EquipSkin);
     }
@@ -336,12 +463,12 @@ public class UIManager : MonoBehaviour
         SkinPanel.SetActive(true);
         CurrentCharactor = "Civil";
         UpdateSkinImage();
+        UpdateCardStyleData();
         NextSkinButton.onClick.AddListener(OnNextButtonClicked);
         PreviousSkinButton.onClick.AddListener(OnPrevButtonClicked);
         CurrentSkinTypeText.text = "平民卡牌造型";
-        CardName.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        CardInfo.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        Rarity.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+        int target = getTargetCardStyleId();
+        StartCoroutine(logdata(target));
         SellButton.onClick.AddListener(SellSkin);
         EquipButton.onClick.AddListener(EquipSkin);
     }
@@ -351,17 +478,15 @@ public class UIManager : MonoBehaviour
         SkinPanel.SetActive(true);
         CurrentCharactor = "Killer";
         UpdateSkinImage();
+        UpdateCardStyleData();
         NextSkinButton.onClick.AddListener(OnNextButtonClicked);
         PreviousSkinButton.onClick.AddListener(OnPrevButtonClicked);
         CurrentSkinTypeText.text = "殺手卡牌造型";
-        CardName.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        CardInfo.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        Rarity.text = "開發中..."; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+        int target = getTargetCardStyleId();
+        StartCoroutine(logdata(target));
         SellButton.onClick.AddListener(SellSkin);
         EquipButton.onClick.AddListener(EquipSkin);
     }
-
-   
 
     private string FormContentsToString(WWWForm form)
     {
@@ -375,7 +500,10 @@ public class UIManager : MonoBehaviour
         return sb.ToString();
     }
 
-
+    // private IEnumerator logdata(string token)
+    // {
+    //     yield return StartCoroutine(userdata.Init_Card_Skill_Account_data(token));
+    // }
 
 
 
