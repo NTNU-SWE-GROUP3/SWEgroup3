@@ -21,15 +21,17 @@ def EquipCardStyle():
     try:
         tokenId = request.form.get("tokenId")
         targetCardStyleId = request.form.get("targetCardStyleId")
+        targetCharacterType = request.form.get("targetCharacterType")
 
         print("Token ID: ", tokenId)
         print("Target Card Style ID: ", targetCardStyleId)
+        print("Target Character Type: ", targetCharacterType)
 
         haveItem = HaveCardStyle(tokenId, targetCardStyleId)
         print("haveItem: ", haveItem)
 
         if haveItem:
-            unselectSkinId = FindEquippedCardStyle(tokenId)
+            unselectSkinId = FindEquippedCardStyle(tokenId, targetCharacterType)
             print("target unselect skin id: ", unselectSkinId)
             if unselectSkinId:
                 unEquipSuccess = UnEquipCardStyle(tokenId, unselectSkinId)
@@ -129,7 +131,7 @@ def UnEquipCardStyle(tokenId, targetCardStyleId):
         conn.close()
         return False
 
-def FindEquippedCardStyle(tokenId):
+def FindEquippedCardStyle(tokenId, characterType):
     try:
         conn = func.create_mysql_connection()
         cursor = conn.cursor()
@@ -137,8 +139,8 @@ def FindEquippedCardStyle(tokenId):
             "SELECT acs.card_style_id "
             "FROM account a "
             "JOIN account_card_style acs ON a.id = acs.account_id "
-            "WHERE a.token_id = %s AND acs.equip_status = 1",
-            (tokenId,)
+            "WHERE a.token_id = %s AND acs.equip_status = 1 AND CAST(acs.card_style_id AS SIGNED) % 6 = %s",
+            (tokenId, characterType,)
         )
         result = cursor.fetchone()
         if result:
@@ -156,5 +158,3 @@ def FindEquippedCardStyle(tokenId):
         conn.close()
         return None
     
-
-            
