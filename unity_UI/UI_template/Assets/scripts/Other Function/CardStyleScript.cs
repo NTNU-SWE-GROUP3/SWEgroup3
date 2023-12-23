@@ -57,60 +57,60 @@ public class UIManager : MonoBehaviour
     //card style
     string [][] cardStyleList = new string[][]
     {
-        new string [] {"1", "Civilian (Frozen)", "Dress up your civilian card with Frozen style!", "Regular"},
-        new string [] {"2", "Assassin (Frozen)", "Dress up your Assassin card with Frozen style!", "Regular"},
-        new string [] {"3", "King (Frozen)", "Dress up your King card with Frozen style!", "Regular"},
-        new string [] {"4", "Knight (Frozen)", "Dress up your Knight card with Frozen style!", "Regular"},
-        new string [] {"5", "Prince (Frozen)", "Dress up your Prince card with Frozen style!", "Regular"},
-        new string [] {"6", "Queen (Frozen)", "Dress up your Queen card with Frozen style!", "Regular"},
-        new string [] {"7", "Civilian (Aladin)", "Dress up your civilian card with Aladin style!", "Regular"},
-        new string [] {"8", "Assassin (Aladin)", "Dress up your Assassin card with Aladin style!", "Regular"},
-        new string [] {"9", "King (Aladin)", "Dress up your King card with Aladin style!", "Regular"},
-        new string [] {"10", "Knight (Aladin)", "Dress up your Knight card with Aladin style!", "Regular"},
-        new string [] {"11", "Prince (Aladin)", "Dress up your Prince card with Aladin style!", "Regular"},
-        new string [] {"12", "Queen (Aladin)", "Dress up your Queen card with Aladin style!", "Regular"},
-        new string [] {"13", "Civilian (Alice In Wonderland)", "Dress up your civilian card with Alice In Wonderland style!", "Regular"},
-        new string [] {"14", "Assassin (Alice In Wonderland)", "Dress up your Assassin card with Alice In Wonderland style!", "Regular"},
-        new string [] {"15", "King (Alice In Wonderland)", "Dress up your King card with Alice In Wonderland style!", "Regular"},
-        new string [] {"16", "Knight (Alice In Wonderland)", "Dress up your Knight card with Alice In Wonderland style!", "Regular"},
-        new string [] {"17", "Prince (Alice In Wonderland)", "Dress up your Prince card with Alice In Wonderland style!", "Regular"},
-        new string [] {"18", "Queen (Alice In Wonderland)", "Dress up your Queen card with Alice In Wonderland style!", "Regular"},
-        new string [] {"19", "Civilian (Cinderella)", "Dress up your civilian card with Cinderella style!", "Regular"},
-        new string [] {"20", "Assassin (Cinderella)", "Dress up your Assassin card with Cinderella style!", "Regular"},
-        new string [] {"21", "King (Cinderella)", "Dress up your King card with Cinderella style!", "Regular"},
-        new string [] {"22", "Knight (Cinderella)", "Dress up your Knight card with Cinderella style!", "Regular"},
-        new string [] {"23", "Prince (Cinderella)", "Dress up your Prince card with Cinderella style!", "Regular"},
-        new string [] {"24", "Queen (Cinderella)", "Dress up your Queen card with Cinderella style!", "Regular"},
-        new string [] {"25", "Civilian (Romeo and Julliette)", "Dress up your civilian card with Romeo and Julliette style!", "Regular"},
-        new string [] {"26", "Assassin (Romeo and Julliette)", "Dress up your Assassin card with Romeo and Julliette style!", "Regular"},
-        new string [] {"27", "King (Romeo and Julliette)", "Dress up your King card with Romeo and Julliette style!", "Regular"},
-        new string [] {"28", "Knight (Romeo and Julliette)", "Dress up your Knight card with Romeo and Julliette style!", "Regular"},
-        new string [] {"29", "Prince (Romeo and Julliette)", "Dress up your Prince card with Romeo and Julliette style!", "Regular"},
-        new string [] {"30", "Queen (Romeo and Julliette)", "Dress up your Queen card with Romeo and Julliette style!", "Regular"},
-        new string [] {"31", "Civilian (Poker)", "Dress up your civilian card with Poker style!", "Regular"},
-        new string [] {"32", "Assassin (Poker)", "Dress up your Assassin card with Poker style!", "Regular"},
-        new string [] {"33", "King (Poker)", "Dress up your King card with Poker style!", "Regular"},
-        new string [] {"34", "Knight (Poker)", "Dress up your Knight card with Poker style!", "Regular"},
-        new string [] {"35", "Prince (Poker)", "Dress up your Prince card with Poker style!", "Regular"},
-        new string [] {"36", "Queen (Poker)", "Dress up your Queen card with Poker style!", "Regular"},
-        new string [] {"37", "Civilian (Chinese Chess)", "Dress up your civilian card with Chinese Chess style!", "Regular"},
-        new string [] {"38", "Assassin (Chinese Chess)", "Dress up your Assassin card with Chinese Chess style!", "Regular"},
-        new string [] {"39", "King (Chinese Chess)", "Dress up your King card with Chinese Chess style!", "Regular"},
-        new string [] {"40", "Knight (Chinese Chess)", "Dress up your Knight card with Chinese Chess style!", "Regular"},
-        new string [] {"41", "Prince (Chinese Chess)", "Dress up your Prince card with Chinese Chess style!", "Regular"},
-        new string [] {"42", "Queen (Chinese Chess)", "Dress up your Queen card with Chinese Chess style!", "Regular"},
-        new string [] {"43", "Civilian (Japanese Chess)", "Dress up your civilian card with Japanese Chess style!", "Regular"},
-        new string [] {"44", "Assassin (Japanese Chess)", "Dress up your Assassin card with Japanese Chess style!", "Regular"},
-        new string [] {"45", "King (Japanese Chess)", "Dress up your King card with Japanese Chess style!", "Regular"},
-        new string [] {"46", "Knight (Japanese Chess)", "Dress up your Knight card with Japanese Chess style!", "Regular"},
-        new string [] {"47", "Prince (Japanese Chess)", "Dress up your Prince card with Japanese Chess style!", "Regular"},
-        new string [] {"48", "Queen (Japanese Chess)", "Dress up your Queen card with Japanese Chess style!", "Regular"},
-        new string [] {"49", "Civilian (Snow White)", "Dress up your civilian card with Snow White style!", "Regular"},
-        new string [] {"50", "Assassin (Snow White)", "Dress up your Assassin card with Snow White style!", "Regular"},
-        new string [] {"51", "King (Snow White)", "Dress up your King card with Snow White style!", "Regular"},
-        new string [] {"52", "Knight (Snow White)", "Dress up your Knight card with Snow White style!", "Regular"},
-        new string [] {"53", "Prince (Snow White)", "Dress up your Prince card with Snow White style!", "Regular"},
-        new string [] {"54", "Queen (Snow White)", "Dress up your Queen card with Snow White style!", "Regular"},
+        new string [] {"1", "平民 (冰雪奇緣)", "將你的平民卡牌套上冰雪奇緣造型!", "普通"},
+        new string [] {"2", "殺手 (冰雪奇緣)", "將你的平民卡牌套上冰雪奇緣造型!", "普通"},
+        new string [] {"3", "國王 (冰雪奇緣)", "將你的平民卡牌套上冰雪奇緣造型!", "普通"},
+        new string [] {"4", "騎士 (冰雪奇緣)", "將你的平民卡牌套上冰雪奇緣造型!", "普通"},
+        new string [] {"5", "王子 (冰雪奇緣)", "將你的平民卡牌套上冰雪奇緣造型!", "普通"},
+        new string [] {"6", "皇后 (冰雪奇緣)", "將你的平民卡牌套上冰雪奇緣造型!", "普通"},
+        new string [] {"7", "平民 (阿拉丁)", "將你的平民卡牌套上阿拉丁造型!", "普通"},
+        new string [] {"8", "殺手 (阿拉丁)", "將你的平民卡牌套上阿拉丁造型!", "普通"},
+        new string [] {"9", "國王 (阿拉丁)", "將你的平民卡牌套上阿拉丁造型!", "普通"},
+        new string [] {"10", "騎士 (阿拉丁)", "將你的平民卡牌套上阿拉丁造型!", "普通"},
+        new string [] {"11", "王子 (阿拉丁)", "將你的平民卡牌套上阿拉丁造型!", "普通"},
+        new string [] {"12", "皇后 (阿拉丁)", "將你的平民卡牌套上阿拉丁造型!", "普通"},
+        new string [] {"13", "平民 (愛麗絲夢遊仙境)", "將你的平民卡牌套上愛麗絲夢遊仙境造型!", "普通"},
+        new string [] {"14", "殺手 (愛麗絲夢遊仙境)", "將你的平民卡牌套上愛麗絲夢遊仙境造型!", "普通"},
+        new string [] {"15", "國王 (愛麗絲夢遊仙境)", "將你的平民卡牌套上愛麗絲夢遊仙境造型!", "普通"},
+        new string [] {"16", "騎士 (愛麗絲夢遊仙境)", "將你的平民卡牌套上愛麗絲夢遊仙境造型!", "普通"},
+        new string [] {"17", "王子 (愛麗絲夢遊仙境)", "將你的平民卡牌套上愛麗絲夢遊仙境造型!", "普通"},
+        new string [] {"18", "皇后 (愛麗絲夢遊仙境)", "將你的平民卡牌套上愛麗絲夢遊仙境造型!", "普通"},
+        new string [] {"19", "平民 (灰姑娘)", "將你的平民卡牌套上灰姑娘造型!", "普通"},
+        new string [] {"20", "殺手 (灰姑娘)", "將你的平民卡牌套上灰姑娘造型!", "普通"},
+        new string [] {"21", "國王 (灰姑娘)", "將你的平民卡牌套上灰姑娘造型!", "普通"},
+        new string [] {"22", "騎士 (灰姑娘)", "將你的平民卡牌套上灰姑娘造型!", "普通"},
+        new string [] {"23", "王子 (灰姑娘)", "將你的平民卡牌套上灰姑娘造型!", "普通"},
+        new string [] {"24", "皇后 (灰姑娘)", "將你的平民卡牌套上灰姑娘造型!", "普通"},
+        new string [] {"25", "平民 (羅密歐與茱麗葉)", "將你的平民卡牌套上羅密歐與茱麗葉造型!", "普通"},
+        new string [] {"26", "殺手 (羅密歐與茱麗葉)", "將你的平民卡牌套上羅密歐與茱麗葉造型!", "普通"},
+        new string [] {"27", "國王 (羅密歐與茱麗葉)", "將你的平民卡牌套上羅密歐與茱麗葉造型!", "普通"},
+        new string [] {"28", "騎士 (羅密歐與茱麗葉)", "將你的平民卡牌套上羅密歐與茱麗葉造型!", "普通"},
+        new string [] {"29", "王子 (羅密歐與茱麗葉)", "將你的平民卡牌套上羅密歐與茱麗葉造型!", "普通"},
+        new string [] {"30", "皇后 (羅密歐與茱麗葉)", "將你的平民卡牌套上羅密歐與茱麗葉造型!", "普通"},
+        new string [] {"31", "平民 (撲克)", "將你的平民卡牌套上撲克造型!", "普通"},
+        new string [] {"32", "殺手 (撲克)", "將你的平民卡牌套上撲克造型!", "普通"},
+        new string [] {"33", "國王 (撲克)", "將你的平民卡牌套上撲克造型!", "普通"},
+        new string [] {"34", "騎士 (撲克)", "將你的平民卡牌套上撲克造型!", "普通"},
+        new string [] {"35", "王子 (撲克)", "將你的平民卡牌套上撲克造型!", "普通"},
+        new string [] {"36", "皇后 (撲克)", "將你的平民卡牌套上撲克造型!", "普通"},
+        new string [] {"37", "平民 (象棋)", "將你的平民卡牌套上象棋造型!", "普通"},
+        new string [] {"38", "殺手 (象棋)", "將你的平民卡牌套上象棋造型!", "普通"},
+        new string [] {"39", "國王 (象棋)", "將你的平民卡牌套上象棋造型!", "普通"},
+        new string [] {"40", "騎士 (象棋)", "將你的平民卡牌套上象棋造型!", "普通"},
+        new string [] {"41", "王子 (象棋)", "將你的平民卡牌套上象棋造型!", "普通"},
+        new string [] {"42", "皇后 (象棋)", "將你的平民卡牌套上象棋造型!", "普通"},
+        new string [] {"43", "平民 (將其)", "將你的平民卡牌套上將其造型!", "普通"},
+        new string [] {"44", "殺手 (將其)", "將你的平民卡牌套上將其造型!", "普通"},
+        new string [] {"45", "國王 (將其)", "將你的平民卡牌套上將其造型!", "普通"},
+        new string [] {"46", "騎士 (將其)", "將你的平民卡牌套上將其造型!", "普通"},
+        new string [] {"47", "王子 (將其)", "將你的平民卡牌套上將其造型!", "普通"},
+        new string [] {"48", "皇后 (將其)", "將你的平民卡牌套上將其造型!", "普通"},
+        new string [] {"49", "平民 (白雪公主)", "將你的平民卡牌套上白雪公主造型!", "普通"},
+        new string [] {"50", "殺手 (白雪公主)", "將你的平民卡牌套上白雪公主造型!", "普通"},
+        new string [] {"51", "國王 (白雪公主)", "將你的平民卡牌套上白雪公主造型!", "普通"},
+        new string [] {"52", "騎士 (白雪公主)", "將你的平民卡牌套上白雪公主造型!", "普通"},
+        new string [] {"53", "王子 (白雪公主)", "將你的平民卡牌套上白雪公主造型!", "普通"},
+        new string [] {"54", "皇后 (白雪公主)", "將你的平民卡牌套上白雪公主造型!", "普通"},
     };
 
     private void Start()
@@ -193,8 +193,8 @@ public class UIManager : MonoBehaviour
             {
                 Debug.LogWarning(www.error);
                 // Warning Panel
-                Warning_Title.text = "Attention!";
-                Warning_Message.text = "Please check your network connection";
+                Warning_Title.text = "請注意!";
+                Warning_Message.text = "請檢查您的網路";
                 WarningPanel.SetActive(true);
             }
             else //equip the skin
@@ -207,22 +207,22 @@ public class UIManager : MonoBehaviour
                 {
                     case "200001":
                         Debug.Log("Equip success!");
-                        Warning_Title.text = "Congratulations!";
-                        Warning_Message.text = "Equip success!";
+                        Warning_Title.text = "恭喜您!";
+                        Warning_Message.text = "裝備成功!";
                         WarningPanel.SetActive(true);
                         break;
                     case "200021":
                         Debug.Log("Equip failure");
                         // Warning Panel
-                        Warning_Title.text = "Sorry!";
-                        Warning_Message.text = "You have failed to equip this item";
+                        Warning_Title.text = "非常抱歉!";
+                        Warning_Message.text = "裝備失敗";
                         WarningPanel.SetActive(true);
                         break;
                     case "200022":
                         Debug.Log("Item doesn't exist in inventory");
                         // Warning Panel
-                        Warning_Title.text = "Oops!";
-                        Warning_Message.text = "It seems like you do not have this item in inventory";
+                        Warning_Title.text = "糟糕!";
+                        Warning_Message.text = "您的背包沒有這個造型。裝備失敗QQ";
                         WarningPanel.SetActive(true);
                         break;
                 }
@@ -354,8 +354,8 @@ public class UIManager : MonoBehaviour
     private void SellSkin()
     {
         //To be continue
-        Warning_Title.text = "Sorry...";
-        Warning_Message.text = "This feature is not yet available. Please wait for the next update";
+        Warning_Title.text = "非常抱歉。。。";
+        Warning_Message.text = "這個功能還沒辦法是用。請耐心等下一個更新版。。";
         WarningPanel.SetActive(true);
     }
 
