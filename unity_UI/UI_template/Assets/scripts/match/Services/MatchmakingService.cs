@@ -49,6 +49,16 @@ public static class MatchmakingService
     private static CancellationTokenSource _heartbeatSource, _updateLobbySource;
     static string StartGameURL = "http://140.122.185.169:5050/gameStart";
 
+    public static bool isSecondPlayerIn()
+    {
+        if( _currentLobby.Players.Count == 2 )
+        {
+            Debug.Log($"Second Player enter the room {_currentLobby.Id}!");
+            return true;
+        }
+        else                                    return false;
+    }
+
     private static UnityTransport Transport
     {
         get => _transport != null ? _transport : _transport = Object.FindObjectOfType<UnityTransport>();
