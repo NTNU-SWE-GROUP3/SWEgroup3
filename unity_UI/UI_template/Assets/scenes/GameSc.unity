@@ -3099,6 +3099,8 @@ MonoBehaviour:
   TimerText: {fileID: 1164825670}
   PlayerArea: {fileID: 4935448267223214921}
   PlayerShow: {fileID: 789898237}
+  OpponentArea: {fileID: 1001469411}
+  OpponentShow: {fileID: 1907401954}
   ShowDisplay: {fileID: 1605720186}
   MessagePanel: {fileID: 931180408}
   Card: {fileID: 0}
@@ -3156,6 +3158,8 @@ MonoBehaviour:
   MusicImg: {fileID: 1369607599}
   slider: {fileID: 439512376}
   useSkill: {fileID: 1211442835}
+  PlayerEarnText: {fileID: 1561420044}
+  OpponentEarnText: {fileID: 993464735}
 --- !u!4 &1211442829
 Transform:
   m_ObjectHideFlags: 0

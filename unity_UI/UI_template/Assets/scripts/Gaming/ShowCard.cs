@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 public class ShowCard : MonoBehaviour
 {
     GameController GC;
@@ -26,6 +28,7 @@ public class ShowCard : MonoBehaviour
     public int PlayerX;
     public int OpponentX;
     public static int RejectTimer;
+    public static bool isEasyDelete = false;
     public Text RejectTimerText;
     GameObject PlayerCardObject;
     GameObject OpponentCardObject;
@@ -53,7 +56,7 @@ public class ShowCard : MonoBehaviour
         GC = GameObject.Find("GameController").GetComponent<GameController>();
         deletChange = GameObject.Find("GameController").GetComponent<DeleteChange>();
     }
-    public IEnumerator Show()
+    public IEnumerator Show(int gameType)
     {
         PlayerCardObject = PlayerShow.transform.GetChild(0).gameObject;
         OpponentCardObject = OpponentShow.transform.GetChild(0).gameObject;
@@ -341,6 +344,11 @@ public class ShowCard : MonoBehaviour
                         PlaySE(SkillSound);
                         skillMessage.text = "簡易剔除!";
                         skillDescription.text = "請選擇一張牌剔除";
+                        if(gameType == 1)
+                        {
+                            isEasyDelete = true;
+                        }
+                        
                         PlayerSimpleRejection();
                         RejectTimerText.gameObject.SetActive(true);
                         while(RejectTimer >= 0)
@@ -350,6 +358,10 @@ public class ShowCard : MonoBehaviour
                             RejectTimer -- ;
                         }
                         RejectTimerText.gameObject.SetActive(false);
+                        if(isEasyDelete == true && gameType == 1)
+                        {
+                            StartCoroutine(SendSkillCardSkip());
+                        }
                     }
                 }
                 if(OpponentCard.id == 7)
@@ -366,7 +378,7 @@ public class ShowCard : MonoBehaviour
                         PlaySE(SkillSound);
                         skillMessage.text = "簡易剔除!";
                         skillDescription.text = "對手將選擇一張牌剔除";
-                        OpponentSimpleRejection();
+                        yield return OpponentSimpleRejection(gameType);
                     }
                     yield return new WaitForSeconds(3f);
                 }
@@ -379,7 +391,7 @@ public class ShowCard : MonoBehaviour
         //-------------------------\\
         RefreshEarnText(2);
         RefreshEarnText(1);
-        GC.FinishCheck(PlayerEarn.transform.childCount + PlayerX, OpponentEarn.transform.childCount + OpponentX, PlayerArea.transform.childCount, OpponentArea.transform.childCount);
+        GC.FinishCheck(gameType,PlayerEarn.transform.childCount + PlayerX, OpponentEarn.transform.childCount + OpponentX, PlayerArea.transform.childCount, OpponentArea.transform.childCount);
 
     }
     // 玩家贏
@@ -479,15 +491,61 @@ public class ShowCard : MonoBehaviour
         }
 
     }
-    void OpponentSimpleRejection()
+    IEnumerator OpponentSimpleRejection(int gameType)
     {
         
         if(GameController.isCom == true)
         {
             CardDelete = PlayerArea.transform.GetChild(0).gameObject.GetComponent<CardDisplay>();
             deletChange.Delete(PlayerArea,CardDelete.id);
+            skillDescription.text = "對方替除了你的"+ CardDelete.cardName;
         }
-        skillDescription.text = "對方替除了你的"+ CardDelete.cardName;
+        else if (gameType == 1)
+        {
+            SkillCheck gs = gameObject.AddComponent<SkillCheck>();
+            gs.gameType = 1;
+            gs.roomId = 1;
+            gs.playerToken = "XYZ";
+
+            CoroutineWithData cd = new CoroutineWithData(this, Flask.SendRequest(gs.SaveToString(),"useSkillCheck"));
+            yield return cd.coroutine;
+            Debug.Log("return : " + cd.result);
+
+            string retString = cd.result.ToString();
+            SkillCheckBack ret = new SkillCheckBack();
+            if (retString == "ConnectionError" || retString == "ProtocolError" || retString == "InProgress" || retString == "DataProcessingError")
+            {
+                Debug.Log("UseSkill:" + retString);
+                SceneManager.LoadScene(0);
+            }
+            else
+            {
+                ret = SkillCheckBack.CreateFromJSON(cd.result.ToString());
+            }
+
+            if(ret.cardId == -2)
+            {
+                Debug.Log("UseSkill:" + ret.errMessage);
+                SceneManager.LoadScene(1);
+            }
+            else
+            {
+                
+                CardDelete = PlayerArea.transform.GetChild(0).gameObject.GetComponent<CardDisplay>();
+
+                for(int i = 0;i<OpponentArea.transform.childCount;i++)
+                {
+                    CardDelete = PlayerArea.transform.GetChild(i).gameObject.GetComponent<CardDisplay>();
+                    if (CardDelete.id == ret.cardId)
+                    {
+                        break;
+                    }
+                }
+
+                deletChange.Delete(PlayerArea,CardDelete.id);
+                skillDescription.text = "對方替除了你的"+ CardDelete.cardName;
+            }
+        }
 
         
     }
@@ -579,6 +637,42 @@ public class ShowCard : MonoBehaviour
         else //Opponent
         {
             OpponentEarnText.text  = (OpponentEarn.transform.childCount + OpponentX).ToString();
+        }
+    }
+
+    public IEnumerator SendSkillCardSkip()
+    {
+        SkillSelection gs = gameObject.AddComponent<SkillSelection>();
+        gs.gameType = 1;
+        gs.roomId = 1;
+        gs.playerToken = "XYZ";
+        gs.playerSkillID = 11;//簡單剔除
+        gs.cardId = -1;
+        
+        CoroutineWithData cd = new CoroutineWithData(this, Flask.SendRequest(gs.SaveToString(),"useSkill"));
+        yield return cd.coroutine;
+        Debug.Log("return : " + cd.result);
+
+        string retString = cd.result.ToString();
+        SkillMsgBack ret = new SkillMsgBack();
+        if (retString == "ConnectionError" || retString == "ProtocolError" || retString == "InProgress" || retString == "DataProcessingError")
+        {
+            Debug.Log("SkipButton:" + retString);
+            SceneManager.LoadScene(0);
+        }
+        else
+        {
+            ret = SkillMsgBack.CreateFromJSON(cd.result.ToString());
+        }
+
+        if(ret.OpponentSkillId == -1)
+        {
+            Debug.Log("SkipButton:" + ret.errMessage);
+            SceneManager.LoadScene(1);
+        }
+        else
+        {
+            Debug.Log("SkipButton:" + ret.errMessage);
         }
     }
 }
