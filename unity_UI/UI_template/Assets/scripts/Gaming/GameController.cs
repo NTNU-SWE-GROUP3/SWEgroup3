@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 using UnityEngine.UI;
 using UnityEngine.Serialization;
 using UnityEngine.Networking;
 using MiniJSON;
-
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -60,6 +61,9 @@ public class GameController : MonoBehaviour
     public static bool OpponentFUS;
     AudioSource audioSource;
     bool ComSkillForbidden;
+
+    public Text PlayerEarnText;
+    public Text OpponentEarnText;
     // int id;
 
     void Start()
@@ -100,15 +104,51 @@ public class GameController : MonoBehaviour
         DrawAreaCount.text = "平手區累積牌數: " + DrawArea.transform.childCount.ToString() + "張";
     }
 
-    public IEnumerator GameBegin()
+    public IEnumerator GameBegin(int gameType,int n)
     {
         Turn = 0;
-        yield return StartCoroutine(drawCard.Drawing());
+        yield return StartCoroutine(drawCard.Drawing(gameType,n));
         // Game Start
-        StartCoroutine(TurnStart());
+        StartCoroutine(TurnStart(gameType));
     }
-    public IEnumerator TurnStart()
+    public IEnumerator TurnStart(int gameType)
     {
+        if(gameType == 1)
+        {
+            GameTurn turnStartSignal = gameObject.AddComponent<GameTurn>();
+            turnStartSignal.gameType = 1;
+            turnStartSignal.roomId = 1;
+            turnStartSignal.playerToken = "XYZ";
+            turnStartSignal.playerEarn = Convert.ToInt32(PlayerEarnText.text);
+            turnStartSignal.opponentEarn = Convert.ToInt32(OpponentEarnText.text);
+            
+            CoroutineWithData cd2 = new CoroutineWithData(this, Flask.SendRequest(turnStartSignal.SaveToString(),"turnStart"));
+            yield return cd2.coroutine;
+            Debug.Log("return : " + cd2.result);
+
+            string retString = cd2.result.ToString();
+            TrunStat ret = new TrunStat();
+            if (retString == "ConnectionError" || retString == "ProtocolError" || retString == "InProgress" || retString == "DataProcessingError")
+            {
+                Debug.Log("GameController:" + retString);
+                SceneManager.LoadScene(0);
+                
+            }
+            else
+            {
+                ret = TrunStat.CreateFromJSON(cd2.result.ToString());
+            }
+
+            if(ret.state == -1)
+            {
+                Debug.Log("GameController:" + ret.errMessage);
+                SceneManager.LoadScene(1);
+            }
+            else
+            {
+                Debug.Log("GameController:" + ret.errMessage);
+            }
+        }
 
         Turn++;
         MessagePanel.SetActive(true);
@@ -128,7 +168,7 @@ public class GameController : MonoBehaviour
         SkillPanel.SetActive(true);
         SkillImage.SetActive(true);
 
-        if (isCom == true)
+        if (isCom == true || gameType == 1)
         {
             if (UseSkill.ComSkillNextForbidden == true)
             {
@@ -138,27 +178,42 @@ public class GameController : MonoBehaviour
 
         }
 
-        if (isCom == true && ComputerPlayer.ComSkillIndex < 3 && ComSkillForbidden == false)
+        if (gameType != 1)
         {
-            Debug.Log("Opponent Start Choosing Skill");
-            StartCoroutine(ComPlayer.ToUseSkill());
-
-        }
-        else if (ComputerPlayer.ComSkillIndex >= 3)
-        {
-            Debug.Log("Opponent have no skill left");
-            if (isCom == true)
+            if(isCom == true && ComputerPlayer.ComSkillIndex < 3 && ComSkillForbidden == false)
             {
-                OpponentFUS = true;
+                Debug.Log("Opponent Start Choosing Skill");
+                StartCoroutine(ComPlayer.ToUseSkill());
+                
+            }
+            else if(ComputerPlayer.ComSkillIndex >= 3)
+            {
+                Debug.Log("Opponent have no skill left");
+                if(isCom == true)
+                {
+                    OpponentFUS = true;
+                }
+            }
+            else if(ComSkillForbidden == true)
+            {
+                Debug.Log("Opponent can't not use skill this round");
+                ComSkillForbidden = false;
+                if(isCom == true)
+                {
+                    OpponentFUS = true;
+                }
             }
         }
-        else if (ComSkillForbidden == true)
+        else
         {
-            Debug.Log("Opponent can't not use skill this round");
-            ComSkillForbidden = false;
-            if (isCom == true)
+            if(ComSkillForbidden == true)
             {
-                OpponentFUS = true;
+                Debug.Log("Opponent can't not use skill this round");
+                ComSkillForbidden = false;
+                if(isCom == true)
+                {
+                    OpponentFUS = true;
+                }
             }
         }
 
@@ -230,18 +285,60 @@ public class GameController : MonoBehaviour
         SkillMassage.text = "等待對手使用技能";
         SkillDescription.text = "";
 
-        while (OpponentFUS == false)
+        if(gameType != 1)
         {
-            yield return new WaitForSeconds(1f);
+            while(OpponentFUS == false)
+            {
+                yield return new WaitForSeconds(1f);
+            }
+        }
+        
+        if(gameType == 1)
+        {
+            //---pass player skill id to server and receive opponent skill id------
+            SkillSelection selected = gameObject.AddComponent<SkillSelection>();
+            selected.gameType = 1;
+            selected.roomId = 1;
+            selected.playerToken = "XYZ";
+            selected.playerSkillID = PlayerSkillId;
+            
+            CoroutineWithData cd = new CoroutineWithData(this, Flask.SendRequest(selected.SaveToString(),"skill"));
+            yield return cd.coroutine;
+            Debug.Log("return : " + cd.result);
+
+            string retString2 = cd.result.ToString();
+            SkillMsgBack ret2 = new SkillMsgBack();
+            if (retString2 == "ConnectionError" || retString2 == "ProtocolError" || retString2 == "InProgress" || retString2 == "DataProcessingError")
+            {
+                Debug.Log("GameController:" + retString2);
+                SceneManager.LoadScene(0);
+            }
+            else
+            {
+                ret2 = SkillMsgBack.CreateFromJSON(cd.result.ToString());
+            }
+
+            if(ret2.OpponentSkillId == -1)
+            {
+                Debug.Log("GameController:" +ret2.errMessage);
+                SceneManager.LoadScene(1);
+            }
+            else
+            {
+                Debug.Log("Opponent skill:" + ret2.OpponentSkillId);
+                OpponentSkillId = ret2.OpponentSkillId;
+            }
+
+            //---------------------------------------------------------------------
         }
 
         Debug.Log("PLayer SUS" + PlayerSkillId);
-        yield return StartCoroutine(useSkill.Use(PlayerSkillId, true));
+        yield return StartCoroutine(useSkill.Use(gameType,PlayerSkillId, true));
         PlayerSkillId = -1;
         Debug.Log("PLayer FUS");
         yield return new WaitForSeconds(1f);
         Debug.Log("Oppo SUS " + OpponentSkillId);
-        yield return StartCoroutine(useSkill.Use(OpponentSkillId, false));
+        yield return StartCoroutine(useSkill.Use(gameType,OpponentSkillId, false));
         OpponentSkillId = -1;
         OpponentFUS = false;
         Debug.Log("Oppo FUS");
@@ -265,7 +362,7 @@ public class GameController : MonoBehaviour
         }
 
         TurnText.text = "回合:" + Turn.ToString();
-        StartCoroutine(Timer.TurnCountdown());
+        StartCoroutine(Timer.TurnCountdown(gameType));
         if (isCom == true)
         {
             yield return StartCoroutine(ComPlayer.PlayCard());
@@ -273,10 +370,10 @@ public class GameController : MonoBehaviour
 
     }
 
-    public void FinishCheck(int PlayerEarnCard, int OpponentEarnCard, int PlayerHandCard, int OpponentHandCard)
+    public void FinishCheck(int gameType,int PlayerEarnCard, int OpponentEarnCard, int PlayerHandCard, int OpponentHandCard)
     {
         if (OpponentEarnCard < 10 && PlayerEarnCard < 10 && PlayerHandCard > 0 && OpponentHandCard > 0)
-            StartCoroutine(TurnStart());
+            StartCoroutine(TurnStart(gameType));
         else
         {
             audioManager.StopBGM();
@@ -373,7 +470,7 @@ public class GameController : MonoBehaviour
     {
         slider = GameObject.Find("Slider").GetComponent<Slider>();
         yield return new WaitForSeconds(2.5f);
-        int RandNum = Random.Range(0, 2);
+        int RandNum = UnityEngine.Random.Range(0, 2);
         if (RandNum == 0)
         {
             audioSource.PlayOneShot(DefeatVoice1);
@@ -428,7 +525,7 @@ public class GameController : MonoBehaviour
                 for (int i = 0; i < skills.Count - 1; i++)
                 {
                     int temp = skills[i];
-                    int rand = Random.Range(i, skills.Count);
+                    int rand = UnityEngine.Random.Range(i, skills.Count);
                     skills[i] = skills[rand];
                     skills[rand] = temp;
                 }

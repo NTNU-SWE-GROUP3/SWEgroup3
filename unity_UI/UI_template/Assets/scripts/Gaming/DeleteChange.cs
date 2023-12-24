@@ -17,7 +17,7 @@ public class DeleteChange : MonoBehaviour
             }
         }
    }
-   public void Change(GameObject WhoUse, int cardId, string skillName)
+   public IEnumerator Change(GameObject WhoUse, int cardId, string skillName)
    {
         for (int i = 0; i < WhoUse.transform.childCount; i++)
         {
@@ -31,14 +31,34 @@ public class DeleteChange : MonoBehaviour
                 ChangeCard.layer = LayerMask.NameToLayer("Change");
                 if(skillName == "階級流動")
                 {
-                    ChangedCardId = 3;
+                    if(cardId < 10)
+                    {
+                        ChangedCardId = 3;
+                        Debug.Log(cardId + " -> " + ChangedCardId);
+                    }
+                    else
+                    {
+                        ChangedCardId = 13;
+                        Debug.Log(cardId + " -> " + ChangedCardId);
+                    }
+                    
                 }
                 else if (skillName == "暗影轉職")
                 {
-                    ChangedCardId = 5;
+                    if(cardId < 10)
+                    {
+                        ChangedCardId = 5;
+                        Debug.Log(cardId + " -> " + ChangedCardId);
+                    }
+                    else
+                    {
+                        ChangedCardId = 14;
+                        Debug.Log(cardId + " -> " + ChangedCardId);
+                    }
                 }
                 break;
             }
         }
+        yield return null;
    }
 }
