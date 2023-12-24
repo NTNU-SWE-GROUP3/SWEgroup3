@@ -49,6 +49,19 @@ class DBManager:
              return False
 
 
+    def NicknameExist(self, nickname):
+        insert_stmt = (
+            "SELECT count(*) FROM account_data ad "
+            "WHERE ad.nickname = %s LIMIT 1"
+        )
+        data = (nickname,)   # it have to be tuple style here.
+        self.cursor.execute(insert_stmt, data)
+        current_app.logger.info(self.cursor._executed)
+        rec = []
+        for c in self.cursor:
+            rec.append(c[0])
+        return True if rec[0] == 1 else False
+
 
     def AccountPasswordCheck(self, accountName, accountPassword):
         insertStmt = (
@@ -104,9 +117,9 @@ class DBManager:
         self.cursor.execute(insert_stmt, data)
         current_app.logger.info(self.cursor._executed)
         self.connection.commit()
-        
-    
-    
+
+
+
     def InitNewAccountData(self, accountId):
         insert_stmt = (
             "INSERT INTO account_data(account_id, nickname, level, experience, `rank`, total_match, total_win, ranked_winning_streak, ranked_XP, coin) "
@@ -131,6 +144,29 @@ class DBManager:
         self.connection.commit()
 
 
+    def UpdateNewNickname(self, tokenid, nickname):
+        insert_stmt = (
+            "UPDATE account_data SET nickname = %s "
+            "WHERE account_id = (SELECT id FROM account WHERE token_id = %s) "
+        )
+        data = (nickname,tokenid)
+        self.cursor.execute(insert_stmt, data)
+        current_app.logger.info(self.cursor._executed)
+        self.connection.commit()
+
+
+
+    def UpdateNewEmail(self, accountid, newemail):
+        insert_stmt = (
+            "UPDATE account a "
+            "SET a.email = %s "
+            "WHERE a.id = %s "
+        )
+        data = (newemail,accountid)
+        self.cursor.execute(insert_stmt, data)
+        current_app.logger.info(self.cursor._executed)
+        self.connection.commit()
+
 
     def FindAccountId(self, accountName):
             insertStmt = (
@@ -139,6 +175,41 @@ class DBManager:
                 "LIMIT 1"
             )
             data = (accountName,)
+            self.cursor.execute(insertStmt, data)
+            current_app.logger.info(self.cursor._executed)
+            rec = []
+            for c in self.cursor:
+                rec.append(c[0])
+            if(bool(rec)):
+                return rec[0]
+            else:
+                return -1
+
+    def FindAccountEmail(self, token):
+            insertStmt = (
+                "SELECT a.email FROM account a "
+                "WHERE a.token_id = %s "
+                "LIMIT 1"
+            )
+            data = (token,)
+            self.cursor.execute(insertStmt, data)
+            current_app.logger.info(self.cursor._executed)
+            rec = []
+            for c in self.cursor:
+                rec.append(c[0])
+            if(bool(rec)):
+                return rec[0]
+            else:
+                return -1
+
+
+    def FindAccountIDByToken(self, token):
+            insertStmt = (
+                "SELECT a.id FROM account a "
+                "WHERE a.token_id = %s "
+                "LIMIT 1"
+            )
+            data = (token,)
             self.cursor.execute(insertStmt, data)
             current_app.logger.info(self.cursor._executed)
             rec = []
@@ -364,7 +435,7 @@ class DBManager:
                 return rec[0]
             else:
                 return 0
-            
+
     ##>>Dont Destroy<<
     def GetCardInfo(self):
             query = (
@@ -377,7 +448,7 @@ class DBManager:
             for row in rows:
                 card_info.append(row)
             return (card_info)
-        
+
     def GetSkillInfo(self):
             query = (
                 "SELECT * FROM skill"
@@ -389,8 +460,8 @@ class DBManager:
             for row in rows:
                 card_info.append(row)
             return (card_info)
-        
-        
+
+
     def GetSkillData(self, tokenid):
             query = (
                 "SELECT account_skill.skill_id, account_skill.equip_status "
@@ -406,8 +477,8 @@ class DBManager:
             for row in rows:
                 skill_data.append(row)
             return (skill_data)
-        
-        
+
+
 
     def GetStyleData(self, tokenid):
             query = (
@@ -424,8 +495,8 @@ class DBManager:
             for row in rows:
                 style_data.append(row)
             return (style_data)
-        
-        
+
+
     # user_data get AccountDataTable all in once
     def GetAccountDataTableAll(self, tokenid):
             query = (
@@ -441,4 +512,3 @@ class DBManager:
             for row in rows:
                 account_data.append(row)
             return (account_data)
-        
