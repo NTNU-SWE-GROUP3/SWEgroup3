@@ -1,0 +1,27 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:unity_UI/UI_template/Assets/Resources/Audio/Voice/Defeat2_chinese..mp3.meta
+guid: e4afb7c6f94a3fb4293f221abe94a7b4
+========
+guid: b05958fd74d0a47378c9a03e48fe2a13
+>>>>>>>> dev:unity_UI/UI_template/Assets/Resources/Audio/Music/MainBGM4.mp3.meta
+AudioImporter:
+  externalObjects: {}
+  serializedVersion: 7
+  defaultSettings:
+    serializedVersion: 2
+    loadType: 0
+    sampleRateSetting: 0
+    sampleRateOverride: 44100
+    compressionFormat: 1
+    quality: 1
+    conversionMode: 0
+    preloadAudioData: 0
+  platformSettingOverrides: {}
+  forceToMono: 0
+  normalize: 1
+  loadInBackground: 0
+  ambisonic: 0
+  3D: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

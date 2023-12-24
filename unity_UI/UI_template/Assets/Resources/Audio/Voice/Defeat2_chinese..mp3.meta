@@ -1,5 +1,9 @@
 fileFormatVersion: 2
-guid: 4df30ff70193c44ce875f94483e2ed05
+<<<<<<<< HEAD:unity_UI/UI_template/Assets/Resources/Audio/Voice/Defeat2_chinese..mp3.meta
+guid: d2c60f4ffdcdedc47b800c3f87dc33ab
+========
+guid: b05958fd74d0a47378c9a03e48fe2a13
+>>>>>>>> dev:unity_UI/UI_template/Assets/Resources/Audio/Music/MainBGM4.mp3.meta
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
