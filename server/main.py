@@ -4,6 +4,11 @@ from game import gaming
 import mysql.connector
 import func
 
+from card import card
+from skill import skill
+from gameStart import gameStart
+from gameTurn import gameTurn
+
 import random
 
 from flask_mail import Mail
@@ -43,6 +48,10 @@ app.register_blueprint(user_information)
 app.register_blueprint(user_data)
 app.register_blueprint(skill_style)
 app.register_blueprint(card_style)
+app.register_blueprint(card)
+app.register_blueprint(skill)
+app.register_blueprint(gameStart)
+app.register_blueprint(gameTurn)
 
 @app.route("/")
 def index():

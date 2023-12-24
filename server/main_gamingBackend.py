@@ -6,9 +6,6 @@ from card import card
 from skill import skill
 from gameStart import gameStart
 from gameTurn import gameTurn
-import random
-import gameClass
-from gameStart import room_list
 
 app = Flask(__name__)
 
