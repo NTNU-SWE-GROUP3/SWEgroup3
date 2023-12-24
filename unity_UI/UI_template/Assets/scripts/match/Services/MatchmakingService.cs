@@ -185,14 +185,20 @@ public static class MatchmakingService
     // This function is used for Friend game X join, but with problem....
     public static async Task JoinLobbyWithAllocationCode(string lobbyCode, string userID)
     {
-        _currentLobby = await Lobbies.Instance.JoinLobbyByCodeAsync(lobbyCode);
-        SendRequestStartGame( userID ); // Player who "joined" the lobby send start game request
-        Debug.Log($"Join Friend Lobby ({_currentLobby.Id}, {_currentLobby.LobbyCode})");
-        // var a = await RelayService.Instance.JoinAllocationAsync(_currentLobby.Data[Constants.JoinKey].Value);
+        try{
+            _currentLobby = await Lobbies.Instance.JoinLobbyByCodeAsync(lobbyCode);
+            SendRequestStartGame( userID ); // Player who "joined" the lobby send start game request
+            Debug.Log($"Join Friend Lobby ({_currentLobby.Id}, {_currentLobby.LobbyCode})");
+            // var a = await RelayService.Instance.JoinAllocationAsync(_currentLobby.Data[Constants.JoinKey].Value);
 
-        // Transport.SetClientRelayData(a.RelayServer.IpV4, (ushort)a.RelayServer.Port, a.AllocationIdBytes, a.Key, a.ConnectionData, a.HostConnectionData);
+            // Transport.SetClientRelayData(a.RelayServer.IpV4, (ushort)a.RelayServer.Port, a.AllocationIdBytes, a.Key, a.ConnectionData, a.HostConnectionData);
 
-        PeriodicallyRefreshLobby();
+            PeriodicallyRefreshLobby();
+        }
+        catch{
+            Debug.Log( $"Join Friend Lobby {lobbyCode} failed." );
+        }
+        
     }
 
     private static async void PeriodicallyRefreshLobby()
