@@ -78,12 +78,12 @@ public class CountDown : MonoBehaviour
                 ret = RoomInfo.CreateFromJSON(cd.result.ToString());
             }
 
-            if(ret.roomId == -1)
+            if(ret.roomId == "None")
             {
                 Debug.Log("CountDown: this room doesn't exist.");
                 SceneManager.LoadScene(1);
                 userdata.gameType = 1;
-                userdata.roomId = -2;
+                userdata.roomId = "None";
             }
 
             
@@ -173,7 +173,7 @@ public class CountDown : MonoBehaviour
                 Debug.Log("CountDown:" + ret.errMessage);
                 SceneManager.LoadScene(1);
                 userdata.gameType = 1;
-                userdata.roomId = -2;
+                userdata.roomId = "None";
             }
             else
             {
@@ -203,7 +203,7 @@ public class CountDown : MonoBehaviour
                 Debug.Log("Didn't find the card from opponent");
                 SceneManager.LoadScene(1);
                 userdata.gameType = 1;
-                userdata.roomId = -2;
+                userdata.roomId = "None";
             }
         }
 

@@ -155,7 +155,7 @@ public class GameController : MonoBehaviour
                 Debug.Log("GameController:" + ret.errMessage);
                 SceneManager.LoadScene(1);
                 userdata.gameType = 1;
-                userdata.roomId = -2;
+                userdata.roomId = "None";
             }
             else
             {
@@ -336,7 +336,7 @@ public class GameController : MonoBehaviour
                 Debug.Log("GameController:" +ret2.errMessage);
                 SceneManager.LoadScene(1);
                 userdata.gameType = 1;
-                userdata.roomId = -2;
+                userdata.roomId = "None";
             }
             else
             {
@@ -471,7 +471,7 @@ public class GameController : MonoBehaviour
             FinishPanelLV.text = "+100";
         }
         userdata.gameType = 1;
-        userdata.roomId = -2;
+        userdata.roomId = "None";
         FinishPanel.SetActive(true);
     }
 

@@ -40,7 +40,7 @@ public class SkipButton : MonoBehaviour
             Debug.Log("SkipButton:" + ret.errMessage);
             SceneManager.LoadScene(1);
             userdata.gameType = 1;
-            userdata.roomId = -2;
+            userdata.roomId = "None";
         }
         else
         {
