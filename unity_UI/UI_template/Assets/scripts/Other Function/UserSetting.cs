@@ -53,6 +53,7 @@ public class UserSetting : MonoBehaviour
     public GameObject ChangeInfoPanel;
     public Text InformInputText;
     public InputField NewInfoInput;
+    public Button ChangeCancelButton;
     public Button ChangeConfirmButton;
     public Text InfoPlaceholder;
 
@@ -148,6 +149,8 @@ public class UserSetting : MonoBehaviour
         ChangeNicknameButton.onClick.AddListener(UserChangeNickname);
         ChangeEmailButton.onClick.AddListener(UserChangeEmail);
         ReportBugButton.onClick.AddListener(ReportBug);
+
+        ChangeCancelButton.onClick.AddListener(CloseChangeInfoPanel);
 
     }
 
