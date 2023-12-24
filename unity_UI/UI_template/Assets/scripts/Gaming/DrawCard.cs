@@ -24,7 +24,7 @@ public class DrawCard : MonoBehaviour
     public IEnumerator Drawing(int gameType,int n)
     {
         Random.InitState((int)System.DateTime.Now.Ticks);
-        if(gameType != 1)
+        if(gameType != 0)
         {
             n = Random.Range(1, 100);
         }

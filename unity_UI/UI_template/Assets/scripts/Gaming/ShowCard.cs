@@ -46,8 +46,11 @@ public class ShowCard : MonoBehaviour
 
     AudioSource audioSource;
 
+    private DontDestroy userdata;
+
     void Start()
     {
+        userdata = FindObjectOfType<DontDestroy>();
         isPlayerPeasantImmunity = false;
         isComPeasantImmunity = false;
         RejectTimer = 8;
@@ -344,7 +347,7 @@ public class ShowCard : MonoBehaviour
                         PlaySE(SkillSound);
                         skillMessage.text = "簡易剔除!";
                         skillDescription.text = "請選擇一張牌剔除";
-                        if(gameType == 1)
+                        if(gameType == 0)
                         {
                             isEasyDelete = true;
                         }
@@ -358,7 +361,7 @@ public class ShowCard : MonoBehaviour
                             RejectTimer -- ;
                         }
                         RejectTimerText.gameObject.SetActive(false);
-                        if(isEasyDelete == true && gameType == 1)
+                        if(isEasyDelete == true && gameType == 0)
                         {
                             StartCoroutine(SendSkillCardSkip());
                         }
@@ -500,12 +503,12 @@ public class ShowCard : MonoBehaviour
             deletChange.Delete(PlayerArea,CardDelete.id);
             skillDescription.text = "對方替除了你的"+ CardDelete.cardName;
         }
-        else if (gameType == 1)
+        else if (gameType == 0)
         {
             SkillCheck gs = gameObject.AddComponent<SkillCheck>();
-            gs.gameType = 1;
-            gs.roomId = 1;
-            gs.playerToken = "XYZ";
+            gs.gameType = gameType;
+            gs.roomId = userdata.roomId;
+            gs.playerToken = userdata.token;
 
             CoroutineWithData cd = new CoroutineWithData(this, Flask.SendRequest(gs.SaveToString(),"useSkillCheck"));
             yield return cd.coroutine;
@@ -643,9 +646,9 @@ public class ShowCard : MonoBehaviour
     public IEnumerator SendSkillCardSkip()
     {
         SkillSelection gs = gameObject.AddComponent<SkillSelection>();
-        gs.gameType = 1;
-        gs.roomId = 1;
-        gs.playerToken = "XYZ";
+        gs.gameType = userdata.gameType;
+        gs.roomId = userdata.roomId;
+        gs.playerToken = userdata.token;
         gs.playerSkillID = 11;//簡單剔除
         gs.cardId = -1;
         

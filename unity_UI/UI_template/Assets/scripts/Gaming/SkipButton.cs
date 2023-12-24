@@ -7,12 +7,15 @@ using UnityEngine.SceneManagement;
 public class SkipButton : MonoBehaviour
 {
 
+    private DontDestroy userdata;
+
     public IEnumerator SendSkillCard(int skillId)
     {
+        userdata = FindObjectOfType<DontDestroy>();
         SkillSelection gs = gameObject.AddComponent<SkillSelection>();
-        gs.gameType = 1;
-        gs.roomId = 1;
-        gs.playerToken = "XYZ";
+        gs.gameType = userdata.gameType;
+        gs.roomId = userdata.roomId;
+        gs.playerToken = userdata.token;
         gs.playerSkillID = skillId;
         gs.cardId = -1;
         //Debug.Log("useSkill");

@@ -32,12 +32,16 @@ public class CountDown : MonoBehaviour
     public AudioClip StartSound;
     public AudioClip ThreeSec;
     AudioSource audioSource;
+    private DontDestroy userdata;
+
     // Start is called before the first frame update
     private void Start()
     {
+        userdata = FindObjectOfType<DontDestroy>();
         MessagePanel.SetActive(false);
         showcard = GameObject.Find("GameController").GetComponent<ShowCard>();
-        gameType = 0;//1 for PVP
+        gameType = userdata.gameType;//0 for PVP
+        
         StartCoroutine(CountdownToStart(gameType));
     }
 
@@ -54,9 +58,9 @@ public class CountDown : MonoBehaviour
         if(gameType == 1)
         {
             GameStart gs = gameObject.AddComponent<GameStart>();
-            gs.gameType = 1;
-            gs.roomId = 1;
-            gs.playerToken = "XYZ";
+            gs.gameType = userdata.gameType;
+            gs.roomId = userdata.roomId;
+            gs.playerToken = userdata.token;
 
             CoroutineWithData cd = new CoroutineWithData(this, Flask.SendRequest(gs.SaveToString(),"getCardSet"));
             yield return cd.coroutine;
@@ -140,10 +144,11 @@ public class CountDown : MonoBehaviour
             PlayerCard = PlayerCardObject.GetComponent<CardDisplay>();
             
             CardSelection selected = gameObject.AddComponent<CardSelection>();
-            selected.gameType = 1;
-            selected.roomId = 1;
-            selected.playerToken = "XYZ";
+            selected.gameType = gameType;
+            selected.roomId = userdata.roomId;
+            selected.playerToken = userdata.token;
             selected.playerCardID = PlayerCard.id;
+            
             
             CoroutineWithData cd = new CoroutineWithData(this, Flask.SendRequest(selected.SaveToString(),"cardSelection"));
             yield return cd.coroutine;

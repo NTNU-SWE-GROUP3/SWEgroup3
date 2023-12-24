@@ -66,13 +66,24 @@ public class GameController : MonoBehaviour
     public Text OpponentEarnText;
     // int id;
 
+    private DontDestroy userdata;
+
     void Start()
     {
+        userdata = FindObjectOfType<DontDestroy>();
         OpponentFUS = false;
         PlayerSkillId = -1;
         OpponentSkillId = -1;
         NoSkillCanUse = false;
-        isCom = true;
+        if(userdata.gameType == 0)
+        {
+            isCom = false;
+        }
+        else
+        {
+            isCom = true;
+        }
+        
         FinishPanel.SetActive(false);
         SkipButton.SetActive(false);
         SkillPanel.SetActive(false);
@@ -113,12 +124,12 @@ public class GameController : MonoBehaviour
     }
     public IEnumerator TurnStart(int gameType)
     {
-        if(gameType == 1)
+        if(gameType == 0)
         {
             GameTurn turnStartSignal = gameObject.AddComponent<GameTurn>();
-            turnStartSignal.gameType = 1;
-            turnStartSignal.roomId = 1;
-            turnStartSignal.playerToken = "XYZ";
+            turnStartSignal.gameType = gameType;
+            turnStartSignal.roomId = userdata.roomId;
+            turnStartSignal.playerToken = userdata.token;
             turnStartSignal.playerEarn = Convert.ToInt32(PlayerEarnText.text);
             turnStartSignal.opponentEarn = Convert.ToInt32(OpponentEarnText.text);
             
@@ -168,7 +179,7 @@ public class GameController : MonoBehaviour
         SkillPanel.SetActive(true);
         SkillImage.SetActive(true);
 
-        if (isCom == true || gameType == 1)
+        if (isCom == true || gameType == 0)
         {
             if (UseSkill.ComSkillNextForbidden == true)
             {
@@ -178,7 +189,7 @@ public class GameController : MonoBehaviour
 
         }
 
-        if (gameType != 1)
+        if (gameType != 0)
         {
             if(isCom == true && ComputerPlayer.ComSkillIndex < 3 && ComSkillForbidden == false)
             {
@@ -285,7 +296,7 @@ public class GameController : MonoBehaviour
         SkillMassage.text = "等待對手使用技能";
         SkillDescription.text = "";
 
-        if(gameType != 1)
+        if(gameType != 0)
         {
             while(OpponentFUS == false)
             {
@@ -293,13 +304,13 @@ public class GameController : MonoBehaviour
             }
         }
         
-        if(gameType == 1)
+        if(gameType == 0)
         {
             //---pass player skill id to server and receive opponent skill id------
             SkillSelection selected = gameObject.AddComponent<SkillSelection>();
-            selected.gameType = 1;
-            selected.roomId = 1;
-            selected.playerToken = "XYZ";
+            selected.gameType = gameType;
+            selected.roomId = userdata.roomId;
+            selected.playerToken = userdata.token;
             selected.playerSkillID = PlayerSkillId;
             
             CoroutineWithData cd = new CoroutineWithData(this, Flask.SendRequest(selected.SaveToString(),"skill"));
@@ -455,6 +466,8 @@ public class GameController : MonoBehaviour
                 FinishPanelCoin.text = "+100";
             FinishPanelLV.text = "+100";
         }
+        userdata.gameType = 1;
+        userdata.roomId = -2;
         FinishPanel.SetActive(true);
     }
 

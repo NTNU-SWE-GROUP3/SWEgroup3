@@ -47,7 +47,7 @@ public static class MatchmakingService
 
     private static Lobby _currentLobby;
     private static CancellationTokenSource _heartbeatSource, _updateLobbySource;
-    static string StartGameURL = "http://140.122.185.169:5050/gameStart";
+    static string StartGameURL = "http://140.122.185.169:5050/api/gameStart";
 
     private static bool isSecondPlayerIn()
     {

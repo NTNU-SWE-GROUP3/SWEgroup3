@@ -30,10 +30,13 @@ public class UseSkill : MonoBehaviour
     public AudioClip ThreeSec;
     AudioSource audioSource;
 
+    private DontDestroy userdata;
+
     public static bool UseTimeLimit;
     public static bool UseCoinPlus;
     void Start()
     {
+        userdata = FindObjectOfType<DontDestroy>();
         UseCoinPlus = false;
         UseTimeLimit = false;
         PlayerSkillForbidden = false;
@@ -189,12 +192,12 @@ public class UseSkill : MonoBehaviour
                         randomIndex[1] = Random.Range(0,OpponentArea.transform.childCount);
                     } while (randomIndex[0] == randomIndex[1]);
 
-                    if(gameType == 1)
+                    if(gameType == 0)
                     {
                         dilemmaUse gs = gameObject.AddComponent<dilemmaUse>();
-                        gs.gameType = 1;
-                        gs.roomId = 1;
-                        gs.playerToken = "XYZ";
+                        gs.gameType = userdata.gameType;
+                        gs.roomId = userdata.roomId;
+                        gs.playerToken = userdata.token;
                         gs.cardId1 = randomIndex[0];
                         gs.cardId2 = randomIndex[1];
 
@@ -312,12 +315,12 @@ public class UseSkill : MonoBehaviour
                             }
                         }
                     }     
-                    else if(gameType == 1)
+                    else if(gameType == 0)
                     {
                         SkillCheck gs = gameObject.AddComponent<SkillCheck>();
-                        gs.gameType = 1;
-                        gs.roomId = 1;
-                        gs.playerToken = "XYZ";
+                        gs.gameType = userdata.gameType;
+                        gs.roomId = userdata.roomId;
+                        gs.playerToken = userdata.token;
 
                         CoroutineWithData cd = new CoroutineWithData(this, Flask.SendRequest(gs.SaveToString(),"useSkillCheck"));
                         yield return cd.coroutine;
@@ -372,12 +375,12 @@ public class UseSkill : MonoBehaviour
                             }
                         }
                     }    
-                    else if(gameType == 1)
+                    else if(gameType == 0)
                     {
                         SkillCheck gs = gameObject.AddComponent<SkillCheck>();
-                        gs.gameType = 1;
-                        gs.roomId = 1;
-                        gs.playerToken = "XYZ";
+                        gs.gameType = userdata.gameType;
+                        gs.roomId = userdata.roomId;
+                        gs.playerToken = userdata.token;
 
                         CoroutineWithData cd = new CoroutineWithData(this, Flask.SendRequest(gs.SaveToString(),"useSkillCheck"));
                         yield return cd.coroutine;
@@ -465,7 +468,7 @@ public class UseSkill : MonoBehaviour
                     SkipButton.SetActive(false);
 
                     int[] randomIndex = {0,0};
-                    if(gameType != 1)
+                    if(gameType != 0)
                     {
                         randomIndex[0] = Random.Range(0,PlayerArea.transform.childCount);
                         do
@@ -476,9 +479,9 @@ public class UseSkill : MonoBehaviour
                     else
                     {
                         dilemmaCheck gs = gameObject.AddComponent<dilemmaCheck>();
-                        gs.gameType = 1;
-                        gs.roomId = 1;
-                        gs.playerToken = "XYZ";
+                        gs.gameType = userdata.gameType;
+                        gs.roomId = userdata.roomId;
+                        gs.playerToken = userdata.token;
 
                         CoroutineWithData cd = new CoroutineWithData(this, Flask.SendRequest(gs.SaveToString(),"dilemmaUseCheck"));
                         yield return cd.coroutine;
