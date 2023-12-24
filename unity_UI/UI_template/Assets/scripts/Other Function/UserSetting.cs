@@ -46,33 +46,11 @@ public class UserSetting : MonoBehaviour
 
     //StatisticPanel
     private GameObject StatisticPanel;
-    public Text TotalGameplay;
-    public Text WinningRate;
-    public Text TotalWin;
-    public Text Ranking;
-    public Button ReportBugButton;
-
-
-    //ChangeInfoPanel
-    public GameObject ChangeInfoPanel;
-    public Text InformInputText;
-    public InputField NewInfoInput;
-    public Button ChangeCancelButton;
-    public Button ChangeConfirmButton;
-    public Text InfoPlaceholder;
-
-
-    //UserSettingWarningPanel
-    public GameObject UserSettingWarningPanel;
-    public Text UseSettingMessage;
-    public Text NoticeTitleText;
-    public Button UserWarningButton;
-
-    //UI Text
-    public Text UIUserName;
-    public Text UIUserLevel;
-    public Text UICoins;
-    public Text UIChips;
+    private TMP_Text TotalGameplay;
+    private TMP_Text WinningRate;
+    private TMP_Text TotalWin;
+    private TMP_Text Ranking;
+    private Button ReportBugButton;
 
     //WarningPanel
     private GameObject WarningPanel;
@@ -142,8 +120,6 @@ public class UserSetting : MonoBehaviour
         ChangeNicknameButton.onClick.AddListener(UserChangeNickname);
         ChangeEmailButton.onClick.AddListener(UserChangeEmail);
         ReportBugButton.onClick.AddListener(ReportBug);
-
-        ChangeCancelButton.onClick.AddListener(CloseChangeInfoPanel);
 
     }
 
