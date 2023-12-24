@@ -1887,8 +1887,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 9cfd5a7015538684583315d3f7735638, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -11922,8 +11922,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: f779bd0f0710eb64b89f9b46e8276a19, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -18895,6 +18895,10 @@ MonoBehaviour:
   UIUserLevel: {fileID: 423646971}
   UICoins: {fileID: 262303342}
   UIChips: {fileID: 214517912}
+  AV1_Image: {fileID: 21300000, guid: 9cfd5a7015538684583315d3f7735638, type: 3}
+  AV2_Image: {fileID: 21300000, guid: 4925338a5b9c7774589a7713efb17788, type: 3}
+  AV3_Image: {fileID: 21300000, guid: f779bd0f0710eb64b89f9b46e8276a19, type: 3}
+  AV4_Image: {fileID: 21300000, guid: 99c857cbee6708d43b127ed92cceb4b1, type: 3}
 --- !u!1 &1465905145
 GameObject:
   m_ObjectHideFlags: 0
@@ -22576,8 +22580,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 99c857cbee6708d43b127ed92cceb4b1, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -23473,8 +23477,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 4925338a5b9c7774589a7713efb17788, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4

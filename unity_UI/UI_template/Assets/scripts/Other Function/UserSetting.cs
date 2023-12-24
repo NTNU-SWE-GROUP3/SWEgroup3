@@ -70,6 +70,11 @@ public class UserSetting : MonoBehaviour
     public Text UICoins;
     public Text UIChips;
 
+    //Avator Image
+    public Sprite AV1_Image;
+    public Sprite AV2_Image;
+    public Sprite AV3_Image;
+    public Sprite AV4_Image;
 
 
     //URL
@@ -216,6 +221,13 @@ public class UserSetting : MonoBehaviour
         NoticeTitleText.text = ("頭像已變更！");
         UseSettingMessage.text = ("已成功更換xxx1造型!");
         Debug.Log("Avator Changed > 1");
+        //AvatarButton
+        Image buttonImage = AvatarButton.image;
+
+        // 修改Image组件的sprite属性
+        buttonImage.sprite = AV1_Image;
+
+
     }
 
     private void ChangeAV2()
@@ -225,7 +237,11 @@ public class UserSetting : MonoBehaviour
         NoticeTitleText.text = ("頭像已變更！");
         UseSettingMessage.text = ("已成功更換xxx2造型!");
         Debug.Log("Avator Changed > 2");
+        //AvatarButton
+        Image buttonImage = AvatarButton.image;
 
+        // 修改Image组件的sprite属性
+        buttonImage.sprite = AV2_Image;
     }
 
     private void ChangeAV3()
@@ -235,6 +251,11 @@ public class UserSetting : MonoBehaviour
         NoticeTitleText.text = ("頭像已變更！");
         UseSettingMessage.text = ("已成功更換xxx3造型!");
         Debug.Log("Avator Changed > 3");
+        //AvatarButton
+        Image buttonImage = AvatarButton.image;
+
+        // 修改Image组件的sprite属性
+        buttonImage.sprite = AV3_Image;
     }
 
     private void ChangeAV4()
@@ -244,6 +265,11 @@ public class UserSetting : MonoBehaviour
         NoticeTitleText.text = ("頭像已變更！");
         UseSettingMessage.text = ("已成功更換xxx4造型!");
         Debug.Log("Avator Changed > 4");
+        //AvatarButton
+        Image buttonImage = AvatarButton.image;
+
+        // 修改Image组件的sprite属性
+        buttonImage.sprite = AV4_Image;
     }
 
 
