@@ -49,7 +49,7 @@ public static class MatchmakingService
     private static CancellationTokenSource _heartbeatSource, _updateLobbySource;
     static string StartGameURL = "http://140.122.185.169:5050/gameStart";
 
-    public static bool isSecondPlayerIn()
+    private static bool isSecondPlayerIn()
     {
         if( _currentLobby.Players.Count == 2 )
         {
@@ -219,6 +219,17 @@ public static class MatchmakingService
         {
             _currentLobby = await Lobbies.Instance.GetLobbyAsync(_currentLobby.Id);
             CurrentLobbyRefreshed?.Invoke(_currentLobby);
+
+            if( isSecondPlayerIn() )
+            {
+                Debug.Log("It's time to play game!");
+                SceneManager.LoadScene(2);
+            }
+            else
+            {
+                Debug.Log("Waiting for second player...");
+            }
+
             await Task.Delay(LobbyRefreshRate * 1000);
         }
     }
