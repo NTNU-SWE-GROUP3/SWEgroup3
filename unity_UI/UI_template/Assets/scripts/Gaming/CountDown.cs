@@ -55,7 +55,7 @@ public class CountDown : MonoBehaviour
         }
 
         int cardSet = -1;
-        if(gameType == 1)
+        if(gameType == 0)
         {
             GameStart gs = gameObject.AddComponent<GameStart>();
             gs.gameType = userdata.gameType;
@@ -70,7 +70,7 @@ public class CountDown : MonoBehaviour
             RoomInfo ret = new RoomInfo();
             if (retString == "ConnectionError" || retString == "ProtocolError" || retString == "InProgress" || retString == "DataProcessingError")
             {
-                Debug.Log("GameController/CountdownToStart:" + retString);
+                Debug.Log("CountDown/CountdownToStart:" + retString);
                 SceneManager.LoadScene(0);
             }
             else
@@ -80,7 +80,7 @@ public class CountDown : MonoBehaviour
 
             if(ret.roomId == -1)
             {
-                Debug.Log("GameController: this room doesn't exist.");
+                Debug.Log("CountDown: this room doesn't exist.");
                 SceneManager.LoadScene(1);
                 userdata.gameType = 1;
                 userdata.roomId = -2;
@@ -139,7 +139,7 @@ public class CountDown : MonoBehaviour
         if(PlayerShow.transform.childCount == 0)
             NoPlayCard();
 
-        if(gameType == 1)
+        if(gameType == 0)
         {
             // pass card info to server 
             PlayerCardObject = PlayerShow.transform.GetChild(0).gameObject;
