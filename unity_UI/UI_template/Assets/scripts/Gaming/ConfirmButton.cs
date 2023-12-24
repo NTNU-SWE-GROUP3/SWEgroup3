@@ -66,6 +66,8 @@ public class ConfirmButton : MonoBehaviour
         {
             Debug.Log("ConfirmButton:" + ret.errMessage);
             SceneManager.LoadScene(1);
+            userdata.gameType = 1;
+            userdata.roomId = -2;
         }
         else
         {

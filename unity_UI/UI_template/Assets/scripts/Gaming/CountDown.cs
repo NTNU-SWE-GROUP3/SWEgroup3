@@ -82,6 +82,8 @@ public class CountDown : MonoBehaviour
             {
                 Debug.Log("GameController: this room doesn't exist.");
                 SceneManager.LoadScene(1);
+                userdata.gameType = 1;
+                userdata.roomId = -2;
             }
 
             
@@ -170,6 +172,8 @@ public class CountDown : MonoBehaviour
             {
                 Debug.Log("CountDown:" + ret.errMessage);
                 SceneManager.LoadScene(1);
+                userdata.gameType = 1;
+                userdata.roomId = -2;
             }
             else
             {
@@ -198,6 +202,8 @@ public class CountDown : MonoBehaviour
             {
                 Debug.Log("Didn't find the card from opponent");
                 SceneManager.LoadScene(1);
+                userdata.gameType = 1;
+                userdata.roomId = -2;
             }
         }
 

@@ -221,6 +221,8 @@ public class UseSkill : MonoBehaviour
                         {
                             Debug.Log("dilemmaUse:" + ret.errMessage);
                             SceneManager.LoadScene(1);
+                            userdata.gameType = 1;
+                            userdata.roomId = -2;
                         }
                         else
                         {
@@ -342,6 +344,8 @@ public class UseSkill : MonoBehaviour
                         {
                             Debug.Log("useSkillCheck:" + ret.errMessage);
                             SceneManager.LoadScene(1);
+                            userdata.gameType = 1;
+                            userdata.roomId = -2;
                         }
                         else
                         {
@@ -402,6 +406,8 @@ public class UseSkill : MonoBehaviour
                         {
                             Debug.Log("useSkillCheck:" + ret.errMessage);
                             SceneManager.LoadScene(1);
+                            userdata.gameType = 1;
+                            userdata.roomId = -2;
                         }
                         else
                         {
@@ -503,6 +509,8 @@ public class UseSkill : MonoBehaviour
                         {
                             Debug.Log("dilemmaUseCheck:" + ret.errMessage);
                             SceneManager.LoadScene(1);
+                            userdata.gameType = 1;
+                            userdata.roomId = -2;
                         }
                         else
                         {

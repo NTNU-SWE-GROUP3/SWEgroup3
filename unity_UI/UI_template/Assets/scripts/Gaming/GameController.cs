@@ -154,6 +154,8 @@ public class GameController : MonoBehaviour
             {
                 Debug.Log("GameController:" + ret.errMessage);
                 SceneManager.LoadScene(1);
+                userdata.gameType = 1;
+                userdata.roomId = -2;
             }
             else
             {
@@ -333,6 +335,8 @@ public class GameController : MonoBehaviour
             {
                 Debug.Log("GameController:" +ret2.errMessage);
                 SceneManager.LoadScene(1);
+                userdata.gameType = 1;
+                userdata.roomId = -2;
             }
             else
             {

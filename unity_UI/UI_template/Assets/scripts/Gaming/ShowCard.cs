@@ -530,6 +530,8 @@ public class ShowCard : MonoBehaviour
             {
                 Debug.Log("UseSkill:" + ret.errMessage);
                 SceneManager.LoadScene(1);
+                userdata.gameType = 1;
+                userdata.roomId = -2;
             }
             else
             {
@@ -672,6 +674,8 @@ public class ShowCard : MonoBehaviour
         {
             Debug.Log("SkipButton:" + ret.errMessage);
             SceneManager.LoadScene(1);
+            userdata.gameType = 1;
+            userdata.roomId = -2;
         }
         else
         {
