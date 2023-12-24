@@ -2099,6 +2099,7 @@ GameObject:
   - component: {fileID: 1211442832}
   - component: {fileID: 1211442835}
   - component: {fileID: 1211442834}
+  - component: {fileID: 1211442836}
   m_Layer: 0
   m_Name: GameController
   m_TagString: GameController
@@ -2375,6 +2376,22 @@ MonoBehaviour:
   CancelButton: {fileID: 1746798446}
   TimerText: {fileID: 377826939}
   UseSkillVoice: {fileID: 8300000, guid: 199e5977d4edb4d5a97821984930f453, type: 3}
+--- !u!114 &1211442836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1211442826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5805c3b4fc9f5f408a297c2b9b35a76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  showDisplay: {fileID: 0}
+  OpponentArea: {fileID: 0}
+  PlayerShow: {fileID: 774172642033849534, guid: 71613f38c60424a40816f3ff0f26ca3c, type: 3}
+  OpponentShow: {fileID: 6968624758804029387, guid: 6ef8ebd16501de447a3e8126e2378964, type: 3}
 --- !u!1 &1214895670
 GameObject:
   m_ObjectHideFlags: 0

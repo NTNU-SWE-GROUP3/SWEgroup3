@@ -72,7 +72,7 @@ public class ConfirmButton : MonoBehaviour
     public void ClickConfirm()
     {
         
-        int gameType = 1;
+        int gameType = CountDown.gameType;
         if (skillName.text == "簡易剔除!")
         {
             if(gameType == 1)

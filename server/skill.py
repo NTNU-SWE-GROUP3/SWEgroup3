@@ -264,7 +264,7 @@ async def handle_useSkill():
         response_data = dict(OpponentSkillId = 1,errMessage = 'Skill use Success' )
 
     print(response_data)
-    playerRoom.start_timer(30) # the room will be remvoed when no player send signals in 20 seconds.
+    playerRoom.start_timer(60) # the room will be remvoed when no player send signals in 20 seconds.
     return jsonify(response_data)
 
 @skill.route('/useSkillCheck', methods=['POST'])#for skill 2 and 3
@@ -300,7 +300,7 @@ async def handle_useSkillCheck():
             response_data = dict(cardId = ret,errMessage = 'Did not receive card from opponent' )
     print(playerToken)
     print(response_data)
-    playerRoom.start_timer(30) # the room will be remvoed when no player send signals in 20 seconds.
+    playerRoom.start_timer(60) # the room will be remvoed when no player send signals in 20 seconds.
     return jsonify(response_data)
 
 @skill.route('/skill', methods=['POST'])
@@ -382,5 +382,5 @@ async def handle_skill():
         response_data = dict(OpponentSkillId = -1,errMessage = errMessage )
 
     print(response_data)
-    playerRoom.start_timer(30) # the room will be remvoed when no player send signals in 20 seconds.
+    playerRoom.start_timer(60) # the room will be remvoed when no player send signals in 20 seconds.
     return jsonify(response_data)

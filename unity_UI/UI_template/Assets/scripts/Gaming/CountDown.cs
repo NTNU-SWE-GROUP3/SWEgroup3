@@ -10,6 +10,7 @@ public class CountDown : MonoBehaviour
     public int countdownTime;
     public static int TurnTime = 5;
     public static bool timeUp = false;
+    public static int gameType ;
     public Text countdownDisplay;
     public Text TimerText;
     public GameObject PlayerArea;
@@ -34,7 +35,8 @@ public class CountDown : MonoBehaviour
     {
         MessagePanel.SetActive(false);
         showcard = GameObject.Find("GameController").GetComponent<ShowCard>();
-        StartCoroutine(CountdownToStart(1));//1 for PVP
+        gameType = 0;
+        StartCoroutine(CountdownToStart(gameType));//1 for PVP
     }
 
     IEnumerator CountdownToStart(int gameType)

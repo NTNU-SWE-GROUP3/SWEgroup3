@@ -96,5 +96,5 @@ async def handle_Card():
 
     print(response_data)
     playerRoom.turn_end()
-    playerRoom.start_timer(30) # the room will be remvoed when no player send signals in 20 seconds.
+    playerRoom.start_timer(60) # the room will be remvoed when no player send signals in 20 seconds.
     return jsonify(response_data)

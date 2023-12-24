@@ -5,7 +5,9 @@ MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - showDisplay: {instanceID: 0}
-  - drop: {fileID: 8300000, guid: b886837dc5dbf42ab8a608d93ebe0d40, type: 3}
+  - OpponentArea: {instanceID: 0}
+  - PlayerShow: {fileID: 774172642033849534, guid: 71613f38c60424a40816f3ff0f26ca3c, type: 3}
+  - OpponentShow: {fileID: 6968624758804029387, guid: 6ef8ebd16501de447a3e8126e2378964, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
