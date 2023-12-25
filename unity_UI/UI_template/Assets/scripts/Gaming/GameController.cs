@@ -435,6 +435,7 @@ public class GameController : MonoBehaviour
                 }
 
             }
+            CardDatabase.cardList.Clear();
         }
     }
 
