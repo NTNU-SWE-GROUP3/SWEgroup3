@@ -17,8 +17,9 @@ public class MainAudioManager : MonoBehaviour
     private GameObject panelHolder;
     private float time1;
     private float time2;
+    private float vol2;
 
-    private bool stop = false;
+    private bool stop = true;
 
     private void Start()
     {
@@ -27,46 +28,69 @@ public class MainAudioManager : MonoBehaviour
         time1 = 1;
         time2 = 0;
     }
+
+    public void Page5jump()
+    {
+        stop = false;
+        StartCoroutine(wait());
+    }
+
+    public void Page4jump()
+    {
+        if(stop == false){
+            stop = true;
+        }
+    }
+
+    private IEnumerator wait()
+    {
+        yield return new WaitForSeconds(0.45f);
+        stop = true;
+    }
+
     void Update()
     {
-        if(stop == false)
-        {
-            audioSource.volume = slider.value;
-        }
+        audioSource.volume = slider.value;
 
         float x = panelHolder.GetComponent<RectTransform>().offsetMax.x;
 
-        if (x <= -879 && x >= -1281)
-        {
-            if (audioSource.clip != clip2)
-            {
-                audioSource.clip = clip2;
-                audioSource.time = time2;
-                audioSource.Play();
-            }
-        }
-        else if ((x > -1958 && x < -1281) || (x <= -200 && x > -879))
-        {
-            if (audioSource.clip == clip1)
-            {
-                time1 = audioSource.time;
-                audioSource.clip = clip3;
-                audioSource.Play();
-            }
-            else if (audioSource.clip == clip2)
-            {
-                time2 = audioSource.time;
-                audioSource.clip = clip3;
-                audioSource.Play();
-            }
-        }
-        else
+        Debug.Log(stop);
+
+        if (stop == false || (x > -200 || x <= -1968))
         {
             if (audioSource.clip != clip1)
             {
                 audioSource.clip = clip1;
                 audioSource.time = time1;
                 audioSource.Play();
+            }
+        }
+        else if(stop == true)
+        {
+            if (x <= -879 && x >= -1281)
+            {
+                if (audioSource.clip != clip2)
+                {
+                    audioSource.clip = clip2;
+                    audioSource.time = time2;
+                    StartCoroutine(wait());
+                    audioSource.Play();
+                }
+            }
+            else if ((x > -1958 && x < -1281) || (x <= -200 && x > -879))
+            {
+                if (audioSource.clip == clip1)
+                {
+                    time1 = audioSource.time;
+                    audioSource.clip = clip3;
+                    audioSource.Play();
+                }
+                else if (audioSource.clip == clip2)
+                {
+                    time2 = audioSource.time;
+                    audioSource.clip = clip3;
+                    audioSource.Play();
+                }
             }
         }
     }
