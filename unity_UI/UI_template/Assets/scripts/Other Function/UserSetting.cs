@@ -70,6 +70,11 @@ public class UserSetting : MonoBehaviour
     public Text UICoins;
     public Text UIChips;
 
+    //Avator Image
+    public Sprite AV1_Image;
+    public Sprite AV2_Image;
+    public Sprite AV3_Image;
+    public Sprite AV4_Image;
 
 
     //URL
@@ -194,6 +199,31 @@ public class UserSetting : MonoBehaviour
         NewInfoInput.text = "";
     }
 
+    private void ChangeName()
+    {
+        string new_nickname = NewInfoInput.text;
+        StartCoroutine(ChangeNicknameRequest(player_token, new_nickname));
+        ChangeInfoPanel.SetActive(false);
+        UpdateUserGeneralData();
+        UpdateUserInformation();
+        InformInputText.text = ("");
+        NewInfoInput.text = "";
+    }
+
+    private void ChangeEmail()
+    {
+        string new_email = NewInfoInput.text;
+        //StartCoroutine(ChangeEmailRequest(player_token, new_email));
+        ChangeInfoPanel.SetActive(false);
+        //UpdateUserGeneralData();
+        //UpdateUserInformation();
+        InformInputText.text = ("");
+        NewInfoInput.text = "";
+        UserSettingWarningPanel.SetActive(true);
+        NoticeTitleText.text = ("功能調整中！");
+        UseSettingMessage.text = ("這個功能正在修改中QQ");
+    }
+
     private void TurnGeneralSetting()
     {
         UserDataPanel.SetActive(true);
@@ -216,6 +246,13 @@ public class UserSetting : MonoBehaviour
         NoticeTitleText.text = ("頭像已變更！");
         UseSettingMessage.text = ("已成功更換xxx1造型!");
         Debug.Log("Avator Changed > 1");
+        //AvatarButton
+        Image buttonImage = AvatarButton.image;
+
+        // 修改Image组件的sprite属性
+        buttonImage.sprite = AV1_Image;
+
+
     }
 
     private void ChangeAV2()
@@ -225,7 +262,11 @@ public class UserSetting : MonoBehaviour
         NoticeTitleText.text = ("頭像已變更！");
         UseSettingMessage.text = ("已成功更換xxx2造型!");
         Debug.Log("Avator Changed > 2");
+        //AvatarButton
+        Image buttonImage = AvatarButton.image;
 
+        // 修改Image组件的sprite属性
+        buttonImage.sprite = AV2_Image;
     }
 
     private void ChangeAV3()
@@ -235,6 +276,11 @@ public class UserSetting : MonoBehaviour
         NoticeTitleText.text = ("頭像已變更！");
         UseSettingMessage.text = ("已成功更換xxx3造型!");
         Debug.Log("Avator Changed > 3");
+        //AvatarButton
+        Image buttonImage = AvatarButton.image;
+
+        // 修改Image组件的sprite属性
+        buttonImage.sprite = AV3_Image;
     }
 
     private void ChangeAV4()
@@ -244,6 +290,11 @@ public class UserSetting : MonoBehaviour
         NoticeTitleText.text = ("頭像已變更！");
         UseSettingMessage.text = ("已成功更換xxx4造型!");
         Debug.Log("Avator Changed > 4");
+        //AvatarButton
+        Image buttonImage = AvatarButton.image;
+
+        // 修改Image组件的sprite属性
+        buttonImage.sprite = AV4_Image;
     }
 
 
@@ -332,15 +383,17 @@ public class UserSetting : MonoBehaviour
     private void UserChangeNickname()
     {
 
-        string new_nickname = NewInfoInput.text;
+        //string new_nickname = NewInfoInput.text;
         ChangeInfoPanel.SetActive(true);
         InformInputText.text = ("請輸入新的暱稱");
         InfoPlaceholder.text = ("Enter new Nickname");
 
-        ChangeConfirmButton.onClick.AddListener(CloseChangeInfoPanel);
+        
         //to be continue...
-        StartCoroutine(ChangeNicknameRequest(player_token, new_nickname));
-        Debug.Log("Try to Change User Nickname...");
+        //StartCoroutine(ChangeNicknameRequest(player_token, new_nickname));
+        //Debug.Log("Try to Change User Nickname:"+ new_nickname);
+
+        ChangeConfirmButton.onClick.AddListener(ChangeName);
 
     }
 
@@ -377,24 +430,28 @@ public class UserSetting : MonoBehaviour
                 {
                     case "400000":
                         Debug.Log("Nickname change sucessfully");
+                        UserSettingWarningPanel.SetActive(true);
                         NoticeTitleText.text = ("成功");
                         UseSettingMessage.text = "成功更改玩家暱稱：" + new_nickname;
                         break;
 
                     case "403001":
                         Debug.Log("User Name Existed");
+                        UserSettingWarningPanel.SetActive(true);
                         NoticeTitleText.text = ("改名失敗");
                         UseSettingMessage.text = "已存在的玩家暱稱：" + new_nickname;
                         break;
 
                     case "403002":
                         Debug.Log("User Name Too Long");
+                        UserSettingWarningPanel.SetActive(true);
                         NoticeTitleText.text = ("改名失敗");
                         UseSettingMessage.text = "玩家暱稱長度過長";
                         break;
 
                     case "403003":
                         Debug.Log("User Name is illigal");
+                        UserSettingWarningPanel.SetActive(true);
                         NoticeTitleText.text = ("改名失敗");
                         UseSettingMessage.text = "玩家暱稱不符合規定";
                         break;
@@ -411,16 +468,18 @@ public class UserSetting : MonoBehaviour
 
     private void UserChangeEmail()
     {
-        string new_email = NewInfoInput.text;
+        //string new_email = NewInfoInput.text;
         ChangeInfoPanel.SetActive(true);
         InformInputText.text = ("請輸入新的Email");
         InfoPlaceholder.text = ("Enter new Email");
 
 
-        ChangeConfirmButton.onClick.AddListener(CloseChangeInfoPanel);
         //to be continue...
-        StartCoroutine(ChangeEmailRequest(player_token, new_email));
+        //StartCoroutine(ChangeEmailRequest(player_token, new_email));
         Debug.Log("Try to Change Email...");
+
+        ChangeConfirmButton.onClick.AddListener(ChangeEmail);
+
 
     }
 

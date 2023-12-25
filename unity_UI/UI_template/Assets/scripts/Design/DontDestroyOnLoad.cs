@@ -25,6 +25,9 @@ public class DontDestroy : MonoBehaviour
     public int ranked_winning_streak;
     public int rank_xp;
     public int coin;
+    public string roomId = "None";
+    public int gameType = 1; // 0 for PVP
+
 
     // Start is called before the first frame update
     void Awake()

@@ -98,7 +98,7 @@ def ChangeNickname():
     token = request.form.get('Token')
     current_app.logger.info("token: %s", token)
     nickname = request.form.get('NewNickname')
-    current_app.logger.info("New Nick name: %s", token)
+    current_app.logger.info("New Nick name: %s", nickname)
 
 
     #token expiredtime
@@ -229,8 +229,3 @@ def verify_email():
 
     # Example: Return a response to the user
     return "Email verification successful!"
-
-
-
-
-    

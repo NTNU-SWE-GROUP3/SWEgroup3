@@ -24,6 +24,7 @@ public class ConfirmButton : MonoBehaviour
     GameObject SkillObject;
     SkillDisplay Skill;
 
+    private DontDestroy userdata;
 
     public static bool CardSelected;
     void Start()
@@ -32,14 +33,15 @@ public class ConfirmButton : MonoBehaviour
         deleteChange = GameObject.Find("GameController").GetComponent<DeleteChange>();
         gameObject.SetActive(false);
         CardSelected = false;
+        userdata = FindObjectOfType<DontDestroy>();
     }
 
     public IEnumerator SendSkillCard(int skillId)
     {
         SkillSelection gs = gameObject.AddComponent<SkillSelection>();
-        gs.gameType = 1;
-        gs.roomId = 1;
-        gs.playerToken = "XYZ";
+        gs.gameType = userdata.gameType;
+        gs.roomId = userdata.roomId;
+        gs.playerToken = userdata.token;
         gs.playerSkillID = skillId;
         gs.cardId = ClickDetector.cardId;
 
@@ -64,6 +66,8 @@ public class ConfirmButton : MonoBehaviour
         {
             Debug.Log("ConfirmButton:" + ret.errMessage);
             SceneManager.LoadScene(1);
+            userdata.gameType = 1;
+            userdata.roomId = "None";
         }
         else
         {
@@ -77,7 +81,7 @@ public class ConfirmButton : MonoBehaviour
         int gameType = CountDown.gameType;
         if (skillName.text == "簡易剔除!")
         {
-            if(gameType == 1)
+            if(gameType == 0)
             {
                 StartCoroutine(SendSkillCard(11));
             }
@@ -89,7 +93,7 @@ public class ConfirmButton : MonoBehaviour
         }
         else if (skillName.text == "階級流動!")
         {
-            if(gameType == 1)
+            if(gameType == 0)
             {
                 StartCoroutine(SendSkillCard(2));
             }
@@ -102,7 +106,7 @@ public class ConfirmButton : MonoBehaviour
         }
         else if(skillName.text == "暗影轉職!")
         {
-            if(gameType == 1)
+            if(gameType == 0)
             {
                 StartCoroutine(SendSkillCard(3));
             }
@@ -129,7 +133,7 @@ public class ConfirmButton : MonoBehaviour
                 }
             }
 
-            /*if(gameType == 1)
+            /*if(gameType == 0)
             {
                 StartCoroutine(SendSkillCard(8));
             }*/

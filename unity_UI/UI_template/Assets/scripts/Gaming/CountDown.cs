@@ -32,12 +32,16 @@ public class CountDown : MonoBehaviour
     public AudioClip StartSound;
     public AudioClip ThreeSec;
     AudioSource audioSource;
+    private DontDestroy userdata;
+
     // Start is called before the first frame update
     private void Start()
     {
+        userdata = FindObjectOfType<DontDestroy>();
         MessagePanel.SetActive(false);
         showcard = GameObject.Find("GameController").GetComponent<ShowCard>();
-        gameType = 0;//1 for PVP
+        gameType = userdata.gameType;//0 for PVP
+        
         StartCoroutine(CountdownToStart(gameType));
     }
 
@@ -51,12 +55,13 @@ public class CountDown : MonoBehaviour
         }
 
         int cardSet = -1;
-        if(gameType == 1)
+        Debug.Log("gameType : " + gameType);
+        if(gameType == 0)
         {
             GameStart gs = gameObject.AddComponent<GameStart>();
-            gs.gameType = 1;
-            gs.roomId = 1;
-            gs.playerToken = "XYZ";
+            gs.gameType = userdata.gameType;
+            gs.roomId = userdata.roomId;
+            gs.playerToken = userdata.token;
 
             CoroutineWithData cd = new CoroutineWithData(this, Flask.SendRequest(gs.SaveToString(),"getCardSet"));
             yield return cd.coroutine;
@@ -66,7 +71,7 @@ public class CountDown : MonoBehaviour
             RoomInfo ret = new RoomInfo();
             if (retString == "ConnectionError" || retString == "ProtocolError" || retString == "InProgress" || retString == "DataProcessingError")
             {
-                Debug.Log("GameController/CountdownToStart:" + retString);
+                Debug.Log("CountDown/CountdownToStart:" + retString);
                 SceneManager.LoadScene(0);
             }
             else
@@ -74,10 +79,12 @@ public class CountDown : MonoBehaviour
                 ret = RoomInfo.CreateFromJSON(cd.result.ToString());
             }
 
-            if(ret.roomId == -1)
+            if(ret.roomId == "None")
             {
-                Debug.Log("GameController: this room doesn't exist.");
+                Debug.Log("CountDown: this room doesn't exist.");
                 SceneManager.LoadScene(1);
+                userdata.gameType = 1;
+                userdata.roomId = "None";
             }
 
             
@@ -133,17 +140,18 @@ public class CountDown : MonoBehaviour
         if(PlayerShow.transform.childCount == 0)
             NoPlayCard();
 
-        if(gameType == 1)
+        if(gameType == 0)
         {
             // pass card info to server 
             PlayerCardObject = PlayerShow.transform.GetChild(0).gameObject;
             PlayerCard = PlayerCardObject.GetComponent<CardDisplay>();
             
             CardSelection selected = gameObject.AddComponent<CardSelection>();
-            selected.gameType = 1;
-            selected.roomId = 1;
-            selected.playerToken = "XYZ";
+            selected.gameType = gameType;
+            selected.roomId = userdata.roomId;
+            selected.playerToken = userdata.token;
             selected.playerCardID = PlayerCard.id;
+            
             
             CoroutineWithData cd = new CoroutineWithData(this, Flask.SendRequest(selected.SaveToString(),"cardSelection"));
             yield return cd.coroutine;
@@ -165,6 +173,8 @@ public class CountDown : MonoBehaviour
             {
                 Debug.Log("CountDown:" + ret.errMessage);
                 SceneManager.LoadScene(1);
+                userdata.gameType = 1;
+                userdata.roomId = "None";
             }
             else
             {
@@ -193,6 +203,8 @@ public class CountDown : MonoBehaviour
             {
                 Debug.Log("Didn't find the card from opponent");
                 SceneManager.LoadScene(1);
+                userdata.gameType = 1;
+                userdata.roomId = "None";
             }
         }
 

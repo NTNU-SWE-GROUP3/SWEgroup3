@@ -7,7 +7,7 @@ using System;
 public class CardSelection: MonoBehaviour
 {
     public int gameType;
-    public int roomId;
+    public string roomId;
     public string playerToken;
     public int playerCardID;
 
@@ -43,7 +43,7 @@ public class MsgBack
 public class SkillSelection: MonoBehaviour
 {
     public int gameType;
-    public int roomId;
+    public string roomId;
     public string playerToken;
     public int playerSkillID;
     public int cardId;
@@ -80,7 +80,7 @@ public class SkillMsgBack
 public class SkillCheck: MonoBehaviour
 {
     public int gameType;
-    public int roomId;
+    public string roomId;
     public string playerToken;
 
     public string SaveToString()
@@ -115,7 +115,7 @@ public class SkillCheckBack
 public class GameStart: MonoBehaviour
 {
     public int gameType;
-    public int roomId;
+    public string roomId;
     public string playerToken;
     public string SaveToString()
     {
@@ -126,7 +126,7 @@ public class GameStart: MonoBehaviour
 [Serializable]
 public class RoomInfo
 {
-    public int roomId;
+    public string roomId;
     public string playerCardSet;
     public string opponentCardSet;
 
@@ -151,7 +151,7 @@ public class RoomInfo
 public class GameTurn: MonoBehaviour
 {
     public int gameType;
-    public int roomId;
+    public string roomId;
     public string playerToken;
     public int playerEarn;
     public int opponentEarn;
@@ -187,7 +187,7 @@ public class TrunStat
 public class dilemmaUse: MonoBehaviour
 {
     public int gameType;
-    public int roomId;
+    public string roomId;
     public int cardId1;
     public int cardId2;
     public string playerToken;
@@ -224,7 +224,7 @@ public class dilemmaUseBack
 public class dilemmaCheck: MonoBehaviour
 {
     public int gameType;
-    public int roomId;
+    public string roomId;
     public string playerToken;
     public string SaveToString()
     {
