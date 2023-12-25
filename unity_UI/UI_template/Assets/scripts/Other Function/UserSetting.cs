@@ -199,6 +199,28 @@ public class UserSetting : MonoBehaviour
         NewInfoInput.text = "";
     }
 
+    private void ChangeName()
+    {
+        string new_nickname = NewInfoInput.text;
+        StartCoroutine(ChangeNicknameRequest(player_token, new_nickname));
+        ChangeInfoPanel.SetActive(false);
+        UpdateUserGeneralData();
+        UpdateUserInformation();
+        InformInputText.text = ("");
+        NewInfoInput.text = "";
+    }
+
+    private void ChangeEmail()
+    {
+        string new_email = NewInfoInput.text;
+        StartCoroutine(ChangeEmailRequest(player_token, new_email));
+        ChangeInfoPanel.SetActive(false);
+        UpdateUserGeneralData();
+        UpdateUserInformation();
+        InformInputText.text = ("");
+        NewInfoInput.text = "";
+    }
+
     private void TurnGeneralSetting()
     {
         UserDataPanel.SetActive(true);
@@ -358,15 +380,17 @@ public class UserSetting : MonoBehaviour
     private void UserChangeNickname()
     {
 
-        string new_nickname = NewInfoInput.text;
+        //string new_nickname = NewInfoInput.text;
         ChangeInfoPanel.SetActive(true);
         InformInputText.text = ("請輸入新的暱稱");
         InfoPlaceholder.text = ("Enter new Nickname");
 
-        ChangeConfirmButton.onClick.AddListener(CloseChangeInfoPanel);
+        
         //to be continue...
-        StartCoroutine(ChangeNicknameRequest(player_token, new_nickname));
-        Debug.Log("Try to Change User Nickname...");
+        //StartCoroutine(ChangeNicknameRequest(player_token, new_nickname));
+        //Debug.Log("Try to Change User Nickname:"+ new_nickname);
+
+        ChangeConfirmButton.onClick.AddListener(ChangeName);
 
     }
 
@@ -437,16 +461,18 @@ public class UserSetting : MonoBehaviour
 
     private void UserChangeEmail()
     {
-        string new_email = NewInfoInput.text;
+        //string new_email = NewInfoInput.text;
         ChangeInfoPanel.SetActive(true);
         InformInputText.text = ("請輸入新的Email");
         InfoPlaceholder.text = ("Enter new Email");
 
 
-        ChangeConfirmButton.onClick.AddListener(CloseChangeInfoPanel);
         //to be continue...
-        StartCoroutine(ChangeEmailRequest(player_token, new_email));
+        //StartCoroutine(ChangeEmailRequest(player_token, new_email));
         Debug.Log("Try to Change Email...");
+
+        ChangeConfirmButton.onClick.AddListener(ChangeEmail);
+
 
     }
 
