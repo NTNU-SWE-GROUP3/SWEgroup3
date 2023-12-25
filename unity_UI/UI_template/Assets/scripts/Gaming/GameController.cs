@@ -387,7 +387,7 @@ public class GameController : MonoBehaviour
 
     public void FinishCheck(int gameType,int PlayerEarnCard, int OpponentEarnCard, int PlayerHandCard, int OpponentHandCard)
     {
-        if (OpponentEarnCard < 10 && PlayerEarnCard < 10 && PlayerHandCard > 0 && OpponentHandCard > 0)
+        if (OpponentEarnCard < 2 && PlayerEarnCard < 2 && PlayerHandCard > 0 && OpponentHandCard > 0)
             StartCoroutine(TurnStart(gameType));
         else
         {
@@ -396,14 +396,14 @@ public class GameController : MonoBehaviour
             SkillImage.SetActive(false);
             WinImage.SetActive(true);
             NextRoundText.gameObject.SetActive(true);
-            if (PlayerEarnCard >= 10)
+            if (PlayerEarnCard >= 2)
             {
                 NextRoundText.text = "VICTORY";
                 StartCoroutine(VictorySE());
                 WinOrLose = "win";
                 StartCoroutine(GameFinishPanel(WinOrLose));
             }
-            else if (OpponentEarnCard >= 10)
+            else if (OpponentEarnCard >= 2)
             {
                 NextRoundText.text = "DEFEAT";
                 StartCoroutine(DefeatSE());
