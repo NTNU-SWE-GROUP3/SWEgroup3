@@ -213,12 +213,15 @@ public class UserSetting : MonoBehaviour
     private void ChangeEmail()
     {
         string new_email = NewInfoInput.text;
-        StartCoroutine(ChangeEmailRequest(player_token, new_email));
+        //StartCoroutine(ChangeEmailRequest(player_token, new_email));
         ChangeInfoPanel.SetActive(false);
-        UpdateUserGeneralData();
-        UpdateUserInformation();
+        //UpdateUserGeneralData();
+        //UpdateUserInformation();
         InformInputText.text = ("");
         NewInfoInput.text = "";
+        UserSettingWarningPanel.SetActive(true);
+        NoticeTitleText.text = ("功能調整中！");
+        UseSettingMessage.text = ("這個功能正在修改中QQ");
     }
 
     private void TurnGeneralSetting()
@@ -427,24 +430,28 @@ public class UserSetting : MonoBehaviour
                 {
                     case "400000":
                         Debug.Log("Nickname change sucessfully");
+                        UserSettingWarningPanel.SetActive(true);
                         NoticeTitleText.text = ("成功");
                         UseSettingMessage.text = "成功更改玩家暱稱：" + new_nickname;
                         break;
 
                     case "403001":
                         Debug.Log("User Name Existed");
+                        UserSettingWarningPanel.SetActive(true);
                         NoticeTitleText.text = ("改名失敗");
                         UseSettingMessage.text = "已存在的玩家暱稱：" + new_nickname;
                         break;
 
                     case "403002":
                         Debug.Log("User Name Too Long");
+                        UserSettingWarningPanel.SetActive(true);
                         NoticeTitleText.text = ("改名失敗");
                         UseSettingMessage.text = "玩家暱稱長度過長";
                         break;
 
                     case "403003":
                         Debug.Log("User Name is illigal");
+                        UserSettingWarningPanel.SetActive(true);
                         NoticeTitleText.text = ("改名失敗");
                         UseSettingMessage.text = "玩家暱稱不符合規定";
                         break;
