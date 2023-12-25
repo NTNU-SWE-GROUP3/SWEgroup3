@@ -202,7 +202,8 @@ public static class MatchmakingService
     {
         try{
             _currentLobby = await Lobbies.Instance.JoinLobbyByCodeAsync(lobbyCode);
-            SendRequestStartGame( userID ); // Player who "joined" the lobby send start game request
+            SendRequestStartGame( userID );// Player who "joined" the lobby send start game request
+            
             Debug.Log($"Join Friend Lobby ({_currentLobby.Id}, {_currentLobby.LobbyCode})");
             // var a = await RelayService.Instance.JoinAllocationAsync(_currentLobby.Data[Constants.JoinKey].Value);
 
@@ -263,7 +264,7 @@ public static class MatchmakingService
             }
     }
 
-    static IEnumerator SendRequestStartGame( string P2ID )
+    static void SendRequestStartGame( string P2ID )
     {
         Debug.Log("SendRequestStartGame");
         WWWForm form = new WWWForm();
@@ -273,10 +274,21 @@ public static class MatchmakingService
         form.AddField( "Player1Token", _currentLobby.Data["p1ID"].ToString() );
         form.AddField( "Player2Token", P2ID );
 
-        UnityWebRequest www = UnityWebRequest.Post( StartGameURL, form);
-        yield return www.SendWebRequest();
-
-        if (www.result == UnityWebRequest.Result.Success )
+        //UnityWebRequest www = UnityWebRequest.Post( StartGameURL, form);
+        UnityWebRequestAsyncOperation www = UnityWebRequest.Post(StartGameURL, form).SendWebRequest();
+        string result = "";
+        while(true)
+        {
+            if (www.isDone) 
+            {
+                // Done!
+                result = www.webRequest.downloadHandler.text;
+                break;
+            }
+        }
+        //yield return www.SendWebRequest();
+        Debug.Log(result);
+        if (result == "Success" )//UnityWebRequest.Result.Success
         {
             StoreData.store(0,_currentLobby.Id);
             SceneManager.LoadScene(2);
