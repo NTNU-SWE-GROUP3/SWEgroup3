@@ -25,6 +25,7 @@ public class DontDestroy : MonoBehaviour
     public int ranked_winning_streak;
     public int rank_xp;
     public int coin;
+    public int equip_avatar;
     public string roomId = "None";
     public int gameType = 1; // 0 for PVP
 
@@ -361,7 +362,7 @@ public class DontDestroy : MonoBehaviour
                 string[] dataParts = dataString.Split(';');
 
                 // 確保有足夠的元素來初始化變數
-                if (dataParts.Length == 10)
+                if (dataParts.Length == 11)
                 {
                     uid = int.Parse(dataParts[0]);
                     nickname = dataParts[1];
@@ -373,6 +374,7 @@ public class DontDestroy : MonoBehaviour
                     ranked_winning_streak = int.Parse(dataParts[7]);
                     rank_xp = int.Parse(dataParts[8]);
                     coin = int.Parse(dataParts[9]);
+                    equip_avatar = int.Parse(dataParts[10]);
 
                     /*
                         public int uid;

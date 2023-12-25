@@ -3168,11 +3168,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07e4a942e1f423a4887f33c28f63aeed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serverURL_CardInfo: http://127.0.0.1:5050/user_data/getcardinfo
-  serverURL_SkillInfo: http://127.0.0.1:5050/user_data/getskillinfo
-  serverURL_UserSkillData: http://127.0.0.1:5050/user_data/getuserskilldata
-  serverURL_UserCardData: http://127.0.0.1:5050/user_data/getuserstyledata
+  serverURL_CardInfo: http://140.122.185.169:5050/user_data/getcardinfo
+  serverURL_SkillInfo: http://140.122.185.169:5050/user_data/getskillinfo
+  serverURL_UserSkillData: http://140.122.185.169:5050/user_data/getuserskilldata
+  serverURL_UserCardData: http://140.122.185.169:5050/user_data/getuserstyledata
+  serverURL_AccountData: http://140.122.185.169:5050/user_data/get_accountdata_table
   token: 
+  uid: 0
+  nickname: 
+  level: 0
+  experience: 0
+  rank: 
+  total_match: 0
+  total_win: 0
+  ranked_winning_streak: 0
+  rank_xp: 0
+  coin: 0
+  roomId: None
+  gameType: 1
   characterDataList: []
   SkillDataList: []
   UserCardDataList: []

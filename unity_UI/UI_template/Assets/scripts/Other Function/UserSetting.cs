@@ -202,6 +202,7 @@ public class UserSetting : MonoBehaviour
     private void ChangeName()
     {
         string new_nickname = NewInfoInput.text;
+        Debug.Log("Ready to change nickname: " + new_nickname);
         StartCoroutine(ChangeNicknameRequest(player_token, new_nickname));
         ChangeInfoPanel.SetActive(false);
         UpdateUserGeneralData();
@@ -387,12 +388,6 @@ public class UserSetting : MonoBehaviour
         ChangeInfoPanel.SetActive(true);
         InformInputText.text = ("請輸入新的暱稱");
         InfoPlaceholder.text = ("Enter new Nickname");
-
-        
-        //to be continue...
-        //StartCoroutine(ChangeNicknameRequest(player_token, new_nickname));
-        //Debug.Log("Try to Change User Nickname:"+ new_nickname);
-
         ChangeConfirmButton.onClick.AddListener(ChangeName);
 
     }
