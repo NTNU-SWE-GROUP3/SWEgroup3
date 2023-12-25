@@ -55,6 +55,7 @@ public class CountDown : MonoBehaviour
         }
 
         int cardSet = -1;
+        Debug.Log("gameType : " + gameType);
         if(gameType == 0)
         {
             GameStart gs = gameObject.AddComponent<GameStart>();

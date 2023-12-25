@@ -18,6 +18,7 @@ using UnityEngine.Networking;
 using MiniJSON;
 using UnityEngine.SceneManagement;
 
+
 public static class Authentication
 {
     public static string PlayerId { get; private set; }
@@ -50,6 +51,8 @@ public static class MatchmakingService
     static string StartGameURL = "http://140.122.185.169:5050/api/gameStart";
 
     private static int SecondPlayerJoinflag = 0;
+
+    
 
     private static bool isSecondPlayerIn()
     {
@@ -228,6 +231,7 @@ public static class MatchmakingService
                 {
                     Debug.Log("It's time to play game!");
                     SecondPlayerJoinflag = 1;
+                    StoreData.store(0,_currentLobby.Id);
                     SceneManager.LoadScene(2);
                 }
                 else
@@ -274,6 +278,7 @@ public static class MatchmakingService
 
         if (www.result == UnityWebRequest.Result.Success )
         {
+            StoreData.store(0,_currentLobby.Id);
             SceneManager.LoadScene(2);
         }
     }
