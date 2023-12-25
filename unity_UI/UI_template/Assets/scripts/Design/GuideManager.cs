@@ -22,6 +22,12 @@ public class GuideManager : MonoBehaviour
 
     [SerializeField] GameObject skindesPanel;
     [SerializeField] GameObject skindesPanel2;
+    [SerializeField] GameObject setPanel;
+    [SerializeField] GameObject civPanel1;
+    [SerializeField] GameObject civPanel2;
+    [SerializeField] GameObject civPanel3;
+    [SerializeField] GameObject skillPanel;
+    [SerializeField] GameObject skinPanel;
     [SerializeField] GameObject MaskPanel1;
     [SerializeField] GameObject MaskPanel2;
     [SerializeField] GameObject MaskPanel3;
@@ -43,7 +49,7 @@ public class GuideManager : MonoBehaviour
     private int currentstory = 0;
     // private static float[] timeControl ={0.5f,0.5f,0.5f,0.5f,0.5f,0.5f,0.5f,0.5f,0.5f};
     
-    private static string[] intro = {"在某個古老的中世紀酒吧裡\n木制長桌上灰塵飛揚\n沾滿酒漬的桌面反映出暗淡的燭光。", 
+    private static string[] intro = {"在某個古老的中世紀酒吧裡\n木製長桌上灰塵飛揚\n沾滿酒漬的桌面反映出暗淡的燭光。", 
                                     "石牆上掛著斑駁的旗幟\n勇士和冒險家的壁畫在暗淡的燈光下閃爍著。", 
                                     "酒吧的角落有著一個區域\n桌子上放著古老的牌組\n周圍圍著一群群酒醉的顧客\n吆喝著、嬉笑打鬧著。",
                                     "人們聚集在一起\n不僅是為了享受美酒佳餚\n更是為了一場激烈的紙牌遊戲。", 
@@ -68,14 +74,14 @@ public class GuideManager : MonoBehaviour
     private static string[] pg5 = {"這裡是其他對戰區域,玩家可以在這裡選擇\n一般對戰\n排位對戰\n電腦對戰\n自訂對戰等四種模式" 
     };
     
-    private static string[] pg1 = {"這裡造型裝備區域,卡牌共分為四種陣營及六種職業,分別為\n皇家:國王、皇后、王子\n騎士:騎士\n平民:平民\n殺手:殺手",
-                                    "接著讓我們來看看各個角色對應的圖示"};
+    private static string[] pg1 = {"這裡造型裝備區域,點擊造型圖示可以查看造型介紹以及選擇是否裝備,卡牌共分為四種陣營及六種職業,分別為\n皇家:國王、皇后、王子\n騎士:騎士\n平民:平民\n殺手:殺手",
+                                    "接著請試著點擊角色圖示"};
 
     private static string[] pg1d2 = {"而四種陣營之間也互相存在剋制關係: 分別為\n皇家 勝過 騎士,平民\n騎士 勝過 平民,殺手 \n殺手 勝過 皇家",
                                     "另外,由於皇室鬥爭,皇室內部也存在剋制關係: \n國王勝過王子\n王子勝過皇后\n皇后勝過國王",
-                                    "讓我們來看看各個角色對應的關係圖"};
+                                    "讓我們來看看各個角色對應的關係圖及平民卡技能介紹"};
 
-    private static string[] pg2 = {"這裡是技能裝備區域,由於招不到調酒師所以目前未完全開放,請期待final demo的實裝版本"};
+    private static string[] pg2 = {"這裡是技能裝備區域,擁有的技能會顯示在這裡,點擊技能圖示可以查看技能介紹以及選擇是否裝備,現在請試著點擊技能圖示"};
 
     private static string[] pg3 = {"恭喜你完成遊戲大廳的導覽\n接著讓我們一起進入遊戲吧"};
 
@@ -128,8 +134,14 @@ public class GuideManager : MonoBehaviour
     }
 
     void  ClearMask(){
+        civPanel1.SetActive(false);
+        civPanel2.SetActive(false);
+        civPanel3.SetActive(false);
+        setPanel.SetActive(false);
         skindesPanel.SetActive(false);
         skindesPanel2.SetActive(false);
+        skillPanel.SetActive(false);
+        skinPanel.SetActive(false);
         MaskPanel1.SetActive(false);
         MaskPanel2.SetActive(false);
         MaskPanel3.SetActive(false);

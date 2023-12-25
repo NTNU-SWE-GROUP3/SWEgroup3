@@ -69,11 +69,11 @@ public class SkillSlotScript : MonoBehaviour
         }
          else if (skillStyleID == 9)
         {
-            return Resources.Load<Sprite>(SkillImagesPath+"SkillEarn1");
+            return Resources.Load<Sprite>(SkillImagesPath+"SkillMin1");
         }
          else if (skillStyleID == 10)
         {
-            return Resources.Load<Sprite>(SkillImagesPath+"SkillMin1");
+            return Resources.Load<Sprite>(SkillImagesPath+"SkillEarn1");
         }
 
         // Return null if the skill ID is out of bounds
