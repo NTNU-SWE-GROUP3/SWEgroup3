@@ -155,7 +155,7 @@ public static class MatchmakingService
 
         try{
             await QuickJoinLobbyWithAllocation(type, level);
-            SendRequestStartGame( userID ); // Player who "joined" the lobby send start game request
+            StartCoroutine( SendRequestStartGame( userID ); ) // Player who "joined" the lobby send start game request
         }
         catch{
             await CreateLobbyWithAllocation(data);
@@ -199,7 +199,7 @@ public static class MatchmakingService
     {
         try{
             _currentLobby = await Lobbies.Instance.JoinLobbyByCodeAsync(lobbyCode);
-            SendRequestStartGame( userID ); // Player who "joined" the lobby send start game request
+            StartCoroutine( SendRequestStartGame( userID ) ); // Player who "joined" the lobby send start game request
             Debug.Log($"Join Friend Lobby ({_currentLobby.Id}, {_currentLobby.LobbyCode})");
             // var a = await RelayService.Instance.JoinAllocationAsync(_currentLobby.Data[Constants.JoinKey].Value);
 
