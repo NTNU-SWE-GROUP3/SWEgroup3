@@ -30,6 +30,8 @@ def EquipCardStyle():
         haveItem = HaveCardStyle(tokenId, targetCardStyleId)
         print("haveItem: ", haveItem)
 
+        if targetCharacterType == "6":
+            targetCharacterType = "0"
         if haveItem:
             unselectSkinId = FindEquippedCardStyle(tokenId, targetCharacterType)
             print("target unselect skin id: ", unselectSkinId)
@@ -157,4 +159,4 @@ def FindEquippedCardStyle(tokenId, characterType):
         print("Error in FindEquippedCardStyle")
         conn.close()
         return None
-    
+        

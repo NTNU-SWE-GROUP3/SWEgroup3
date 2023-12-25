@@ -33,7 +33,7 @@ public class UIManager : MonoBehaviour
     public Button AssassinButton;
 
 
-    private static string[] skinFolders = { "Aladin", "Alice in wonderland", "Chinese chess", "Cinderella", "Frozen", "Japanese chess", "Poker", "Romet and Juliette", "Snow White" };
+    private static string[] skinFolders = { "Aladin", "Alice in wonderland", "Chinese chess", "Cinderella", "Frozen", "Japanese chess", "chess", "Romet and Juliette", "Snow White" };
     private int skincount = skinFolders.Length;
     private int currentSkinIndex = 0;
     private string CurrentCharactor = "";
@@ -87,12 +87,12 @@ public class UIManager : MonoBehaviour
         new string [] {"28", "騎士 (羅密歐與茱麗葉)", "將你的平民卡牌套上羅密歐與茱麗葉造型!", "普通"},
         new string [] {"29", "王子 (羅密歐與茱麗葉)", "將你的平民卡牌套上羅密歐與茱麗葉造型!", "普通"},
         new string [] {"30", "皇后 (羅密歐與茱麗葉)", "將你的平民卡牌套上羅密歐與茱麗葉造型!", "普通"},
-        new string [] {"31", "平民 (撲克)", "將你的平民卡牌套上撲克造型!", "普通"},
-        new string [] {"32", "殺手 (撲克)", "將你的平民卡牌套上撲克造型!", "普通"},
-        new string [] {"33", "國王 (撲克)", "將你的平民卡牌套上撲克造型!", "普通"},
-        new string [] {"34", "騎士 (撲克)", "將你的平民卡牌套上撲克造型!", "普通"},
-        new string [] {"35", "王子 (撲克)", "將你的平民卡牌套上撲克造型!", "普通"},
-        new string [] {"36", "皇后 (撲克)", "將你的平民卡牌套上撲克造型!", "普通"},
+        new string [] {"31", "平民 (西洋棋)", "將你的平民卡牌套上西洋棋造型!", "普通"},
+        new string [] {"32", "殺手 (西洋棋)", "將你的平民卡牌套上西洋棋造型!", "普通"},
+        new string [] {"33", "國王 (西洋棋)", "將你的平民卡牌套上西洋棋造型!", "普通"},
+        new string [] {"34", "騎士 (西洋棋)", "將你的平民卡牌套上西洋棋造型!", "普通"},
+        new string [] {"35", "王子 (西洋棋)", "將你的平民卡牌套上西洋棋造型!", "普通"},
+        new string [] {"36", "皇后 (西洋棋)", "將你的平民卡牌套上西洋棋造型!", "普通"},
         new string [] {"37", "平民 (象棋)", "將你的平民卡牌套上象棋造型!", "普通"},
         new string [] {"38", "殺手 (象棋)", "將你的平民卡牌套上象棋造型!", "普通"},
         new string [] {"39", "國王 (象棋)", "將你的平民卡牌套上象棋造型!", "普通"},
@@ -115,7 +115,6 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-
         SkinPanel = GameObject.Find("SkinPanel");
         SkinPanel.SetActive(false);
         //NextSkinButton.onClick.AddListener(OnNextButtonClicked);

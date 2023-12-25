@@ -15,6 +15,18 @@ public class CardDatabase : MonoBehaviour
     string KnightSkin = "Poker";
     string KillerSkin = "Poker";
     string CivilSkin = "Poker";
+
+    void Start()
+    {
+        SkinStyle = "";
+        KingSkin = "Poker";
+        QueenSkin = "Poker";
+        PrinceSkin = "Poker";
+        KnightSkin = "Poker";
+        KillerSkin = "Poker";
+        CivilSkin = "Poker";
+
+    }
     public void Create()
     {
         for(int i = 0;i<cardStyleIdList.Count;i++)
@@ -24,6 +36,7 @@ public class CardDatabase : MonoBehaviour
             switch((cardStyleIdList[i]-1)/6)
             {
                 case 0 :
+                    Debug.Log("HI");
                     SkinStyle = "Frozen"; 
                     break;
                 case 1 :
@@ -39,7 +52,7 @@ public class CardDatabase : MonoBehaviour
                     SkinStyle = "Romet and Juliette"; 
                     break;
                 case 5 :
-                    SkinStyle = "Chess"; 
+                    SkinStyle = "chess"; 
                     break;
                 case 6 :
                     SkinStyle = "Chinese chess"; 
@@ -48,7 +61,7 @@ public class CardDatabase : MonoBehaviour
                     SkinStyle = "Japanese chess"; 
                     break;
                 case 8 :
-                    SkinStyle = "Snow white"; 
+                    SkinStyle = "Snow White"; 
                     break;
             }
 
