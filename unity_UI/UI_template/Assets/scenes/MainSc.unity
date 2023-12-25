@@ -23296,6 +23296,8 @@ MonoBehaviour:
   slider: {fileID: 578770116}
   clip1: {fileID: 8300000, guid: a014fa9e8356e044b8ca643c5b106723, type: 3}
   clip2: {fileID: 8300000, guid: a2e9a403d9cf34f238eb36c19abb7ec9, type: 3}
+  gacha1: {fileID: 8300000, guid: 07ee06a32aff741cca9be72a887f667b, type: 3}
+  gacha2: {fileID: 8300000, guid: 34521e2f3365043178bae1c065e3e137, type: 3}
 --- !u!82 &1566575137
 AudioSource:
   m_ObjectHideFlags: 0
@@ -32948,6 +32950,7 @@ MonoBehaviour:
   percentThreshold: 0.2
   easing: 0.5
   totalPages: 5
+  audioManager: {fileID: 0}
 --- !u!1 &2110468041
 GameObject:
   m_ObjectHideFlags: 0

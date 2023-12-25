@@ -14,6 +14,8 @@ public class MainAudioManager : MonoBehaviour
     public AudioClip clip1;
     public AudioClip clip2;
     private AudioClip clip3 = null;
+    public AudioClip gacha1;
+    public AudioClip gacha2;
     private GameObject panelHolder;
     private float time1;
     private float time2;
@@ -35,6 +37,16 @@ public class MainAudioManager : MonoBehaviour
         StartCoroutine(wait());
     }
 
+    public void GachaSE1()
+    {
+        audioSource.PlayOneShot(gacha1);
+    }
+
+     public void GachaSE10()
+    {
+        audioSource.PlayOneShot(gacha2);
+    }
+
     public void Page4jump()
     {
         if(stop == false){
@@ -54,8 +66,6 @@ public class MainAudioManager : MonoBehaviour
 
         float x = panelHolder.GetComponent<RectTransform>().offsetMax.x;
 
-        Debug.Log(stop);
-
         if (stop == false || (x > -200 || x <= -1968))
         {
             if (audioSource.clip != clip1)
@@ -73,7 +83,6 @@ public class MainAudioManager : MonoBehaviour
                 {
                     audioSource.clip = clip2;
                     audioSource.time = time2;
-                    StartCoroutine(wait());
                     audioSource.Play();
                 }
             }
