@@ -26,26 +26,23 @@ public class LobbyOrchestrator : NetworkBehaviour {
     static string userID;
 
     public static bool isJoin;
-/*
-    void Start()
+
+    public async void FriendCreate()
     {
         userdata = FindObjectOfType<DontDestroy>();
         if( userdata != null )
         {
             userID = userdata.token;
             Debug.Log($"LobbyOrchestrator: userID: {userID}");
-            Debug.Log($"userRank: {userdata.rank}");
-            userRank = int.Parse(userdata.rank);
+            //Debug.Log($"userRank: {userdata.rank}");
+            //userRank = int.Parse(userdata.rank);
             isJoin = false;
         }
         else
         {
             Debug.Log("Lobby Orchestrator: Cannot found userdata");
         }
-        
-    }*/
-    public async void FriendCreate()
-    {
+
         await Authentication.Login();
         //using (new Load("creating room...")) {
             try {
@@ -74,6 +71,20 @@ public class LobbyOrchestrator : NetworkBehaviour {
     //public static async void FriendJoin( string code )
     public async void FriendJoin( string code )
     {
+        userdata = FindObjectOfType<DontDestroy>();
+        if( userdata != null )
+        {
+            userID = userdata.token;
+            Debug.Log($"LobbyOrchestrator: userID: {userID}");
+            //Debug.Log($"userRank: {userdata.rank}");
+            //userRank = int.Parse(userdata.rank);
+            isJoin = false;
+        }
+        else
+        {
+            Debug.Log("Lobby Orchestrator: Cannot found userdata");
+        }
+
         await Authentication.Login();
         //using (new Load("Joining Lobby...")) {
             try {
@@ -146,32 +157,12 @@ public class LobbyOrchestrator : NetworkBehaviour {
         else
         {
             Debug.Log("SendRequestStartGame");
-            /*
-            WWWForm form = new WWWForm();
-
-            form.AddField( "gameType", MatchmakingService._currentLobby.Data["t"].Value );
-            //Debug.Log($"gameType: |{MatchmakingService._currentLobby.Data["t"].Value}|");
-            form.AddField( "roomId", MatchmakingService._currentLobby.Id.ToString() );
-            //Debug.Log($"roomId: |{MatchmakingService._currentLobby.Id.ToString()}|");
-            form.AddField( "Player1Token", MatchmakingService._currentLobby.Data["p"].Value );
-            //Debug.Log($"P1ID: |{MatchmakingService._currentLobby.Data["p"].Value}|");
-            form.AddField( "Player2Token", P2ID );
-            //Debug.Log($"P2ID: |{P2ID}|");
-
-            UnityWebRequest www = UnityWebRequest.Post( StartGameURL, form);
-            www.SetRequestHeader("Content-Type", "application/json");
-            Debug.Log("Request Headers: " + www.GetRequestHeader("Content-Type"));
-
-            Debug.Log("Request Body: " + System.Text.Encoding.UTF8.GetString(form.data));
-
-            yield return www.SendWebRequest();
-            */
 
             // Construct the JSON payload
             string jsonData = $"{{\"gameType\":\"{MatchmakingService._currentLobby.Data["t"].Value}\"," +
                               $"\"roomId\":\"{MatchmakingService._currentLobby.Id}\"," +
-                              $"\"Player1Token\":\"{MatchmakingService._currentLobby.Data["p"].Value}\"," +
-                              $"\"Player2Token\":\"{P2ID}\"}}";
+                              $"\"player1Token\":\"{MatchmakingService._currentLobby.Data["p"].Value}\"," +
+                              $"\"player2Token\":\"{P2ID}\"}}";
 
             // Convert JSON string to bytes
             byte[] jsonBytes = System.Text.Encoding.UTF8.GetBytes(jsonData);

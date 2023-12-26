@@ -76,26 +76,4 @@ public class LobbyController : MonoBehaviour
         if( Lobby != null ) Lobby.SetActive(false);
         if( LobbyCodeShow != null ) LobbyCodeShow.text = $"Room Code: ";
     }
-
-    // static string StartGameURL = "http://140.122.185.169:5050/api/gameStart";
-    // public static IEnumerator SendRequestStartGame( string P2ID )
-    // {
-    //     yield return new WaitForSeconds(5);
-    //     Debug.Log("SendRequestStartGame");
-    //     WWWForm form = new WWWForm();
-
-    //     form.AddField( "gameType", MatchmakingService._currentLobby.Data["type"].ToString() );
-    //     form.AddField( "roomId", MatchmakingService._currentLobby.Id.ToString() );
-    //     form.AddField( "Player1Token", MatchmakingService._currentLobby.Data["p1ID"].ToString() );
-    //     form.AddField( "Player2Token", P2ID );
-
-    //     UnityWebRequest www = UnityWebRequest.Post( StartGameURL, form);
-    //     yield return www.SendWebRequest();
-
-    //     if (www.result == UnityWebRequest.Result.Success )
-    //     {
-    //         StoreData.store(0, MatchmakingService._currentLobby.Id);
-    //         SceneManager.LoadScene(2);
-    //     }
-    // }
 }
