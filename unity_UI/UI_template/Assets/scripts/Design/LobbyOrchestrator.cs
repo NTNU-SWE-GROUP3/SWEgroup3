@@ -113,7 +113,7 @@ public class LobbyOrchestrator : NetworkBehaviour {
         Debug.Log("SendRequestStartGame");
         WWWForm form = new WWWForm();
 
-        form.AddField( "gameType", MatchmakingService._currentLobby.Data["type"].ToString() );
+        form.AddField( "gameType", MatchmakingService._currentLobby.Data["t"].Value );
         form.AddField( "roomId", MatchmakingService._currentLobby.Id.ToString() );
         form.AddField( "Player1Token", MatchmakingService._currentLobby.Data["p1ID"].ToString() );
         form.AddField( "Player2Token", P2ID );
