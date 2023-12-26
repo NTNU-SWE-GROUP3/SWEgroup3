@@ -30,19 +30,23 @@ public class LobbyController : MonoBehaviour
     {
         yield return new WaitForSeconds(3f);
 
-        Debug.Log($"Room Code: {MatchmakingService._currentLobby.LobbyCode}");
-        LobbyCodeShow.text = $"Room Code: {MatchmakingService._currentLobby.LobbyCode}";
-
-        yield return new WaitForSeconds(7f);
-
-        if( type == 1 )
+        if( MatchmakingService._currentLobby.LobbyCode != null )
         {
-            Debug.Log("PVP -> PVE");
-            pve.PvEButton();
-        }
+            Debug.Log($"Room Code: {MatchmakingService._currentLobby.LobbyCode}");
+            LobbyCodeShow.text = $"Room Code: {MatchmakingService._currentLobby.LobbyCode}";
 
-        if( UIsys != null ) UIsys.SetActive(false);
-        if( Lobby != null ) Lobby.SetActive(true);
+            yield return new WaitForSeconds(7f);
+
+            if( type == 1 )
+            {
+                Debug.Log("PVP -> PVE");
+                LeaveLobby();
+                pve.PvEButton();
+            }
+
+            if( UIsys != null ) UIsys.SetActive(false);
+            if( Lobby != null ) Lobby.SetActive(true);
+        }
     }
     public void EnterLobbyNormal(){
         lobbyOrchestrator.LobbyNormal();
@@ -65,9 +69,9 @@ public class LobbyController : MonoBehaviour
 
     public async void LeaveLobby(){
         await MatchmakingService.LeaveLobby();
-        UIsys.SetActive(true);
-        Lobby.SetActive(false);
-        LobbyCodeShow.text = $"Room Code: {Constants._LobbyCodeForOut}";
+        if( UIsys != null ) UIsys.SetActive(true);
+        if( Lobby != null ) Lobby.SetActive(false);
+        LobbyCodeShow.text = $"Room Code: ";
     }
 
     // static string StartGameURL = "http://140.122.185.169:5050/api/gameStart";
