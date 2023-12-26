@@ -35,17 +35,20 @@ public class LobbyController : MonoBehaviour
             Debug.Log($"Room Code: {MatchmakingService._currentLobby.LobbyCode}");
             LobbyCodeShow.text = $"Room Code: {MatchmakingService._currentLobby.LobbyCode}";
 
+            if( UIsys != null ) UIsys.SetActive(false);
+            if( Lobby != null ) Lobby.SetActive(true);
+
             yield return new WaitForSeconds(7f);
 
-            if( type == 1 )
+            if( type == 1 && MatchmakingService.SecondPlayerJoinflag == 0 )
             {
                 Debug.Log("PVP -> PVE");
                 LeaveLobby();
                 pve.PvEButton();
             }
 
-            if( UIsys != null ) UIsys.SetActive(false);
-            if( Lobby != null ) Lobby.SetActive(true);
+            //if( UIsys != null ) UIsys.SetActive(false);
+            //if( Lobby != null ) Lobby.SetActive(true);
         }
     }
     public void EnterLobbyNormal(){
@@ -71,7 +74,7 @@ public class LobbyController : MonoBehaviour
         await MatchmakingService.LeaveLobby();
         if( UIsys != null ) UIsys.SetActive(true);
         if( Lobby != null ) Lobby.SetActive(false);
-        LobbyCodeShow.text = $"Room Code: ";
+        if( LobbyCodeShow != null ) LobbyCodeShow.text = $"Room Code: ";
     }
 
     // static string StartGameURL = "http://140.122.185.169:5050/api/gameStart";

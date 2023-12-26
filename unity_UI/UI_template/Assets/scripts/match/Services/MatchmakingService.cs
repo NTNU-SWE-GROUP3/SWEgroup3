@@ -50,7 +50,7 @@ public static class MatchmakingService
     private static CancellationTokenSource _heartbeatSource, _updateLobbySource;
     //static string StartGameURL = "http://140.122.185.169:5050/api/gameStart";
 
-    private static int SecondPlayerJoinflag = 0;
+    public static int SecondPlayerJoinflag = 0;
 
     private static bool isSecondPlayerIn()
     {
@@ -200,7 +200,6 @@ public static class MatchmakingService
         PeriodicallyRefreshLobby();
     }
 
-    // This function is used for Friend game X join, but with problem....
     public static async Task JoinLobbyWithAllocationCode(string lobbyCode, string userID)
     {
         try{
