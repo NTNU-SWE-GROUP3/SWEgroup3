@@ -48,7 +48,7 @@ def EquipCardStyle():
             else:
                 current_app.logger.info("Failed to equip skin")
                 return jsonify(status="200021")
-        elif targetCardStyleId >= 55 and targetCardStyleId <= 60:
+        elif int(targetCardStyleId) >= 55 and int(targetCardStyleId) <= 60:
             unselectSkinId = FindEquippedCardStyle(tokenId, targetCharacterType)
             current_app.logger.info("target unselect skin id: ", unselectSkinId)
             if unselectSkinId:
