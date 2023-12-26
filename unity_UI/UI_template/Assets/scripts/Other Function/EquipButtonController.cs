@@ -45,15 +45,15 @@ public class EquipButtonController : MonoBehaviour
 
     IEnumerator CheckEquipStatusAndUpdateUI()
     {
-        string url = "http://127.0.0.1:5050/skill_style/check_equip_status";
-        // string url = "http://140.122.185.169:5050/skill_style/check_equip_status";
+        // string url = "http://127.0.0.1:5050/skill_style/check_equip_status";
+        string url = "http://140.122.185.169:5050/skill_style/check_equip_status";
 
         WWWForm form = new WWWForm();
         int targetSkillId = skillStyleID;
         // Debug.Log("targetskillId in check equip status = " + targetSkillId);
         // int targetSkillId = 1;
-        // string token = userdata.token;
-        string token = "token123";
+        string token = userdata.token;
+        // string token = "token123";
         
         form.AddField("tokenId", token);
         form.AddField("targetSkillId", targetSkillId);
@@ -77,8 +77,8 @@ public class EquipButtonController : MonoBehaviour
 
     IEnumerator ToggleEquipStatus()
     {
-        string url = "http://127.0.0.1:5050/skill_style/toggle_equip_status";
-        // string url = "http://140.122.185.169:5050/skill_style/toggle_equip_status";
+        // string url = "http://127.0.0.1:5050/skill_style/toggle_equip_status";
+        string url = "http://140.122.185.169:5050/skill_style/toggle_equip_status";
 
         if (lastClickedSprite != null)
         {
@@ -86,8 +86,8 @@ public class EquipButtonController : MonoBehaviour
             int targetSkillId = skillSprite.GetComponent<SkillSlotScript>().skillStyleID;
             Debug.Log("ToggleEquipStatus: targetskillId on toggelequipstatus = " + targetSkillId);
             WWWForm form = new WWWForm();
-            // string token = userdata.token;
-            string token = "token123";
+            string token = userdata.token;
+            // string token = "token123";
 
             form.AddField("tokenId", token);
             form.AddField("targetSkillId", targetSkillId);
