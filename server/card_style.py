@@ -1,5 +1,5 @@
 import mysql.connector
-from flask import Flask, request, jsonify, Blueprint
+from flask import Flask, request, jsonify, Blueprint,current_app
 import func
 import traceback
 
@@ -23,39 +23,39 @@ def EquipCardStyle():
         targetCardStyleId = request.form.get("targetCardStyleId")
         targetCharacterType = request.form.get("targetCharacterType")
 
-        print("Token ID: ", tokenId)
-        print("Target Card Style ID: ", targetCardStyleId)
-        print("Target Character Type: ", targetCharacterType)
+        current_app.logger.info("Token ID: ", tokenId)
+        current_app.logger.info("Target Card Style ID: ", targetCardStyleId)
+        current_app.logger.info("Target Character Type: ", targetCharacterType)
 
         haveItem = HaveCardStyle(tokenId, targetCardStyleId)
-        print("haveItem: ", haveItem)
+        current_app.logger.info("haveItem: ", haveItem)
 
         if targetCharacterType == "6":
             targetCharacterType = "0"
         if haveItem == True or (targetCardStyleId >= 55 and targetCardStyleId <= 60):
             unselectSkinId = FindEquippedCardStyle(tokenId, targetCharacterType)
-            print("target unselect skin id: ", unselectSkinId)
+            current_app.logger.info("target unselect skin id: ", unselectSkinId)
             if unselectSkinId:
                 unEquipSuccess = UnEquipCardStyle(tokenId, unselectSkinId)
                 if not unEquipSuccess:
-                    print("Failed to unequip skin")
+                    current_app.logger.info("Failed to unequip skin")
                     return False
-                print("Succeeded to unequip skin")
+                current_app.logger.info("Succeeded to unequip skin")
             if targetCardStyleId < 55:
                 equipSuccess = UpdateEquipStatus(tokenId, targetCardStyleId)
             else:
                 equipSuccess = True
             if equipSuccess:
-                print("Successfully equipped skin")
+                current_app.logger.info("Successfully equipped skin")
                 return jsonify(status="200001")
             else:
-                print("Failed to equip skin")
+                current_app.logger.info("Failed to equip skin")
                 return jsonify(status="200021")
         else:
-            print("User doesn't have this item in inventory")
+            current_app.logger.info("User doesn't have this item in inventory")
             return jsonify(status="200022")
     except Exception as e:
-        traceback.print_exc()
+        traceback.current_app.logger.info_exc()
         error_message = "Internal Server Error"
         response = {"error": str(e) if str(e) else error_message}
         return jsonify(response), 500
@@ -64,10 +64,10 @@ def HaveCardStyle(tokenId, targetCardStyleId):
     try:
         conn = func.create_mysql_connection()
         if not conn:
-            print("Failed to connect to the database.")
+            current_app.logger.info("Failed to connect to the database.")
             return False
         
-        print("Succesfully connected to server")
+        current_app.logger.info("Succesfully connected to server")
         
         cursor = conn.cursor()
         cursor.execute(
@@ -79,19 +79,19 @@ def HaveCardStyle(tokenId, targetCardStyleId):
             (tokenId, targetCardStyleId,))
         
         result = cursor.fetchone()
-        print("result: ", result)
+        current_app.logger.info("result: ", result)
 
         if result is not None:
-            print("User has this item")
+            current_app.logger.info("User has this item")
             conn.close()
             return True
         else:
-            print("User doesn't have this item")
+            current_app.logger.info("User doesn't have this item")
             conn.close()
             return False
         
     except Exception as e:
-        print("Error in HaveCardStyle:", e)
+        current_app.logger.info("Error in HaveCardStyle:", e)
         conn.close()
         return False
     
@@ -108,11 +108,11 @@ def UpdateEquipStatus(tokenId, targetCardStyleId):
         )
         conn.commit()
         conn.close()
-        print("Successfully equipped card style")
+        current_app.logger.info("Successfully equipped card style")
         return True     
 
     except Exception as e:
-        print("Error in EquipCardStyle")
+        current_app.logger.info("Error in EquipCardStyle")
         conn.close()
         return False
     
@@ -129,10 +129,10 @@ def UnEquipCardStyle(tokenId, targetCardStyleId):
         )
         conn.commit()
         conn.close()
-        print("Successfully unequipped card style")
+        current_app.logger.info("Successfully unequipped card style")
         return True
     except Exception as e:
-        print("Error in UnEquipCardStyle")
+        current_app.logger.info("Error in UnEquipCardStyle")
         conn.close()
         return False
 
@@ -150,16 +150,16 @@ def FindEquippedCardStyle(tokenId, characterType):
         result = cursor.fetchone()
         if result:
             equippedSkin = result[0]
-            print("equippedSkin: ", equippedSkin)
+            current_app.logger.info("equippedSkin: ", equippedSkin)
             conn.close()
             return equippedSkin
         else:
-            print("No equipped skin")
+            current_app.logger.info("No equipped skin")
             conn.close()
             return None
         
     except Exception as e:
-        print("Error in FindEquippedCardStyle")
+        current_app.logger.info("Error in FindEquippedCardStyle")
         conn.close()
         return None
         
