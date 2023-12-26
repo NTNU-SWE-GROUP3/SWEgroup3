@@ -149,7 +149,7 @@ def ToggleEquipStatus():
         print(equipped_count)
         if equipped_count >= 3:
             current_status = checkstatus(tokenId, targetSkillId)
-            if current_status == 1:
+            if current_status:
                 new_status = not current_status  # Toggle the current status
                 update_status_success = updateEquipStatus(tokenId, targetSkillId, new_status)
 

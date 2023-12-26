@@ -12,7 +12,7 @@ public class EquipButtonController : MonoBehaviour
     public GameObject equipPanel;
     public Text equipPanelText; 
     private DontDestroy userdata;
-    private GameObject lastClickedSprite;
+    
 
     private void Start()
     {
@@ -30,8 +30,8 @@ public class EquipButtonController : MonoBehaviour
 
     public void OnPointerClick(GameObject clickedSprite)
     {
-        lastClickedSprite = clickedSprite;
-        skillSprite = lastClickedSprite;
+        SkillSlotScript.lastClickedSprite = clickedSprite;
+        skillSprite = SkillSlotScript.lastClickedSprite;
         skillStyleID = skillSprite.GetComponent<SkillSlotScript>().skillStyleID;
         Debug.Log("CURR CLICKED SPRITE ID : " + skillStyleID);
         StartCoroutine(CheckEquipStatusAndUpdateUI());
@@ -80,9 +80,9 @@ public class EquipButtonController : MonoBehaviour
         // string url = "http://127.0.0.1:5050/skill_style/toggle_equip_status";
         string url = "http://140.122.185.169:5050/skill_style/toggle_equip_status";
 
-        if (lastClickedSprite != null)
+        if (SkillSlotScript.lastClickedSprite != null)
         {
-            skillSprite = lastClickedSprite;
+            skillSprite = SkillSlotScript.lastClickedSprite;
             int targetSkillId = skillSprite.GetComponent<SkillSlotScript>().skillStyleID;
             Debug.Log("ToggleEquipStatus: targetskillId on toggelequipstatus = " + targetSkillId);
             WWWForm form = new WWWForm();

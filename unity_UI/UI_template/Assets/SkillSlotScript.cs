@@ -13,6 +13,7 @@ public class SkillSlotScript : MonoBehaviour
     public string skillName;
     public string skillDes;
     public int skillStyleID;
+    public static GameObject lastClickedSprite;
 
     // Function to set the skill style based on the skill ID or other parameters
     public void SetSkillStyle(int skillStyleID)
