@@ -14,10 +14,20 @@ public class SkillSlotScript : MonoBehaviour
     public string skillDes;
     public int skillStyleID;
     public static GameObject lastClickedSprite;
+    EquipButtonController EBC;
+    private DontDestroy userdata;
+
+    void Start()
+    {
+       
+    }
+
 
     // Function to set the skill style based on the skill ID or other parameters
     public void SetSkillStyle(int skillStyleID)
     {
+        userdata = FindObjectOfType<DontDestroy>();
+        EBC = gameObject.GetComponent<EquipButtonController>();
         this.skillStyleID = skillStyleID;
         Sprite skillSprite = GetSkillSprite(skillStyleID);
         skillName = GetSkillName(skillStyleID);
@@ -31,6 +41,8 @@ public class SkillSlotScript : MonoBehaviour
         {
             Debug.LogError("Skill sprite not found for ID: " + skillStyleID);
         }
+
+        StartCoroutine(EBC.CheckEquipStatusAndUpdateUI(skillStyleID,userdata.token));
     }
 
     private Sprite GetSkillSprite(int skillStyleID)
