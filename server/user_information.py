@@ -256,7 +256,7 @@ def update_avatar():
     id = request.form.get('id')
     current_app.logger.info("id: %s", id)
     token = request.form.get('Token')
-    current_app.logger.info("Token: %s", Token)
+    current_app.logger.info("Token: %s", token)
     
     #token expiredtime
     expiredtime = conn.GetTokenExpiredTime(token)
