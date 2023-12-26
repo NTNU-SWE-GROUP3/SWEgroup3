@@ -364,7 +364,7 @@ public class UserSetting : MonoBehaviour
         //string new_nickname = NewInfoInput.text;
         ChangeInfoPanel.SetActive(true);
         InformInputText.text = ("請輸入新的暱稱");
-        InfoPlaceholder.text = ("Enter new Nickname");
+        InfoPlaceholder.text = ("新的暱稱");
         ChangeConfirmButton.onClick.RemoveAllListeners();
         ChangeConfirmButton.onClick.AddListener(ChangeName);
 
@@ -452,7 +452,7 @@ public class UserSetting : MonoBehaviour
         //string new_email = NewInfoInput.text;
         ChangeInfoPanel.SetActive(true);
         InformInputText.text = ("請輸入新的Email");
-        InfoPlaceholder.text = ("Enter new Email");
+        InfoPlaceholder.text = ("新的Email地址");
 
 
         //to be continue...
@@ -521,8 +521,8 @@ public class UserSetting : MonoBehaviour
     private void ReportBug()
     {
         UserSettingWarningPanel.SetActive(true);
-        NoticeTitleText.text = ("錯誤訊息已回報！");
-        UseSettingMessage.text = ("日誌資料已被傳送！\n聯絡我們：sweonlinegame@gmail.com");
+        NoticeTitleText.text = ("日誌已上傳");
+        UseSettingMessage.text = ("日誌資料已傳送給工程師！\n回報更多錯誤資訊或建議請聯繫\nsweonlinegame@gmail.com");
         Debug.Log("Log File has not been sent, Go debug yourself");
     }
 
