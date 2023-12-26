@@ -12877,7 +12877,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: b05958fd74d0a47378c9a03e48fe2a13, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 01ec8175a1983f74b84388d9afff5052, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -16891,8 +16891,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 1
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 0b1313d12a6804746bdd89c55099d13d, type: 2}
-  m_sharedMaterial: {fileID: -2011788834835464112, guid: 0b1313d12a6804746bdd89c55099d13d, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: b77e07611d0bc074eaf97de1d6f89f31, type: 2}
+  m_sharedMaterial: {fileID: 3148730037422749105, guid: b77e07611d0bc074eaf97de1d6f89f31, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

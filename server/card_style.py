@@ -50,7 +50,7 @@ def EquipCardStyle():
             else:
                 current_app.logger.info("Failed to equip skin")
                 return jsonify(status="200021")
-        elif int(targetCardStyleId) >= 55 and int(targetCardStyleId) <= 60:
+        elif 55 <= int(targetCardStyleId) <= 60:
             current_app.logger.info("Inside elif block")
             current_app.logger.info(f"Converted targetCardStyleId: {int(targetCardStyleId)}")
 
