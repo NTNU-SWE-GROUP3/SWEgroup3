@@ -1,5 +1,6 @@
 import mysql.connector
 from flask import Flask, request, jsonify, Blueprint,current_app
+from flask import current_app
 import func
 import traceback
 
@@ -16,7 +17,6 @@ output
         200021 : equip failure
         200022 : Item doesn't exist in inventory
 ========================= '''
-card_style.config['LOG_FILE'] = "card.log"
 
 @card_style.route("/equip_card_style", methods=['POST'])
 def EquipCardStyle():
