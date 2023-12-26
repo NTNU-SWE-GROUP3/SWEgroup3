@@ -17675,6 +17675,7 @@ MonoBehaviour:
   UIsys: {fileID: 1433501962}
   Lobby: {fileID: 439585652}
   _joinCodeText: {fileID: 1762903743}
+  LobbyCodeShow: {fileID: 0}
 --- !u!224 &1224200638
 RectTransform:
   m_ObjectHideFlags: 0
@@ -30304,9 +30305,9 @@ RectTransform:
   m_Children:
   - {fileID: 2113809526}
   - {fileID: 639906426}
+  - {fileID: 1991832437}
   - {fileID: 528162750}
   - {fileID: 1463771658}
-  - {fileID: 1991832437}
   - {fileID: 1335075176}
   m_Father: {fileID: 2100926202}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
