@@ -10,6 +10,7 @@ public class SkillSlotClickHandler : MonoBehaviour
     public GameObject skillPopup;
     public Text SkillName;
     public Text skillDescription;
+    public int skillID;
 
     public void SetSkillInfo(string name, string desc, float prob)
     {
@@ -20,9 +21,11 @@ public class SkillSlotClickHandler : MonoBehaviour
     
     public void OnPointerClick()
     {
+        Debug.Log("SKILLID BEFORE FETCH IN SKILLSLOTHANDLER : " + skillID);
         skillPopup.SetActive(true);
         SkillName.text = this.GetComponent<SkillSlotScript>().skillName;
         skillDescription.text = this.GetComponent<SkillSlotScript>().skillDes;
-        
+        skillID = this.GetComponent<SkillSlotScript>().skillStyleID;
+        Debug.Log("SKILLID AFTER FETCH IN SKILLSLOTHANDLER : " + skillID);
     }
 }

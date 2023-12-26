@@ -12,7 +12,7 @@ public class SkillSlotScript : MonoBehaviour
     public Image skillImage;
     public string skillName;
     public string skillDes;
-    private int skillStyleID;
+    public int skillStyleID;
 
     // Function to set the skill style based on the skill ID or other parameters
     public void SetSkillStyle(int skillStyleID)
