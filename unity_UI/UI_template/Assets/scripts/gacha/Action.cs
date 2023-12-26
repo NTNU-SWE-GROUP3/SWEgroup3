@@ -54,6 +54,7 @@ public class Action : MonoBehaviour
     public BackToLogin backToLogin;
     public UpdateGacha updateGacha;
 
+    public MainAudioManager audioManager;
 
     private string response;
     private DontDestroy userdata;
@@ -336,6 +337,9 @@ public class Action : MonoBehaviour
     }
     IEnumerator ShowResponseAnimation1(string response)
     {
+        audioManager = GameObject.Find("AudioBox").GetComponent<MainAudioManager>();
+        audioManager.GachaSE1();
+
         gachaAnimator1.SetTrigger("ShowAnimate");
         yield return new WaitForSecondsRealtime(gachaAnimator1.GetCurrentAnimatorStateInfo(0).length);
 
@@ -343,6 +347,9 @@ public class Action : MonoBehaviour
     }
     IEnumerator ShowResponseAnimation10(string response)
     {
+        audioManager = GameObject.Find("AudioBox").GetComponent<MainAudioManager>();
+        audioManager.GachaSE10();
+
         gachaAnimator10.SetTrigger("ShowAnimate");
         yield return new WaitForSecondsRealtime(gachaAnimator10.GetCurrentAnimatorStateInfo(0).length * 8);
 

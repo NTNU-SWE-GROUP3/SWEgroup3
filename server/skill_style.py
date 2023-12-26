@@ -83,6 +83,7 @@ def CheckEquipStatus():
         print("Target skill ID: ", targetSkillId)
 
         equip_stat = checkstatus(tokenId, targetSkillId)
+        
         print("equip STATUS ", equip_stat)
         if(equip_stat): #true
             return "1"
@@ -130,6 +131,9 @@ def checkstatus(tokenId, targetSkillId):
         conn.close()
         return False
     
+  
+    
+    
 @skill_style.route("/toggle_equip_status", methods=['POST'])
 def ToggleEquipStatus():
     try:
@@ -139,20 +143,35 @@ def ToggleEquipStatus():
         print("Token ID: ", tokenId)
         print("Target skill ID: ", targetSkillId)
 
-        current_status = checkstatus(tokenId, targetSkillId)
-        new_status = not current_status  # Toggle the current status
+        equipped_count = count_equipped_skills(tokenId)
+        print(equipped_count)
+        if equipped_count >= 3:
+            current_status = checkstatus(tokenId, targetSkillId)
+            if current_status == 1:
+                new_status = not current_status  # Toggle the current status
+                update_status_success = updateEquipStatus(tokenId, targetSkillId, new_status)
 
-        # Print the current and new equip status for debugging
-        print("Current Equip Status: ", current_status)
-        print("New Equip Status: ", new_status)
+                if update_status_success:
+                    return "1" if new_status else "0"  # Return the new equip status
+                else:
+                    return "Error updating equip status", 500
+            else:
+                return "2"
+        else :
+            current_status = checkstatus(tokenId, targetSkillId)
+            new_status = not current_status  # Toggle the current status
 
-        # Update the equip status in the database
-        update_status_success = updateEquipStatus(tokenId, targetSkillId, new_status)
+            # Print the current and new equip status for debugging
+            print("Current Equip Status: ", current_status)
+            print("New Equip Status: ", new_status)
 
-        if update_status_success:
-            return "1" if new_status else "0"  # Return the new equip status
-        else:
-            return "Error updating equip status", 500
+            # Update the equip status in the database
+            update_status_success = updateEquipStatus(tokenId, targetSkillId, new_status)
+
+            if update_status_success:
+                return "1" if new_status else "0"  # Return the new equip status
+            else:
+                return "Error updating equip status", 500
 
     except Exception as e:
         traceback.print_exc()
@@ -222,4 +241,35 @@ def checkstatus(tokenId, targetSkillId):
 
     conn.close()
     return False
+
+def count_equipped_skills(tokenId):
+    try:
+        conn = func.create_mysql_connection()
+        if not conn:
+            print("Failed to connect to the database.")
+            return 0
+
+        print("Successfully connected to the server")
+
+        cursor = conn.cursor()
+        cursor.execute(
+            "SELECT COUNT(*) "
+            "FROM account_skill acs "
+            "JOIN account a ON a.id = acs.account_id "
+            "WHERE a.token_id = %s AND acs.equip_status = 1",
+            (tokenId,)
+        )
+
+        result = cursor.fetchone()
+        count = result[0] if result is not None else 0
+
+        conn.close()
+        return count
+
+    except Exception as e:
+        print("Error in count_equipped_skills:", e)
+        conn.close()
+        return 0  
+
+
     

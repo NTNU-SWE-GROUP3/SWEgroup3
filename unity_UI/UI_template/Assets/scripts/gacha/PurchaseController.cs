@@ -67,7 +67,18 @@ namespace PurchaseControl
 
                     if (separator == '/')
                     {
-                        return true;
+                        string[] dateParts = dateField.text.Split(separator);
+                        if (dateParts.Length == 2)
+                        {
+                            if (int.TryParse(dateParts[0], out int month))
+                            {
+                                // Check if the month is within the valid range (1 to 12)
+                                if (month >= 1 && month <= 12)
+                                {
+                                    return true;
+                                }
+                            }
+                        }
                     }
                 }
             }

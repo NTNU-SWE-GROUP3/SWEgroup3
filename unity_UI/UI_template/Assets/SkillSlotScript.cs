@@ -12,7 +12,7 @@ public class SkillSlotScript : MonoBehaviour
     public Image skillImage;
     public string skillName;
     public string skillDes;
-    private int skillStyleID;
+    public int skillStyleID;
 
     // Function to set the skill style based on the skill ID or other parameters
     public void SetSkillStyle(int skillStyleID)
@@ -69,11 +69,11 @@ public class SkillSlotScript : MonoBehaviour
         }
          else if (skillStyleID == 9)
         {
-            return Resources.Load<Sprite>(SkillImagesPath+"SkillEarn1");
+            return Resources.Load<Sprite>(SkillImagesPath+"SkillMin1");
         }
          else if (skillStyleID == 10)
         {
-            return Resources.Load<Sprite>(SkillImagesPath+"SkillMin1");
+            return Resources.Load<Sprite>(SkillImagesPath+"SkillEarn1");
         }
 
         // Return null if the skill ID is out of bounds
