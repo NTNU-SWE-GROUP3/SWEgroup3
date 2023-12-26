@@ -84,6 +84,8 @@ public class UserSetting : MonoBehaviour
     private string serverURL_changeNickname = serverUrl + "/user_information/changenickname";
     private string serverURL_changeEmail = serverUrl + "/user_information/changeemail";
 
+    private static bool isFirstInstance = true;
+
 
     void Start()
     {
@@ -132,12 +134,19 @@ public class UserSetting : MonoBehaviour
         WarningConfirmButton = WarningPanel.transform.Find("ConfirmButton").GetComponent<Button>();
         */
 
-        //Panels Init
-        InitPanel();
+        if (isFirstInstance)
+        {
+            // 設置 isFirstInstance 為 false，以後的實例就不會再執行這個區塊了
+            isFirstInstance = false;
 
-        //Update uesr data once login success
-        UpdateUserGeneralData();
-        //UpdateUserInformation();
+            //Panels Init
+            InitPanel();
+
+            //Update uesr data once login success
+            UpdateUserGeneralData();
+            //UpdateUserInformation();
+        }
+
 
 
         AvatarButton.onClick.AddListener(OpenUserDataPanel);
@@ -206,7 +215,7 @@ public class UserSetting : MonoBehaviour
         Debug.Log("Ready to change nickname = " + new_nickname);
         StartCoroutine(ChangeNicknameRequest(player_token, new_nickname));
         ChangeInfoPanel.SetActive(false);
-        UpdateUserGeneralData();
+        //UpdateUserGeneralData();
         UpdateUserInformation();
         InformInputText.text = ("");
         NewInfoInput.text = "";
@@ -351,7 +360,11 @@ public class UserSetting : MonoBehaviour
                         player_email = responseData.email;
                         player_winrate = responseData.winrate;
 
+
+                        UserName.text = player_nickname;
                         UIUserName.text = player_nickname;
+
+
                         UIUserLevel.text = "LV." + player_level.ToString();
                         UICoins.text = player_coins.ToString();
                         UIChips.text = "0";
@@ -389,6 +402,7 @@ public class UserSetting : MonoBehaviour
         ChangeInfoPanel.SetActive(true);
         InformInputText.text = ("請輸入新的暱稱");
         InfoPlaceholder.text = ("Enter new Nickname");
+        ChangeConfirmButton.onClick.RemoveAllListeners();
         ChangeConfirmButton.onClick.AddListener(ChangeName);
 
     }
@@ -429,6 +443,7 @@ public class UserSetting : MonoBehaviour
                         UserSettingWarningPanel.SetActive(true);
                         NoticeTitleText.text = ("成功");
                         UseSettingMessage.text = "成功更改玩家暱稱：" + new_nickname;
+                        UpdateUserGeneralData();
                         break;
 
                     case "403001":
@@ -446,6 +461,13 @@ public class UserSetting : MonoBehaviour
                         break;
 
                     case "403003":
+                        Debug.Log("User Name is illigal");
+                        UserSettingWarningPanel.SetActive(true);
+                        NoticeTitleText.text = ("改名失敗");
+                        UseSettingMessage.text = "玩家暱稱長度過短";
+                        break;
+
+                    case "403004":
                         Debug.Log("User Name is illigal");
                         UserSettingWarningPanel.SetActive(true);
                         NoticeTitleText.text = ("改名失敗");
@@ -474,6 +496,7 @@ public class UserSetting : MonoBehaviour
         //StartCoroutine(ChangeEmailRequest(player_token, new_email));
         Debug.Log("Try to Change Email...");
 
+        ChangeConfirmButton.onClick.RemoveAllListeners();
         ChangeConfirmButton.onClick.AddListener(ChangeEmail);
 
 
@@ -536,7 +559,7 @@ public class UserSetting : MonoBehaviour
     {
         UserSettingWarningPanel.SetActive(true);
         NoticeTitleText.text = ("錯誤訊息已回報！");
-        UseSettingMessage.text = ("Log File has been sent!\nContact us via sweonlinegame@gmail.com");
+        UseSettingMessage.text = ("日誌資料已被傳送！\n聯絡我們：sweonlinegame@gmail.com");
         Debug.Log("Log File has not been sent, Go debug yourself");
     }
 
