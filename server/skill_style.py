@@ -115,7 +115,7 @@ def checkstatus(tokenId, targetSkillId):
             (tokenId, targetSkillId,))
         
         result = cursor.fetchone()
-        print("result: ", result)
+        print("\tcheck status result: ", result)
 
         if result is 1:
             print("status : item is equipped")
