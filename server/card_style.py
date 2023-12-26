@@ -25,7 +25,7 @@ def EquipCardStyle():
         targetCardStyleId = request.form.get("targetCardStyleId")
         targetCharacterType = request.form.get("targetCharacterType")
         
-        cardID = 57
+        cardID = int(57)
 
         current_app.logger.info("Token ID: ", tokenId)
         current_app.logger.info("Target Card Style ID: %s", targetCardStyleId)
