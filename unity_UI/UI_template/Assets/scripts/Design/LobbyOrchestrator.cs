@@ -11,6 +11,8 @@ using UnityEngine.Serialization;
 using UnityEngine.Networking;
 using MiniJSON;
 
+using System.Threading;
+
 #pragma warning disable CS4014
 
 /// <summary>
@@ -24,14 +26,24 @@ public class LobbyOrchestrator : NetworkBehaviour {
     static string userID;
 
     public static bool isJoin;
-
-    void start()
+/*
+    void Start()
     {
         userdata = FindObjectOfType<DontDestroy>();
-        userRank = int.Parse(userdata.rank);
-        userID = userdata.token;
-        isJoin = false;
-    }
+        if( userdata != null )
+        {
+            userID = userdata.token;
+            Debug.Log($"LobbyOrchestrator: userID: {userID}");
+            Debug.Log($"userRank: {userdata.rank}");
+            userRank = int.Parse(userdata.rank);
+            isJoin = false;
+        }
+        else
+        {
+            Debug.Log("Lobby Orchestrator: Cannot found userdata");
+        }
+        
+    }*/
     public async void FriendCreate()
     {
         await Authentication.Login();
@@ -90,11 +102,26 @@ public class LobbyOrchestrator : NetworkBehaviour {
             Debug.LogError(e);
         }
 
+        Thread.Sleep(5000);
         if( isJoin )    StartCoroutine( SendRequestStartGame( userID ) );
     }
 
     public async void LobbyNormal()
     {
+        userdata = FindObjectOfType<DontDestroy>();
+        if( userdata != null )
+        {
+            userID = userdata.token;
+            Debug.Log($"LobbyOrchestrator: userID: {userID}");
+            //Debug.Log($"userRank: {userdata.rank}");
+            //userRank = int.Parse(userdata.rank);
+            isJoin = false;
+        }
+        else
+        {
+            Debug.Log("Lobby Orchestrator: Cannot found userdata");
+        }
+
         await Authentication.Login();
         try{
             await MatchmakingService.CreateOrJoinLobby( 1, 0, userID );
@@ -103,6 +130,7 @@ public class LobbyOrchestrator : NetworkBehaviour {
             Debug.LogError(e);
         }
 
+        Thread.Sleep(5000);
         if( isJoin )    StartCoroutine( SendRequestStartGame( userID ) );
     }
 
@@ -118,19 +146,47 @@ public class LobbyOrchestrator : NetworkBehaviour {
         else
         {
             Debug.Log("SendRequestStartGame");
+            /*
             WWWForm form = new WWWForm();
 
             form.AddField( "gameType", MatchmakingService._currentLobby.Data["t"].Value );
+            //Debug.Log($"gameType: |{MatchmakingService._currentLobby.Data["t"].Value}|");
             form.AddField( "roomId", MatchmakingService._currentLobby.Id.ToString() );
+            //Debug.Log($"roomId: |{MatchmakingService._currentLobby.Id.ToString()}|");
             form.AddField( "Player1Token", MatchmakingService._currentLobby.Data["p"].Value );
+            //Debug.Log($"P1ID: |{MatchmakingService._currentLobby.Data["p"].Value}|");
             form.AddField( "Player2Token", P2ID );
+            //Debug.Log($"P2ID: |{P2ID}|");
 
             UnityWebRequest www = UnityWebRequest.Post( StartGameURL, form);
+            www.SetRequestHeader("Content-Type", "application/json");
+            Debug.Log("Request Headers: " + www.GetRequestHeader("Content-Type"));
+
+            Debug.Log("Request Body: " + System.Text.Encoding.UTF8.GetString(form.data));
+
+            yield return www.SendWebRequest();
+            */
+
+            // Construct the JSON payload
+            string jsonData = $"{{\"gameType\":\"{MatchmakingService._currentLobby.Data["t"].Value}\"," +
+                              $"\"roomId\":\"{MatchmakingService._currentLobby.Id}\"," +
+                              $"\"Player1Token\":\"{MatchmakingService._currentLobby.Data["p"].Value}\"," +
+                              $"\"Player2Token\":\"{P2ID}\"}}";
+
+            // Convert JSON string to bytes
+            byte[] jsonBytes = System.Text.Encoding.UTF8.GetBytes(jsonData);
+
+            // Create a UnityWebRequest with raw JSON data
+            UnityWebRequest www = UnityWebRequest.PostWwwForm(StartGameURL, "POST");
+            www.uploadHandler = new UploadHandlerRaw(jsonBytes);
+            www.SetRequestHeader("Content-Type", "application/json");
+
             yield return www.SendWebRequest();
 
             if (www.result == UnityWebRequest.Result.Success )
             {
                 StoreData.store(0, MatchmakingService._currentLobby.Id);
+                Debug.Log("Load Scene: SendRequestStartGame()");
                 SceneManager.LoadScene(2);
             }
         }

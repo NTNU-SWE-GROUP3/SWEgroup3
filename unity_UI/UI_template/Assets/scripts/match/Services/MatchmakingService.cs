@@ -51,6 +51,7 @@ public static class MatchmakingService
     //static string StartGameURL = "http://140.122.185.169:5050/api/gameStart";
 
     public static int SecondPlayerJoinflag = 0;
+    public static bool IamJoin = false;
 
     private static bool isSecondPlayerIn()
     {
@@ -156,9 +157,12 @@ public static class MatchmakingService
             P1ID = userID,
         };
 
+        Debug.Log($"CreateOrJoin P1ID: {data.P1ID}");
+
         try{
             await QuickJoinLobbyWithAllocation(type, level);
             LobbyOrchestrator.isJoin = true;
+            IamJoin = true;
             //SendRequestStartGame( userID ); // Player who "joined" the lobby send start game request
         }
         catch{
@@ -228,7 +232,7 @@ public static class MatchmakingService
             _currentLobby = await Lobbies.Instance.GetLobbyAsync(_currentLobby.Id);
             CurrentLobbyRefreshed?.Invoke(_currentLobby);
 
-            if( SecondPlayerJoinflag == 0 )
+            if( SecondPlayerJoinflag == 0 && IamJoin == false )
             {
                 if( isSecondPlayerIn() )
                 {
@@ -236,6 +240,7 @@ public static class MatchmakingService
                     SecondPlayerJoinflag = 1;
                     Thread.Sleep(3000);
                     StoreData.store(0,_currentLobby.Id);
+                    Debug.Log("Load Scene: SecondPlayerIn()");
                     SceneManager.LoadScene(2);
                 }
                 else

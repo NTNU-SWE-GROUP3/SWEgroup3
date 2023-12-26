@@ -40,7 +40,7 @@ public class LobbyController : MonoBehaviour
 
             yield return new WaitForSeconds(7f);
 
-            if( type == 1 && MatchmakingService.SecondPlayerJoinflag == 0 )
+            if( type == 1 && MatchmakingService.IamJoin == false && MatchmakingService.SecondPlayerJoinflag == 0 )
             {
                 Debug.Log("PVP -> PVE");
                 LeaveLobby();
