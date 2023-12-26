@@ -35,7 +35,7 @@ public class CountDown : MonoBehaviour
     {
         MessagePanel.SetActive(false);
         showcard = GameObject.Find("GameController").GetComponent<ShowCard>();
-        gameType = 0;
+        gameType = 1;
         StartCoroutine(CountdownToStart(gameType));//1 for PVP
     }
 
@@ -53,7 +53,7 @@ public class CountDown : MonoBehaviour
         {
             GameStart gs = gameObject.AddComponent<GameStart>();
             gs.gameType = 1;
-            gs.roomId = 1;
+            gs.roomId = "1A";
             gs.playerToken = "XYZ";
 
             CoroutineWithData cd = new CoroutineWithData(this, Flask.SendRequest(gs.SaveToString(),"getCardSet"));
@@ -72,7 +72,7 @@ public class CountDown : MonoBehaviour
                 ret = RoomInfo.CreateFromJSON(cd.result.ToString());
             }
 
-            if(ret.roomId == -1)
+            if(ret.roomId == "None")
             {
                 Debug.Log("GameController: this room doesn't exist.");
                 //back to game lobby or main scene
@@ -131,7 +131,7 @@ public class CountDown : MonoBehaviour
 
             CardSelection selected = gameObject.AddComponent<CardSelection>();
             selected.gameType = 1;
-            selected.roomId = 1;
+            selected.roomId = "1A";
             selected.playerToken = "XYZ";
             selected.playerCardID = PlayerCard.id;
             

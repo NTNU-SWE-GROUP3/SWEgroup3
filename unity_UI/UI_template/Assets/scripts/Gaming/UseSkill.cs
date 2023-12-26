@@ -165,7 +165,7 @@ public class UseSkill : MonoBehaviour
                     {
                         dilemmaUse gs = gameObject.AddComponent<dilemmaUse>();
                         gs.gameType = 1;
-                        gs.roomId = 1;
+                        gs.roomId = "1A";
                         gs.playerToken = "XYZ";
                         gs.cardId1 = randomIndex[0];
                         gs.cardId2 = randomIndex[1];
@@ -318,7 +318,7 @@ public class UseSkill : MonoBehaviour
                     {
                         SkillCheck gs = gameObject.AddComponent<SkillCheck>();
                         gs.gameType = 1;
-                        gs.roomId = 1;
+                        gs.roomId = "1A";
                         gs.playerToken = "XYZ";
 
                         CoroutineWithData cd = new CoroutineWithData(this, Flask.SendRequest(gs.SaveToString(),"useSkillCheck"));
@@ -379,7 +379,7 @@ public class UseSkill : MonoBehaviour
                     {
                         SkillCheck gs = gameObject.AddComponent<SkillCheck>();
                         gs.gameType = 1;
-                        gs.roomId = 1;
+                        gs.roomId = "1A";
                         gs.playerToken = "XYZ";
 
                         CoroutineWithData cd = new CoroutineWithData(this, Flask.SendRequest(gs.SaveToString(),"useSkillCheck"));
@@ -480,7 +480,7 @@ public class UseSkill : MonoBehaviour
                     {
                         dilemmaCheck gs = gameObject.AddComponent<dilemmaCheck>();
                         gs.gameType = 1;
-                        gs.roomId = 1;
+                        gs.roomId = "1A";
                         gs.playerToken = "XYZ";
 
                         CoroutineWithData cd = new CoroutineWithData(this, Flask.SendRequest(gs.SaveToString(),"dilemmaUseCheck"));

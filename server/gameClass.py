@@ -36,7 +36,7 @@ class Room:
         print(f'{time.time()} <- {start_time}runTimer:{self.timerStopped}')
         if self.timerStopped == False:
             print(f'room(id:{self.roomId}) time is up, roomId set to -1')
-            self.roomId = -1 # the system should remove the room whose roomId is -1.
+            self.roomId = 'None' # the system should remove the room whose roomId is -1.
         self.timerStopped = False
 
     def start_timer(self, time_limit):

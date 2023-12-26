@@ -328,7 +328,7 @@ async def handle_skill():
                 if room.player1.skill_set.skill_stats[skillId] == True:
                     room.player1.skill_set.skill_stats[skillId] = False
                     room.player1CurSkillId = skillId
-                    useSkill(room,playerToken,skillId,-1) #for skill 9 and 10
+                    useSkill(room,playerToken,skillId,-2) #for skill 9 and 10
                     index = room_list.index(room)
                     break
                 else:
@@ -348,7 +348,7 @@ async def handle_skill():
                 if room.player2.skill_set.skill_stats[skillId] == True:
                     room.player2.skill_set.skill_stats[skillId] = False
                     room.player2CurSkillId = skillId
-                    useSkill(room,playerToken,skillId,-1) #for skill 9 and 10
+                    useSkill(room,playerToken,skillId,-2) #for skill 9 and 10
                     index = room_list.index(room)
                     break
                 else:

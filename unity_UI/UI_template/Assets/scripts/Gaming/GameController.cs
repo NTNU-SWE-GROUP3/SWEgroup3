@@ -58,14 +58,7 @@ public class GameController : MonoBehaviour
         PlayerSkillId = -1;
         OpponentSkillId = -1;
         NoSkillCanUse = false;
-        if(CountDown.gameType == 1)
-        {
-            isCom = false;
-        }
-        else
-        {
-            isCom = true;
-        }
+        isCom = false;
         
         SkipButton.SetActive(false);
         SkillPanel.SetActive(false);
@@ -99,7 +92,7 @@ public class GameController : MonoBehaviour
         {
             GameTurn turnStartSignal = gameObject.AddComponent<GameTurn>();
             turnStartSignal.gameType = 1;
-            turnStartSignal.roomId = 1;
+            turnStartSignal.roomId = "1A";
             turnStartSignal.playerToken = "XYZ";
             turnStartSignal.playerEarn = Convert.ToInt32(PlayerEarnText.text);
             turnStartSignal.opponentEarn = Convert.ToInt32(OpponentEarnText.text);
@@ -284,7 +277,7 @@ public class GameController : MonoBehaviour
             //---pass player skill id to server and receive opponent skill id------
             SkillSelection selected = gameObject.AddComponent<SkillSelection>();
             selected.gameType = 1;
-            selected.roomId = 1;
+            selected.roomId = "1A";
             selected.playerToken = "XYZ";
             selected.playerSkillID = PlayerSkillId;
             

@@ -9,7 +9,7 @@ public class SkipButton : MonoBehaviour
     {
         SkillSelection gs = gameObject.AddComponent<SkillSelection>();
         gs.gameType = 1;
-        gs.roomId = 1;
+        gs.roomId = "1A";
         gs.playerToken = "XYZ";
         gs.playerSkillID = skillId;
         gs.cardId = -1;

@@ -492,7 +492,7 @@ public class ShowCard : MonoBehaviour
         {
             SkillCheck gs = gameObject.AddComponent<SkillCheck>();
             gs.gameType = 1;
-            gs.roomId = 1;
+            gs.roomId = "1A";
             gs.playerToken = "XYZ";
 
             CoroutineWithData cd = new CoroutineWithData(this, Flask.SendRequest(gs.SaveToString(),"useSkillCheck"));
@@ -632,7 +632,7 @@ public class ShowCard : MonoBehaviour
     {
         SkillSelection gs = gameObject.AddComponent<SkillSelection>();
         gs.gameType = 1;
-        gs.roomId = 1;
+        gs.roomId = "1A";
         gs.playerToken = "ABC";
         gs.playerSkillID = 11;//簡單剔除
         gs.cardId = -1;

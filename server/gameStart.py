@@ -7,7 +7,7 @@ gameStart = Blueprint("gameStart", __name__, url_prefix="/api")
 room_list = []
 
 #the codes here is just for testing, it should be removed when merged to server
-room = gameClass.creat_room(1,1,'ABC','XYZ')#roomId, player1_token, player2_token 
+room = gameClass.creat_room(1,"1A",'ABC','XYZ')#roomId, player1_token, player2_token 
 room_list.append(room)
 #-------------------------------------------------------------
 
@@ -23,19 +23,21 @@ def handle_getCardSet():
     print("Player:" + str(roomId))
     response_data = dict(roomId=-1, playerCardSet = 'None' , opponentCardSet = 'None')
     print(room_list)
-    playerRoom = gameClass.creat_room(1,-1,'none','none')
+    playerRoom = gameClass.creat_room('None',-1,'none','none')
     for room in room_list:
         print(room.roomId)
-        print("Player:" + str(roomId))
+        print("room_list:" + str(roomId))
+        print(f"{str(room.roomId)} == {str(roomId)} => {str(room.roomId) == str(roomId)}")
         if room.roomId == roomId :
+            print("room.roomId == roomId")
             playerRoom = room
             if room.player1.token == playerToken:
                 response_data = dict(roomId=room.roomId, playerCardSet = room.player1.card_set.set , opponentCardSet = room.player2.card_set.set)
             elif room.player2.token == playerToken:
                 response_data = dict(roomId=room.roomId, playerCardSet = room.player2.card_set.set , opponentCardSet = room.player1.card_set.set)
 
-    if(playerRoom.roomId == -1):
-        response_data = dict(roomId=-1, playerCardSet = 'None' , opponentCardSet = 'None')
+    if(playerRoom.roomId == 'None'):
+        response_data = dict(roomId='None', playerCardSet = 'None' , opponentCardSet = 'None')
     print(response_data)
 
     playerRoom.time_is_up = False
@@ -59,8 +61,8 @@ def handle_request():
     room_list.append(playerRoom)
     
 
-    if(playerRoom.roomId == -1):
-        response_data = dict(roomId=-1, playerCardSet = 'None' , opponentCardSet = 'None')
+    if(playerRoom.roomId == 'None'):
+        response_data = dict(roomId='None', playerCardSet = 'None' , opponentCardSet = 'None')
     print(response_data)
 
     playerRoom.time_is_up = False
