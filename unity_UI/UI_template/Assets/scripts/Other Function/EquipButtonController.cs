@@ -12,10 +12,12 @@ public class EquipButtonController : MonoBehaviour
     public GameObject equipPanel;
     public Text equipPanelText; 
     private DontDestroy userdata;
+    public GameObject Equeeeeeeeeee;
     
 
     private void Start()
     {
+        Equeeeeeeeeee.SetActive(false);
         userdata = FindObjectOfType<DontDestroy>();
         // equipButton.onClick.AddListener(OnEquipButtonClick);
     }
@@ -25,7 +27,7 @@ public class EquipButtonController : MonoBehaviour
     {
         skillStyleID = skillSprite.GetComponent<SkillSlotScript>().skillStyleID;
         Debug.Log("NEWWWW SkillStyleID : " + skillStyleID);
-        StartCoroutine(CheckEquipStatusAndUpdateUI());
+        StartCoroutine(CheckEquipStatusAndUpdateUI(skillStyleID,userdata.token));
     }
 
     public void OnPointerClick(GameObject clickedSprite)
@@ -34,7 +36,7 @@ public class EquipButtonController : MonoBehaviour
         skillSprite = SkillSlotScript.lastClickedSprite;
         skillStyleID = skillSprite.GetComponent<SkillSlotScript>().skillStyleID;
         Debug.Log("CURR CLICKED SPRITE ID : " + skillStyleID);
-        StartCoroutine(CheckEquipStatusAndUpdateUI());
+        StartCoroutine(CheckEquipStatusAndUpdateUI(skillStyleID,userdata.token));
     }
 
     public void OnEquipButtonClick()
@@ -43,16 +45,16 @@ public class EquipButtonController : MonoBehaviour
         StartCoroutine(ToggleEquipStatus());
     }
 
-    IEnumerator CheckEquipStatusAndUpdateUI()
+    public IEnumerator CheckEquipStatusAndUpdateUI(int targetSkillId,string token)
     {
         // string url = "http://127.0.0.1:5050/skill_style/check_equip_status";
         string url = "http://140.122.185.169:5050/skill_style/check_equip_status";
 
         WWWForm form = new WWWForm();
-        int targetSkillId = skillStyleID;
+        // int targetSkillId = skillStyleID;
         // Debug.Log("targetskillId in check equip status = " + targetSkillId);
         // int targetSkillId = 1;
-        string token = userdata.token;
+        // string token = userdata.token;
         // string token = "token123";
         
         form.AddField("tokenId", token);
@@ -109,9 +111,18 @@ public class EquipButtonController : MonoBehaviour
                     }
                     else
                     {
+                        if(equipStatus == "1")
+                        {
+                            skillSprite.GetComponent<EquipButtonController>().Equeeeeeeeeee.SetActive(true);
+                        }
+                        else
+                        {
+                            skillSprite.GetComponent<EquipButtonController>().Equeeeeeeeeee.SetActive(false);
+                        }
                         Debug.Log("Equip status after toggle: " + equipStatus);
-                        UpdateButtonUI(equipStatus == "1");
                         ShowEquipStatusPanel(equipStatus == "1");
+                        UpdateButtonUI(equipStatus == "1");
+                        
                     }
                 }
             }
@@ -127,27 +138,35 @@ public class EquipButtonController : MonoBehaviour
         if (isEquipped)
         {
             equipButtonText.text = "取消裝備";
+            Equeeeeeeeeee.SetActive(true);
         }
         else
         {
             equipButtonText.text = "裝備";
+            Equeeeeeeeeee.SetActive(false);
         }
     }
 
     void ShowEquipStatusPanel(bool isEquipped)
     {
         Debug.Log("bool isequipped : " + isEquipped);
+
+        
         string message = isEquipped ? "裝備成功!" : "解除裝備成功!";
         equipPanelText.text = message;
         equipPanel.SetActive(true);
 
-        // Delay for 2 seconds and then hide the panel
+        
+
+        // Delay for 1.5 seconds and then hide the panel
         StartCoroutine(HidePanelAfterDelay());
+
+        
     }
 
     IEnumerator HidePanelAfterDelay()
     {
-        yield return new WaitForSeconds(2f); 
+        yield return new WaitForSeconds(1.5f); 
         equipPanel.SetActive(false);
     }
 

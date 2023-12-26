@@ -537,24 +537,8 @@ public class GameController : MonoBehaviour
                 skills.Add(id);
             }
             Debug.Log("Loaded Skills: " + string.Join(", ", skills));
-            
-            if(skills.Count > 3)
-            {
-                for (int i = 0; i < skills.Count - 1; i++)
-                {
-                    int temp = skills[i];
-                    int rand = UnityEngine.Random.Range(i, skills.Count);
-                    skills[i] = skills[rand];
-                    skills[rand] = temp;
-                }
-                for(int i = 0; i < 3; i++)
-                {
-                    random_skills.Add(skills[i]);
-                }
-                return random_skills;
-            }
-            else
-                return skills;
+        
+            return skills;
 
         
         }
