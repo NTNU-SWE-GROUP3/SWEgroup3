@@ -23,31 +23,15 @@ public class DrawCard : MonoBehaviour
     }
     public IEnumerator Drawing(int gameType,int n)
     {
-        Random.InitState((int)System.DateTime.Now.Ticks);
-        if(gameType != 0)
-        {
-            n = Random.Range(1, 100);
-        }
-        
-        Debug.Log("Random number: "+n);
         GameObject First ;
         GameObject Second;
-        if(n % 2 == 1)
-        {
-            First = OpponentArea;
-            Second = PlayerArea;
-            CpGetSetA = true;
-        }
-        else
-        {
-            First = PlayerArea;
-            Second = OpponentArea;
-            CpGetSetA = false;
-            tmp = DrawSound1;
-            DrawSound1 = DrawSound2;
-            DrawSound2 = tmp;
-        }
-        x = 0;
+        First = PlayerArea;
+        Second = OpponentArea;
+        CpGetSetA = false;
+        tmp = DrawSound1;
+        DrawSound1 = DrawSound2;
+        DrawSound2 = tmp;
+        x =0;
         for(int i = 0;i<10;i++)
         {
             audioSource.PlayOneShot(DrawSound1);
