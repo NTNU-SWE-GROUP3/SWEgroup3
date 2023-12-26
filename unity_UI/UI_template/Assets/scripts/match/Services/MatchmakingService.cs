@@ -145,7 +145,7 @@ public static class MatchmakingService
         }
     }
 
-    public static async void CreateOrJoinLobby(int type, int level, string userID )
+    public static async Task CreateOrJoinLobby(int type, int level, string userID )
     {
         var data = new LobbyData
         {
