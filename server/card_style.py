@@ -24,6 +24,8 @@ def EquipCardStyle():
         tokenId = request.form.get("tokenId")
         targetCardStyleId = request.form.get("targetCardStyleId")
         targetCharacterType = request.form.get("targetCharacterType")
+        
+        cardID = int(targetCardStyleId)
 
         current_app.logger.info("Token ID: ", tokenId)
         current_app.logger.info("Target Card Style ID: ", targetCardStyleId)
@@ -50,7 +52,7 @@ def EquipCardStyle():
             else:
                 current_app.logger.info("Failed to equip skin")
                 return jsonify(status="200021")
-        elif 55 <= int(targetCardStyleId) <= 60:
+        elif 55 <= cardID <= 60:
             current_app.logger.info("Inside elif block")
             current_app.logger.info(f"Converted targetCardStyleId: {int(targetCardStyleId)}")
 
