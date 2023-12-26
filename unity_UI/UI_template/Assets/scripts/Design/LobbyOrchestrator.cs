@@ -32,7 +32,7 @@ public class LobbyOrchestrator : NetworkBehaviour {
         userID = userdata.token;
         isJoin = false;
     }
-    public static async void FriendCreate()
+    public async void FriendCreate()
     {
         await Authentication.Login();
         //using (new Load("creating room...")) {

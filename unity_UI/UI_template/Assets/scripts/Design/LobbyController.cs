@@ -15,30 +15,37 @@ public class LobbyController : MonoBehaviour
     public GameObject UIsys;
     public GameObject Lobby;
     [SerializeField] private TMP_Text _joinCodeText;
-    [SerializeField] private TMP_Text LobbyCodeShow;
+    [SerializeField] private Text LobbyCodeShow;
     
     void Start()
     {
         lobbyOrchestrator = GameObject.Find("LobbyController").GetComponent<LobbyOrchestrator>();
         LeaveLobby();
     }
-    public void EnterLobbyNormal(){
-        lobbyOrchestrator.LobbyNormal();
+    IEnumerator Enter()
+    {
+        yield return new WaitForSeconds(5f);
+
+        Debug.Log($"Room Code: {MatchmakingService._currentLobby.LobbyCode}");
+        LobbyCodeShow.text = $"Room Code: {MatchmakingService._currentLobby.LobbyCode}";
 
         if( UIsys != null ) UIsys.SetActive(false);
         if( Lobby != null ) Lobby.SetActive(true);
+    }
+    public void EnterLobbyNormal(){
+        lobbyOrchestrator.LobbyNormal();
+
+        StartCoroutine( Enter() );
     }
     public void EnterLobbyRank(){
         lobbyOrchestrator.LobbyRank();
 
-        if( UIsys != null ) UIsys.SetActive(false);
-        if( Lobby != null ) Lobby.SetActive(true);
+        StartCoroutine( Enter() );
     }
     public void CreateLobbyFriend(){
-        LobbyOrchestrator.FriendCreate();
+        lobbyOrchestrator.FriendCreate();
 
-        if( UIsys != null ) UIsys.SetActive(false);
-        if( Lobby != null ) Lobby.SetActive(true);
+        StartCoroutine( Enter() );
     }
     public void JoinLobbyFriend(){
        lobbyOrchestrator.FriendJoin( _joinCodeText.text.Replace("\u200B", "") );
