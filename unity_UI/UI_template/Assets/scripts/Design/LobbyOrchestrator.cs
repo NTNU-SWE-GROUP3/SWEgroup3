@@ -110,21 +110,29 @@ public class LobbyOrchestrator : NetworkBehaviour {
     IEnumerator SendRequestStartGame( string P2ID )
     {
         yield return new WaitForSeconds(5);
-        Debug.Log("SendRequestStartGame");
-        WWWForm form = new WWWForm();
 
-        form.AddField( "gameType", MatchmakingService._currentLobby.Data["t"].Value );
-        form.AddField( "roomId", MatchmakingService._currentLobby.Id.ToString() );
-        form.AddField( "Player1Token", MatchmakingService._currentLobby.Data["p"].Value );
-        form.AddField( "Player2Token", P2ID );
-
-        UnityWebRequest www = UnityWebRequest.Post( StartGameURL, form);
-        yield return www.SendWebRequest();
-
-        if (www.result == UnityWebRequest.Result.Success )
+        if( MatchmakingService._currentLobby == null )
         {
-            StoreData.store(0, MatchmakingService._currentLobby.Id);
-            SceneManager.LoadScene(2);
+            Debug.Log("_currentLobby is null");
+        }
+        else
+        {
+            Debug.Log("SendRequestStartGame");
+            WWWForm form = new WWWForm();
+
+            form.AddField( "gameType", MatchmakingService._currentLobby.Data["t"].Value );
+            form.AddField( "roomId", MatchmakingService._currentLobby.Id.ToString() );
+            form.AddField( "Player1Token", MatchmakingService._currentLobby.Data["p"].Value );
+            form.AddField( "Player2Token", P2ID );
+
+            UnityWebRequest www = UnityWebRequest.Post( StartGameURL, form);
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.Success )
+            {
+                StoreData.store(0, MatchmakingService._currentLobby.Id);
+                SceneManager.LoadScene(2);
+            }
         }
     }
 }
