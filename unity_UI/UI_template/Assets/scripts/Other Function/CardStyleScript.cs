@@ -33,7 +33,7 @@ public class UIManager : MonoBehaviour
     public Button AssassinButton;
 
 
-    private static string[] skinFolders = { "Aladin", "Alice in wonderland", "Chinese chess", "Cinderella", "Frozen", "Japanese chess", "Poker", "Romet and Juliette", "Snow White" };
+    private static string[] skinFolders = { "Aladin", "Alice in wonderland", "Chinese chess", "Cinderella", "Frozen", "Japanese chess", "chess", "Romet and Juliette", "Snow White", "Poker" };
     private int skincount = skinFolders.Length;
     private int currentSkinIndex = 0;
     private string CurrentCharactor = "";
@@ -87,12 +87,12 @@ public class UIManager : MonoBehaviour
         new string [] {"28", "騎士 (羅密歐與茱麗葉)", "將你的騎士卡牌套上羅密歐與茱麗葉造型!", "普通"},
         new string [] {"29", "王子 (羅密歐與茱麗葉)", "將你的王子卡牌套上羅密歐與茱麗葉造型!", "普通"},
         new string [] {"30", "皇后 (羅密歐與茱麗葉)", "將你的皇后卡牌套上羅密歐與茱麗葉造型!", "普通"},
-        new string [] {"31", "平民 (撲克)", "將你的平民卡牌套上撲克造型!", "普通"},
-        new string [] {"32", "殺手 (撲克)", "將你的殺手卡牌套上撲克造型!", "普通"},
-        new string [] {"33", "國王 (撲克)", "將你的國王卡牌套上撲克造型!", "普通"},
-        new string [] {"34", "騎士 (撲克)", "將你的騎士卡牌套上撲克造型!", "普通"},
-        new string [] {"35", "王子 (撲克)", "將你的王子卡牌套上撲克造型!", "普通"},
-        new string [] {"36", "皇后 (撲克)", "將你的皇后卡牌套上撲克造型!", "普通"},
+        new string [] {"31", "平民 (西洋棋)", "將你的平民卡牌套上西洋棋造型!", "普通"},
+        new string [] {"32", "殺手 (西洋棋)", "將你的殺手卡牌套上西洋棋造型!", "普通"},
+        new string [] {"33", "國王 (西洋棋)", "將你的國王卡牌套上西洋棋造型!", "普通"},
+        new string [] {"34", "騎士 (西洋棋)", "將你的騎士卡牌套上西洋棋造型!", "普通"},
+        new string [] {"35", "王子 (西洋棋)", "將你的王子卡牌套上西洋棋造型!", "普通"},
+        new string [] {"36", "皇后 (西洋棋)", "將你的皇后卡牌套上西洋棋造型!", "普通"},
         new string [] {"37", "平民 (象棋)", "將你的平民卡牌套上象棋造型!", "普通"},
         new string [] {"38", "殺手 (象棋)", "將你的殺手卡牌套上象棋造型!", "普通"},
         new string [] {"39", "國王 (象棋)", "將你的國王卡牌套上象棋造型!", "普通"},
@@ -111,11 +111,18 @@ public class UIManager : MonoBehaviour
         new string [] {"52", "騎士 (白雪公主)", "將你的騎士卡牌套上白雪公主造型!", "普通"},
         new string [] {"53", "王子 (白雪公主)", "將你的王子卡牌套上白雪公主造型!", "普通"},
         new string [] {"54", "皇后 (白雪公主)", "將你的皇后卡牌套上白雪公主造型!", "普通"},
+        new string [] {"55", "平民 (撲克)", "將你的平民卡牌套上撲克造型!", "普通"},
+        new string [] {"56", "殺手 (撲克)", "將你的殺手卡牌套上撲克造型!", "普通"},
+        new string [] {"57", "國王 (撲克)", "將你的國王卡牌套上撲克造型!", "普通"},
+        new string [] {"58", "騎士 (撲克)", "將你的騎士卡牌套上撲克造型!", "普通"},
+        new string [] {"59", "王子 (撲克)", "將你的王子卡牌套上撲克造型!", "普通"},
+        new string [] {"60", "皇后 (撲克)", "將你的皇后卡牌套上撲克造型!", "普通"},
     };
 
     private void Start()
     {
-
+        currentSkinIndex = 0;
+        CurrentCharactor = "";
         SkinPanel = GameObject.Find("SkinPanel");
         SkinPanel.SetActive(false);
         //NextSkinButton.onClick.AddListener(OnNextButtonClicked);
@@ -128,6 +135,8 @@ public class UIManager : MonoBehaviour
         KnightButton.onClick.AddListener(ViewKnightSkin);
         CivillianButton.onClick.AddListener(ViewCivillianSkin);
         AssassinButton.onClick.AddListener(ViewAssassinSkin);
+        NextSkinButton.onClick.AddListener(OnNextButtonClicked);
+        PreviousSkinButton.onClick.AddListener(OnPrevButtonClicked);
 
         //Fetching user's token
         userdata = FindObjectOfType<DontDestroy>();
@@ -146,10 +155,11 @@ public class UIManager : MonoBehaviour
 
     private void ClosePanel()
     {
-        SkinPanel.SetActive(false);
-        MaskPanel.SetActive(false);
         currentSkinIndex = 0;
         CurrentCharactor = "";
+        SkinPanel.SetActive(false);
+        MaskPanel.SetActive(false);
+        
     }
 
     // private IEnumerator logdata(int targetCardStyleId)
@@ -285,6 +295,9 @@ public class UIManager : MonoBehaviour
             case 8: //Snow white
                 idCount += 49;
                 break;
+            case 9: //Snow white
+                idCount += 55;
+                break;
         }
         return idCount;
     }
@@ -345,6 +358,9 @@ public class UIManager : MonoBehaviour
             case 8: //Snow white
                 idCount += 49;
                 break;
+            case 9: //Snow white
+                idCount += 55;
+                break;
         }
         string targetCardStyleID = idCount.ToString();
         Debug.Log($"targetCardStyleID_input: {targetCardStyleID}");
@@ -361,6 +377,7 @@ public class UIManager : MonoBehaviour
 
     private void OnNextButtonClicked()
     {
+        Debug.Log("current index : " +currentSkinIndex);
         //slove bug
         PreviousSkinButton.interactable = false;
         NextSkinButton.interactable = false;
@@ -373,6 +390,7 @@ public class UIManager : MonoBehaviour
     private void OnPrevButtonClicked()
     {
         //slove bug
+        Debug.Log("current index : " +currentSkinIndex);
         PreviousSkinButton.interactable = false;
         NextSkinButton.interactable = false;
 
@@ -412,8 +430,6 @@ public class UIManager : MonoBehaviour
         CurrentCharactor = "King";
         UpdateSkinImage();
         UpdateCardStyleData();
-        NextSkinButton.onClick.AddListener(OnNextButtonClicked);
-        PreviousSkinButton.onClick.AddListener(OnPrevButtonClicked);
         CurrentSkinTypeText.text = "國王卡牌造型";
         SellButton.onClick.AddListener(SellSkin);
         EquipButton.onClick.AddListener(EquipSkin);
@@ -425,8 +441,6 @@ public class UIManager : MonoBehaviour
         CurrentCharactor = "Queen";
         UpdateSkinImage();
         UpdateCardStyleData();
-        NextSkinButton.onClick.AddListener(OnNextButtonClicked);
-        PreviousSkinButton.onClick.AddListener(OnPrevButtonClicked);
         CurrentSkinTypeText.text = "皇后卡牌造型";
         SellButton.onClick.AddListener(SellSkin);
         EquipButton.onClick.AddListener(EquipSkin);
@@ -438,8 +452,6 @@ public class UIManager : MonoBehaviour
         CurrentCharactor = "Prince";
         UpdateSkinImage();
         UpdateCardStyleData();
-        NextSkinButton.onClick.AddListener(OnNextButtonClicked);
-        PreviousSkinButton.onClick.AddListener(OnPrevButtonClicked);
         CurrentSkinTypeText.text = "王子卡牌造型";
         SellButton.onClick.AddListener(SellSkin);
         EquipButton.onClick.AddListener(EquipSkin);
@@ -451,8 +463,6 @@ public class UIManager : MonoBehaviour
         CurrentCharactor = "Knight";
         UpdateSkinImage();
         UpdateCardStyleData();
-        NextSkinButton.onClick.AddListener(OnNextButtonClicked);
-        PreviousSkinButton.onClick.AddListener(OnPrevButtonClicked);
         CurrentSkinTypeText.text = "騎士卡牌造型";
         SellButton.onClick.AddListener(SellSkin);
         EquipButton.onClick.AddListener(EquipSkin);
@@ -464,8 +474,6 @@ public class UIManager : MonoBehaviour
         CurrentCharactor = "Civil";
         UpdateSkinImage();
         UpdateCardStyleData();
-        NextSkinButton.onClick.AddListener(OnNextButtonClicked);
-        PreviousSkinButton.onClick.AddListener(OnPrevButtonClicked);
         CurrentSkinTypeText.text = "平民卡牌造型";
         int target = getTargetCardStyleId();
         // StartCoroutine(logdata(target));
@@ -479,8 +487,6 @@ public class UIManager : MonoBehaviour
         CurrentCharactor = "Killer";
         UpdateSkinImage();
         UpdateCardStyleData();
-        NextSkinButton.onClick.AddListener(OnNextButtonClicked);
-        PreviousSkinButton.onClick.AddListener(OnPrevButtonClicked);
         CurrentSkinTypeText.text = "殺手卡牌造型";
         int target = getTargetCardStyleId();
         // StartCoroutine(logdata(target));

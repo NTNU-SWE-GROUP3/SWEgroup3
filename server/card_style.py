@@ -32,7 +32,7 @@ def EquipCardStyle():
 
         if targetCharacterType == "6":
             targetCharacterType = "0"
-        if haveItem:
+        if haveItem or (targetCardStyleId >= 55 and targetCardStyleId <= 60):
             unselectSkinId = FindEquippedCardStyle(tokenId, targetCharacterType)
             print("target unselect skin id: ", unselectSkinId)
             if unselectSkinId:
@@ -41,7 +41,10 @@ def EquipCardStyle():
                     print("Failed to unequip skin")
                     return False
                 print("Succeeded to unequip skin")
-            equipSuccess = UpdateEquipStatus(tokenId, targetCardStyleId)
+            if targetCardStyleId < 55:
+                equipSuccess = UpdateEquipStatus(tokenId, targetCardStyleId)
+            else:
+                equipSuccess = True
             if equipSuccess:
                 print("Successfully equipped skin")
                 return jsonify(status="200001")
