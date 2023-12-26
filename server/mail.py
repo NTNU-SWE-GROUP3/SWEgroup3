@@ -10,7 +10,7 @@ def send_verification_email(recipient_email):
     random_code = ''.join(random.choices('0123456789', k=6))
 
     # Email subject
-    msg_title = 'SWEGame Verification Code'
+    msg_title = 'SWEGame 重設密碼驗證碼'
 
     # Sender's email address
     msg_sender = current_app.config['MAIL_USERNAME']
@@ -104,7 +104,7 @@ def send_check_newemail(userid, recipient_email):
     random_code = ''.join(random.choices('0a1b2c3d4e5f6g7h8i9j', k=20))
 
     # Email subject
-    msg_title = 'SWEGame Change Email Verification'
+    msg_title = 'SWEGame 重設Email驗證信'
 
     # Sender's email address
     msg_sender = current_app.config['MAIL_USERNAME']
@@ -161,6 +161,16 @@ def send_check_newemail(userid, recipient_email):
                     margin-top: -10px;
                     margin-bottom: 20px;
                 }}
+                .btn-confirm-email {{
+                    padding: 10px 20px;
+                    background-color: #ff8c00;  /* 修改為橘色 */
+                    color: #ffffff;
+                    text-decoration: none;
+                    border-radius: 5px;
+                    font-weight: bold;
+                    display: block;
+                    text-align: center;
+                }}
             </style>
         </head>
         <body>
@@ -170,9 +180,10 @@ def send_check_newemail(userid, recipient_email):
                 </div>
                 <div class="white-bg">
                     <p class="greeting">Dear User,</p>
-                    <p class="instruction">我們收到了您的 Email 更動請求，請按下方按鈕驗證您的身份：</p>
-                    <a href="http://140.122.185.169:5050/user_information/verify_email/{userid}/{recipient_email}/{random_code}" style="padding: 10px 20px; background-color: #007BFF; color: #ffffff; text-decoration: none; border-radius: 5px; font-weight: bold; display: block; text-align: center;">Confirm Email</a>
-                    <p>如果你沒有送出請求，請忽略這封信件</p>
+                    <p class="instruction">我們收到了您的 Email 更動請求，</p>
+                    <p class="instruction">請按下方按鈕驗證您的身份：</p>
+                    <a href="http://140.122.185.169:5050/user_information/verify_email/{userid}/{recipient_email}/{random_code}" class="btn-confirm-email">這是我的 Email</a>
+                    <p>如果您沒有送出請求，請忽略這封信件</p>
                     <p>謝謝您 祝您有個美好的一天</p>
                 </div>
                 <div class="orange-bg">
@@ -184,6 +195,8 @@ def send_check_newemail(userid, recipient_email):
     """
 
 
+
+    #http://140.122.185.169:5050
 
     # Create a Message object
     msg = Message(msg_title, sender=msg_sender, recipients=msg_recipients)
