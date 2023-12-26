@@ -36,7 +36,7 @@ def EquipCardStyle():
 
         if targetCharacterType == "6":
             targetCharacterType = "0"
-        if haveItem == True:
+        if haveItem or 55 <= cardID <= 60:
             unselectSkinId = FindEquippedCardStyle(tokenId, targetCharacterType)
             current_app.logger.info("target unselect skin id: ", unselectSkinId)
             if unselectSkinId:
@@ -52,19 +52,6 @@ def EquipCardStyle():
             else:
                 current_app.logger.info("Failed to equip skin")
                 return jsonify(status="200021")
-        elif 55 <= cardID <= 60:
-            current_app.logger.info("Inside elif block")
-            current_app.logger.info(f"Converted targetCardStyleId: {int(targetCardStyleId)}")
-
-            unselectSkinId = FindEquippedCardStyle(tokenId, targetCharacterType)
-            current_app.logger.info("target unselect skin id: ", unselectSkinId)
-            if unselectSkinId:
-                unEquipSuccess = UnEquipCardStyle(tokenId, unselectSkinId)
-                if not unEquipSuccess:
-                    current_app.logger.info("Failed to unequip skin")
-                    return False
-                current_app.logger.info("Succeeded to unequip skin")
-            return jsonify(status="200001")
         else:
             current_app.logger.info("User doesn't have this item in inventory")
             return jsonify(status="200022")
