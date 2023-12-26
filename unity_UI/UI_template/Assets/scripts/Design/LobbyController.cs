@@ -12,6 +12,8 @@ using MiniJSON;
 public class LobbyController : MonoBehaviour
 {
     LobbyOrchestrator lobbyOrchestrator;
+
+    PvE pve;
     public GameObject UIsys;
     public GameObject Lobby;
     [SerializeField] private TMP_Text _joinCodeText;
@@ -20,14 +22,24 @@ public class LobbyController : MonoBehaviour
     void Start()
     {
         lobbyOrchestrator = GameObject.Find("LobbyController").GetComponent<LobbyOrchestrator>();
+        pve = GameObject.Find("LobbyController").GetComponent<PvE>();
+        
         LeaveLobby();
     }
-    IEnumerator Enter()
+    IEnumerator Enter( int type )
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(3f);
 
         Debug.Log($"Room Code: {MatchmakingService._currentLobby.LobbyCode}");
         LobbyCodeShow.text = $"Room Code: {MatchmakingService._currentLobby.LobbyCode}";
+
+        yield return new WaitForSeconds(7f);
+
+        if( type == 1 )
+        {
+            Debug.Log("PVP -> PVE");
+            pve.PvEButton();
+        }
 
         if( UIsys != null ) UIsys.SetActive(false);
         if( Lobby != null ) Lobby.SetActive(true);
@@ -35,17 +47,17 @@ public class LobbyController : MonoBehaviour
     public void EnterLobbyNormal(){
         lobbyOrchestrator.LobbyNormal();
 
-        StartCoroutine( Enter() );
+        StartCoroutine( Enter(1) );
     }
     public void EnterLobbyRank(){
         lobbyOrchestrator.LobbyRank();
 
-        StartCoroutine( Enter() );
+        StartCoroutine( Enter(0) );
     }
     public void CreateLobbyFriend(){
         lobbyOrchestrator.FriendCreate();
 
-        StartCoroutine( Enter() );
+        StartCoroutine( Enter(0) );
     }
     public void JoinLobbyFriend(){
        lobbyOrchestrator.FriendJoin( _joinCodeText.text.Replace("\u200B", "") );
