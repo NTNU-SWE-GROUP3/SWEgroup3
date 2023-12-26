@@ -28,7 +28,7 @@ def EquipCardStyle():
         cardID = int(targetCardStyleId)
 
         current_app.logger.info("Token ID: ", tokenId)
-        current_app.logger.info("Target Card Style ID: ", targetCardStyleId)
+        current_app.logger.info("Target Card Style ID: %s", targetCardStyleId)
         current_app.logger.info("Target Character Type: ", targetCharacterType)
 
         haveItem = HaveCardStyle(tokenId, targetCardStyleId)
@@ -36,7 +36,7 @@ def EquipCardStyle():
 
         if targetCharacterType == "6":
             targetCharacterType = "0"
-        if haveItem or 55 <= cardID <= 60:
+        if haveItem or (cardID >= 55 and cardID <= 60):
             unselectSkinId = FindEquippedCardStyle(tokenId, targetCharacterType)
             current_app.logger.info("target unselect skin id: ", unselectSkinId)
             if unselectSkinId:
