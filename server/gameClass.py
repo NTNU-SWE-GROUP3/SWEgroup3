@@ -35,8 +35,13 @@ class Room:
             time.sleep(1)
         print(f'{time.time()} <- {start_time}runTimer:{self.timerStopped}')
         if self.timerStopped == False:
+<<<<<<< Updated upstream
             print(f'room(id:{self.roomId}) time is up, roomId set to -1')
             self.roomId = 'None' # the system should remove the room whose roomId is -1.
+=======
+            print(f'room(id:{self.roomId}) time is up, roomId set to None')
+            self.roomId = "None" # the system should remove the room whose roomId is None.
+>>>>>>> Stashed changes
         self.timerStopped = False
 
     def start_timer(self, time_limit):
