@@ -118,6 +118,7 @@ public static class MatchmakingService
         //The name of the lobby will be same as the host player.
         _currentLobby = await Lobbies.Instance.CreateLobbyAsync("New", data.MaxPlayers, options);
         Constants._LobbyCodeForOut = _currentLobby.LobbyCode;
+        IamJoin = false;
         Debug.Log($"Lobby created: {_currentLobby.Id}, {_currentLobby.LobbyCode}");
         // //Transport.SetHostRelayData(a.RelayServer.IpV4, (ushort)a.RelayServer.Port, a.AllocationIdBytes, a.Key, a.ConnectionData);
 
@@ -211,6 +212,7 @@ public static class MatchmakingService
             //SendRequestStartGame( userID ); // Player who "joined" the lobby send start game request
             Debug.Log($"Join Friend Lobby ({_currentLobby.Id}, {_currentLobby.LobbyCode})");
             Constants._LobbyCodeForOut = lobbyCode;
+            IamJoin = true;
             // var a = await RelayService.Instance.JoinAllocationAsync(_currentLobby.Data[Constants.JoinKey].Value);
 
             // Transport.SetClientRelayData(a.RelayServer.IpV4, (ushort)a.RelayServer.Port, a.AllocationIdBytes, a.Key, a.ConnectionData, a.HostConnectionData);

@@ -78,7 +78,7 @@ public class LobbyOrchestrator : NetworkBehaviour {
             Debug.Log($"LobbyOrchestrator: userID: {userID}");
             //Debug.Log($"userRank: {userdata.rank}");
             //userRank = int.Parse(userdata.rank);
-            isJoin = false;
+            isJoin = true;
         }
         else
         {
