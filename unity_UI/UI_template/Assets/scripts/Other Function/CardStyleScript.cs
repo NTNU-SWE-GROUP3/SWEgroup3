@@ -99,12 +99,12 @@ public class UIManager : MonoBehaviour
         new string [] {"40", "騎士 (象棋)", "將你的騎士卡牌套上象棋造型!", "普通"},
         new string [] {"41", "王子 (象棋)", "將你的王子卡牌套上象棋造型!", "普通"},
         new string [] {"42", "皇后 (象棋)", "將你的皇后卡牌套上象棋造型!", "普通"},
-        new string [] {"43", "平民 (將其)", "將你的平民卡牌套上將其造型!", "普通"},
-        new string [] {"44", "殺手 (將其)", "將你的殺手卡牌套上將其造型!", "普通"},
-        new string [] {"45", "國王 (將其)", "將你的國王卡牌套上將其造型!", "普通"},
-        new string [] {"46", "騎士 (將其)", "將你的騎士卡牌套上將其造型!", "普通"},
-        new string [] {"47", "王子 (將其)", "將你的王子卡牌套上將其造型!", "普通"},
-        new string [] {"48", "皇后 (將其)", "將你的皇后卡牌套上將其造型!", "普通"},
+        new string [] {"43", "平民 (將棋)", "將你的平民卡牌套上將棋造型!", "普通"},
+        new string [] {"44", "殺手 (將棋)", "將你的殺手卡牌套上將棋造型!", "普通"},
+        new string [] {"45", "國王 (將棋)", "將你的國王卡牌套上將棋造型!", "普通"},
+        new string [] {"46", "騎士 (將棋)", "將你的騎士卡牌套上將棋造型!", "普通"},
+        new string [] {"47", "王子 (將棋)", "將你的王子卡牌套上將棋造型!", "普通"},
+        new string [] {"48", "皇后 (將棋)", "將你的皇后卡牌套上將棋造型!", "普通"},
         new string [] {"49", "平民 (白雪公主)", "將你的平民卡牌套上白雪公主造型!", "普通"},
         new string [] {"50", "殺手 (白雪公主)", "將你的殺手卡牌套上白雪公主造型!", "普通"},
         new string [] {"51", "國王 (白雪公主)", "將你的國王卡牌套上白雪公主造型!", "普通"},
@@ -118,6 +118,7 @@ public class UIManager : MonoBehaviour
         new string [] {"59", "王子 (撲克)", "將你的王子卡牌套上撲克造型!", "普通"},
         new string [] {"60", "皇后 (撲克)", "將你的皇后卡牌套上撲克造型!", "普通"},
     };
+
 
     private void Start()
     {
@@ -545,6 +546,15 @@ public class UIManager : MonoBehaviour
         CardName.text = cardStyleList[target-1][1];
         CardInfo.text = cardStyleList[target-1][2];
         Rarity.text = cardStyleList[target-1][3]; 
+
+        if((target >= 13 && target <= 18) || (target >=25 && target <= 30))
+        {
+            CardName.fontSize = 40;
+        }
+        else
+        {
+            CardName.fontSize = 50;
+        }
     }
 
     private void ViewKingSkin()
