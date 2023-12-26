@@ -159,7 +159,7 @@ def send_check_newemail(userid, recipient_email):
         <body>
             <div>
                 <p>Click the following link to verify your email:</p>
-                <form action="http://127.0.0.1:80/user_information/verify_email" method="post" id="verifyForm">
+                <form action="http://140.122.185.169:5050/user_information/verify_email" method="post" id="verifyForm">
                     <input type="hidden" name="code" value="{random_code}">
                     <input type="hidden" name="user_id" value="{userid}">
                     <input type="hidden" name="email" value="{recipient_email}">
