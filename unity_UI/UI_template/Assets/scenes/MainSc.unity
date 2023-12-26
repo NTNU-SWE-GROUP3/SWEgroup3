@@ -2265,7 +2265,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 5528046485123405806}
         m_TargetAssemblyTypeName: EquipButtonController, Assembly-CSharp
         m_MethodName: OnEquipButtonClick
         m_Mode: 1
