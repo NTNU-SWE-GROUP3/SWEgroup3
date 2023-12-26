@@ -35,9 +35,12 @@ def handle_getCardSet():
             elif room.player2.token == playerToken:
                 response_data = dict(roomId=room.roomId, playerCardSet = room.player2.card_set.set , opponentCardSet = room.player1.card_set.set)
 
-    playerRoom = room_list[index]
+    
     if(index == -1):
         response_data = dict(roomId="None", playerCardSet = 'None' , opponentCardSet = 'None')
+        return jsonify(response_data)
+    else:
+        playerRoom = room_list[index]
     print(response_data)
 
     playerRoom.time_is_up = False
