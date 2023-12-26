@@ -4,10 +4,14 @@ using UnityEngine;
 using Unity.Netcode;
 
 using TMPro;
+using UnityEngine.UI;
+using UnityEngine.Serialization;
+using UnityEngine.Networking;
+using MiniJSON;
 
 public class LobbyController : MonoBehaviour
 {
-
+    LobbyOrchestrator lobbyOrchestrator;
     public GameObject UIsys;
     public GameObject Lobby;
     [SerializeField] private TMP_Text _joinCodeText;
@@ -15,6 +19,7 @@ public class LobbyController : MonoBehaviour
     
     void Start()
     {
+        lobbyOrchestrator = GameObject.Find("LobbyController").GetComponent<LobbyOrchestrator>();
         LeaveLobby();
     }
     public void EnterLobbyNormal(){
@@ -36,7 +41,7 @@ public class LobbyController : MonoBehaviour
         if( Lobby != null ) Lobby.SetActive(true);
     }
     public void JoinLobbyFriend(){
-        LobbyOrchestrator.FriendJoin( _joinCodeText.text.Replace("\u200B", "") );
+       lobbyOrchestrator.FriendJoin( _joinCodeText.text.Replace("\u200B", "") );
     }
 
     public async void LeaveLobby(){
@@ -45,4 +50,26 @@ public class LobbyController : MonoBehaviour
         Lobby.SetActive(false);
         LobbyCodeShow.text = $"Room Code: {Constants._LobbyCodeForOut}";
     }
+
+    // static string StartGameURL = "http://140.122.185.169:5050/api/gameStart";
+    // public static IEnumerator SendRequestStartGame( string P2ID )
+    // {
+    //     yield return new WaitForSeconds(5);
+    //     Debug.Log("SendRequestStartGame");
+    //     WWWForm form = new WWWForm();
+
+    //     form.AddField( "gameType", MatchmakingService._currentLobby.Data["type"].ToString() );
+    //     form.AddField( "roomId", MatchmakingService._currentLobby.Id.ToString() );
+    //     form.AddField( "Player1Token", MatchmakingService._currentLobby.Data["p1ID"].ToString() );
+    //     form.AddField( "Player2Token", P2ID );
+
+    //     UnityWebRequest www = UnityWebRequest.Post( StartGameURL, form);
+    //     yield return www.SendWebRequest();
+
+    //     if (www.result == UnityWebRequest.Result.Success )
+    //     {
+    //         StoreData.store(0, MatchmakingService._currentLobby.Id);
+    //         SceneManager.LoadScene(2);
+    //     }
+    // }
 }

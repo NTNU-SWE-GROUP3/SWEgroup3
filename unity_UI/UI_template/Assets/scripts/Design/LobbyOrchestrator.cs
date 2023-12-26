@@ -6,6 +6,11 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
 
+using UnityEngine.UI;
+using UnityEngine.Serialization;
+using UnityEngine.Networking;
+using MiniJSON;
+
 #pragma warning disable CS4014
 
 /// <summary>
@@ -51,12 +56,15 @@ public class LobbyOrchestrator : NetworkBehaviour {
         //}
     }
 
-    public static async void FriendJoin( string code )
+    //public static async void FriendJoin( string code )
+    public async void FriendJoin( string code )
     {
         await Authentication.Login();
         //using (new Load("Joining Lobby...")) {
             try {
                 await MatchmakingService.JoinLobbyWithAllocationCode( code, userID );
+                
+                StartCoroutine( SendRequestStartGame( userID ) );
                 //NetworkManager.Singleton.StartClient();
             }
             catch (Exception e) {
@@ -85,10 +93,32 @@ public class LobbyOrchestrator : NetworkBehaviour {
     {
         await Authentication.Login();
         try{
-            await MatchmakingService.CreateOrJoinLobby( 1, 0, userID ); // Level is editing...
+            await MatchmakingService.CreateOrJoinLobby( 1, 0, userID );
         }
         catch ( Exception e ){
             Debug.LogError(e);
+        }
+    }
+
+    static string StartGameURL = "http://140.122.185.169:5050/api/gameStart";
+    IEnumerator SendRequestStartGame( string P2ID )
+    {
+        yield return new WaitForSeconds(5);
+        Debug.Log("SendRequestStartGame");
+        WWWForm form = new WWWForm();
+
+        form.AddField( "gameType", MatchmakingService._currentLobby.Data["type"].ToString() );
+        form.AddField( "roomId", MatchmakingService._currentLobby.Id.ToString() );
+        form.AddField( "Player1Token", MatchmakingService._currentLobby.Data["p1ID"].ToString() );
+        form.AddField( "Player2Token", P2ID );
+
+        UnityWebRequest www = UnityWebRequest.Post( StartGameURL, form);
+        yield return www.SendWebRequest();
+
+        if (www.result == UnityWebRequest.Result.Success )
+        {
+            StoreData.store(0, MatchmakingService._currentLobby.Id);
+            SceneManager.LoadScene(2);
         }
     }
 }
