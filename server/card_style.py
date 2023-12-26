@@ -45,7 +45,10 @@ def EquipCardStyle():
                     current_app.logger.info("Failed to unequip skin")
                     return False
                 current_app.logger.info("Succeeded to unequip skin")
-            equipSuccess = UpdateEquipStatus(tokenId, targetCardStyleId)
+            if cardID < 55:
+                equipSuccess = UpdateEquipStatus(tokenId, targetCardStyleId)
+            else : 
+                equipSuccess = True
             if equipSuccess:
                 current_app.logger.info("Successfully equipped skin")
                 return jsonify(status="200001")
