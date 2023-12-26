@@ -19,6 +19,7 @@ public class UserSetting : MonoBehaviour
     public string player_ranking;
     public string player_nickname;
     public string player_email;
+    public int player_equip_avatar;
 
     //Avatar button
     public Button AvatarButton;
@@ -322,15 +323,10 @@ public class UserSetting : MonoBehaviour
                         player_nickname = responseData.nickname;
                         player_email = responseData.email;
                         player_winrate = responseData.winrate;
-
+                        player_equip_avatar = responseData.equip_avatar;
 
                         UserName.text = player_nickname;
                         UIUserName.text = player_nickname;
-
-
-                        UIUserLevel.text = "LV." + player_level.ToString();
-                        UICoins.text = player_coins.ToString();
-                        UIChips.text = "0";
 
                         break;
 
@@ -345,6 +341,11 @@ public class UserSetting : MonoBehaviour
 
     private void UpdateUserInformation()
     {
+        //User Info
+        UIUserLevel.text = "LV." + player_level.ToString();
+        UICoins.text = player_coins.ToString();
+        UIChips.text = "0";
+
         //SettingPanel
         UserName.text = (player_nickname);
         Email.text = (player_email);
@@ -355,6 +356,31 @@ public class UserSetting : MonoBehaviour
         TotalWin.text = (player_totalwin.ToString());
         Ranking.text = (player_ranking);
 
+        Image buttonImage = AvatarButton.image;
+        if (player_equip_avatar == 0)
+        {
+            Debug.Log("Defalt Avatar");
+        }
+        else if (player_equip_avatar == 1)
+        {
+            // 修改Image组件的sprite属性
+            buttonImage.sprite = AV1_Image;
+        }
+        else if (player_equip_avatar == 2)
+        {
+            // 修改Image组件的sprite属性
+            buttonImage.sprite = AV2_Image;
+        }
+        else if (player_equip_avatar == 3)
+        {
+            // 修改Image组件的sprite属性
+            buttonImage.sprite = AV3_Image;
+        }
+        else if (player_equip_avatar == 4)
+        {
+            // 修改Image组件的sprite属性
+            buttonImage.sprite = AV4_Image;
+        }
 
     }
 
@@ -547,6 +573,7 @@ public class UserInformationResponseData
     public string ranking;
     public int coin;
     public int level;
+    public int equip_avatar;
 
 }
 

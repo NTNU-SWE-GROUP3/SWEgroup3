@@ -122,10 +122,10 @@ class DBManager:
 
     def InitNewAccountData(self, accountId):
         insert_stmt = (
-            "INSERT INTO account_data(account_id, nickname, level, experience, `rank`, total_match, total_win, ranked_winning_streak, ranked_XP, coin) "
+            "INSERT INTO account_data(account_id, nickname, level, experience, `rank`, total_match, total_win, ranked_winning_streak, ranked_XP, coin, equip_avatar) "
             "VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
         )
-        data = (accountId, "Guest", "0", "0", "Not Ranked", "0", "0", "0", "0", "3000",)
+        data = (accountId, "Guest", "0", "0", "Not Ranked", "0", "0", "0", "0", "3000","0", )
         self.cursor.execute(insert_stmt, data)
         current_app.logger.info(self.cursor._executed)
         self.connection.commit()
@@ -512,3 +512,40 @@ class DBManager:
             for row in rows:
                 account_data.append(row)
             return (account_data)
+
+
+
+
+    def GetUserAvatar(self, tokenid):
+            insertStmt = (
+                "SELECT ad.equip_avatar "
+                "FROM account a "
+                "JOIN account_data ad ON a.id = ad.account_id "
+                "WHERE a.token_id = %s"
+            )
+            data = (tokenid,)
+            self.cursor.execute(insertStmt, data)
+            current_app.logger.info(self.cursor._executed)
+            rec = []
+            for c in self.cursor:
+                rec.append(c[0])
+            if(bool(rec)):
+                return rec[0]
+            else:
+                return 0
+
+
+    #  Update player Avator choice
+    def UpdateAvatarChoice(self, tokenid, id):
+        insert_stmt = (
+            "UPDATE account_data "
+            "SET equip_avatar = %s "
+            "WHERE account_id = (SELECT id FROM account WHERE token_id = %s);"
+        )
+        data = (id, tokenid, )
+        self.cursor.execute(insert_stmt, data)
+        current_app.logger.info(self.cursor._executed)
+        self.connection.commit()
+
+
+

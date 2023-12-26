@@ -58,6 +58,8 @@ def GetNickname():
     ranking = conn.GetUserrank(token)
     coin = conn.GetUsercoin(token)
     level = conn.GetUserlevel(token)
+    equip_avatar = conn.GetUserAvatar(token)
+
     #return nickname
     return jsonify(status = "400004",
                    msg = "Success",
@@ -68,7 +70,8 @@ def GetNickname():
                    totalwin = totalwin,
                    ranking = ranking,
                    coin = coin,
-                   level = level
+                   level = level,
+                   equip_avatar = equip_avatar
                    )
 
 
@@ -230,3 +233,41 @@ def verify_email():
     # Example: Return a response to the user
     return "Email verification successful!"
 
+
+''' ==============================
+Update Avatar Choice Request
+input
+    id
+    Token
+output
+    status
+        400000 : Success
+        403000 : 
+============================== '''
+@user_information.route('/update_avatar', methods=['POST'])
+def update_avatar():
+
+# DataBase connection
+    global conn
+    if not conn:
+        conn = DBManager(password_file='/run/secrets/db-password')
+
+
+    id = request.form.get('id')
+    current_app.logger.info("id: %s", id)
+    token = request.form.get('Token')
+    current_app.logger.info("Token: %s", Token)
+    
+    #token expiredtime
+    expiredtime = conn.GetTokenExpiredTime(token)
+    current_app.logger.info("Expired time: %s", expiredtime)
+    now = datetime.datetime.now()
+    current_app.logger.info("Now: %s || Expired time: %s)", now, expiredtime)
+    if (expiredtime == -1):
+        return jsonify(status = "403011", msg = "No such token")
+    elif(now > expiredtime):
+        return jsonify(status = "403011", msg = "Token expired")
+    
+    conn.UpdateAvatarChoice(token, id)
+    
+    return jsonify(status = "400000", msg = "Avatar changed")
