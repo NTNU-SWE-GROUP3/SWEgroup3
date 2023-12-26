@@ -32,7 +32,7 @@ def EquipCardStyle():
 
         if targetCharacterType == "6":
             targetCharacterType = "0"
-        if haveItem or (targetCardStyleId >= 55 and targetCardStyleId <= 60):
+        if haveItem == True or (targetCardStyleId >= 55 and targetCardStyleId <= 60):
             unselectSkinId = FindEquippedCardStyle(tokenId, targetCharacterType)
             print("target unselect skin id: ", unselectSkinId)
             if unselectSkinId:
