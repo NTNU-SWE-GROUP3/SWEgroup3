@@ -13,18 +13,15 @@ public class PageSwiper : MonoBehaviour, IDragHandler, IEndDragHandler
     public float easing = 0.5f;
     public int totalPages = 5;
     private int currentPage = 3;
-    public MainAudioManager audioManager;
+
 
     void Start()
     {
         panelLocation = transform.position;
-        audioManager = GameObject.Find("AudioBox").GetComponent<MainAudioManager>();
     }
     public void ToPage1()
     {
-        if(currentPage == 5){
-            audioManager.Page5jump();
-        }
+
         int pageDiff = currentPage - 1;
         Vector3 newLocation = panelLocation;
         newLocation += new Vector3(Screen.width * pageDiff, 0, 0);
@@ -34,9 +31,7 @@ public class PageSwiper : MonoBehaviour, IDragHandler, IEndDragHandler
     }
     public void ToPage2()
     {
-        if(currentPage == 5){
-            audioManager.Page5jump();
-        }
+
         int pageDiff = currentPage - 2;
         Vector3 newLocation = panelLocation;
         newLocation += new Vector3(Screen.width * pageDiff, 0, 0);
@@ -47,9 +42,7 @@ public class PageSwiper : MonoBehaviour, IDragHandler, IEndDragHandler
 
     public void ToPage3()
     {
-        if(currentPage == 5){
-            audioManager.Page5jump();
-        }
+
         int pageDiff = currentPage - 3;
         Vector3 newLocation = panelLocation;
         newLocation += new Vector3(Screen.width * pageDiff, 0, 0);
@@ -60,7 +53,7 @@ public class PageSwiper : MonoBehaviour, IDragHandler, IEndDragHandler
 
     public void ToPage4()
     {
-        audioManager.Page4jump();
+
         int pageDiff = currentPage - 4;
         Vector3 newLocation = panelLocation;
         newLocation += new Vector3(Screen.width * pageDiff, 0, 0);
@@ -70,9 +63,7 @@ public class PageSwiper : MonoBehaviour, IDragHandler, IEndDragHandler
     }
     public void ToPage5()
     {
-        if(currentPage <= 3){
-            audioManager.Page5jump();
-        }
+
         int pageDiff = currentPage - 5;
         Vector3 newLocation = panelLocation;
         newLocation += new Vector3(Screen.width * pageDiff, 0, 0);
