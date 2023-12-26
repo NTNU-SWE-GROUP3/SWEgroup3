@@ -84,6 +84,8 @@ public class UserSetting : MonoBehaviour
     private string serverURL_playerdata = serverUrl + "/user_information/getplayerdata";
     private string serverURL_changeNickname = serverUrl + "/user_information/changenickname";
     private string serverURL_changeEmail = serverUrl + "/user_information/changeemail";
+    private string serverURL_UpdateAvatar = serverUrl + "/user_information/update_avatar";
+    
 
 
     void Start()
@@ -188,15 +190,15 @@ public class UserSetting : MonoBehaviour
     private void ChangeEmail()
     {
         string new_email = NewInfoInput.text;
-        //StartCoroutine(ChangeEmailRequest(player_token, new_email));
+        StartCoroutine(ChangeEmailRequest(player_token, new_email));
         ChangeInfoPanel.SetActive(false);
         //UpdateUserGeneralData();
-        //UpdateUserInformation();
+        UpdateUserInformation();
         InformInputText.text = ("");
         NewInfoInput.text = "";
-        UserSettingWarningPanel.SetActive(true);
-        NoticeTitleText.text = ("功能調整中！");
-        UseSettingMessage.text = ("這個功能正在修改中QQ");
+        //UserSettingWarningPanel.SetActive(true);
+        //NoticeTitleText.text = ("功能調整中！");
+        //UseSettingMessage.text = ("這個功能正在修改中QQ");
     }
 
     private void TurnGeneralSetting()
@@ -216,7 +218,7 @@ public class UserSetting : MonoBehaviour
     //Change avator
     private void ChangeAV1()
     {
-        // >>>>>>>>>>>>>>>Change the Avator to Avator 1 !! <<<<<<<<<<<<<<<< #Design Group
+        StartCoroutine(UpdateAvatar(1, player_token));
         UserSettingWarningPanel.SetActive(true);
         NoticeTitleText.text = ("頭像已變更！");
         UseSettingMessage.text = ("已成功更換造型!");
@@ -232,7 +234,7 @@ public class UserSetting : MonoBehaviour
 
     private void ChangeAV2()
     {
-        // >>>>>>>>>>>>>>>Change the Avator to Avator 2 !! <<<<<<<<<<<<<<<< #Design Group
+        StartCoroutine(UpdateAvatar(2, player_token));
         UserSettingWarningPanel.SetActive(true);
         NoticeTitleText.text = ("頭像已變更！");
         UseSettingMessage.text = ("已成功更換造型!");
@@ -246,7 +248,7 @@ public class UserSetting : MonoBehaviour
 
     private void ChangeAV3()
     {
-        // >>>>>>>>>>>>>>>Change the Avator to Avator 3 !! <<<<<<<<<<<<<<<< #Design Group
+        StartCoroutine(UpdateAvatar(3, player_token));
         UserSettingWarningPanel.SetActive(true);
         NoticeTitleText.text = ("頭像已變更！");
         UseSettingMessage.text = ("已成功更換造型!");
@@ -260,7 +262,7 @@ public class UserSetting : MonoBehaviour
 
     private void ChangeAV4()
     {
-        // >>>>>>>>>>>>>>>Change the Avator to Avator 4 !! <<<<<<<<<<<<<<<< #Design Group
+        StartCoroutine(UpdateAvatar(4,player_token));
         UserSettingWarningPanel.SetActive(true);
         NoticeTitleText.text = ("頭像已變更！");
         UseSettingMessage.text = ("已成功更換造型!");
@@ -272,6 +274,50 @@ public class UserSetting : MonoBehaviour
         buttonImage.sprite = AV4_Image;
     }
 
+    private IEnumerator UpdateAvatar(int id, string player_token)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("id", id);
+        form.AddField("Token", player_token); // 
+
+        using (UnityWebRequest www = UnityWebRequest.Post(serverURL_UpdateAvatar, form))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
+            {
+                Debug.LogWarning(www.error);
+
+                // Warning Panel
+                UserSettingWarningPanel.SetActive(true);
+                NoticeTitleText.text = ("網路連接錯誤");
+                UseSettingMessage.text = "請檢查您的網路連接";
+                Debug.Log("Internet error");
+
+            }
+            else
+            {
+
+                string responseText = www.downloadHandler.text;
+                // 解析伺服器回應的 JSON
+                UpdateAvatarResponseData responseData = JsonUtility.FromJson<UpdateAvatarResponseData>(responseText);
+                // 根據狀態碼執行不同的操作
+                switch (responseData.status)
+                {
+                    case "400000":
+                        Debug.Log("Update Avatar successfully");
+                        
+                        break;
+
+                    case "403011":
+                        //>>>>>>>>>>>>>>>>>>>>> return to login
+                        break;
+
+                }
+            }
+        }
+    }
+
 
     //Code
 
@@ -280,6 +326,7 @@ public class UserSetting : MonoBehaviour
         // 執行UpdateUserGeneralData操作
         StartCoroutine(PlayerDataRequest(player_token));
         Debug.Log("Try to Update User General Data");
+        
     }
 
 
@@ -299,7 +346,7 @@ public class UserSetting : MonoBehaviour
                 // Warning Panel
                 UserSettingWarningPanel.SetActive(true);
                 NoticeTitleText.text = ("網路連接錯誤");
-                UseSettingMessage.text = "Please check your internet connection";
+                UseSettingMessage.text = "請檢查您的網路連接";
                 Debug.Log("Internet error");
 
             }
@@ -328,6 +375,7 @@ public class UserSetting : MonoBehaviour
                         UserName.text = player_nickname;
                         UIUserName.text = player_nickname;
 
+                        UpdateUserInformation();
                         break;
 
                     case "403011":
@@ -413,7 +461,7 @@ public class UserSetting : MonoBehaviour
                 // Warning Panel
                 UserSettingWarningPanel.SetActive(true);
                 NoticeTitleText.text = ("網路連接錯誤");
-                UseSettingMessage.text = "Please check your internet connection";
+                UseSettingMessage.text = "請檢查您的網路連接";
                 Debug.Log("Internet error");
 
             }
@@ -475,16 +523,10 @@ public class UserSetting : MonoBehaviour
 
     private void UserChangeEmail()
     {
-        //string new_email = NewInfoInput.text;
+        string new_email = NewInfoInput.text;
         ChangeInfoPanel.SetActive(true);
         InformInputText.text = ("請輸入新的Email");
         InfoPlaceholder.text = ("新的Email地址");
-
-
-        //to be continue...
-        //StartCoroutine(ChangeEmailRequest(player_token, new_email));
-        Debug.Log("Try to Change Email...");
-
         ChangeConfirmButton.onClick.RemoveAllListeners();
         ChangeConfirmButton.onClick.AddListener(ChangeEmail);
 
@@ -508,7 +550,7 @@ public class UserSetting : MonoBehaviour
                 // Warning Panel
                 UserSettingWarningPanel.SetActive(true);
                 NoticeTitleText.text = ("網路連接錯誤");
-                UseSettingMessage.text = "Please check your internet connection";
+                UseSettingMessage.text = "請檢查您的網路連接";
                 Debug.Log("Internet error");
 
             }
@@ -524,12 +566,14 @@ public class UserSetting : MonoBehaviour
                 {
                     case "400000":
                         Debug.Log("Email check sucessfully, Email will be Sent!");
+                        UserSettingWarningPanel.SetActive(true);
                         NoticeTitleText.text = ("驗證信已發送");
                         UseSettingMessage.text = "請到新的電子信箱點擊確認";
                         break;
 
                     case "403005":
                         Debug.Log("Email has been uesd!");
+                        UserSettingWarningPanel.SetActive(true);
                         NoticeTitleText.text = ("錯誤");
                         UseSettingMessage.text = "此Email已被註冊";
                         break;
@@ -584,6 +628,12 @@ public class NicknameResponseData
 }
 
 public class ChangeEmailResponseData
+{
+    public string status;
+    public string msg;
+}
+
+public class UpdateAvatarResponseData
 {
     public string status;
     public string msg;

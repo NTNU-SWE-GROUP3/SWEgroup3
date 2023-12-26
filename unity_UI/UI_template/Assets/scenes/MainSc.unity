@@ -3743,7 +3743,7 @@ MonoBehaviour:
   m_LineType: 0
   m_HideMobileInput: 0
   m_CharacterValidation: 0
-  m_CharacterLimit: 10
+  m_CharacterLimit: 0
   m_OnSubmit:
     m_PersistentCalls:
       m_Calls: []
@@ -21980,6 +21980,7 @@ MonoBehaviour:
   player_ranking: 
   player_nickname: 
   player_email: 
+  player_equip_avatar: 0
   AvatarButton: {fileID: 1979080917}
   BackButton: {fileID: 1729866240}
   GeneralSettingButton: {fileID: 1052680175}
