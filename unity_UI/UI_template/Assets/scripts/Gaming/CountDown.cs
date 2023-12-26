@@ -63,6 +63,7 @@ public class CountDown : MonoBehaviour
             gs.roomId = userdata.roomId;
             gs.playerToken = userdata.token;
 
+            Debug.Log("Sending getCardSet Request:" + gs.roomId);
             CoroutineWithData cd = new CoroutineWithData(this, Flask.SendRequest(gs.SaveToString(),"getCardSet"));
             yield return cd.coroutine;
             Debug.Log("return : " + cd.result);
