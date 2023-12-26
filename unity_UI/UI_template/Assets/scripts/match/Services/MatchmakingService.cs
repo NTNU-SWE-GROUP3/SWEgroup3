@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -46,11 +46,12 @@ public static class MatchmakingService
 
     private static UnityTransport _transport;
 
-    private static Lobby _currentLobby;
+    public static Lobby _currentLobby;
     private static CancellationTokenSource _heartbeatSource, _updateLobbySource;
-    static string StartGameURL = "http://140.122.185.169:5050/api/gameStart";
+    //static string StartGameURL = "http://140.122.185.169:5050/api/gameStart";
 
-    private static int SecondPlayerJoinflag = 0;
+    public static int SecondPlayerJoinflag = 0;
+    public static bool IamJoin = false;
 
     private static bool isSecondPlayerIn()
     {
@@ -107,6 +108,7 @@ public static class MatchmakingService
         {
             Data = new Dictionary<string, DataObject> {
                 // { Constants.JoinKey, new DataObject(DataObject.VisibilityOptions.Member, joinCode) },
+                { Constants.P1Key, new DataObject(DataObject.VisibilityOptions.Public, data.P1ID, DataObject.IndexOptions.S1) },
                 { Constants.GameTypeKey, new DataObject(DataObject.VisibilityOptions.Public, data.Type.ToString(), DataObject.IndexOptions.N1) },
                 { Constants.DifficultyKey, new DataObject(DataObject.VisibilityOptions.Public, data.Difficulty.ToString(), DataObject.IndexOptions.N2) }
 
@@ -116,6 +118,7 @@ public static class MatchmakingService
         //The name of the lobby will be same as the host player.
         _currentLobby = await Lobbies.Instance.CreateLobbyAsync("New", data.MaxPlayers, options);
         Constants._LobbyCodeForOut = _currentLobby.LobbyCode;
+        IamJoin = false;
         Debug.Log($"Lobby created: {_currentLobby.Id}, {_currentLobby.LobbyCode}");
         // //Transport.SetHostRelayData(a.RelayServer.IpV4, (ushort)a.RelayServer.Port, a.AllocationIdBytes, a.Key, a.ConnectionData);
 
@@ -155,12 +158,17 @@ public static class MatchmakingService
             P1ID = userID,
         };
 
+        Debug.Log($"CreateOrJoin P1ID: {data.P1ID}");
+
         try{
             await QuickJoinLobbyWithAllocation(type, level);
-            SendRequestStartGame( userID ); // Player who "joined" the lobby send start game request
+            LobbyOrchestrator.isJoin = true;
+            IamJoin = true;
+            //SendRequestStartGame( userID ); // Player who "joined" the lobby send start game request
         }
         catch{
             await CreateLobbyWithAllocation(data);
+            LobbyOrchestrator.isJoin = false;
         }
 
         /* Test */
@@ -197,14 +205,14 @@ public static class MatchmakingService
         PeriodicallyRefreshLobby();
     }
 
-    // This function is used for Friend game X join, but with problem....
     public static async Task JoinLobbyWithAllocationCode(string lobbyCode, string userID)
     {
         try{
             _currentLobby = await Lobbies.Instance.JoinLobbyByCodeAsync(lobbyCode);
-            SendRequestStartGame( userID ); // Player who "joined" the lobby send start game request
+            //SendRequestStartGame( userID ); // Player who "joined" the lobby send start game request
             Debug.Log($"Join Friend Lobby ({_currentLobby.Id}, {_currentLobby.LobbyCode})");
             Constants._LobbyCodeForOut = lobbyCode;
+            IamJoin = true;
             // var a = await RelayService.Instance.JoinAllocationAsync(_currentLobby.Data[Constants.JoinKey].Value);
 
             // Transport.SetClientRelayData(a.RelayServer.IpV4, (ushort)a.RelayServer.Port, a.AllocationIdBytes, a.Key, a.ConnectionData, a.HostConnectionData);
@@ -226,13 +234,15 @@ public static class MatchmakingService
             _currentLobby = await Lobbies.Instance.GetLobbyAsync(_currentLobby.Id);
             CurrentLobbyRefreshed?.Invoke(_currentLobby);
 
-            if( SecondPlayerJoinflag == 0 )
+            if( SecondPlayerJoinflag == 0 && IamJoin == false )
             {
                 if( isSecondPlayerIn() )
                 {
                     Debug.Log("It's time to play game!");
                     SecondPlayerJoinflag = 1;
+                    Thread.Sleep(3000);
                     StoreData.store(0,_currentLobby.Id);
+                    Debug.Log("Load Scene: SecondPlayerIn()");
                     SceneManager.LoadScene(2);
                 }
                 else
@@ -263,26 +273,6 @@ public static class MatchmakingService
                 Debug.Log(e);
             }
     }
-
-    static IEnumerator SendRequestStartGame( string P2ID )
-    {
-        Debug.Log("SendRequestStartGame");
-        WWWForm form = new WWWForm();
-
-        form.AddField( "gameType", _currentLobby.Data["type"].ToString() );
-        form.AddField( "roomId", _currentLobby.Id.ToString() );
-        form.AddField( "Player1Token", _currentLobby.Data["p1ID"].ToString() );
-        form.AddField( "Player2Token", P2ID );
-
-        UnityWebRequest www = UnityWebRequest.Post( StartGameURL, form);
-        yield return www.SendWebRequest();
-
-        if (www.result == UnityWebRequest.Result.Success )
-        {
-            StoreData.store(0,_currentLobby.Id);
-            SceneManager.LoadScene(2);
-        }
-    }
 }
 
 public class Constants
@@ -290,6 +280,8 @@ public class Constants
     public const string JoinKey = "j";
     public const string DifficultyKey = "d";
     public const string GameTypeKey = "t";
+
+    public const string P1Key = "p";
 
     public const int MAX_PLAYER = 2;
 

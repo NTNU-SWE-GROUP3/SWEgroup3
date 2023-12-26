@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 3550545}
   - component: {fileID: 3550544}
   m_Layer: 5
-  m_Name: Text (Legacy) (1)
+  m_Name: RoomCode
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17409,6 +17409,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1224200638}
   - component: {fileID: 1224200637}
+  - component: {fileID: 1224200640}
+  - component: {fileID: 1224200639}
+  - component: {fileID: 1224200641}
   m_Layer: 5
   m_Name: LobbyController
   m_TagString: Untagged
@@ -17431,7 +17434,7 @@ MonoBehaviour:
   UIsys: {fileID: 1433501962}
   Lobby: {fileID: 439585652}
   _joinCodeText: {fileID: 1762903743}
-  LobbyCodeShow: {fileID: 0}
+  LobbyCodeShow: {fileID: 3550544}
 --- !u!224 &1224200638
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17451,6 +17454,50 @@ RectTransform:
   m_AnchoredPosition: {x: 540, y: 960}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1224200639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1224200636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 1351570965
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+--- !u!114 &1224200640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1224200636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff18ac2805d2305409654f5d814c852c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1224200641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1224200636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5816fd255dbe0462c94adcabc288e585, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1231609482
 GameObject:
   m_ObjectHideFlags: 0
@@ -18574,7 +18621,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8405784266567602436, guid: 25ef4df554fccec41a0f717bd7d7c802, type: 3}
+      - m_Target: {fileID: 1224200637}
         m_TargetAssemblyTypeName: LobbyController, Assembly-CSharp
         m_MethodName: CreateLobbyFriend
         m_Mode: 1
@@ -29593,30 +29640,6 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: LobbyController, Assembly-CSharp
         m_MethodName: JoinLobbyFriend
         m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 439585652}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 1433501962}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
