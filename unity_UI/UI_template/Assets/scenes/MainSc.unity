@@ -32943,7 +32943,6 @@ MonoBehaviour:
   percentThreshold: 0.2
   easing: 0.5
   totalPages: 5
-  audioManager: {fileID: 0}
 --- !u!1 &2113809525
 GameObject:
   m_ObjectHideFlags: 0
@@ -33574,6 +33573,10 @@ PrefabInstance:
       propertyPath: UserSettingWarningPanel
       value: 
       objectReference: {fileID: 129613174}
+    - target: {fileID: 7690228223650693897, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
+      propertyPath: coinSprite
+      value: 
+      objectReference: {fileID: 641725816, guid: 91e7404700a7af84cbd4e238e3560854, type: 3}
     - target: {fileID: 7690228223650693897, guid: 5be64f5ba752e42ed8254777e7ab48c3, type: 3}
       propertyPath: GachaResult1
       value: 
