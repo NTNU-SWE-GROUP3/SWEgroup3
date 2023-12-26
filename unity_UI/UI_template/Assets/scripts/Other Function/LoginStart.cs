@@ -18,39 +18,39 @@ public class strat : MonoBehaviour
     private GameObject WarningPanel;
 
     //LoginPanel
-    private Button Login_LoginButton;
-    private Button Login_ForgetPasswordButton;
-    private Button Login_SignUpButton;
-    private TMP_InputField Login_AccountInput;
-    private TMP_InputField Login_PasswordInput;
+    public Button Login_LoginButton;
+    public Button Login_ForgetPasswordButton;
+    public Button Login_SignUpButton;
+    public InputField Login_AccountInput;
+    public InputField Login_PasswordInput;
 
     //SignUpPanel
 
-    private TMP_InputField SignUp_AccountInput;
-    private TMP_InputField SignUp_EmailInput;
-    private TMP_InputField SignUp_PasswordInput;
-    private Button SignUp_SignUpButton;
-    private Button SignUp_BackButton;
+    public TMP_InputField SignUp_AccountInput;
+    public TMP_InputField SignUp_EmailInput;
+    public TMP_InputField SignUp_PasswordInput;
+    public Button SignUp_SignUpButton;
+    public Button SignUp_BackButton;
 
     //PasswordPanel1
 
-    private TMP_InputField PP1_AccountInput;
-    private TMP_InputField PP1_EmailInput;
-    private Button PP1_ValidButton;
-    private Button PP1_BackButton;
+    public TMP_InputField PP1_AccountInput;
+    public TMP_InputField PP1_EmailInput;
+    public Button PP1_ValidButton;
+    public Button PP1_BackButton;
 
     //PasswordPanel2
 
-    private TMP_InputField PP2_VarifyCode;
-    private TMP_InputField PP2_PasswordInput;
-    private TMP_InputField PP2_PasswordCheckInput;
-    private Button PP2_ConfirmButton;
-    private Button PP2_BackButton;
+    public TMP_InputField PP2_VarifyCode;
+    public TMP_InputField PP2_PasswordInput;
+    public TMP_InputField PP2_PasswordCheckInput;
+    public Button PP2_ConfirmButton;
+    public Button PP2_BackButton;
 
     //WarningPanel 
 
-    private TMP_Text Warning_Message;
-    private Button Warning_ConfirmButton;
+    public Text Warning_Message;
+    public Button Warning_ConfirmButton;
 
 
 
@@ -78,39 +78,39 @@ public class strat : MonoBehaviour
 
         //LoginPanel
 
-        Login_LoginButton = LoginPanel.transform.Find("LoginButton").GetComponent<Button>();
-        Login_ForgetPasswordButton = LoginPanel.transform.Find("ForgetPasswordButton").GetComponent<Button>();
-        Login_SignUpButton = LoginPanel.transform.Find("SignUpButton").GetComponent<Button>();
-        Login_AccountInput = LoginPanel.transform.Find("EnterAccount").GetComponent<TMP_InputField>();
-        Login_PasswordInput = LoginPanel.transform.Find("EnterPassword").GetComponent<TMP_InputField>();
+        //Login_LoginButton = LoginPanel.transform.Find("LoginButton").GetComponent<Button>();
+        //Login_ForgetPasswordButton = LoginPanel.transform.Find("ForgetPasswordButton").GetComponent<Button>();
+        //Login_SignUpButton = LoginPanel.transform.Find("SignUpButton").GetComponent<Button>();
+        //Login_AccountInput = LoginPanel.transform.Find("EnterAccount").GetComponent<TMP_InputField>();
+        //Login_PasswordInput = LoginPanel.transform.Find("EnterPassword").GetComponent<TMP_InputField>();
 
         //SignUpPanel
 
         SignUp_AccountInput = SignUpPanel.transform.Find("EnterAccount").GetComponent<TMP_InputField>();
         SignUp_EmailInput = SignUpPanel.transform.Find("EnterEmail").GetComponent<TMP_InputField>();
         SignUp_PasswordInput = SignUpPanel.transform.Find("EnterPassword").GetComponent<TMP_InputField>();
-        SignUp_SignUpButton = SignUpPanel.transform.Find("SignUpButton").GetComponent<Button>();
-        SignUp_BackButton = SignUpPanel.transform.Find("BackButton").GetComponent<Button>();
+        //SignUp_SignUpButton = SignUpPanel.transform.Find("SignUpButton").GetComponent<Button>();
+        //SignUp_BackButton = SignUpPanel.transform.Find("BackButton").GetComponent<Button>();
 
         //PasswordPanel1
 
         PP1_AccountInput = PasswordPanel1.transform.Find("EnterAccount").GetComponent<TMP_InputField>();
         PP1_EmailInput = PasswordPanel1.transform.Find("EnterEmail").GetComponent<TMP_InputField>();
-        PP1_ValidButton = PasswordPanel1.transform.Find("GetValidButton").GetComponent<Button>();
-        PP1_BackButton = PasswordPanel1.transform.Find("BackButton").GetComponent<Button>();
+        //PP1_ValidButton = PasswordPanel1.transform.Find("GetValidButton").GetComponent<Button>();
+        //PP1_BackButton = PasswordPanel1.transform.Find("BackButton").GetComponent<Button>();
 
         //PasswordPanel2
 
         PP2_VarifyCode = PasswordPanel2.transform.Find("EnterVarifyCode").GetComponent<TMP_InputField>();
         PP2_PasswordInput = PasswordPanel2.transform.Find("EnterPassword").GetComponent<TMP_InputField>();
         PP2_PasswordCheckInput = PasswordPanel2.transform.Find("ReEnterPassword").GetComponent<TMP_InputField>();
-        PP2_ConfirmButton = PasswordPanel2.transform.Find("ConfirmButton").GetComponent<Button>();
-        PP2_BackButton = PasswordPanel2.transform.Find("BackButton").GetComponent<Button>();
+        //PP2_ConfirmButton = PasswordPanel2.transform.Find("ConfirmButton").GetComponent<Button>();
+        //PP2_BackButton = PasswordPanel2.transform.Find("BackButton").GetComponent<Button>();
 
         //WarningPanel 
 
-        Warning_Message = WarningPanel.transform.Find("WarningMessage").GetComponent<TMP_Text>();
-        Warning_ConfirmButton = WarningPanel.transform.Find("ConfirmButton").GetComponent<Button>();
+        //Warning_Message = WarningPanel.transform.Find("WarningMessage").GetComponent<TMP_Text>();
+        //Warning_ConfirmButton = WarningPanel.transform.Find("ConfirmButton").GetComponent<Button>();
 
 
         LoginPanel.SetActive(true);
@@ -160,7 +160,7 @@ public class strat : MonoBehaviour
     {
 
         WarningPanel.SetActive(false);
-        Warning_Message.SetText("");
+        Warning_Message.text = ("");
 
     }
 
@@ -173,7 +173,7 @@ public class strat : MonoBehaviour
             // 如果帳號、密碼為空，顯示錯誤消息
             Debug.Log("Not fill in all required fields.");
             // Warning Panel
-            Warning_Message.SetText("Please fill in all required fields");
+            Warning_Message.text = ("請在所有欄位填入資料");
             WarningPanel.SetActive(true);
         }
         else {
@@ -197,7 +197,7 @@ public class strat : MonoBehaviour
                 Debug.LogWarning(www.error);
 
                 // Warning Panel
-                Warning_Message.SetText("Please check your network connection");
+                Warning_Message.text = ("請檢查您的網路連線");
                 WarningPanel.SetActive(true);
 
             }
@@ -256,13 +256,13 @@ public class strat : MonoBehaviour
                     case "403001":
                         Debug.Log("No such account");
                         // Warning Panel
-                        Warning_Message.SetText("No such account");
+                        Warning_Message.text = ("查無此帳號");
                         WarningPanel.SetActive(true);
                         break;
                     case "403002":
                         Debug.Log("Wrong password");
                         // Warning Panel
-                        Warning_Message.SetText("Wrong password");
+                        Warning_Message.text = ("密碼錯誤");
                         WarningPanel.SetActive(true);
                         break;
                 }
@@ -322,7 +322,7 @@ public class strat : MonoBehaviour
             // 如果帳號、密碼或郵件為空，顯示錯誤消息或執行相應操作
             Debug.Log("Not fill in all required fields.");
             // Warning Panel
-            Warning_Message.SetText("Please fill in all required fields");
+            Warning_Message.text = ("請在所有欄位填入資料");
             WarningPanel.SetActive(true);
         }
         else
@@ -352,7 +352,7 @@ public class strat : MonoBehaviour
                 Debug.LogWarning(www.error);
 
                 // Warning Panel
-                Warning_Message.SetText("Please check your network connection");
+                Warning_Message.text = ("請檢查您的網路連線");
                 WarningPanel.SetActive(true);
 
             }
@@ -370,7 +370,7 @@ public class strat : MonoBehaviour
                         Debug.Log("Signup success!");
 
                         // Warning Panel
-                        Warning_Message.SetText("Signup success!");
+                        Warning_Message.text = (account + "註冊成功!");
                         WarningPanel.SetActive(true);
 
                         LoginPanel.SetActive(true);
@@ -382,19 +382,19 @@ public class strat : MonoBehaviour
                     case "403003":
                         Debug.Log("Username has been used");
                         // Warning Panel
-                        Warning_Message.SetText("Usernane has been used");
+                        Warning_Message.text = ("使用者名稱已被使用");
                         WarningPanel.SetActive(true);
                         break;
                     case "403004":
                         Debug.Log("Email already registered");
                         // Warning Panel
-                        Warning_Message.SetText("Email already registered");
+                        Warning_Message.text = ("Email 已被使用");
                         WarningPanel.SetActive(true);
                         break;
                     case "403005":
                         Debug.Log("Password too short");
                         // Warning Panel
-                        Warning_Message.SetText("Password too short");
+                        Warning_Message.text = ("密碼過短");
                         WarningPanel.SetActive(true);
                         break;
                 }
@@ -413,7 +413,7 @@ public class strat : MonoBehaviour
             // 如果帳號或郵件為空，顯示錯誤消息或執行相應操作
             Debug.Log("Not fill in all required fields.");
             // Warning Panel
-            Warning_Message.SetText("Please fill in all required fields");
+            Warning_Message.text = ("請在所有欄位填入資料");
             WarningPanel.SetActive(true);
         }
         else
@@ -439,7 +439,7 @@ public class strat : MonoBehaviour
                 Debug.LogWarning(www.error);
 
                 // Warning Panel
-                Warning_Message.SetText("Please check your network connection");
+                Warning_Message.text = ("請檢查您的網路連線");
                 WarningPanel.SetActive(true);
 
             }
@@ -457,7 +457,7 @@ public class strat : MonoBehaviour
                         Debug.Log("Email & Username match");
 
                         // Warning Panel
-                        Warning_Message.SetText("Veryfy code has sent\n to your Email address");
+                        Warning_Message.text = ("驗證碼已傳送至您的Email");
                         WarningPanel.SetActive(true);
 
                         Debug.Log("Turn to PasswordPanel2");
@@ -469,13 +469,13 @@ public class strat : MonoBehaviour
                     case "403001":
                         Debug.Log("No such account");
                         // Warning Panel
-                        Warning_Message.SetText("No such account");
+                        Warning_Message.text = ("查無此帳號");
                         WarningPanel.SetActive(true);
                         break;
                     case "403006":
                         Debug.Log("Email & account NOT match");
                         // Warning Panel
-                        Warning_Message.SetText("Wrong Email");
+                        Warning_Message.text = ("錯誤的 Email");
                         WarningPanel.SetActive(true);
                         break;
                 }
@@ -495,14 +495,14 @@ public class strat : MonoBehaviour
             // 如果為空，顯示錯誤消息或執行相應操作
             Debug.Log("Not fill in all required fields.");
             // Warning Panel
-            Warning_Message.SetText("Please fill in all required fields");
+            Warning_Message.text = ("請在所有欄位填入資料");
             WarningPanel.SetActive(true);
         }
         else if(Password != CheckPassword)
         {
             Debug.Log("Input passwords must be the same");
             // Warning Panel
-            Warning_Message.SetText("Input passwords must be the same");
+            Warning_Message.text = ("輸入密碼必須相同！");
             WarningPanel.SetActive(true);
         }
         else
@@ -529,7 +529,7 @@ public class strat : MonoBehaviour
                 Debug.LogWarning(www.error);
 
                 // Warning Panel
-                Warning_Message.SetText("Please check your network connection");
+                Warning_Message.text = ("請檢查您的網路連線"); //請檢查您的網路連線
                 WarningPanel.SetActive(true);
 
             }
@@ -547,7 +547,7 @@ public class strat : MonoBehaviour
                         Debug.Log("Password changed successfully");
 
                         // Warning Panel
-                        Warning_Message.SetText("Password changed successfully");
+                        Warning_Message.text = ("成功更改密碼！");
                         WarningPanel.SetActive(true);
 
                         LoginPanel.SetActive(true);
@@ -559,25 +559,25 @@ public class strat : MonoBehaviour
                     case "403007":
                         Debug.Log("Password too short");
                         // Warning Panel
-                        Warning_Message.SetText("Password too short");
+                        Warning_Message.text = ("密碼過短");
                         WarningPanel.SetActive(true);
                         break;
                     case "403008":
                         Debug.Log("Password too long");
                         // Warning Panel
-                        Warning_Message.SetText("Password too long");
+                        Warning_Message.text = ("密碼過長");
                         WarningPanel.SetActive(true);
                         break;
                     case "403009":
                         Debug.Log("Wrong VarifyCode");
                         // Warning Panel
-                        Warning_Message.SetText("Wrong VarifyCode");
+                        Warning_Message.text = ("驗證碼錯誤");
                         WarningPanel.SetActive(true);
                         break;
                     case "403010":
                         Debug.Log("VarifyCode Expired");
                         // Warning Panel
-                        Warning_Message.SetText("VarifyCode Expired");
+                        Warning_Message.text = ("驗證碼已過期");
                         WarningPanel.SetActive(true);
                         BackToLogin();
                         Debug.Log("Return to LoginPanel");

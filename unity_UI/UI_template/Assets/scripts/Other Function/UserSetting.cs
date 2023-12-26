@@ -84,8 +84,6 @@ public class UserSetting : MonoBehaviour
     private string serverURL_changeNickname = serverUrl + "/user_information/changenickname";
     private string serverURL_changeEmail = serverUrl + "/user_information/changeemail";
 
-    private static bool isFirstInstance = true;
-
 
     void Start()
     {
@@ -106,47 +104,12 @@ public class UserSetting : MonoBehaviour
         SettingPanel = GameObject.Find("SettingPanel");
         StatisticPanel = GameObject.Find("StatisticPanel");
 
-        /*
-        //UserDataPanel
-        BackButton = UserDataPanel.transform.Find("BackButton").GetComponent<Button>(); ;
-        GeneralSettingButton = UserDataPanel.transform.Find("GeneralSettingButton").GetComponent<Button>();
-        StatisticsButton = UserDataPanel.transform.Find("StatisticsButton").GetComponent<Button>();
+       
+        //Panels Init
+        InitPanel();
 
-        //SettingPanel
-        UserName = SettingPanel.transform.Find("UserName").GetComponent<TMP_Text>();
-        Email = SettingPanel.transform.Find("Email").GetComponent<TMP_Text>(); 
-        ChangeNicknameButton = SettingPanel.transform.Find("ChangeNicknameButton").GetComponent<Button>(); 
-        ChangeEmailButton = SettingPanel.transform.Find("ChangeEmailButton").GetComponent<Button>();
-        Avator1Button = SettingPanel.transform.Find("Avator1").GetComponent<Button>();
-        Avator2Button = SettingPanel.transform.Find("Avator2").GetComponent<Button>();
-        Avator3Button = SettingPanel.transform.Find("Avator3").GetComponent<Button>();
-        Avator4Button = SettingPanel.transform.Find("Avator4").GetComponent<Button>();
-
-        //StatisticPanel
-        TotalGameplay = StatisticPanel.transform.Find("TotalGameplay").GetComponent<TMP_Text>();
-        WinningRate = StatisticPanel.transform.Find("WinningRate").GetComponent<TMP_Text>();
-        TotalWin = StatisticPanel.transform.Find("TotalWin").GetComponent<TMP_Text>();
-        Ranking = StatisticPanel.transform.Find("Ranking").GetComponent<TMP_Text>();
-        ReportBugButton = StatisticPanel.transform.Find("ReportBugButton").GetComponent<Button>();
-
-        //WarningPanel
-        NoticeMessage = WarningPanel.transform.Find("NoticeMessage").GetComponent<TMP_Text>();
-        WarningConfirmButton = WarningPanel.transform.Find("ConfirmButton").GetComponent<Button>();
-        */
-
-        if (isFirstInstance)
-        {
-            // 設置 isFirstInstance 為 false，以後的實例就不會再執行這個區塊了
-            isFirstInstance = false;
-
-            //Panels Init
-            InitPanel();
-
-            //Update uesr data once login success
-            UpdateUserGeneralData();
-            //UpdateUserInformation();
-        }
-
+        //Update uesr data 
+        UpdateUserGeneralData();
 
 
         AvatarButton.onClick.AddListener(OpenUserDataPanel);
