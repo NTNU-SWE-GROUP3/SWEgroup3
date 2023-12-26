@@ -115,6 +115,7 @@ public static class MatchmakingService
 
         //The name of the lobby will be same as the host player.
         _currentLobby = await Lobbies.Instance.CreateLobbyAsync("New", data.MaxPlayers, options);
+        Constants._LobbyCodeForOut = _currentLobby.LobbyCode;
         Debug.Log($"Lobby created: {_currentLobby.Id}, {_currentLobby.LobbyCode}");
         // //Transport.SetHostRelayData(a.RelayServer.IpV4, (ushort)a.RelayServer.Port, a.AllocationIdBytes, a.Key, a.ConnectionData);
 
@@ -144,7 +145,7 @@ public static class MatchmakingService
         }
     }
 
-    public static async Task CreateOrJoinLobby(int type, int level, string userID )
+    public static async void CreateOrJoinLobby(int type, int level, string userID )
     {
         var data = new LobbyData
         {
@@ -189,6 +190,7 @@ public static class MatchmakingService
             new(QueryFilter.FieldOptions.N2, level.ToString(), QueryFilter.OpOptions.EQ)
         };
         _currentLobby = await LobbyService.Instance.QuickJoinLobbyAsync(options);
+        Constants._LobbyCodeForOut = _currentLobby.LobbyCode;
         // var a = await RelayService.Instance.JoinAllocationAsync(_currentLobby.Data[Constants.JoinKey].Value);
 
         // Transport.SetClientRelayData(a.RelayServer.IpV4, (ushort)a.RelayServer.Port, a.AllocationIdBytes, a.Key, a.ConnectionData, a.HostConnectionData);
@@ -202,6 +204,7 @@ public static class MatchmakingService
             _currentLobby = await Lobbies.Instance.JoinLobbyByCodeAsync(lobbyCode);
             SendRequestStartGame( userID ); // Player who "joined" the lobby send start game request
             Debug.Log($"Join Friend Lobby ({_currentLobby.Id}, {_currentLobby.LobbyCode})");
+            Constants._LobbyCodeForOut = lobbyCode;
             // var a = await RelayService.Instance.JoinAllocationAsync(_currentLobby.Data[Constants.JoinKey].Value);
 
             // Transport.SetClientRelayData(a.RelayServer.IpV4, (ushort)a.RelayServer.Port, a.AllocationIdBytes, a.Key, a.ConnectionData, a.HostConnectionData);
@@ -299,6 +302,8 @@ public class Constants
     // Hard: for Rank 5
     // Extreme: for Rank 6
     // Nightmare: for Rank 7
+
+    public static string _LobbyCodeForOut;
 }
 
 public struct LobbyData

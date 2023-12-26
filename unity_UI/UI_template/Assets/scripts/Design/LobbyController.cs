@@ -11,6 +11,7 @@ public class LobbyController : MonoBehaviour
     public GameObject UIsys;
     public GameObject Lobby;
     [SerializeField] private TMP_Text _joinCodeText;
+    [SerializeField] private TMP_Text LobbyCodeShow;
     
     void Start()
     {
@@ -42,5 +43,6 @@ public class LobbyController : MonoBehaviour
         await MatchmakingService.LeaveLobby();
         UIsys.SetActive(true);
         Lobby.SetActive(false);
+        LobbyCodeShow.text = $"Room Code: {Constants._LobbyCodeForOut}";
     }
 }
