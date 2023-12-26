@@ -29,8 +29,8 @@ def GetEquippedSkills(account_id):
         connection = func.create_mysql_connection()
         cursor = connection.cursor(dictionary=True)
 
-        # cursor.execute("SELECT skill_id FROM account_skill WHERE account_id = %s AND equip_status = 1", (account_id,))
-        cursor.execute("SELECT skill_id FROM account_skill WHERE account_id = %s", (account_id,))
+        cursor.execute("SELECT skill_id FROM account_skill WHERE account_id = %s AND equip_status = 1", (account_id,))
+        # cursor.execute("SELECT skill_id FROM account_skill WHERE account_id = %s", (account_id,))
         results = cursor.fetchall()
 
         connection.close()

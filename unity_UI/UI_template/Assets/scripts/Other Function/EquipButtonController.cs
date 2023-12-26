@@ -17,7 +17,7 @@ public class EquipButtonController : MonoBehaviour
     private void Start()
     {
         userdata = FindObjectOfType<DontDestroy>();
-        equipButton.onClick.AddListener(OnEquipButtonClick);
+        // equipButton.onClick.AddListener(OnEquipButtonClick);
     }
 
     // Call this method to set the current skillStyleID
