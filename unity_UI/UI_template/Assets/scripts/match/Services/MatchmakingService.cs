@@ -107,6 +107,7 @@ public static class MatchmakingService
         {
             Data = new Dictionary<string, DataObject> {
                 // { Constants.JoinKey, new DataObject(DataObject.VisibilityOptions.Member, joinCode) },
+                { Constants.P1Key, new DataObject(DataObject.VisibilityOptions.Public, data.P1ID, DataObject.IndexOptions.S1) },
                 { Constants.GameTypeKey, new DataObject(DataObject.VisibilityOptions.Public, data.Type.ToString(), DataObject.IndexOptions.N1) },
                 { Constants.DifficultyKey, new DataObject(DataObject.VisibilityOptions.Public, data.Difficulty.ToString(), DataObject.IndexOptions.N2) }
 
@@ -272,6 +273,8 @@ public class Constants
     public const string JoinKey = "j";
     public const string DifficultyKey = "d";
     public const string GameTypeKey = "t";
+
+    public const string P1Key = "p";
 
     public const int MAX_PLAYER = 2;
 
