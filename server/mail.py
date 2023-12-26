@@ -182,7 +182,7 @@ def send_check_newemail(userid, recipient_email):
                     <p class="greeting">Dear User,</p>
                     <p class="instruction">我們收到了您的 Email 更動請求，</p>
                     <p class="instruction">請按下方按鈕驗證您的身份：</p>
-                    <a href="http://140.122.185.169:5050/user_information/verify_email/{userid}/{recipient_email}/{random_code}" class="btn-confirm-email">這是我的 Email</a>
+                    <a href="http://140.122.185.169:5050/user_information/verify_email/{userid}/{recipient_email}/{random_code}" style="padding: 10px 20px; background-color: #007BFF; color: #ffffff; text-decoration: none; border-radius: 5px; font-weight: bold; display: block; text-align: center;">這是我的 Email</a>
                     <p>如果您沒有送出請求，請忽略這封信件</p>
                     <p>謝謝您 祝您有個美好的一天</p>
                 </div>
