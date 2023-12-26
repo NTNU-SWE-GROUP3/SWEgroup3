@@ -246,7 +246,7 @@ public class UserSetting : MonoBehaviour
         // >>>>>>>>>>>>>>>Change the Avator to Avator 1 !! <<<<<<<<<<<<<<<< #Design Group
         UserSettingWarningPanel.SetActive(true);
         NoticeTitleText.text = ("頭像已變更！");
-        UseSettingMessage.text = ("已成功更換xxx1造型!");
+        UseSettingMessage.text = ("已成功更換造型!");
         Debug.Log("Avator Changed > 1");
         //AvatarButton
         Image buttonImage = AvatarButton.image;
@@ -262,7 +262,7 @@ public class UserSetting : MonoBehaviour
         // >>>>>>>>>>>>>>>Change the Avator to Avator 2 !! <<<<<<<<<<<<<<<< #Design Group
         UserSettingWarningPanel.SetActive(true);
         NoticeTitleText.text = ("頭像已變更！");
-        UseSettingMessage.text = ("已成功更換xxx2造型!");
+        UseSettingMessage.text = ("已成功更換造型!");
         Debug.Log("Avator Changed > 2");
         //AvatarButton
         Image buttonImage = AvatarButton.image;
@@ -276,7 +276,7 @@ public class UserSetting : MonoBehaviour
         // >>>>>>>>>>>>>>>Change the Avator to Avator 3 !! <<<<<<<<<<<<<<<< #Design Group
         UserSettingWarningPanel.SetActive(true);
         NoticeTitleText.text = ("頭像已變更！");
-        UseSettingMessage.text = ("已成功更換xxx3造型!");
+        UseSettingMessage.text = ("已成功更換造型!");
         Debug.Log("Avator Changed > 3");
         //AvatarButton
         Image buttonImage = AvatarButton.image;
@@ -290,7 +290,7 @@ public class UserSetting : MonoBehaviour
         // >>>>>>>>>>>>>>>Change the Avator to Avator 4 !! <<<<<<<<<<<<<<<< #Design Group
         UserSettingWarningPanel.SetActive(true);
         NoticeTitleText.text = ("頭像已變更！");
-        UseSettingMessage.text = ("已成功更換xxx4造型!");
+        UseSettingMessage.text = ("已成功更換造型!");
         Debug.Log("Avator Changed > 4");
         //AvatarButton
         Image buttonImage = AvatarButton.image;
@@ -352,7 +352,7 @@ public class UserSetting : MonoBehaviour
                         player_winrate = responseData.winrate;
 
                         UIUserName.text = player_nickname;
-                        UIUserLevel.text = player_level.ToString();
+                        UIUserLevel.text = "LV." + player_level.ToString();
                         UICoins.text = player_coins.ToString();
                         UIChips.text = "0";
 
@@ -375,7 +375,7 @@ public class UserSetting : MonoBehaviour
 
         //StatisticPanel
         TotalGameplay.text = (player_totalmatch.ToString());
-        WinningRate.text = (player_winrate.ToString());
+        WinningRate.text = (player_winrate * 100f).ToString("0.00") + "%";
         TotalWin.text = (player_totalwin.ToString());
         Ranking.text = (player_ranking);
 
