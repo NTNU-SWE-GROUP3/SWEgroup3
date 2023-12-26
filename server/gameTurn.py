@@ -32,7 +32,7 @@ async def wait_start(room):
 
 def killSpareRoom():
     for room in room_list:
-        if room.roomId == "None":
+        if room.roomId == -1:
             index = room_list.index(room)
             room_list.pop(index)
 

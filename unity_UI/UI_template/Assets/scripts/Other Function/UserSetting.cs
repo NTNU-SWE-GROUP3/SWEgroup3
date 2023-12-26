@@ -104,12 +104,40 @@ public class UserSetting : MonoBehaviour
         SettingPanel = GameObject.Find("SettingPanel");
         StatisticPanel = GameObject.Find("StatisticPanel");
 
-       
+        /*
+        //UserDataPanel
+        BackButton = UserDataPanel.transform.Find("BackButton").GetComponent<Button>(); ;
+        GeneralSettingButton = UserDataPanel.transform.Find("GeneralSettingButton").GetComponent<Button>();
+        StatisticsButton = UserDataPanel.transform.Find("StatisticsButton").GetComponent<Button>();
+
+        //SettingPanel
+        UserName = SettingPanel.transform.Find("UserName").GetComponent<TMP_Text>();
+        Email = SettingPanel.transform.Find("Email").GetComponent<TMP_Text>(); 
+        ChangeNicknameButton = SettingPanel.transform.Find("ChangeNicknameButton").GetComponent<Button>(); 
+        ChangeEmailButton = SettingPanel.transform.Find("ChangeEmailButton").GetComponent<Button>();
+        Avator1Button = SettingPanel.transform.Find("Avator1").GetComponent<Button>();
+        Avator2Button = SettingPanel.transform.Find("Avator2").GetComponent<Button>();
+        Avator3Button = SettingPanel.transform.Find("Avator3").GetComponent<Button>();
+        Avator4Button = SettingPanel.transform.Find("Avator4").GetComponent<Button>();
+
+        //StatisticPanel
+        TotalGameplay = StatisticPanel.transform.Find("TotalGameplay").GetComponent<TMP_Text>();
+        WinningRate = StatisticPanel.transform.Find("WinningRate").GetComponent<TMP_Text>();
+        TotalWin = StatisticPanel.transform.Find("TotalWin").GetComponent<TMP_Text>();
+        Ranking = StatisticPanel.transform.Find("Ranking").GetComponent<TMP_Text>();
+        ReportBugButton = StatisticPanel.transform.Find("ReportBugButton").GetComponent<Button>();
+
+        //WarningPanel
+        NoticeMessage = WarningPanel.transform.Find("NoticeMessage").GetComponent<TMP_Text>();
+        WarningConfirmButton = WarningPanel.transform.Find("ConfirmButton").GetComponent<Button>();
+        */
+
         //Panels Init
         InitPanel();
 
-        //Update uesr data 
+        //Update uesr data once login success
         UpdateUserGeneralData();
+        //UpdateUserInformation();
 
 
         AvatarButton.onClick.AddListener(OpenUserDataPanel);
@@ -174,11 +202,10 @@ public class UserSetting : MonoBehaviour
     private void ChangeName()
     {
         string new_nickname = NewInfoInput.text;
-        Debug.Log("Ready to change nickname by token =" + player_token);
-        Debug.Log("Ready to change nickname = " + new_nickname);
+        Debug.Log("Ready to change nickname: " + new_nickname);
         StartCoroutine(ChangeNicknameRequest(player_token, new_nickname));
         ChangeInfoPanel.SetActive(false);
-        //UpdateUserGeneralData();
+        UpdateUserGeneralData();
         UpdateUserInformation();
         InformInputText.text = ("");
         NewInfoInput.text = "";
@@ -218,7 +245,7 @@ public class UserSetting : MonoBehaviour
         // >>>>>>>>>>>>>>>Change the Avator to Avator 1 !! <<<<<<<<<<<<<<<< #Design Group
         UserSettingWarningPanel.SetActive(true);
         NoticeTitleText.text = ("頭像已變更！");
-        UseSettingMessage.text = ("已成功更換造型!");
+        UseSettingMessage.text = ("已成功更換xxx1造型!");
         Debug.Log("Avator Changed > 1");
         //AvatarButton
         Image buttonImage = AvatarButton.image;
@@ -234,7 +261,7 @@ public class UserSetting : MonoBehaviour
         // >>>>>>>>>>>>>>>Change the Avator to Avator 2 !! <<<<<<<<<<<<<<<< #Design Group
         UserSettingWarningPanel.SetActive(true);
         NoticeTitleText.text = ("頭像已變更！");
-        UseSettingMessage.text = ("已成功更換造型!");
+        UseSettingMessage.text = ("已成功更換xxx2造型!");
         Debug.Log("Avator Changed > 2");
         //AvatarButton
         Image buttonImage = AvatarButton.image;
@@ -248,7 +275,7 @@ public class UserSetting : MonoBehaviour
         // >>>>>>>>>>>>>>>Change the Avator to Avator 3 !! <<<<<<<<<<<<<<<< #Design Group
         UserSettingWarningPanel.SetActive(true);
         NoticeTitleText.text = ("頭像已變更！");
-        UseSettingMessage.text = ("已成功更換造型!");
+        UseSettingMessage.text = ("已成功更換xxx3造型!");
         Debug.Log("Avator Changed > 3");
         //AvatarButton
         Image buttonImage = AvatarButton.image;
@@ -262,7 +289,7 @@ public class UserSetting : MonoBehaviour
         // >>>>>>>>>>>>>>>Change the Avator to Avator 4 !! <<<<<<<<<<<<<<<< #Design Group
         UserSettingWarningPanel.SetActive(true);
         NoticeTitleText.text = ("頭像已變更！");
-        UseSettingMessage.text = ("已成功更換造型!");
+        UseSettingMessage.text = ("已成功更換xxx4造型!");
         Debug.Log("Avator Changed > 4");
         //AvatarButton
         Image buttonImage = AvatarButton.image;
@@ -323,12 +350,8 @@ public class UserSetting : MonoBehaviour
                         player_email = responseData.email;
                         player_winrate = responseData.winrate;
 
-
-                        UserName.text = player_nickname;
                         UIUserName.text = player_nickname;
-
-
-                        UIUserLevel.text = "LV." + player_level.ToString();
+                        UIUserLevel.text = player_level.ToString();
                         UICoins.text = player_coins.ToString();
                         UIChips.text = "0";
 
@@ -351,7 +374,7 @@ public class UserSetting : MonoBehaviour
 
         //StatisticPanel
         TotalGameplay.text = (player_totalmatch.ToString());
-        WinningRate.text = (player_winrate * 100f).ToString("0.00") + "%";
+        WinningRate.text = (player_winrate.ToString());
         TotalWin.text = (player_totalwin.ToString());
         Ranking.text = (player_ranking);
 
@@ -365,7 +388,6 @@ public class UserSetting : MonoBehaviour
         ChangeInfoPanel.SetActive(true);
         InformInputText.text = ("請輸入新的暱稱");
         InfoPlaceholder.text = ("Enter new Nickname");
-        ChangeConfirmButton.onClick.RemoveAllListeners();
         ChangeConfirmButton.onClick.AddListener(ChangeName);
 
     }
@@ -406,7 +428,6 @@ public class UserSetting : MonoBehaviour
                         UserSettingWarningPanel.SetActive(true);
                         NoticeTitleText.text = ("成功");
                         UseSettingMessage.text = "成功更改玩家暱稱：" + new_nickname;
-                        UpdateUserGeneralData();
                         break;
 
                     case "403001":
@@ -424,13 +445,6 @@ public class UserSetting : MonoBehaviour
                         break;
 
                     case "403003":
-                        Debug.Log("User Name is illigal");
-                        UserSettingWarningPanel.SetActive(true);
-                        NoticeTitleText.text = ("改名失敗");
-                        UseSettingMessage.text = "玩家暱稱長度過短";
-                        break;
-
-                    case "403004":
                         Debug.Log("User Name is illigal");
                         UserSettingWarningPanel.SetActive(true);
                         NoticeTitleText.text = ("改名失敗");
@@ -459,7 +473,6 @@ public class UserSetting : MonoBehaviour
         //StartCoroutine(ChangeEmailRequest(player_token, new_email));
         Debug.Log("Try to Change Email...");
 
-        ChangeConfirmButton.onClick.RemoveAllListeners();
         ChangeConfirmButton.onClick.AddListener(ChangeEmail);
 
 
@@ -522,7 +535,7 @@ public class UserSetting : MonoBehaviour
     {
         UserSettingWarningPanel.SetActive(true);
         NoticeTitleText.text = ("錯誤訊息已回報！");
-        UseSettingMessage.text = ("日誌資料已被傳送！\n聯絡我們：sweonlinegame@gmail.com");
+        UseSettingMessage.text = ("Log File has been sent!\nContact us via sweonlinegame@gmail.com");
         Debug.Log("Log File has not been sent, Go debug yourself");
     }
 

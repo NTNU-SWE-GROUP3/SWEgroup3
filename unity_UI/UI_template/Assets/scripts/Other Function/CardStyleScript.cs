@@ -152,16 +152,16 @@ public class UIManager : MonoBehaviour
         CurrentCharactor = "";
     }
 
-    // private IEnumerator logdata(int targetCardStyleId)
-    // {
-    //     // Debug.log("log data target card style id: ", targetCardStyleId);
-    //     yield return StartCoroutine(userdata.Init_Card_Skill_Account_Data(authToken));
+    private IEnumerator logdata(int targetCardStyleId)
+    {
+        // Debug.log("log data target card style id: ", targetCardStyleId);
+        yield return StartCoroutine(userdata.Init_Card_Skill_Account_Data(authToken));
 
-    //     CardName.text = userdata.characterDataList[targetCardStyleId].CardName;
-    //     CardInfo.text = userdata.characterDataList[targetCardStyleId].CardDescription;
-    //     Rarity.text = userdata.characterDataList[targetCardStyleId].CardProbability;
-    //     // Debug.log("Character description: " + cardDescription);
-    // }
+        CardName.text = userdata.characterDataList[targetCardStyleId].CardName;
+        CardInfo.text = userdata.characterDataList[targetCardStyleId].CardDescription;
+        Rarity.text = userdata.characterDataList[targetCardStyleId].CardProbability;
+        // Debug.log("Character description: " + cardDescription);
+    }
 
     private IEnumerator EquipSkinGetStatus(string targetCardStyleID, string targetCharacterType)
     {
@@ -468,7 +468,7 @@ public class UIManager : MonoBehaviour
         PreviousSkinButton.onClick.AddListener(OnPrevButtonClicked);
         CurrentSkinTypeText.text = "平民卡牌造型";
         int target = getTargetCardStyleId();
-        // StartCoroutine(logdata(target));
+        StartCoroutine(logdata(target));
         SellButton.onClick.AddListener(SellSkin);
         EquipButton.onClick.AddListener(EquipSkin);
     }
@@ -483,7 +483,7 @@ public class UIManager : MonoBehaviour
         PreviousSkinButton.onClick.AddListener(OnPrevButtonClicked);
         CurrentSkinTypeText.text = "殺手卡牌造型";
         int target = getTargetCardStyleId();
-        // StartCoroutine(logdata(target));
+        StartCoroutine(logdata(target));
         SellButton.onClick.AddListener(SellSkin);
         EquipButton.onClick.AddListener(EquipSkin);
     }

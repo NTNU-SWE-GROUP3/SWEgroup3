@@ -59,8 +59,8 @@ def handle_request():
     room_list.append(playerRoom)
     
 
-    if(playerRoom.roomId == 'None'):
-        response_data = dict(roomId='None', playerCardSet = 'None' , opponentCardSet = 'None')
+    if(playerRoom.roomId == -1):
+        response_data = dict(roomId=-1, playerCardSet = 'None' , opponentCardSet = 'None')
     print(response_data)
 
     playerRoom.time_is_up = False
