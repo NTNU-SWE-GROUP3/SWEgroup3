@@ -84,6 +84,7 @@ def CheckEquipStatus():
 
         equip_stat = checkstatus(tokenId, targetSkillId)
         
+        current_app.logger.info("equip STATUS ", equip_stat)
         print("equip STATUS ", equip_stat)
         if(equip_stat): #true
             return "1"
@@ -115,7 +116,7 @@ def checkstatus(tokenId, targetSkillId):
             (tokenId, targetSkillId,))
         
         result = cursor.fetchone()
-        
+
         print("\tcheck status result: ", result)
 
         if result is 1:
@@ -163,8 +164,8 @@ def ToggleEquipStatus():
             new_status = not current_status  # Toggle the current status
 
             # Print the current and new equip status for debugging
-            print("Current Equip Status: ", current_status)
-            print("New Equip Status: ", new_status)
+            current_app.logger.info("Current Equip Status: ", current_status)
+            current_app.logger.info("New Equip Status: ", new_status)
 
             # Update the equip status in the database
             update_status_success = updateEquipStatus(tokenId, targetSkillId, new_status)
