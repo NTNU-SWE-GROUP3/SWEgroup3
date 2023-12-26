@@ -23,11 +23,14 @@ public class LobbyOrchestrator : NetworkBehaviour {
     static int userRank;
     static string userID;
 
+    public static bool isJoin;
+
     void start()
     {
         userdata = FindObjectOfType<DontDestroy>();
         userRank = int.Parse(userdata.rank);
         userID = userdata.token;
+        isJoin = false;
     }
     public static async void FriendCreate()
     {
@@ -63,7 +66,6 @@ public class LobbyOrchestrator : NetworkBehaviour {
         //using (new Load("Joining Lobby...")) {
             try {
                 await MatchmakingService.JoinLobbyWithAllocationCode( code, userID );
-                
                 StartCoroutine( SendRequestStartGame( userID ) );
                 //NetworkManager.Singleton.StartClient();
             }
@@ -74,7 +76,7 @@ public class LobbyOrchestrator : NetworkBehaviour {
         //}
     }
 
-    public static async void LobbyRank()
+    public async void LobbyRank()
     {
         await Authentication.Login();
         try{
@@ -87,9 +89,11 @@ public class LobbyOrchestrator : NetworkBehaviour {
         catch ( Exception e ){
             Debug.LogError(e);
         }
+
+        if( isJoin )    StartCoroutine( SendRequestStartGame( userID ) );
     }
 
-    public static async void LobbyNormal()
+    public async void LobbyNormal()
     {
         await Authentication.Login();
         try{
@@ -98,6 +102,8 @@ public class LobbyOrchestrator : NetworkBehaviour {
         catch ( Exception e ){
             Debug.LogError(e);
         }
+
+        if( isJoin )    StartCoroutine( SendRequestStartGame( userID ) );
     }
 
     static string StartGameURL = "http://140.122.185.169:5050/api/gameStart";

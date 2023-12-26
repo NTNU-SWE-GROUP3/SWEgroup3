@@ -157,10 +157,12 @@ public static class MatchmakingService
 
         try{
             await QuickJoinLobbyWithAllocation(type, level);
+            LobbyOrchestrator.isJoin = true;
             //SendRequestStartGame( userID ); // Player who "joined" the lobby send start game request
         }
         catch{
             await CreateLobbyWithAllocation(data);
+            LobbyOrchestrator.isJoin = false;
         }
 
         /* Test */

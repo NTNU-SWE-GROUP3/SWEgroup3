@@ -23,13 +23,13 @@ public class LobbyController : MonoBehaviour
         LeaveLobby();
     }
     public void EnterLobbyNormal(){
-        LobbyOrchestrator.LobbyNormal();
+        lobbyOrchestrator.LobbyNormal();
 
         if( UIsys != null ) UIsys.SetActive(false);
         if( Lobby != null ) Lobby.SetActive(true);
     }
     public void EnterLobbyRank(){
-        LobbyOrchestrator.LobbyRank();
+        lobbyOrchestrator.LobbyRank();
 
         if( UIsys != null ) UIsys.SetActive(false);
         if( Lobby != null ) Lobby.SetActive(true);
