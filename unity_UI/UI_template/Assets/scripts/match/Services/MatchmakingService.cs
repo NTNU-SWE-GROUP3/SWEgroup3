@@ -234,6 +234,7 @@ public static class MatchmakingService
                 {
                     Debug.Log("It's time to play game!");
                     SecondPlayerJoinflag = 1;
+                    Thread.Sleep(3000);
                     StoreData.store(0,_currentLobby.Id);
                     SceneManager.LoadScene(2);
                 }
