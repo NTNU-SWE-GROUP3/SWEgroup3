@@ -41,7 +41,7 @@ public class UIManager : MonoBehaviour
     // private static string serverUrl = "http://127.0.0.1:5050";
     private static string serverUrl = "http://140.122.185.169:5050";
     private string serverURL_equip = serverUrl + "/card_style/equip_card_style";
-    // private string serverURL_find_card_style = serverUrl + "/card_style/"
+    private string serverURL_find_card_style = serverUrl + "/card_style/check_card_style";
     private string authToken = "";
     // private string authToken = "token123";
 
@@ -240,6 +240,62 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    private IEnumerator SkinAvailabilityGetStatus(string targetCardStyleID)
+    {
+        Debug.Log("SkinAvailabilityGetStatus started");
+
+        if (string.IsNullOrEmpty(authToken))
+        {
+            Debug.LogError("Authentication token is missing. User may not be logged in.");
+            yield break;
+        }
+
+        WWWForm form = new WWWForm();
+        form.AddField("tokenId", authToken); // 
+        form.AddField("targetCardStyleId", targetCardStyleID);
+        // Debug.Log("Form Contents: " + FormContentsToString(form));
+        Debug.Log("Token: " + authToken);
+        Debug.Log("targetCardStyleID: " + targetCardStyleID);
+
+        using (UnityWebRequest www = UnityWebRequest.Post(serverURL_find_card_style, form))
+        {
+            yield return www.SendWebRequest();
+
+            Debug.Log("Response: " + www.downloadHandler.text);
+
+            // Check for errors
+            if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
+            {
+                Debug.LogWarning(www.error);
+                // Warning Panel
+                Warning_Title.text = "請注意!";
+                Warning_Message.text = "請檢查您的網路";
+                WarningPanel.SetActive(true);
+            }
+            else //equip the skin
+            {
+                string availabilityStatus = www.downloadHandler.text;
+                Debug.Log("Availability Status: " + availabilityStatus);
+
+                ResponseData responseData = JsonUtility.FromJson<ResponseData>(availabilityStatus);
+                Color currentColor = CurrentSkinImage.color;
+                switch(responseData.status)
+                {
+                    case "200001":
+                        Debug.Log("Card is available!");
+                        currentColor.a = 1f;
+                        CurrentSkinImage.color = currentColor;
+                        break;
+                    case "200022":
+                        Debug.Log("Card is not available");
+                        currentColor.a = 0.5f;
+                        CurrentSkinImage.color = currentColor;
+                        break;
+                }
+            }
+        }
+    }
+    
     private int getTargetCardStyleId()
     {
         int idCount = 0;
@@ -286,7 +342,7 @@ public class UIManager : MonoBehaviour
             case 5: //Japanese chess
                 idCount += 43;
                 break;
-            case 6: //Poker
+            case 6: //Chess
                 idCount += 31;
                 break;
             case 7: //Romeo and Juliette
@@ -295,7 +351,7 @@ public class UIManager : MonoBehaviour
             case 8: //Snow white
                 idCount += 49;
                 break;
-            case 9: //Snow white
+            case 9: //Poker
                 idCount += 55;
                 break;
         }
@@ -367,6 +423,72 @@ public class UIManager : MonoBehaviour
         StartCoroutine(EquipSkinGetStatus(targetCardStyleID, targetCharacterType));
     }
 
+    private void UpdateSkinImageOpacity()
+    {
+        Debug.Log("EquipSkin button clicked!");
+        //calculate target card style id
+        int idCount = 0;
+        switch(CurrentCharactor)
+        {
+            case "King":
+                idCount = 2;
+                break;
+            case "Queen":
+                idCount = 5;
+                break;
+            case "Prince":
+                idCount = 4;
+                break;
+            case "Knight":
+                idCount = 3;
+                break;
+            case "Civil":
+                idCount = 0;
+                break;
+            case "Killer":
+                idCount = 1;
+                break;
+        }
+        string targetCharacterType = (idCount+1).ToString();
+        Debug.Log($"targetCharacterType_input: {targetCharacterType}");
+        switch(currentSkinIndex)
+        {
+            case 0: //Aladin
+                idCount += 7;
+                break;
+            case 1: //Alice in wonderland
+                idCount += 13;
+                break;
+            case 2: //Chinese chess
+                idCount += 37;
+                break;
+            case 3: //Cinderella
+                idCount += 19;
+                break;
+            case 4: //Frozen
+                idCount += 1;
+                break;
+            case 5: //Japanese chess
+                idCount += 43;
+                break;
+            case 6: //Chess
+                idCount += 31;
+                break;
+            case 7: //Romeo and Juliette
+                idCount += 25;
+                break;
+            case 8: //Snow white
+                idCount += 49;
+                break;
+            case 9: //Poker
+                idCount += 55;
+                break;
+        }
+        string targetCardStyleID = idCount.ToString();
+        Debug.Log($"targetCardStyleID_input: {targetCardStyleID}");
+        StartCoroutine(SkinAvailabilityGetStatus(targetCardStyleID));
+    }
+
     private void SellSkin()
     {
         //To be continue
@@ -412,6 +534,7 @@ public class UIManager : MonoBehaviour
         }
         else
             Debug.LogError("Image not found at path: " + path);
+        UpdateSkinImageOpacity();
         PreviousSkinButton.interactable = true;
         NextSkinButton.interactable = true;
     }
