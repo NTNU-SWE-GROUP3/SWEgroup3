@@ -16,6 +16,8 @@ output
         200021 : equip failure
         200022 : Item doesn't exist in inventory
 ========================= '''
+card_style.config['LOG_FILE'] = "card.log"
+
 @card_style.route("/equip_card_style", methods=['POST'])
 def EquipCardStyle():
     try:
@@ -51,7 +53,7 @@ def EquipCardStyle():
         elif int(targetCardStyleId) >= 55 and int(targetCardStyleId) <= 60:
             current_app.logger.info("Inside elif block")
             current_app.logger.info(f"Converted targetCardStyleId: {int(targetCardStyleId)}")
-            
+
             unselectSkinId = FindEquippedCardStyle(tokenId, targetCharacterType)
             current_app.logger.info("target unselect skin id: ", unselectSkinId)
             if unselectSkinId:
