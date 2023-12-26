@@ -57,67 +57,68 @@ public class UIManager : MonoBehaviour
     //card style
     string [][] cardStyleList = new string[][]
     {
-        new string [] {"1", "平民 (冰雪奇緣)", "將你的平民卡牌套上冰雪奇緣造型!", "普通"},
-        new string [] {"2", "殺手 (冰雪奇緣)", "將你的殺手卡牌套上冰雪奇緣造型!", "普通"},
-        new string [] {"3", "國王 (冰雪奇緣)", "將你的國王卡牌套上冰雪奇緣造型!", "普通"},
-        new string [] {"4", "騎士 (冰雪奇緣)", "將你的騎士卡牌套上冰雪奇緣造型!", "普通"},
-        new string [] {"5", "王子 (冰雪奇緣)", "將你的王子卡牌套上冰雪奇緣造型!", "普通"},
-        new string [] {"6", "皇后 (冰雪奇緣)", "將你的皇后卡牌套上冰雪奇緣造型!", "普通"},
-        new string [] {"7", "平民 (阿拉丁)", "將你的平民卡牌套上阿拉丁造型!", "普通"},
-        new string [] {"8", "殺手 (阿拉丁)", "將你的殺手卡牌套上阿拉丁造型!", "普通"},
-        new string [] {"9", "國王 (阿拉丁)", "將你的國王卡牌套上阿拉丁造型!", "普通"},
-        new string [] {"10", "騎士 (阿拉丁)", "將你的騎士卡牌套上阿拉丁造型!", "普通"},
-        new string [] {"11", "王子 (阿拉丁)", "將你的王子卡牌套上阿拉丁造型!", "普通"},
-        new string [] {"12", "皇后 (阿拉丁)", "將你的皇后卡牌套上阿拉丁造型!", "普通"},
-        new string [] {"13", "平民 (愛麗絲夢遊仙境)", "將你的平民卡牌套上愛麗絲夢遊仙境造型!", "普通"},
-        new string [] {"14", "殺手 (愛麗絲夢遊仙境)", "將你的殺手卡牌套上愛麗絲夢遊仙境造型!", "普通"},
-        new string [] {"15", "國王 (愛麗絲夢遊仙境)", "將你的國王卡牌套上愛麗絲夢遊仙境造型!", "普通"},
-        new string [] {"16", "騎士 (愛麗絲夢遊仙境)", "將你的騎士卡牌套上愛麗絲夢遊仙境造型!", "普通"},
-        new string [] {"17", "王子 (愛麗絲夢遊仙境)", "將你的王子卡牌套上愛麗絲夢遊仙境造型!", "普通"},
-        new string [] {"18", "皇后 (愛麗絲夢遊仙境)", "將你的皇后卡牌套上愛麗絲夢遊仙境造型!", "普通"},
-        new string [] {"19", "平民 (灰姑娘)", "將你的平民卡牌套上灰姑娘造型!", "普通"},
-        new string [] {"20", "殺手 (灰姑娘)", "將你的殺手卡牌套上灰姑娘造型!", "普通"},
-        new string [] {"21", "國王 (灰姑娘)", "將你的國王卡牌套上灰姑娘造型!", "普通"},
-        new string [] {"22", "騎士 (灰姑娘)", "將你的騎士卡牌套上灰姑娘造型!", "普通"},
-        new string [] {"23", "王子 (灰姑娘)", "將你的王子卡牌套上灰姑娘造型!", "普通"},
-        new string [] {"24", "皇后 (灰姑娘)", "將你的皇后卡牌套上灰姑娘造型!", "普通"},
-        new string [] {"25", "平民 (羅密歐與茱麗葉)", "將你的平民卡牌套上羅密歐與茱麗葉造型!", "普通"},
-        new string [] {"26", "殺手 (羅密歐與茱麗葉)", "將你的殺手卡牌套上羅密歐與茱麗葉造型!", "普通"},
-        new string [] {"27", "國王 (羅密歐與茱麗葉)", "將你的國王卡牌套上羅密歐與茱麗葉造型!", "普通"},
-        new string [] {"28", "騎士 (羅密歐與茱麗葉)", "將你的騎士卡牌套上羅密歐與茱麗葉造型!", "普通"},
-        new string [] {"29", "王子 (羅密歐與茱麗葉)", "將你的王子卡牌套上羅密歐與茱麗葉造型!", "普通"},
-        new string [] {"30", "皇后 (羅密歐與茱麗葉)", "將你的皇后卡牌套上羅密歐與茱麗葉造型!", "普通"},
-        new string [] {"31", "平民 (西洋棋)", "將你的平民卡牌套上西洋棋造型!", "普通"},
-        new string [] {"32", "殺手 (西洋棋)", "將你的殺手卡牌套上西洋棋造型!", "普通"},
-        new string [] {"33", "國王 (西洋棋)", "將你的國王卡牌套上西洋棋造型!", "普通"},
-        new string [] {"34", "騎士 (西洋棋)", "將你的騎士卡牌套上西洋棋造型!", "普通"},
-        new string [] {"35", "王子 (西洋棋)", "將你的王子卡牌套上西洋棋造型!", "普通"},
-        new string [] {"36", "皇后 (西洋棋)", "將你的皇后卡牌套上西洋棋造型!", "普通"},
-        new string [] {"37", "平民 (象棋)", "將你的平民卡牌套上象棋造型!", "普通"},
-        new string [] {"38", "殺手 (象棋)", "將你的殺手卡牌套上象棋造型!", "普通"},
-        new string [] {"39", "國王 (象棋)", "將你的國王卡牌套上象棋造型!", "普通"},
-        new string [] {"40", "騎士 (象棋)", "將你的騎士卡牌套上象棋造型!", "普通"},
-        new string [] {"41", "王子 (象棋)", "將你的王子卡牌套上象棋造型!", "普通"},
-        new string [] {"42", "皇后 (象棋)", "將你的皇后卡牌套上象棋造型!", "普通"},
-        new string [] {"43", "平民 (將其)", "將你的平民卡牌套上將其造型!", "普通"},
-        new string [] {"44", "殺手 (將其)", "將你的殺手卡牌套上將其造型!", "普通"},
-        new string [] {"45", "國王 (將其)", "將你的國王卡牌套上將其造型!", "普通"},
-        new string [] {"46", "騎士 (將其)", "將你的騎士卡牌套上將其造型!", "普通"},
-        new string [] {"47", "王子 (將其)", "將你的王子卡牌套上將其造型!", "普通"},
-        new string [] {"48", "皇后 (將其)", "將你的皇后卡牌套上將其造型!", "普通"},
-        new string [] {"49", "平民 (白雪公主)", "將你的平民卡牌套上白雪公主造型!", "普通"},
-        new string [] {"50", "殺手 (白雪公主)", "將你的殺手卡牌套上白雪公主造型!", "普通"},
-        new string [] {"51", "國王 (白雪公主)", "將你的國王卡牌套上白雪公主造型!", "普通"},
-        new string [] {"52", "騎士 (白雪公主)", "將你的騎士卡牌套上白雪公主造型!", "普通"},
-        new string [] {"53", "王子 (白雪公主)", "將你的王子卡牌套上白雪公主造型!", "普通"},
-        new string [] {"54", "皇后 (白雪公主)", "將你的皇后卡牌套上白雪公主造型!", "普通"},
-        new string [] {"55", "平民 (撲克)", "將你的平民卡牌套上撲克造型!", "普通"},
-        new string [] {"56", "殺手 (撲克)", "將你的殺手卡牌套上撲克造型!", "普通"},
-        new string [] {"57", "國王 (撲克)", "將你的國王卡牌套上撲克造型!", "普通"},
-        new string [] {"58", "騎士 (撲克)", "將你的騎士卡牌套上撲克造型!", "普通"},
-        new string [] {"59", "王子 (撲克)", "將你的王子卡牌套上撲克造型!", "普通"},
-        new string [] {"60", "皇后 (撲克)", "將你的皇后卡牌套上撲克造型!", "普通"},
+        new string [] {"1", "平民 (冰雪奇緣)", "將平民套用冰雪奇緣造型!", "普通"},
+        new string [] {"2", "殺手 (冰雪奇緣)", "將殺手套用冰雪奇緣造型!", "普通"},
+        new string [] {"3", "國王 (冰雪奇緣)", "將國王套用冰雪奇緣造型!", "普通"},
+        new string [] {"4", "騎士 (冰雪奇緣)", "將騎士套用冰雪奇緣造型!", "普通"},
+        new string [] {"5", "王子 (冰雪奇緣)", "將王子套用冰雪奇緣造型!", "普通"},
+        new string [] {"6", "皇后 (冰雪奇緣)", "將皇后套用冰雪奇緣造型!", "普通"},
+        new string [] {"7", "平民 (阿拉丁)", "將平民套用阿拉丁造型!", "普通"},
+        new string [] {"8", "殺手 (阿拉丁)", "將殺手套用阿拉丁造型!", "普通"},
+        new string [] {"9", "國王 (阿拉丁)", "將國王套用阿拉丁造型!", "普通"},
+        new string [] {"10", "騎士 (阿拉丁)", "將騎士套用阿拉丁造型!", "普通"},
+        new string [] {"11", "王子 (阿拉丁)", "將王子套用阿拉丁造型!", "普通"},
+        new string [] {"12", "皇后 (阿拉丁)", "將皇后套用阿拉丁造型!", "普通"},
+        new string [] {"13", "平民 (愛麗絲夢遊仙境)", "將平民套用愛麗絲夢遊仙境造型!", "普通"},
+        new string [] {"14", "殺手 (愛麗絲夢遊仙境)", "將殺手套用愛麗絲夢遊仙境造型!", "普通"},
+        new string [] {"15", "國王 (愛麗絲夢遊仙境)", "將國王套用愛麗絲夢遊仙境造型!", "普通"},
+        new string [] {"16", "騎士 (愛麗絲夢遊仙境)", "將騎士套用愛麗絲夢遊仙境造型!", "普通"},
+        new string [] {"17", "王子 (愛麗絲夢遊仙境)", "將王子套用愛麗絲夢遊仙境造型!", "普通"},
+        new string [] {"18", "皇后 (愛麗絲夢遊仙境)", "將皇后套用愛麗絲夢遊仙境造型!", "普通"},
+        new string [] {"19", "平民 (灰姑娘)", "將平民套用灰姑娘造型!", "普通"},
+        new string [] {"20", "殺手 (灰姑娘)", "將殺手套用灰姑娘造型!", "普通"},
+        new string [] {"21", "國王 (灰姑娘)", "將國王套用灰姑娘造型!", "普通"},
+        new string [] {"22", "騎士 (灰姑娘)", "將騎士套用灰姑娘造型!", "普通"},
+        new string [] {"23", "王子 (灰姑娘)", "將王子套用灰姑娘造型!", "普通"},
+        new string [] {"24", "皇后 (灰姑娘)", "將皇后套用灰姑娘造型!", "普通"},
+        new string [] {"25", "平民 (羅密歐與茱麗葉)", "將平民套用羅密歐與茱麗葉造型!", "普通"},
+        new string [] {"26", "殺手 (羅密歐與茱麗葉)", "將殺手套用羅密歐與茱麗葉造型!", "普通"},
+        new string [] {"27", "國王 (羅密歐與茱麗葉)", "將國王套用羅密歐與茱麗葉造型!", "普通"},
+        new string [] {"28", "騎士 (羅密歐與茱麗葉)", "將騎士套用羅密歐與茱麗葉造型!", "普通"},
+        new string [] {"29", "王子 (羅密歐與茱麗葉)", "將王子套用羅密歐與茱麗葉造型!", "普通"},
+        new string [] {"30", "皇后 (羅密歐與茱麗葉)", "將皇后套用羅密歐與茱麗葉造型!", "普通"},
+        new string [] {"31", "平民 (西洋棋)", "將平民套用西洋棋造型!", "普通"},
+        new string [] {"32", "殺手 (西洋棋)", "將殺手套用西洋棋造型!", "普通"},
+        new string [] {"33", "國王 (西洋棋)", "將國王套用西洋棋造型!", "普通"},
+        new string [] {"34", "騎士 (西洋棋)", "將騎士套用西洋棋造型!", "普通"},
+        new string [] {"35", "王子 (西洋棋)", "將王子套用西洋棋造型!", "普通"},
+        new string [] {"36", "皇后 (西洋棋)", "將皇后套用西洋棋造型!", "普通"},
+        new string [] {"37", "平民 (象棋)", "將平民套用象棋造型!", "普通"},
+        new string [] {"38", "殺手 (象棋)", "將殺手套用象棋造型!", "普通"},
+        new string [] {"39", "國王 (象棋)", "將國王套用象棋造型!", "普通"},
+        new string [] {"40", "騎士 (象棋)", "將騎士套用象棋造型!", "普通"},
+        new string [] {"41", "王子 (象棋)", "將王子套用象棋造型!", "普通"},
+        new string [] {"42", "皇后 (象棋)", "將皇后套用象棋造型!", "普通"},
+        new string [] {"43", "平民 (將棋)", "將平民套用將棋造型!", "普通"},
+        new string [] {"44", "殺手 (將棋)", "將殺手套用將棋造型!", "普通"},
+        new string [] {"45", "國王 (將棋)", "將國王套用將棋造型!", "普通"},
+        new string [] {"46", "騎士 (將棋)", "將騎士套用將棋造型!", "普通"},
+        new string [] {"47", "王子 (將棋)", "將王子套用將棋造型!", "普通"},
+        new string [] {"48", "皇后 (將棋)", "將皇后套用將棋造型!", "普通"},
+        new string [] {"49", "平民 (白雪公主)", "將平民套用白雪公主造型!", "普通"},
+        new string [] {"50", "殺手 (白雪公主)", "將殺手套用白雪公主造型!", "普通"},
+        new string [] {"51", "國王 (白雪公主)", "將國王套用白雪公主造型!", "普通"},
+        new string [] {"52", "騎士 (白雪公主)", "將騎士套用白雪公主造型!", "普通"},
+        new string [] {"53", "王子 (白雪公主)", "將王子套用白雪公主造型!", "普通"},
+        new string [] {"54", "皇后 (白雪公主)", "將皇后套用白雪公主造型!", "普通"},
+        new string [] {"55", "平民 (撲克)", "將平民套用撲克造型!", "普通"},
+        new string [] {"56", "殺手 (撲克)", "將殺手套用撲克造型!", "普通"},
+        new string [] {"57", "國王 (撲克)", "將國王套用撲克造型!", "普通"},
+        new string [] {"58", "騎士 (撲克)", "將騎士套用撲克造型!", "普通"},
+        new string [] {"59", "王子 (撲克)", "將王子套用撲克造型!", "普通"},
+        new string [] {"60", "皇后 (撲克)", "將皇后套用撲克造型!", "普通"},
     };
+
 
     private void Start()
     {
@@ -545,6 +546,15 @@ public class UIManager : MonoBehaviour
         CardName.text = cardStyleList[target-1][1];
         CardInfo.text = cardStyleList[target-1][2];
         Rarity.text = cardStyleList[target-1][3]; 
+
+        if((target >= 13 && target <= 18) || (target >=25 && target <= 30))
+        {
+            CardName.fontSize = 40;
+        }
+        else
+        {
+            CardName.fontSize = 50;
+        }
     }
 
     private void ViewKingSkin()
@@ -553,7 +563,7 @@ public class UIManager : MonoBehaviour
         CurrentCharactor = "King";
         UpdateSkinImage();
         UpdateCardStyleData();
-        CurrentSkinTypeText.text = "國王卡牌造型";
+        CurrentSkinTypeText.text = "國王造型";
         SellButton.onClick.AddListener(SellSkin);
         EquipButton.onClick.AddListener(EquipSkin);
     }
@@ -564,7 +574,7 @@ public class UIManager : MonoBehaviour
         CurrentCharactor = "Queen";
         UpdateSkinImage();
         UpdateCardStyleData();
-        CurrentSkinTypeText.text = "皇后卡牌造型";
+        CurrentSkinTypeText.text = "皇后造型";
         SellButton.onClick.AddListener(SellSkin);
         EquipButton.onClick.AddListener(EquipSkin);
     }
@@ -575,7 +585,7 @@ public class UIManager : MonoBehaviour
         CurrentCharactor = "Prince";
         UpdateSkinImage();
         UpdateCardStyleData();
-        CurrentSkinTypeText.text = "王子卡牌造型";
+        CurrentSkinTypeText.text = "王子造型";
         SellButton.onClick.AddListener(SellSkin);
         EquipButton.onClick.AddListener(EquipSkin);
     }
@@ -586,7 +596,7 @@ public class UIManager : MonoBehaviour
         CurrentCharactor = "Knight";
         UpdateSkinImage();
         UpdateCardStyleData();
-        CurrentSkinTypeText.text = "騎士卡牌造型";
+        CurrentSkinTypeText.text = "騎士造型";
         SellButton.onClick.AddListener(SellSkin);
         EquipButton.onClick.AddListener(EquipSkin);
     }
@@ -597,7 +607,7 @@ public class UIManager : MonoBehaviour
         CurrentCharactor = "Civil";
         UpdateSkinImage();
         UpdateCardStyleData();
-        CurrentSkinTypeText.text = "平民卡牌造型";
+        CurrentSkinTypeText.text = "平民造型";
         int target = getTargetCardStyleId();
         // StartCoroutine(logdata(target));
         SellButton.onClick.AddListener(SellSkin);
@@ -610,7 +620,7 @@ public class UIManager : MonoBehaviour
         CurrentCharactor = "Killer";
         UpdateSkinImage();
         UpdateCardStyleData();
-        CurrentSkinTypeText.text = "殺手卡牌造型";
+        CurrentSkinTypeText.text = "殺手造型";
         int target = getTargetCardStyleId();
         // StartCoroutine(logdata(target));
         SellButton.onClick.AddListener(SellSkin);
