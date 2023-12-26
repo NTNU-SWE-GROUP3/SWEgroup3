@@ -202,7 +202,8 @@ public class UserSetting : MonoBehaviour
     private void ChangeName()
     {
         string new_nickname = NewInfoInput.text;
-        Debug.Log("Ready to change nickname: " + new_nickname);
+        Debug.Log("Ready to change nickname by token =" + player_token);
+        Debug.Log("Ready to change nickname = " + new_nickname);
         StartCoroutine(ChangeNicknameRequest(player_token, new_nickname));
         ChangeInfoPanel.SetActive(false);
         UpdateUserGeneralData();
