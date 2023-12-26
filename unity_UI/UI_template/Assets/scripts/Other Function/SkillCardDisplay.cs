@@ -13,10 +13,10 @@ public class SkillCardDisplay : MonoBehaviour
     public GameObject Skill_slotPrefab;
 
     // Replace with your Flask server URL
-    private string serverUrl = "http://127.0.0.1:5050";
+    // private string serverUrl = "http://127.0.0.1:5050";
     private DontDestroy userdata;
 
-    // private string serverUrl = "http://140.122.185.169:5050";
+    private string serverUrl = "http://140.122.185.169:5050";
     void Start()
     {
         Debug.Log("displayingskillllllllllll");
@@ -28,9 +28,9 @@ public class SkillCardDisplay : MonoBehaviour
     {
         string urlCard = serverUrl + "/skill_style/display_skill_style";
         WWWForm form = new WWWForm();
-        // string token = userdata.token;
-        string token = "token123";
-        Debug.Log("Display token: " + token);
+        string token = userdata.token;
+        // string token = "token123";
+        // Debug.Log("Display token: " + token);
         form.AddField("Token", token);
 
         // HANDLE CARD DISPLAYED BY TOKEN 
