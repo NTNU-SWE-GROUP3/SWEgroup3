@@ -64,43 +64,6 @@ public class MainAudioManager : MonoBehaviour
     {
         audioSource.volume = slider.value;
 
-        float x = panelHolder.GetComponent<RectTransform>().offsetMax.x;
 
-        if (stop == false || (x > -200 || x <= -1968))
-        {
-            if (audioSource.clip != clip1)
-            {
-                audioSource.clip = clip1;
-                audioSource.time = time1;
-                audioSource.Play();
-            }
-        }
-        else if(stop == true)
-        {
-            if (x <= -879 && x >= -1281)
-            {
-                if (audioSource.clip != clip2)
-                {
-                    audioSource.clip = clip2;
-                    audioSource.time = time2;
-                    audioSource.Play();
-                }
-            }
-            else if ((x > -1958 && x < -1281) || (x <= -200 && x > -879))
-            {
-                if (audioSource.clip == clip1)
-                {
-                    time1 = audioSource.time;
-                    audioSource.clip = clip3;
-                    audioSource.Play();
-                }
-                else if (audioSource.clip == clip2)
-                {
-                    time2 = audioSource.time;
-                    audioSource.clip = clip3;
-                    audioSource.Play();
-                }
-            }
-        }
     }
 }
