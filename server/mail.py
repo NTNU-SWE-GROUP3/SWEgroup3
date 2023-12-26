@@ -111,73 +111,84 @@ def send_check_newemail(userid, recipient_email):
 
     # Recipient's email address
     msg_recipients = [recipient_email]
-
-    # Email content in HTML format with a form
-    msg_body = f"""
-        <html>
+    
+    email_content = f"""
+    <html>
         <head>
             <style>
                 body {{
+                    background-color: #ff8c00;  /* 上下橘色背景 */
                     font-family: Arial, sans-serif;
+                    padding: 20px;
                     margin: 0;
-                    padding: 0;
-                    background-color: #f4f4f4;
                 }}
                 .container {{
                     max-width: 600px;
                     margin: 0 auto;
-                    background-color: #ffffff;
+                }}
+                .orange-bg {{
+                    background-color: #ff8c00;  /* 橘色背景 */
+                    color: #ffffff;  /* 文字顏色 */
+                    padding: 10px;
+                    text-align: center;
+                }}
+                .white-bg {{
+                    background-color: #ffffff;  /* 白色背景 */
+                    color: #000000;  /* 文字顏色 */
                     padding: 20px;
                     border-radius: 10px;
                     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
                     margin-top: 20px;
                     margin-bottom: 20px;
                 }}
-                .header {{
-                    background-color: #3498db;
-                    color: #ffffff;
+                .random-code {{
+                    font-size: 36px;
+                    color: #ff8c00;  /* 橘色文字 */
                     text-align: center;
-                    padding: 10px;
-                    border-radius: 5px 5px 0 0;
+                    margin-bottom: 10px;
                 }}
-                .content {{
-                    padding: 20px;
+                .greeting {{
+                    margin-top: 2px;
+                    text-align: left;
                 }}
-                .button {{
-                    display: inline-block;
-                    padding: 10px 20px;
-                    font-size: 16px;
+                .instruction {{
+                    text-align: left;
+                    margin-top: -10px;
+                    margin-bottom: 5px;
+                }}
+                .contact {{
                     text-align: center;
-                    text-decoration: none;
-                    color: #ffffff;
-                    background-color: #3498db;
-                    border-radius: 5px;
-                    cursor: pointer;
+                    margin-top: -10px;
+                    margin-bottom: 20px;
                 }}
             </style>
         </head>
         <body>
-            <div>
-                <p>Click the following link to verify your email:</p>
-                <form action="http://140.122.185.169:5050/user_information/verify_email" method="post" id="verifyForm">
-                    <input type="hidden" name="code" value="{random_code}">
-                    <input type="hidden" name="user_id" value="{userid}">
-                    <input type="hidden" name="email" value="{recipient_email}">
-                    <input type="submit" value="Verify Email">
-                </form>
+            <div class="container">
+                <div class="orange-bg">
+                    <p>修改玩家 Email 驗證信</p>
+                </div>
+                <div class="white-bg">
+                    <p class="greeting">Dear User,</p>
+                    <p class="instruction">我們收到了您的 Email 更動請求，請按下方按鈕驗證您的身份：</p>
+                    <a href="http://140.122.185.169:5050/user_information/verify_email/{userid}/{recipient_email}/{random_code}" style="padding: 10px 20px; background-color: #007BFF; color: #ffffff; text-decoration: none; border-radius: 5px; font-weight: bold; display: block; text-align: center;">Confirm Email</a>
+                    <p>如果你沒有送出請求，請忽略這封信件</p>
+                    <p>謝謝您 祝您有個美好的一天</p>
+                </div>
+                <div class="orange-bg">
+                    <p>如有其他問題，請直接回信聯繫我們！</p>
+                </div>
             </div>
-            <script>
-                // JavaScript to automatically submit the form
-                document.getElementById("verifyForm").submit();
-            </script>
         </body>
-        </html>
+    </html>
     """
+
+
 
     # Create a Message object
     msg = Message(msg_title, sender=msg_sender, recipients=msg_recipients)
-    msg.body = msg_body
-    msg.html = msg_body
+    msg.body = email_content
+    msg.html = email_content
 
     # Send the email
     mail.send(msg)

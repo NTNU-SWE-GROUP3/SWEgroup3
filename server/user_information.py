@@ -200,8 +200,8 @@ output
         403006 :
         403007 :
 ============================== '''
-@user_information.route('/verify_email', methods=['POST'])
-def verify_email():
+@user_information.route('/verify_email/<int:userid>/<path:email>/<string:random_code>', methods=['GET'])
+def verify_email(userid, email, random_code):
 
 # DataBase connection
     global conn
@@ -209,11 +209,11 @@ def verify_email():
         conn = DBManager(password_file='/run/secrets/db-password')
 
 
-    random_code = request.form.get('code')
+    #random_code = request.form.get('code')
     current_app.logger.info("random_code: %s", random_code)
-    userid = request.form.get('user_id')
+    #userid = request.form.get('user_id')
     current_app.logger.info("userid: %s", userid)
-    email = request.form.get('email')
+    #email = request.form.get('email')
     current_app.logger.info("email: %s", email)
 
     expiredtime = conn.GetVerifyCodeExpiredTime(userid)
@@ -229,9 +229,46 @@ def verify_email():
         return jsonify(status = "403006", msg = "Wrong VerifyCode")
 
     conn.UpdateNewEmail(userid, email)
-
+    
+    html_content = f"""
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>成功更換 Email</title>
+            <style>
+                body {{
+                    background-color: #e0f7fa;  /* 淺藍底色 */
+                    margin: 0;
+                    padding: 0;
+                    font-family: 'Arial', sans-serif;
+                }}
+                .container {{
+                    width: 60%;
+                    margin: auto;
+                    background-color: #fff;
+                    padding: 20px;
+                    border-radius: 10px;
+                    margin-top: 50px;
+                }}
+                h1 {{
+                    color: #007BFF;  /* 深藍色 */
+                }}
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <h1>Email 驗證成功!</h1>
+                <p>您的Email地址： <strong>{email}</strong> 已成功驗證並修改</p>
+                <!-- You can add more content or styling as needed -->
+            </div>
+        </body>
+        </html>
+    """
+    
     # Example: Return a response to the user
-    return "Email verification successful!"
+    return html_content
 
 
 ''' ==============================
