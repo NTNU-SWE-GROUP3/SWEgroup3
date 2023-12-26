@@ -115,6 +115,7 @@ def checkstatus(tokenId, targetSkillId):
             (tokenId, targetSkillId,))
         
         result = cursor.fetchone()
+        
         print("\tcheck status result: ", result)
 
         if result is 1:
