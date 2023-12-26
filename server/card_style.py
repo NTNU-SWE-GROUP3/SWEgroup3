@@ -57,10 +57,7 @@ def EquipCardStyle():
                     current_app.logger.info("Failed to unequip skin")
                     return False
                 current_app.logger.info("Succeeded to unequip skin")
-            equipSuccess = True
-            if equipSuccess:
-                current_app.logger.info("Successfully equipped skin")
-                return jsonify(status="200001")
+            return jsonify(status="200001")
         else:
             current_app.logger.info("User doesn't have this item in inventory")
             return jsonify(status="200022")
